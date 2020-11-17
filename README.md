@@ -19,8 +19,8 @@ We invite identity or security experts from the community to work together on th
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="left"><a href="https://samilamppu.com"><img src="https://pbs.twimg.com/profile_images/1163475904191959040/NMey-Jzq_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Sami Lamppu</b></sub></a><br /><a href="https://twitter.com/samilamppu title="Twitter">💬</a> <a href="https://samilamppu.com" title="Blog">📖</a></td>
-    <td align="left"><a href="https://www.cloud-architekt.net"><img src="https://www.cloud-architekt.net/assets/images/about.jpg" width="100px;" alt=""/><br /><sub><b>Thomas Naunheim</b></sub></a><br /><a href="https://twitter.com/thomas_live title="Twitter">💬</a> <a href="https://www.cloud-architekt.net" title="Blog">📖</a></td>
+    <td align="left"><a href="https://samilamppu.com"><img src="https://pbs.twimg.com/profile_images/1163475904191959040/NMey-Jzq_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Sami Lamppu</b></sub></a><br /><a href="https://twitter.com/samilamppu" title="Twitter">💬</a> <a href="https://samilamppu.com" title="Blog">📖</a></td>
+    <td align="left"><a href="https://www.cloud-architekt.net"><img src="https://www.cloud-architekt.net/assets/images/about.jpg" width="100px;" alt=""/><br /><sub><b>Thomas Naunheim</b></sub></a><br /><a href="https://twitter.com/thomas_live" title="Twitter">💬</a> <a href="https://www.cloud-architekt.net" title="Blog">📖</a></td>
   </tr>
 </table>
 
@@ -29,7 +29,7 @@ We invite identity or security experts from the community to work together on th
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 
-## How to contribute?
+## How to become part of the project and contribute?
 - **Update or new content (Pull Request):** As already mentioned, we like to have a living document which is driven by the Azure AD community! Share your results and insights as part of this project! Send a pull request to add your content to this project.
 
 - **Issues/Outdated content:** Protection features or tools changes continually. Update the out-dated content (as part of pull request) or create an issue to point out
