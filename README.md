@@ -1,12 +1,17 @@
-# Attack and Defense of Azure Active Directory (AAD)
+# Azure AD - Attack and Defense Playbook
+
 This publication is a collection of various common attack scenarios on Azure Active Directory and how they can be mitigated or detected.
-All of the described scenarios, insights and comments are based on experiences from the contributors during their attack simulations or real-world scenarios.
+All of the included scenarios, insights and comments are based on experiences from the contributors during their attack simulations, hands-on or real-world scenarios.
 
 It should be considered a living document, which has to be updated as practices progress and changes in attack and defense techniques.
-We invite identity/security experts from the community to work together on this publication and contribute updates, feedbacks, comments or further additions.
+We invite identity or security experts from the community to work together on this publication and contribute updates, feedbacks, comments or further additions.
 
 ### Scenarios:
 - [Password Spray](PasswordSpray.md)
+
+### In work: Next articles on other scenarios
+- Phishing and Illicit Consent Grant
+- Hybrid Identity Components
 
 ### Contributor
 
@@ -19,6 +24,3 @@ We invite identity/security experts from the community to work together on this 
 
 - **Feedback:** Feel free to suggest attack/defense scenarios that could be interesting for the community. We will add them to the backlog and idea collection!
 
-### In work: Next articles on other scenarios
-- Phishing and Illicit Consent Grant
-- Hybrid Identity Components
