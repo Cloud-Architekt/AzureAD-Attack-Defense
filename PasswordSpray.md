@@ -18,6 +18,9 @@ Each of them accessing different API endpoints:
 [https://graph.windows.net](https://graph.windows.net/)
 - [Invoke-AzureAdPasswordSprayAttack](https://danielchronlund.com/2020/03/17/azure-ad-password-spray-attacks-with-powershell-and-how-to-defend-your-tenant/) (by Daniel Chronlund):
 [https://reports.office365.com/ecp/reportingwebservice/reporting.svc](https://reports.office365.com/ecp/reportingwebservice/reporting.svc)
+- MSOLSpray (by Dafhack): 
+[https://graph.windows.net](https://graph.windows.net/)
+- [Custom password spray tool made by Joosua Santasalo](https://twitter.com/santasalojoosua/status/1326060995614298112?s=21)
 - Logins to different cloud workloads:
 (EXO, O365 portal, Azure management API)
 
