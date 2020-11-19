@@ -207,11 +207,6 @@ Local monitoring and detection of password spray or brute-force attacks can be a
 
 - As already described, **Azure AD Identity Protection** includes a risk detection which will change the user risk to “High”. This offers a built-in auto-remediation by successful attacks if a user risk policy is configured.
 - **Continuous access evaluation (CAE)** can be implemented (currently in public preview) to achieve a “Critical Event Evaluation” for timely response of the user risk. Elevated user risk detected by IPC is one of the supported “critical” events.
-    - In our tests, when the user (who had CAE enabled) [access was revoked](https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/users-revoke-access) by the admin explicitly the access to the services was blocked inside three (3) min period, in both "Outlook Web" and "Outlook for iOS" apps.
-
-        ![./media/PWSprayCAE1.png](./media/PWSprayCAE1.png)
-
-        ![./media/PWSprayCAE2.png](./media/PWSprayCAE2.png)
 
 ### Auto-Response to attack-related entities
 
