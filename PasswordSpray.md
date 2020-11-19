@@ -112,7 +112,7 @@ Access of Guest users (B2B) will not be protected by Conditional Access Policies
 
 ### Side notes: Detection in Active Directory Federation Services environments
 
-*One attack scenario we tested was the attack against ADFS environment. The ADFS farm has O365 configured as relaying party in the ADFS. When analyzing logins from ADFS the key takeaway is that failed logins from ADFS (when acting as IDP for O365) are not found from Azure AD sign-in logs.*
+*When analyzing logins from ADFS the key takeaway is that failed logins from ADFS are not found from Azure AD sign-in logs, only successful ones are.*
 
 ***Extranet Lockout & Extranet Smart Lockout***
 
