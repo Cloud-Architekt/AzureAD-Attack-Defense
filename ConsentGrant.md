@@ -318,8 +318,10 @@ The second entry restricts all other “ClientApplications” to be validated fr
 
 You are able to create a “[custom app consent policy](https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/manage-app-consent-policies#create-a-custom-app-consent-policy)" as described in the Microsoft Docs article and defines them as a new default for the members as follows:
 
+```powershell
 Set-AzureADMSAuthorizationPolicy -Id "authorizationPolicy" `
 -PermissionGrantPolicyIdsAssignedToDefaultUserRole @("managePermissionGrantsForSelf.{consent-policy-id}")
+```
 
 ### Custom Roles and App Consent Policies
 
@@ -341,7 +343,6 @@ $rolePermissions = @{'allowedResourceActions'= $allowedResourceAction}
 
 # Create new custom admin role
 $customAdmin = New-AzureADMSRoleDefinition -RolePermissions $rolePermissions -DisplayName $displayName -Description $description -TemplateId $templateId -IsEnabled $true
-
 ```
 
 The created custom role will be shown in the Azure AD Directory Roles overview:
