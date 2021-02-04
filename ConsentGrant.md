@@ -412,12 +412,12 @@ The following configuration could be preferred if you are already using a “Cus
     ## Permission of the Consent Request
     $permission = @("User.Read")
     $permissionIds = $resource.OAuth2Permissions `
-
     | Where-Object { $permission.Contains($_.Value) } | Select-Object -ExpandProperty Id
 
     ## App Id of the Resource Application (in this case Azure AD Graph)
     $resource = Get-AzureADServicePrincipal -Filter "servicePrincipalNames/any(n:n eq '**[https://graph.windows.net](https://graph.windows.net/)')"
 
+    ## Create new Grand Condition Set  
     New-AzureADMSPermissionGrantConditionSet `
     - PolicyId "my-custom-policy" `
     - ConditionSetType "includes" `
@@ -426,6 +426,10 @@ The following configuration could be preferred if you are already using a “Cus
     - PermissionClassification "low" `
     - PermissionType "delegated" `
     - Permissions $permissionIds
+    
+    #Update on Authorization Policy
+    Set-AzureADMSAuthorizationPolicy -Id "authorizationPolicy" `
+    -PermissionGrantPolicyIdsAssignedToDefaultUserRole @("managePermissionGrantsForSelf.my-custom-policy") 
 ```
 
 # Recommendations
