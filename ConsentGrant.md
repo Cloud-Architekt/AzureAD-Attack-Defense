@@ -194,7 +194,9 @@ It’s recommended to strictly avoid managing app registration by using the “G
 
 *Side note: Consider the privilege escalation path of delegation on application management in Azure AD (especially on scope of directory) which can give the ability to impersonate the application’s identity.*
 
-*Side note: Arbitrary app registrationsIf you have Azure AD tenant at it's default settings, then any user with member permissions can create arbitrary app registrations in the tenant. These users can get valid Access Tokens with the Audience value for any API you created in the tenant, or in any multi-tenant apps. This is possible by the use of client credentials flow. These apps don't have to be related to the API in any way, other than being in the same tenant.*
+*Side note: Arbitrary app registrations: If you have Azure AD tenant at it's default settings, then any user with member permissions can create arbitrary app registrations in the tenant. These users can get valid Access Tokens with the Audience value for any API you created in the tenant, or in any audeince of the multi-tenant apps. This is possible by the use of client credentials flow. These apps don't have to be related to the API in any way, other than being in the same tenant.*
+
+**References about the side note** : Related also to multi-tenant apps and arbitrary registrations from [joonasw.net](https://joonasw.net/view/cross-tenant-token-attacks-now-harder-in-azure-ad)
 
 ## Restrict User Consent Permissions for End-Users
 
