@@ -69,6 +69,8 @@ Get-AzureADServicePrincipal -All $true | .\Get-AzureADPSPermissionGrants.ps1 -Pr
 
 This script is regularly updated and available from his GitHub page: [Get all permissions granted to an app in Azure AD · GitHub](https://gist.github.com/psignoret/9d73b00b377002456b24fcb808265c23)
 
+You can also search the Office 365 Audit log with PowerShell and create a report of the consent grants found in the results. Here's an example: https://office365itpros.com/2021/02/18/discover-new-office365-audit-events/
+
 ## Microsoft Cloud App Security (MCAS)
 
 MCAS offers way to detect automatically possible malicious applications. If you suspect that you have malicious application already in your tenant the investigation blade can shed a light to analyze app permissions and also manage access (approved/ banned) to the apps. If application is banned from the MCAS, the access to the app is revoked from Azure AD.
