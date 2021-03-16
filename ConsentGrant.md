@@ -436,6 +436,8 @@ The following configuration could be preferred if you are already using a “Cus
     -PermissionGrantPolicyIdsAssignedToDefaultUserRole @("managePermissionGrantsForSelf.my-custom-policy") 
 ```
 
+*Side note: Joosua has written a blog post about an alternate approach for [granting OAuth2 permissions without tenant wide consent](https://securecloud.blog/2021/03/09/poc-grant-azure-ad-oauth2-permissions-without-tenant-wide-consent/) which results in adding the permission for just single user and permission object, instead of granting permissions for the entire tenant.*
+
 # Recommendations
     
 
@@ -445,7 +447,9 @@ The following configuration could be preferred if you are already using a “Cus
 |Consent Policy| incl.| incl.| incl.|
 | Auto-remediation| ||MCAS|
 
-
+# Further reading (Update March 16th):
+- [Azure AD, apps and consent grant (service accounts)](https://ingogegenwarth.wordpress.com/2021/02/23/aad-apps-consent-service-accounts/)
+- [TechCommunity Blog Post: Azure AD: Custom Application Consent Policies](https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/azure-ad-custom-application-consent-policies/ba-p/2115812)
 
 # References
 
