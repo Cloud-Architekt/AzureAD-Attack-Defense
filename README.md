@@ -10,6 +10,9 @@ We invite identity or security experts from the community to work together on th
 - [Password Spray](PasswordSpray.md)
 - [Consent Grant](ConsentGrant.md)
 
+## Appendix
+- [Overview of Identity Security Monitoring in Microsoft Cloud](IdentitySecurityMonitoring.md)
+
 ### In work: Next articles on other scenarios
 - Hybrid Identity Components
 - Phishing
@@ -21,7 +24,7 @@ We invite identity or security experts from the community to work together on th
 <table>
   <tr>
         <td align="left"><a href="https://securecloud.blog/"><img src="https://pbs.twimg.com/profile_images/1314289282459275264/qINvzl6o_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Joosua Santasalo</b></sub></a><br /><a href="https://twitter.com/SantasaloJoosua" title="Twitter">💬</a> <a href="https://securecloud.blog/" title="Blog">📖</a></td>
-    <td align="left"><a href="https://samilamppu.com"><img src="https://pbs.twimg.com/profile_images/1163475904191959040/NMey-Jzq_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Sami Lamppu</b></sub></a><br /><a href="https://twitter.com/samilamppu" title="Twitter">💬</a> <a href="https://samilamppu.com" title="Blog">📖</a></td>
+    <td align="left"><a href="https://samilamppu.com"><img src="https://pbs.twimg.com/profile_images/1361737408077828096/Jmjo2Evh_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Sami Lamppu</b></sub></a><br /><a href="https://twitter.com/samilamppu" title="Twitter">💬</a> <a href="https://samilamppu.com" title="Blog">📖</a></td>
     <td align="left"><a href="https://www.cloud-architekt.net"><img src="https://www.cloud-architekt.net/assets/images/about.jpg" width="100px;" alt=""/><br /><sub><b>Thomas Naunheim</b></sub></a><br /><a href="https://twitter.com/thomas_live" title="Twitter">💬</a> <a href="https://www.cloud-architekt.net" title="Blog">📖</a></td>
   </tr>
 </table>
