@@ -499,6 +499,7 @@ This is an additional service which can be [enrolled for a 90-day-trial or on-De
 - [Microsoft 365 Defender trial lab](https://docs.microsoft.com/en-us/microsoft-365/security/mtp/mtp-evaluation?WT.mc_id=M365-MVP-5003945) can be helpful to simulate attacks and learn the ways to resolve incidents or start advanced hunting.
 - Public Preview of [M365 Defender APIs](https://docs.microsoft.com/en-us/microsoft-365/security/mtp/api-overview?WT.mc_id=M365-MVP-5003945) allows integration and advanced hunting/queries programmatically
 - John Barbare (Customer Engineer, Microsoft) has wrote a blog series about Incident Management in M365D. The articles are a good start to get familiar with the [Incidents Overview](https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/microsoft-365-defender-incident-overview/ba-p/2174343) and [Investigation of an Incident](https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/microsoft-365-defender-investigating-an-incident/ba-p/2205619?WT.mc_id=M365-MVP-5003945) in the new unified security portal.
+- Consider which [MCAS alerts are not imported into Azure Sentinel through Microsoft 365 Defender integration](https://docs.microsoft.com/en-us/azure/sentinel/microsoft-cloud-app-security-alerts-not-imported-microsoft-365-defender?WT.mc_id=M365-MVP-5003945) yet.
 
 ## Azure Sentinel: “Single pane of glass” across Azure, Microsoft 365 and 3rd party (cloud) platforms
 
