@@ -48,35 +48,64 @@ RBAC design and implementation of ADO can be complex because of various level of
 
 ### DevOps Auditing
 
-Auditing is turned on by default for all Azure DevOps Services organizations and it cannot turn off. Events get stored for 90 days and then they’re deleted. However, e[xport to Log Analytics is available in public preview mode](https://docs.microsoft.com/en-us/azure/devops/organizations/audit/azure-devops-auditing?view=azure-devops&tabs=preview-page) at the time of writing. On Azure DevOps side, there isn’t detailed audit log streaming configuration available, such as in Azure AD or Azure Activity logs. Also, audit schema is not aligned with Azure Activity Log which makes correlation more complicated and is changed in monthly basis based on the [Microsoft documentation](https://docs.microsoft.com/en-us/azure/devops/organizations/audit/azure-devops-auditing?view=azure-devops&tabs=preview-page#filter-audit-log).
+Auditing is turned on by default for all Azure DevOps Services organizations and it cannot turn off. In Azure DevOps, events get stored for 90 days and then they’re deleted. However, [export to Log Analytics is available in public preview mode](https://docs.microsoft.com/en-us/azure/devops/organizations/audit/azure-devops-auditing?view=azure-devops&tabs=preview-page) at the time of writing.
 
-- Azure Sentinel includes several built-in detection rules for Azure DevOps (export of ADO Audit stream to Log Analytics workspace to Azure Sentinel is required):
+On Azure DevOps side, there isn’t detailed filtering available in audit log streaming configuration, compared to Azure AD sign-in & audit or Azure Activity logs. Also, audit schema is not aligned at the time of writing with Azure Activity Log which makes correlation more complicated. One consideration is that Azure DevOps logging is changed (new events added) in monthly basis based on the [Microsoft documentation](https://docs.microsoft.com/en-us/azure/devops/organizations/audit/azure-devops-auditing?view=azure-devops&tabs=preview-page#filter-audit-log).
+
+- Azure Sentinel includes several built-in detection rules for Azure DevOps (export of ADO Audit stream to Log Analytics workspace to Azure Sentinel is required)
+- There are useful rules included which are recommended to enable, to name a few:
+    - Azure DevOps Personal Access Token (PAT) related rules
+    - Azure DevOps Administrator Group Monitoring – to monitor RBAC permissions
+    - Azure DevOps Audit Stream Disabled – to monitor that audit flow is active
+    - Multiple rules that need more information such as allow list
 
     ![./media/serviceprincipals-ado/ServicePrincipals-ADO1.png](./media/serviceprincipals-ado/ServicePrincipals-ADO1.png)
 
-- None of these built-in rules is able detect attack scenario described earlier. For that reason, we created custom hunting rules with the following logic:
-    - We used the Azure Sentinel Watchlist to identify Azure Global services public IP-addresses  (AzurePublicIPList). Leveraging the Azure Global services public IP-address list, we were able to create correlation when Azure DevOps pipeline is used outside Azure IP-ranges:
+For our attack scenario we created custom hunting rule with the following logic:
 
-        ```powershell
-        let ipList = toscalar(_GetWatchlist('AzurePublicIPList') 
-            | summarize L=make_list(SearchKey)); 
+We used the Azure Sentinel Watchlist to identify Azure Global services public IP-addresses  (AzurePublicIPList). Leveraging the Azure Global services public IP-address list, we were able to create correlation when Azure DevOps pipeline is used outside Azure IP-ranges.
 
-        let msCalls = AzureActivity 
-        | extend isMsAddress = true 
-        | mv-apply IP = ipList to typeof(string) on ( 
-        where  ipv4_is_match(CallerIpAddress, IP) 
-        ) 
-        | summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress; 
+How to deploy ‘Azure Global Services Public IP-Addresses' as a Watchlist to Azure Sentinel - [Azure-Sentinel/Watchlists/Azure-Public-IPs at master · Azure/Azure-Sentinel (github.com)](https://github.com/Azure/Azure-Sentinel/tree/master/Watchlists/Azure-Public-IPs)
 
-        let nonMsCalls = AzureActivity 
-        | extend isMsAddress =false 
-        | summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress 
-        | join kind=leftanti msCalls on $left.CallerIpAddress == $right.CallerIpAddress; 
+**Finds when services are executed outside Azure Global Services IP-ranges**
 
-        union msCalls, nonMsCalls
-        ```
+```powershell
+//
+let ipList = toscalar(_GetWatchlist('AzurePublicIPList')
+| summarize L=make_list(SearchKey));
+let msCalls = AzureActivity
+| extend isMsAddress = true
+| mv-apply IP = ipList to typeof(string) on (
+where  ipv4_is_match(CallerIpAddress, IP)
+)
+| summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress;
+let nonMsCalls = AzureActivity
+| extend isMsAddress =false
+| summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress
+| join kind=leftanti msCalls on $left.CallerIpAddress == $right.CallerIpAddress;
+union msCalls, nonMsCalls
+//
+```
 
-        *Side Note: Check the article "How to deploy ‘[Azure Global Services Public IP-Addresses' as a Watchlist to Azure Sentinel](https://github.com/Azure/Azure-Sentinel/tree/master/Watchlists/Azure-Public-IPs)" to learn more*. 
+**Modified to contain more information (caller & TimeGenerated) and only calls outside Azure**
+
+```powershell
+let ipList = toscalar(_GetWatchlist('AzurePublicIPList')
+| summarize L=make_list(SearchKey));
+let msCalls = AzureActivity
+| extend isMsAddress = true
+| mv-apply IP = ipList to typeof(string) on (
+where  ipv4_is_match(CallerIpAddress, IP)
+)
+| summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress, Caller, TimeGenerated;
+let nonMsCalls = AzureActivity
+| extend isMsAddress =false
+| summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress, Caller, TimeGenerated
+| join kind=leftanti msCalls on $left.CallerIpAddress == $right.CallerIpAddress;
+union nonMsCalls
+|sort by TimeGenerated desc
+```
+![./media/serviceprincipals-ado/ServicePrincipals-ADO14.png](./media/serviceprincipals-ado/ServicePrincipals-ADO14.png)
 
 ## Mitigation
 
