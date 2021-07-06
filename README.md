@@ -9,6 +9,7 @@ We invite identity or security experts from the community to work together on th
 ### Scenarios:
 - [Password Spray](PasswordSpray.md)
 - [Consent Grant](ConsentGrant.md)
+- [Service Principals in Azure DevOps Pipelines](ServicePrincipals-ADO.md)
 
 ## Appendix
 - [Overview of Identity Security Monitoring in Microsoft Cloud](IdentitySecurityMonitoring.md)
