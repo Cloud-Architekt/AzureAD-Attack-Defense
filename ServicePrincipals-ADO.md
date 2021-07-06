@@ -1,4 +1,4 @@
-# Password Spray Attacks
+# Service Principals in Azure DevOps (Release) Pipelines
 
 Author: Joosua Santasalo, Sami Lamppu, Thomas Naunheim
 Created: July 2021
