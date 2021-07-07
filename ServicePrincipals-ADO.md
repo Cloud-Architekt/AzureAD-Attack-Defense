@@ -61,7 +61,7 @@ On Azure DevOps side, there isn’t detailed filtering available in audit lo
 
     ![./media/serviceprincipals-ado/ServicePrincipals-ADO1.png](./media/serviceprincipals-ado/ServicePrincipals-ADO1.png)
 
-For our attack scenario we created custom hunting rule with the following logic:
+For our attack scenario we created custom hunting rules with the following logic:
 
 We used the Azure Sentinel Watchlist to identify Azure Global services public IP-addresses  (AzurePublicIPList). Leveraging the Azure Global services public IP-address list, we were able to create correlation when Azure DevOps pipeline is used outside Azure IP-ranges.
 
