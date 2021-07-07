@@ -65,47 +65,38 @@ For our attack scenario we created custom hunting rule with the following l
 
 We used the Azure Sentinel Watchlist to identify Azure Global services public IP-addresses  (AzurePublicIPList). Leveraging the Azure Global services public IP-address list, we were able to create correlation when Azure DevOps pipeline is used outside Azure IP-ranges.
 
-How to deploy ‘Azure Global Services Public IP-Addresses' as a Watchlist to Azure Sentinel - [Azure-Sentinel/Watchlists/Azure-Public-IPs at master · Azure/Azure-Sentinel (github.com)](https://github.com/Azure/Azure-Sentinel/tree/master/Watchlists/Azure-Public-IPs)
+ jsa-review2
+        ```powershell
+        let ipList = toscalar(_GetWatchlist('AzurePublicIPList')
+            | summarize make_list(SearchKey));
+        let msCalls = AzureActivity
+        | extend isMsAddress = true
+        | mv-apply IP = ipList to typeof(string) on (
+        where  ipv4_is_match(CallerIpAddress, IP)
+        )
+        | summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress, Caller, TimeGenerated;
+        let nonMsCalls = AzureActivity
+        | extend isMsAddress =false
+        | summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress, Caller, TimeGenerated
+        | join kind=leftanti msCalls on $left.CallerIpAddress == $right.CallerIpAddress;
+        union msCalls, nonMsCalls
+        ```
+    - The query was based on good example by [Ofer_Shezaf blog post](https://techcommunity.microsoft.com/t5/azure-sentinel/approximate-partial-and-combined-lookups-in-azure-sentinel/ba-p/1393795), which was also used in a nice way with another blog by [Thijs Lecomte, Monitoring Service Principals with Watchlists in Azure Sentinel](https://thecollective.eu/blog/monitoring-service-principals-with-watchlists-in-azure-sentinel)
+  
+    - Another example query with loose correlation can be used to detect when the token is requested with the same SPN, but the callerIP does not match the token retrieval address in servicePrincipalLogs. This works when range of query is limited to access token lifetime 
 
-**Finds when services are executed outside Azure Global Services IP-ranges**
+        ```powershell
+        AzureActivity
+        | extend parsedClaims = parse_json(Claims_d)
+        | extend appid = tostring(parsedClaims.appid)
+        | join kind=inner AADServicePrincipalSignInLogs on $left.appid == $right.AppId
+        | project TimeGenerated, TimeGenerated1, OperationNameValue, IPfromActivityLogs = CallerIpAddress, IPfromSPNLogs = IPAddress, appid, HTTPRequest, parsedClaims 
+        | sort by TimeGenerated, TimeGenerated1 desc  
+        ```
+        *Side Note: Check the article "How to deploy ‘[Azure Global Services Public IP-Addresses' as a Watchlist to Azure Sentinel](https://github.com/Azure/Azure-Sentinel/tree/master/Watchlists/Azure-Public-IPs)" to learn more*. 
 
-```powershell
-//
-let ipList = toscalar(_GetWatchlist('AzurePublicIPList')
-| summarize L=make_list(SearchKey));
-let msCalls = AzureActivity
-| extend isMsAddress = true
-| mv-apply IP = ipList to typeof(string) on (
-where  ipv4_is_match(CallerIpAddress, IP)
-)
-| summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress;
-let nonMsCalls = AzureActivity
-| extend isMsAddress =false
-| summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress
-| join kind=leftanti msCalls on $left.CallerIpAddress == $right.CallerIpAddress;
-union msCalls, nonMsCalls
-//
-```
-
-**Modified to contain more information (caller & TimeGenerated) and only calls outside Azure**
-
-```powershell
-let ipList = toscalar(_GetWatchlist('AzurePublicIPList')
-| summarize L=make_list(SearchKey));
-let msCalls = AzureActivity
-| extend isMsAddress = true
-| mv-apply IP = ipList to typeof(string) on (
-where  ipv4_is_match(CallerIpAddress, IP)
-)
-| summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress, Caller, TimeGenerated;
-let nonMsCalls = AzureActivity
-| extend isMsAddress =false
-| summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress, Caller, TimeGenerated
-| join kind=leftanti msCalls on $left.CallerIpAddress == $right.CallerIpAddress;
-union nonMsCalls
-|sort by TimeGenerated desc
-```
 ![./media/serviceprincipals-ado/ServicePrincipals-ADO14.png](./media/serviceprincipals-ado/ServicePrincipals-ADO14.png)
+
 
 ## Mitigation
 
@@ -303,15 +294,35 @@ Example of Service Principal Lifecycle for Azure Landing Zones
 
     *Note: Service Principal can’t be created by using Azure Resource Manager (ARM) API.*
 
-2. Creation of Azure DevOps service connection via API using PowerShell
+2. Use certificate credentials instead of password for Devops Service Connections.
+
+    You can implement a script, that deletes the local private key, as part of uploading the combined key file to Azure Devops. After that the credentials are essentially only compromizable from Azure Devops, and can't be shared, are not submitted on each request to token endpoint like password credentials are. 
+    
+    Also from perspective of rotation, the private key is never shared after this, as it's only used to sign the outbound request to Azure AD (whereas the password credential is exposed in each HTTPS request to Azure AD) 
+    
+    [Reference from AZSK ADO](https://azsk.azurewebsites.net/09-AzureDevOps(VSTS)-Security/ControlCoverage/README.html#service-connection)
+    ![img](media/serviceprincipals-ado/spncert.jpg)
+
+    **Reference from SecureCloud.blog and github**
+    - https://securecloud.blog/2021/04/13/azure-devops-use-certificate-for-azure-service-connection-spn/)
+    - https://github.com/jsa2/aadClientCredentialsDoc
+ 
+
+    **Reference from MS Identity Platform best practices**
+    
+    [Reference](https://docs.microsoft.com/en-us/azure/active-directory/develop/identity-platform-integration-checklist#security)
+
+    ![img](media/serviceprincipals-ado/spncert2.png)
+
+3. Creation of Azure DevOps service connection via API using PowerShell
 
     _Check the script and blog post by [Barbara Forbes](https://4bes.nl/2020/12/20/create-an-azure-devops-service-connection-to-azure-with-powershell/)_
 
-3. Implement automatic key rotation on Azure DevOps service connections
+4. If you must use password based credential, Implement automatic key rotation on Azure DevOps service connections
 
     _[Koos Goossens](https://medium.com/wortell/implement-automatic-key-rotation-on-azure-devops-service-connections-13804b92157c) has written a great blog and script how to implement a rotation process._
 
-4. Monitoring Service Principals with Watchlists in Azure Sentinel
+5. Monitoring Service Principals with Watchlists in Azure Sentinel
 
     _Thijs Lecomte has given great insights in his [detailed blog post](https://thecollective.eu/blog/monitoring-service-principals-with-watchlists-in-azure-sentinel/)._
 
