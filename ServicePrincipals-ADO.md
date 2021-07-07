@@ -225,6 +225,8 @@ This gives you the opportunity to use the "Build Service Account" of this projec
 
 Furthermore, the Git repository can be used to store the WatchList incl. history and advanced workflows.
 
+_Side Note: You need to run "Connect-ADOOrganization" to get an authorization token to the ADO API by using PAT (User Name and Token must be provided as parameter) or accessing the OAuth token of the pipeline._
+
 ![./media/serviceprincipals-ado/ServicePrincipals-ADO10.png](./media/serviceprincipals-ado/ServicePrincipals-ADO10.png)
 
 **Sample 1: Assessment of assigned and configured service connections**
@@ -235,6 +237,7 @@ The following script allows to store a CSV file with information about the serv
 
 ```powershell
 $WatchListFile = ".\SentinelServiceConnection-Watchlist.csv"
+Connect-ADOOrganization
 Get-ADOServiceConnectionDetails | Export-Csv $WatchlistFile -NoTypeInformation
 ```
 
@@ -246,6 +249,7 @@ Agent logs from Microsoft Hosted Agents can be downloaded via ADO API as well.
 The following cmdlet from the PowerShell module allows to download them in a ZIP file:
 
 ```powershell
+Connect-ADOOrganization
 Get-ADOPipelineReleaseLogs -ExportFolder "./AgentLogs/Releases"
 ```
 
