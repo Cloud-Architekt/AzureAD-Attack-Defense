@@ -65,7 +65,6 @@ For our attack scenario we created custom hunting rule with the following l
 
 We used the Azure Sentinel Watchlist to identify Azure Global services public IP-addresses  (AzurePublicIPList). Leveraging the Azure Global services public IP-address list, we were able to create correlation when Azure DevOps pipeline is used outside Azure IP-ranges.
 
- jsa-review2
         ```powershell
         let ipList = toscalar(_GetWatchlist('AzurePublicIPList')
             | summarize make_list(SearchKey));
