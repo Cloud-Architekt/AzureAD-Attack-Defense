@@ -65,34 +65,35 @@ For our attack scenario we created custom hunting rule with the following l
 
 We used the Azure Sentinel Watchlist to identify Azure Global services public IP-addresses  (AzurePublicIPList). Leveraging the Azure Global services public IP-address list, we were able to create correlation when Azure DevOps pipeline is used outside Azure IP-ranges.
 
-        ```powershell
-        let ipList = toscalar(_GetWatchlist('AzurePublicIPList')
-            | summarize make_list(SearchKey));
-        let msCalls = AzureActivity
-        | extend isMsAddress = true
-        | mv-apply IP = ipList to typeof(string) on (
-        where  ipv4_is_match(CallerIpAddress, IP)
-        )
-        | summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress, Caller, TimeGenerated;
-        let nonMsCalls = AzureActivity
-        | extend isMsAddress =false
-        | summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress, Caller, TimeGenerated
-        | join kind=leftanti msCalls on $left.CallerIpAddress == $right.CallerIpAddress;
-        union msCalls, nonMsCalls
-        ```
-    - The query was based on good example by [Ofer_Shezaf blog post](https://techcommunity.microsoft.com/t5/azure-sentinel/approximate-partial-and-combined-lookups-in-azure-sentinel/ba-p/1393795), which was also used in a nice way with another blog by [Thijs Lecomte, Monitoring Service Principals with Watchlists in Azure Sentinel](https://thecollective.eu/blog/monitoring-service-principals-with-watchlists-in-azure-sentinel)
-  
-    - Another example query with loose correlation can be used to detect when the token is requested with the same SPN, but the callerIP does not match the token retrieval address in servicePrincipalLogs. This works when range of query is limited to access token lifetime 
+```powershell
+let ipList = toscalar(_GetWatchlist('AzurePublicIPList')
+| summarize make_list(SearchKey));
+let msCalls = AzureActivity
+| extend isMsAddress = true
+| mv-apply IP = ipList to typeof(string) on (
+where  ipv4_is_match(CallerIpAddress, IP)
+)
+| summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress, Caller, TimeGenerated;
+let nonMsCalls = AzureActivity
+| extend isMsAddress =false
+| summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress, Caller, TimeGenerated
+| join kind=leftanti msCalls on $left.CallerIpAddress == $right.CallerIpAddress;
+union msCalls, nonMsCalls
+```
 
-        ```powershell
-        AzureActivity
-        | extend parsedClaims = parse_json(Claims_d)
-        | extend appid = tostring(parsedClaims.appid)
-        | join kind=inner AADServicePrincipalSignInLogs on $left.appid == $right.AppId
-        | project TimeGenerated, TimeGenerated1, OperationNameValue, IPfromActivityLogs = CallerIpAddress, IPfromSPNLogs = IPAddress, appid, HTTPRequest, parsedClaims 
-        | sort by TimeGenerated, TimeGenerated1 desc  
-        ```
-        *Side Note: Check the article "How to deploy ‘[Azure Global Services Public IP-Addresses' as a Watchlist to Azure Sentinel](https://github.com/Azure/Azure-Sentinel/tree/master/Watchlists/Azure-Public-IPs)" to learn more*. 
+- The query was based on good example by [Ofer Shezaf's blog post](https://techcommunity.microsoft.com/t5/azure-sentinel/approximate-partial-and-combined-lookups-in-azure-sentinel/ba-p/1393795), which was also used in a nice way with another blog by [Thijs Lecomte, Monitoring Service Principals with Watchlists in Azure Sentinel](https://thecollective.eu/blog/monitoring-service-principals-with-watchlists-in-azure-sentinel)
+  
+- Another example query with loose correlation can be used to detect when the token is requested with the same SPN, but the callerIP does not match the token retrieval address in servicePrincipalLogs. This works when range of query is limited to access token lifetime
+    ```powershell
+    AzureActivity
+    | extend parsedClaims = parse_json(Claims_d)
+    | extend appid = tostring(parsedClaims.appid)
+    | join kind=inner AADServicePrincipalSignInLogs on $left.appid == $right.AppId
+    | project TimeGenerated, TimeGenerated1, OperationNameValue, IPfromActivityLogs = CallerIpAddress, IPfromSPNLogs = IPAddress, appid, HTTPRequest, parsedClaims 
+    | sort by TimeGenerated, TimeGenerated1 desc 
+    ```
+
+*Side Note: Check the article "How to deploy ‘[Azure Global Services Public IP-Addresses' as a Watchlist to Azure Sentinel](https://github.com/Azure/Azure-Sentinel/tree/master/Watchlists/Azure-Public-IPs)" to learn more*. 
 
 ![./media/serviceprincipals-ado/ServicePrincipals-ADO14.png](./media/serviceprincipals-ado/ServicePrincipals-ADO14.png)
 
