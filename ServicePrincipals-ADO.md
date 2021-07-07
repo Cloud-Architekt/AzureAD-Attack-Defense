@@ -3,7 +3,7 @@
 Author: Joosua Santasalo, Sami Lamppu, Thomas Naunheim
 Created: July 2021
 
-*In the following two attack scenarios we’ve set our focus on privileged (key-based) service principals as part of release pipelines in Azure DevOps and the (potential) limited visibility in auditing.*
+*In the following two attack scenarios we’ve set our focus on privileged service principals as part of release pipelines in Azure DevOps and the (potential) limited visibility in auditing.*
 
 ## Attack
 
