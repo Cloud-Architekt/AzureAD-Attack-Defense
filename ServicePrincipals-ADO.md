@@ -70,8 +70,7 @@ let ipList = toscalar(_GetWatchlist('AzurePublicIPList')
 | summarize make_list(SearchKey));
 let msCalls = AzureActivity
 | extend isMsAddress = true
-| mv-apply IP = ipList to typeof(string) on (
-where  ipv4_is_match(CallerIpAddress, IP)
+| mv-apply IP = ipList to typeof(string) on (where ipv4_is_match(CallerIpAddress, IP)
 )
 | summarize make_set(OperationNameValue) by CallerIpAddress, isMsAddress, Caller, TimeGenerated;
 let nonMsCalls = AzureActivity
