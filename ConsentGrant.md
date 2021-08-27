@@ -36,6 +36,7 @@ There are many solutions and methods available for detection of illicit consent 
 - Azure AD portal (Audit logs, workbooks & application management)
 - PowerShell tools (Get-AzureADPSPermissions)
 - Microsoft Cloud App security
+    - App Governance
 - Azure Sentinel
 
 ## Azure AD Audit Logs
