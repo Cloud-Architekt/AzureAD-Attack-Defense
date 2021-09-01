@@ -169,7 +169,7 @@ AppG provides richer information than MCAS only because it leverages data from b
 
 ![./media/AppG-details.png](./media/AppG-details.PNG)
 
-![./media/AppG-perms.png](./media/AppG-perms.PNG)
+![./media/AppG-Perms.png](./media/AppG-Perms.PNG)
 
 ## Azure Sentinel
 
