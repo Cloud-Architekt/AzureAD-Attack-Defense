@@ -160,16 +160,16 @@ The feature is at the time of writing in public preview mode. Good to know that 
 
 Data is collected from different data sets such as Azure AD & Cloud App Security, the App Governance collect information and provides the data in a single pane of glass in compliance center (compliance.microsoft.com).
 
-![./media/ConsentGrant19.png](./media/AppG-Architecture.PNG)
+![./media/AppG-Architecture.png](./media/AppG-Architecture.PNG)
 
 ### Detection Policies and Visibility in App Governance
 AppG provides richer information than MCAS only because it leverages data from both, Azure AD & MCAS. You can see information such as app permissions, usage and publisher information that helps to determine app risk levels from compliance point of view.
 
-![./media/ConsentGrant19.png](./media/AppG-data.PNG)
+![./media/AppG-data.png](./media/AppG-data.PNG)
 
-![./media/ConsentGrant19.png](./media/AppG-details.PNG)
+![./media/AppG-details.png](./media/AppG-details.PNG)
 
-![./media/ConsentGrant19.png](./media/AppG-perms.PNG)
+![./media/AppG-perms.png](./media/AppG-perms.PNG)
 
 ## Azure Sentinel
 
