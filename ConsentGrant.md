@@ -151,6 +151,26 @@ When MCAS scans the applications and detects possible malicious one with high pe
 
 ![./media/ConsentGrant15.png](./media/ConsentGrant15.png)
 
+## App Governance - Microsoft Cloud App Security (MCAS) add-on
+App Governance, which is MCAS add-on, is the newest addition to Microsoft security solutions. Solution description based on Microsoft: <em>'It's a security and policy management capability that customers can use to monitor and govern app behaviors and quickly identify, alert, and protect from risky behaviors with data, users, and apps. App governance is designed for&nbsp;OAuth-enabled apps&nbsp;that access&nbsp;Microsoft 365&nbsp;data via&nbsp;<a rel="noreferrer noopener" href="https://docs.microsoft.com/en-us/graph/use-the-api" target="_blank">Microsoft Graph APIs</a>'. &nbsp;</em></p>
+
+The feature is at the time of writing in public preview mode. Good to know that even it's MCAS add-on it requires a license, at least for now.
+
+### Architecture 
+
+Data is collected from different data sets such as Azure AD & Cloud App Security, the App Governance collect information and provides the data in a single pane of glass in compliance center (compliance.microsoft.com).
+
+![./media/ConsentGrant19.png](./media/AppG-Architecture.PNG)
+
+### Detection Policies and Visibility in App Governance
+AppG provides richer information than MCAS only because it leverages data from both, Azure AD & MCAS. You can see information such as app permissions, usage and publisher information that helps to determine app risk levels from compliance point of view.
+
+![./media/ConsentGrant19.png](./media/AppG-data.PNG)
+
+![./media/ConsentGrant19.png](./media/AppG-details.PNG)
+
+![./media/ConsentGrant19.png](./media/AppG-perms.PNG)
+
 ## Azure Sentinel
 
 Azure Sentinel offers multiple out of the box rules related to the application administrative actions. In the picture below there are all default analytic rules listed that contains word “application”.
