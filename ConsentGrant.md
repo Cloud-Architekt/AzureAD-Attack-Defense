@@ -49,7 +49,7 @@ The activities from Application Administrative category (registering app, granti
 
 The activities are also found from O365 Unified Audit Log (UAL) and this log has nowadays a new home, the complicance (compliance.microsoft.com) portal. The old location is still active (protection.office.com) but redirects admin to the compliance portal when 'audit search' is clicked.
 
-![./media/ConsentGrant2.png](./media/ConsentGrant2-1.png)
+![./media/ConsentGrant2-1.png](./media/ConsentGrant2-1.png)
 
 
 ![./media/ConsentGrant3.png](./media/ConsentGrant3.png)
