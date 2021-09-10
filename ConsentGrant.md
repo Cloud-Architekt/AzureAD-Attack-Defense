@@ -49,7 +49,7 @@ The activities from Application Administrative category (registering app, granti
 
 The activities are also found from O365 Unified Audit Log (UAL) and this log has nowadays a new home, the complicance (compliance.microsoft.com) portal. The old location is still active (protection.office.com) but redirects admin to the compliance portal when 'audit search' is clicked.
 
-![./media/ConsentGrant2-1.png](./media/ConsentGrant2-1.png)
+![./media/ConsentGrant2-1.PNG](./media/ConsentGrant2-1.PNG)
 
 
 ![./media/ConsentGrant3.png](./media/ConsentGrant3.png)
@@ -207,13 +207,13 @@ AppG provides richer information than MCAS only because it leverages data from b
 
 Azure Sentinel offers multiple out of the box rules related to the application administrative actions. In the picture below there are all default analytic rules listed that contains word “application”.
 
-![./media/AzSentinel-1.png](./media/AzSentinel-1.png)
+![./media/AzSentinel-1.PNG](./media/AzSentinel-1.PNG)
 
 When integration between M365 Defender (or MCAS) and Azure Sentinel is in place, and incidents are created based on MCAS alerts (MCAS doesn’t have incidents) you can expect to find the same MCAS application related alerts from the Azure Sentinel.
 
-![./media/AzSentinel-2.png](./media/AzSentinel-2.png)
+![./media/AzSentinel-2.PNG](./media/AzSentinel-2.PNG)
 
-![./media/AzSentinel-3.png](./media/AzSentinel-3.png)
+![./media/AzSentinel-3.PNG](./media/AzSentinel-3.PNG)
 
 **Azure Sentinel out of the box rules -** Mail.Read Permissions Granted to Application & Rare Application Consent - Incident examples
 
