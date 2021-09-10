@@ -58,10 +58,10 @@ The activities are also found from O365 Unified Audit Log (UAL) and this log has
 
 Overview of consent requests and sign-in from users to the granted apps. With the built-in workbook you can drill down to individual app consents that's extremely useful when working in the environment with huge number of activities in this area. 
 
-![./media/ConsentGrant4.png](./media/ConsentGrant4-1.png)
+![./media/ConsentGrant4-1.PNG](./media/ConsentGrant4-1.PNG)
 
 Individual app consents
-![./media/ConsentGrant4.png](./media/ConsentGrant4-2.png)
+![./media/ConsentGrant4-2.PNG](./media/ConsentGrant4-2.PNG)
 
 ## PowerShell
 
