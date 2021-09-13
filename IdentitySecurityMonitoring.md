@@ -2,7 +2,7 @@
 
 _Author: Thomas Naunheim_
 
-_Created: December 2020, Updated April 2021_
+_Created: December 2020, Updated September 2021_
 
 *Microsoft offers several solutions and services for securing (hybrid) identities and protecting access to workloads such as Azure, Office 365 or other integrated apps in Azure Active Directory. I like to give a detailed overview about data sources or signals that should be considered for monitoring based on identity-related activities, risk detections, alerts and events across the Microsoft ecosystem.*
 
@@ -44,6 +44,9 @@ It was hard for me to find the right level of details or scope with regard to th
 Azure AD B2C, Azure AD Domain Services and Microsoft Information Protection (AIP/MIP) will not be described in this blog post.*
 
 _Caution: All description of features, potential limitations and implementation considerations are based on personal experiences and research results at the time of writting this blog post. Therefore the content and statement can be outdated since the article was published._
+
+_Tip: Verify and evaluate your implemented solutions and detections in a simulation of common attack scenarios to Azure AD.
+[Incident response playbooks](https://docs.microsoft.com/en-us/security/compass/incident-response-playbooks?WT.mc_id=AZ-MVP-5003945) and the [attack/defense scenarios from the community-driven "Azure AD Playbook" project](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense) are offering detailed guidance and considerations for attack simulations._
 
 *Note: Microsoft announced many product name changes at the Ignite 2020. I've used all new product names in this article.
 A good overview of all name changes are included [in this blog post by Microsoft](https://techcommunity.microsoft.com/t5/itops-talk-blog/microsoft-365-and-azure-security-product-name-changes/ba-p/1719167?WT.mc_id=M365-MVP-5003945).*
@@ -113,11 +116,10 @@ Microsoft updated the logging capabilities in Azure AD as addition to the above 
 - [Azure AD Provisioning Logs:](https://docs.microsoft.com/en-us/azure/active-directory/reports-monitoring/concept-provisioning-logs?WT.mc_id=AZ-MVP-5003945)
 This log gives you [detailed insights of provisioning](https://docs.microsoft.com/en-us/azure/active-directory/reports-monitoring/concept-provisioning-logs?WT.mc_id=AZ-MVP-5003945) users, roles and groups from or to Azure AD. [Log schema for Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/reference/tables/aadprovisioninglogs?WT.mc_id=AZ-MVP-5003945) is also documented in MSDocs.
 
-*Non-supported reports in Azure Monitor*
-
-- Azure AD (Identity Protection) Security Logs:
-Identity Protection of Azure AD Premium [stores reports and events](https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/howto-identity-protection-investigate-risk?WT.mc_id=AZ-MVP-5003945) of risky users, sign-ins (up to 30 days) and detections (up to 90 days).
-    - Various "[risk detections](https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-risks?WT.mc_id=AZ-MVP-5003945)" are available which will be calculated in real-time or offline.
+- Azure AD Identity Protection Security Logs:
+Identity Protection of Azure AD Premium [stores reports and events](https://docs.microsoft.com/en-us/azure/active-directory/reports-monitoring/reference-reports-data-retention?WT.mc_id=AZ-MVP-5003945#how-long-does-azure-ad-store-the-data) of risky users, sign-ins (up to 30 days) and detections (up to 90 days).
+    - [Diagnostic settings support for exporting Identity Protection data](https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/howto-export-risk-data?WT.mc_id=AZ-MVP-5003945#log-analytics) are available in public preview. KQL-based queries and alerting can be executed on AADRiskyUsers (report of risky users) and AADUserRiskEvents (risk detections).
+    - In general, various "[risk detections](https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-risks?WT.mc_id=AZ-MVP-5003945)" are available in Identity Protection which will be calculated in real-time or offline.
     Risk state triggers "auto-response actions" and offers "self-remediation options" that will be managed by [identity protection policies](https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-policies?WT.mc_id=AZ-MVP-5003945) or as part of Conditional Access Policies.
     - [Microsoft Graph APIs](https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/howto-identity-protection-graph-api?WT.mc_id=AZ-MVP-5003945) allows you to collect this data for export or automate response to risk detections.
     - [Every Azure AD Sign-in log](https://docs.microsoft.com/en-us/graph/api/signin-list?view=graph-rest-1.0&tabs=http) includes the following properties related to the identity risk detection: riskDetail, riskLevelAggregated, riskLevelDuringSignIn, riskState, riskEventTypes.
@@ -159,7 +161,8 @@ Azure Monitor is able to trigger complex actions based on defined rules (such as
 
 ### Considerations and References of Azure AD Logging by "Azure Monitor"
 - It's very important to have a deep understanding of the Azure AD architecture to cover all components for security monitoring. Microsoft has released an architecture description which gives a good overview of [Azure AD for SecOps Teams](https://docs.microsoft.com/en-us/azure/architecture/example-scenario/aadsec/azure-ad-security?WT.mc_id=AZ-MVP-5003945).
-- Microsoft’s “[deployment guide of Azure AD Monitoring](https://docs.microsoft.com/en-us/azure/active-directory/reports-monitoring/plan-monitoring-and-reporting?WT.mc_id=AZ-MVP-5003945)” gives you an general overview of aspects and options to integrate or archive logs. The [latency of Azure AD logging and the risk detections](https://docs.microsoft.com/en-us/azure/active-directory/reports-monitoring/reference-reports-data-retention?WT.mc_id=AZ-MVP-5003945) should be also considered (for your security response and processes).
+- Microsoft has published an ["SecOps Guide" for Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/security-operations-introduction?WT.mc_id=AZ-MVP-5003945) which offers an overview of many identity security configuration and what should be monitored. This includes query samples, source of logs and notes on detections.
+- “[Deployment guide of Azure AD Monitoring](https://docs.microsoft.com/en-us/azure/active-directory/reports-monitoring/plan-monitoring-and-reporting?WT.mc_id=AZ-MVP-5003945)” from Microsoft gives you an general overview of aspects and options to integrate or archive logs. The [latency of Azure AD logging and the risk detections](https://docs.microsoft.com/en-us/azure/active-directory/reports-monitoring/reference-reports-data-retention?WT.mc_id=AZ-MVP-5003945) should be also considered (for your security response and processes).
 - [Retention of the reports](https://docs.microsoft.com/en-us/azure/active-directory/reports-monitoring/reference-reports-data-retention?WT.mc_id=AZ-MVP-5003945) depends on type of activity and your Azure AD license.
 - [Costs](https://docs.microsoft.com/en-us/azure/active-directory/reports-monitoring/concept-activity-logs-azure-monitor#azure-monitor-logs-cost-considerations) should be calculated based on the requirements for long-term retention.
 - Pay attention to missing audit logs of privileged activities in Azure Monitor.
@@ -182,7 +185,7 @@ Azure Monitor is able to trigger complex actions based on defined rules (such as
 - [Customer-managed keys](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/customer-managed-keys?WT.mc_id=AZ-MVP-5003945) can be configured and are supported for encryption in "Azure Monitor".
 - Self-Service Password Reset (SSPR): Monitor blocked attempts or suspicious activity via [Azure Monitor Alerts or Azure Sentinel](https://www.cloud-architekt.net/azuread-sspr-deployment-and-detection/)
 - Consider service principal logs and the challenges to build relation to "Azure Activity" or "(Azure) DevOps Deployment pipeline" logs, [as described in my previous blog post](https://www.cloud-architekt.net/auditing-of-msi-and-service-principals/)!
-- Currently there are four different "Windows Agents"  for Azure Monitor available. Read the Microsoft Docs article to get an overview of the various [Azure Monitor agents](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/agents-overview?WT.mc_id=AZ-MVP-5003945). Consider also the new "Azure Monitor agent" which is currently in preview.
+- Currently there are four different "Windows Agents"  for Azure Monitor available. Read the Microsoft Docs article to get an overview of the various [Azure Monitor agents](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/agents-overview?WT.mc_id=AZ-MVP-5003945). Consider also the new "Azure Monitor agent" which is now "General Available" (GA).
 - Marius Sandbu has written an excellent ["deep dive" article about "Azure Monitor" and "Log Analytics"](https://msandbu.org/deep-dive-azure-monitor-and-log-analytics/) which is strongly recommended to read for a good understanding of the architecture.
 
 ## MCAS and "Defender for Identity": Unified SecOps of connected "Cloud Apps" and "Hybrid Identity"
@@ -344,7 +347,7 @@ Automation of (governance) actions can be realized by "PowerAutomate". Microsoft
 ### Considerations and References of Microsoft Defender for Identity (MDI)
 - Microsoft has published a [Ninja Training for MDI](https://techcommunity.microsoft.com/t5/security-compliance-identity/microsoft-defender-for-identity-ninja-training/ba-p/2117904?WT.mc_id=M365-MVP-5003945) which gives you a good overview about features and detections
 - Check alerts for false-positive events ("DCSync Attack") of "Azure AD Connect" server (exclude them for this specific detection).
-- Signature-based capabilities can be evaluated as part of the "[Defender for Identity security alert lab](https://docs.microsoft.com/en-us/defender-for-identity/playbook-lab-overview?WT.mc_id=M365-MVP-5003945)". Simulation of "Lateral Movement Attacks" is recommended and described in the [blog post (by Derk van der Woude)](https://medium.com/@derkvanderwoude/microsoft-defender-for-identity-lateral-movement-b55046c09870).
+- Signature-based capabilities can be evaluated as part of the "[Defender for Identity security alert lab](https://docs.microsoft.com/en-us/defender-for-identity/playbook-lab-overview?WT.mc_id=M365-MVP-5003945)". Simulation of "Lateral Movement Attacks" is recommended and described in a [blog post (by Derk van der Woude)](https://medium.com/@derkvanderwoude/microsoft-defender-for-identity-lateral-movement-b55046c09870) and also in a blog post by [Jeffrey Appel](https://jeffreyappel.nl/protecting-against-lateral-movement-with-defender-for-identity-and-monitor-with-azure-sentinel/).
 - By default, some domains are excluded from detections (Example: spotify.com)!
 - Audit Policy of domain controllers must be configured to maximize detection capabilities. Using [this PowerShell script](https://github.com/microsoft/Azure-Advanced-Threat-Protection/tree/master/Auditing) should helps you to verify the configuration.
 - [Review the known issues and limitations](https://docs.microsoft.com/en-us/defender-for-identity/troubleshooting-known-issues?WT.mc_id=M365-MVP-5003945) of MDI sensors and detections
