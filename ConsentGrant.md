@@ -62,12 +62,12 @@ The list possibilities are endless... 😊
 
 # Detection
 
-There are many solutions and methods available for detection of illicit consent grant. Here is list (not 100% accurate) of the solutions that offer capabilities to identify and investigate consent grants and application registrations.
+There are many solutions and methods available for detecting illicit consent grant attack. Here is list (not 100% accurate) of the solutions that offer capabilities to identify and investigate consent grants and application registrations.
 
 - O365 SSC & new Compliance portal (Unified Audit Log)
 - Azure AD portal (Audit logs, workbooks & application management)
 - PowerShell tools (Get-AzureADPSPermissions)
-- Combination of Get-AzureADPSPermissions export, Azure Log Analytics & KQL magic
+- Combination of Get-AzureADPSPermissions export, Azure Log Analytics & some KQL magic
 - Microsoft Cloud App security
     - App Governance
 - Azure Sentinel
@@ -78,7 +78,7 @@ The activities from Application Administrative category (registering app, granti
 
 ![./media/ConsentGrant1.png](./media/ConsentGrant1.png)
 
-The activities are also found from O365 Unified Audit Log (UAL) and this log has nowadays a new home, the complicance (compliance.microsoft.com) portal. The old location is still active (protection.office.com) but redirects admin to the compliance portal when 'audit search' is clicked.
+The activities are also found from O365 Unified Audit Log (UAL) and this log has nowadays a new home, the complicance (compliance.microsoft.com) portal. The old location is still active (protection.office.com) but redirects admin to the compliance portal when 'audit search' is selected.
 
 ![./media/ConsentGrant2-1.PNG](./media/ConsentGrant2-1.PNG)
 
@@ -87,7 +87,7 @@ The activities are also found from O365 Unified Audit Log (UAL) and this log has
 
 ## Azure Workbooks
 
-Overview of consent requests and sign-in from users to the granted apps. With the built-in workbook you can drill down to individual app consents that's extremely useful when working in the environment with huge number of activities in this area. 
+Overview of consent requests and sign-in from users to the granted apps. With the built-in workbook you can drill down to individual app consents that's extremely useful when working in the environment with large number of activities in this area. 
 
 ![./media/ConsentGrant4-1.PNG](./media/ConsentGrant4-1.PNG)
 
@@ -106,8 +106,8 @@ This script is regularly updated and available from his GitHub page: [Get all pe
 
 You can also search the Office 365 Audit log with PowerShell and create a report of the consent grants found in the results. Here's an example: https://office365itpros.com/2021/02/18/discover-new-office365-audit-events/
 
-### Integration of PowerShell + Azure Log Analytics and some magic with KQL
-Kudos to [Joosua Santasalo](https://twitter.com/SantasaloJoosua)  who made this possible
+## Integration of PowerShell + Azure Log Analytics and some magic with KQL
+Kudos to [Joosua Santasalo](https://twitter.com/SantasaloJoosua)  who made this possible.
 
 Azure AD consent analysis can be done also with combination of PowerShell, Azure Log Analytics and KQL if Azure AD log data (Sign-in logs, Audit logs, Non-Interactive log, ServicePrincipal log & ManagedIdentity log) is ingested to the Log Analytics workspace. 
 
@@ -117,10 +117,11 @@ This can be achieved with the following steps:
 - With Log Analytics externaldata operator you can use runtime storage for .CSV files. Storage files require SAS token to access, which is provided to the externaldata operator
 
 In this query we have combined data from the following sources:
-- Azure AD Sign-in, ServicePrincipalSignIn, AADNonInteractiveUserSignIn & AADManagedIdentitySignIn logs
+- AADServicePrincipalSignInLogs, AADManagedIdentitySignInLogs, SigninLogs & AADNonInteractiveUserSignInLogs
 - External data that contains Azure AD app permissions 
 
-This give us richer data for analyzing app consents and how widely the app is used (how many sign-ins & how many users)
+This give us richer data for analyzing app consents and how widely the app is used. Information we used in example query:
+- Number of sign-ins, number of users, ClientDisplayName, permissions, principals & risk data
  ![./media/LA-PS-ExtData-1.png](./media/LA-PS-ExtData-1.PNG)
 
 
@@ -219,7 +220,7 @@ When MCAS scans the applications and detects possible malicious one with high pe
 ## App Governance - Microsoft Cloud App Security (MCAS) add-on (AppG)
 App Governance, which is MCAS add-on, is the newest addition to Microsoft security solutions. Solution description from Microsoft: <em>'It's a security and policy management capability that customers can use to monitor and govern app behaviors and quickly identify, alert, and protect from risky behaviors with data, users, and apps. App governance is designed for&nbsp;OAuth-enabled apps&nbsp;that access&nbsp;Microsoft 365&nbsp;data via&nbsp;<a rel="noreferrer noopener" href="https://docs.microsoft.com/en-us/graph/use-the-api" target="_blank">Microsoft Graph APIs</a>'. &nbsp;</em></p>
 
-At the time of writing (09/10/2021) AppG is at the time of writing in public preview mode. Good to know that even it's MCAS add-on it requires a license, at least for now.
+At the time of writing (09/13/2021) AppG is in public preview mode. Take into account that even it's MCAS add-on it requires a license, at least for now.
 
 ### Architecture 
 
@@ -228,7 +229,7 @@ Data is collected from different data sets such as Azure AD & Cloud App Security
 ![./media/AppG-Architecture.png](./media/AppG-Architecture.PNG)
 
 ### Detection Policies and Visibility in App Governance
-AppG provides richer information than MCAS only because it leverages data from both, Azure AD & MCAS. You can see information such as app permissions, usage and publisher information that helps to determine app risk levels from compliance point of view.
+AppG provides richer information than MCAS alone because it leverages data from both, Azure AD & MCAS. You can see information such as app permissions, usage and publisher information that helps to determine app risk levels from compliance point of view.
 
 ![./media/AppG-data.png](./media/AppG-data.PNG)
 
@@ -238,7 +239,7 @@ AppG provides richer information than MCAS only because it leverages data from b
 
 ## Azure Sentinel
 
-Azure Sentinel offers multiple out of the box rules related to the application administrative actions. In the picture below there are all default analytic rules listed that contains word “application”.
+Azure Sentinel offers multiple out of the box rules related to the application administrative actions. In the picture below there are listed all default Azure AD application related analytic rules.
 
 ![./media/AzSentinel-1.PNG](./media/AzSentinel-1.PNG)
 
