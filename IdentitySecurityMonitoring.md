@@ -386,7 +386,7 @@ MCAS feeds many type of alerts to "M365 Defender" and "sign-in risk events" (det
     - "Impossible Travel" is detected by MCAS and will be shown in the "Identity Protection" blade of Azure AD. But this risk detection is also listed as MCAS alert ("Impossible travel activity") and will be shown in the "Incident" view of "M365 Defender" and exists in the "[AlertInfo](https://docs.microsoft.com/en-us/microsoft-365/security/mtp/advanced-hunting-alertinfo-table?WT.mc_id=M365-MVP-5003945)" table.
 
     ![./media/identity-monitoring/AzIdentity_MTP_Incidents.png](./media/identity-monitoring/AzIdentity_MTP_Incidents.png)
-    _Alerts from MCAS (and MDI) will be summarized as "Incidents" in the "M365 Security Portal". Detections by "Azure AD Identity Protection" (e.g. Password Spray) are missing. Alerts from connected apps in MCAS are also not listed in this case (e.g. "Mass Download" from OneDrive or SharePoint) or custom activity alerts (e.g. Elevated GA to Azure Management in Azure Portal)._
+    _Alerts from MCAS (and MDI) will be summarized as "Incidents" in the "M365 Security Portal". Detections by "Azure AD Identity Protection" (e.g. Password Spray) are missing. Since Spring/Summer 2021, activity policies and custom policies will be shown forward to M365 Defender as alert._
 
     ![./media/identity-monitoring/AzIdentity_MTP_MCASAlerts.png](./media/identity-monitoring/AzIdentity_MTP_MCASAlerts.png)
     _In comparison with the list of alerts in MCAS, not existing alerts in "M365 Defender" are bordered in red._
