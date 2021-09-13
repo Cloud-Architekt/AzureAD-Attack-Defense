@@ -3,6 +3,37 @@
 _Author: Thomas Naunheim, Joosua Santasalo & Sami Lamppu_
 
 _Created: February 2021_
+_Updated: September 2021_
+
+- [Consent Grant Attack](#consent-grant-attack)
+- [Attack](#attack)
+  - [In practice](#in-practice)
+- [Detection](#detection)
+  - [Azure AD Audit Logs](#azure-ad-audit-logs)
+  - [Azure Workbooks](#azure-workbooks)
+  - [PowerShell](#powershell)
+    - [Script to list delegated permission grants](#script-to-list-delegated-permission-grants)
+    - [Integration of PowerShell + Azure Log Analytics and some magic with KQL](#integration-of-powershell--azure-log-analytics-and-some-magic-with-kql)
+  - [Microsoft Cloud App Security (MCAS)](#microsoft-cloud-app-security-mcas)
+    - [MCAS Built-In Rules](#mcas-built-in-rules)
+    - [Application Governance Built-in Policies](#application-governance-built-in-policies)
+    - [Example Alert based on built-in rule](#example-alert-based-on-built-in-rule)
+    - [MCAS Custom Rules](#mcas-custom-rules)
+  - [App Governance - Microsoft Cloud App Security (MCAS) add-on (AppG)](#app-governance---microsoft-cloud-app-security-mcas-add-on-appg)
+    - [Architecture](#architecture)
+    - [Detection Policies and Visibility in App Governance](#detection-policies-and-visibility-in-app-governance)
+  - [Azure Sentinel](#azure-sentinel)
+- [Mitigation (and Reduced Attack Surface)](#mitigation-and-reduced-attack-surface)
+  - [Disable Default Permissions for App Registrations](#disable-default-permissions-for-app-registrations)
+  - [Restrict User Consent Permissions for End-Users](#restrict-user-consent-permissions-for-end-users)
+  - [Permission Classification as “Low-Risk”](#permission-classification-as-low-risk)
+  - [Advanced policies to restrict user consent](#advanced-policies-to-restrict-user-consent)
+    - [Custom Roles and App Consent Policies](#custom-roles-and-app-consent-policies)
+  - [Approval Workflow for (Tenant-Wide) Admin Consent](#approval-workflow-for-tenant-wide-admin-consent)
+  - [Alternate options or restrictions to Tenant-Wide Admin Consent](#alternate-options-or-restrictions-to-tenant-wide-admin-consent)
+- [Recommendations](#recommendations)
+- [Further reading](#further-reading)
+- [References](#references)
 
 *"In an illicit consent grant attack, the attacker creates an Azure-registered application that requests access to data such as contact information, email, or documents. The attacker then tricks an end-user into granting that application consent to access their data either through a phishing attack or by injecting illicit code into a trusted website. After the illicit application has been granted consent, it has account-level access to data without the need for an organizational account.*
 
@@ -65,6 +96,8 @@ Individual app consents
 
 ## PowerShell
 
+### Script to list delegated permission grants
+
 [Philippe Signoret](https://gist.github.com/psignoret) has written a PowerShell script to lists all delegated permission grants. Example:
 
 Get-AzureADServicePrincipal -All $true | .\Get-AzureADPSPermissionGrants.ps1 -Preload
@@ -73,7 +106,7 @@ This script is regularly updated and available from his GitHub page: [Get all pe
 
 You can also search the Office 365 Audit log with PowerShell and create a report of the consent grants found in the results. Here's an example: https://office365itpros.com/2021/02/18/discover-new-office365-audit-events/
 
-## PowerShell, Azure Log Analytics and some magic with KQL
+### Integration of PowerShell + Azure Log Analytics and some magic with KQL
 Kudos to [Joosua Santasalo](https://twitter.com/SantasaloJoosua)  who made this possible
 
 Azure AD consent analysis can be done also with combination of PowerShell, Azure Log Analytics and KQL if Azure AD log data (Sign-in logs, Audit logs, Non-Interactive log, ServicePrincipal log & ManagedIdentity log) is ingested to the Log Analytics workspace. 
@@ -503,7 +536,7 @@ The following configuration could be preferred if you are already using a “Cus
 |Consent Policy| incl.| incl.| incl.|
 | Auto-remediation| ||MCAS|
 
-# Further reading (Update March 16th):
+# Further reading
 - [Azure AD, apps and consent grant (service accounts)](https://ingogegenwarth.wordpress.com/2021/02/23/aad-apps-consent-service-accounts/)
 - [TechCommunity Blog Post: Azure AD: Custom Application Consent Policies](https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/azure-ad-custom-application-consent-policies/ba-p/2115812)
 
