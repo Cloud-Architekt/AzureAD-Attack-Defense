@@ -3,6 +3,37 @@
 _Author: Thomas Naunheim, Joosua Santasalo & Sami Lamppu_
 
 _Created: February 2021_
+_Updated: September 2021_
+
+- [Consent Grant Attack](#consent-grant-attack)
+- [Attack](#attack)
+  - [In practice](#in-practice)
+- [Detection](#detection)
+  - [Azure AD Audit Logs](#azure-ad-audit-logs)
+  - [Azure Workbooks](#azure-workbooks)
+  - [PowerShell](#powershell)
+    - [Script to list delegated permission grants](#script-to-list-delegated-permission-grants)
+    - [Integration of PowerShell + Azure Log Analytics and some magic with KQL](#integration-of-powershell--azure-log-analytics-and-some-magic-with-kql)
+  - [Microsoft Cloud App Security (MCAS)](#microsoft-cloud-app-security-mcas)
+    - [MCAS Built-In Rules](#mcas-built-in-rules)
+    - [Application Governance Built-in Policies](#application-governance-built-in-policies)
+    - [Example Alert based on built-in rule](#example-alert-based-on-built-in-rule)
+    - [MCAS Custom Rules](#mcas-custom-rules)
+  - [App Governance - Microsoft Cloud App Security (MCAS) add-on (AppG)](#app-governance---microsoft-cloud-app-security-mcas-add-on-appg)
+    - [Architecture](#architecture)
+    - [Detection Policies and Visibility in App Governance](#detection-policies-and-visibility-in-app-governance)
+  - [Azure Sentinel](#azure-sentinel)
+- [Mitigation (and Reduced Attack Surface)](#mitigation-and-reduced-attack-surface)
+  - [Disable Default Permissions for App Registrations](#disable-default-permissions-for-app-registrations)
+  - [Restrict User Consent Permissions for End-Users](#restrict-user-consent-permissions-for-end-users)
+  - [Permission Classification as “Low-Risk”](#permission-classification-as-low-risk)
+  - [Advanced policies to restrict user consent](#advanced-policies-to-restrict-user-consent)
+    - [Custom Roles and App Consent Policies](#custom-roles-and-app-consent-policies)
+  - [Approval Workflow for (Tenant-Wide) Admin Consent](#approval-workflow-for-tenant-wide-admin-consent)
+  - [Alternate options or restrictions to Tenant-Wide Admin Consent](#alternate-options-or-restrictions-to-tenant-wide-admin-consent)
+- [Recommendations](#recommendations)
+- [Further reading](#further-reading)
+- [References](#references)
 
 *"In an illicit consent grant attack, the attacker creates an Azure-registered application that requests access to data such as contact information, email, or documents. The attacker then tricks an end-user into granting that application consent to access their data either through a phishing attack or by injecting illicit code into a trusted website. After the illicit application has been granted consent, it has account-level access to data without the need for an organizational account.*
 
@@ -10,7 +41,8 @@ _Created: February 2021_
 
 *Source: [Detect and Remediate Illicit Consent Grants - Office 365 | Microsoft Docs](https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/detect-and-remediate-illicit-consent-grants)*
 
-*Related MITRE ATT&CK Tactic: [Credential Access (T1110)](https://attack.mitre.org/tactics/TA0006/)*
+*Related MITRE ATT&CK Tactics: [Credential Access (T1110)](https://attack.mitre.org/tactics/TA0006/)* & 
+*[Steal Application Token (T158)](https://attack.mitre.org/techniques/T1528/)*
 
 *Youtube Video: [Demonstration - Illicit consent grant attack in Azure AD / Office 365](https://www.youtube.com/watch?v=h2dy23-S2to)*
 
@@ -30,39 +62,41 @@ The list possibilities are endless... 😊
 
 # Detection
 
-There are many solutions and methods available for detection of illicit consent grant. Here is list (not 100% accurate) of the solutions that offer capabilities to identify and investigate consent grants and application registrations.
+There are many solutions and methods available for detecting illicit consent grant attack. Here is list (not 100% accurate) of the solutions that offer capabilities to identify and investigate consent grants and application registrations.
 
 - O365 SSC & new Compliance portal (Unified Audit Log)
 - Azure AD portal (Audit logs, workbooks & application management)
 - PowerShell tools (Get-AzureADPSPermissions)
+- Combination of Get-AzureADPSPermissions export, Azure Log Analytics & some KQL magic
 - Microsoft Cloud App security
     - App Governance
 - Azure Sentinel
 
 ## Azure AD Audit Logs
 
-The activities from Application Administrative category (registering app, granting consent etc.) are logged in Azure AD Audit log. Both, user and admin consent (delegated & application permissions) is logged to Azure AD Audit logs with small differences.
+The activities from Application Administrative category (registering app, granting consent etc.) are logged in Azure AD Audit log. Both, user and admin consent activities (delegated & application permissions) are logged to Azure AD Audit logs with small differences.
 
 ![./media/ConsentGrant1.png](./media/ConsentGrant1.png)
 
-The activities are also found from O365 Unified Audit Log (UAL) and this log has nowadays a new home, the compliance.microsoft.com portal. The old location is still active (protection.office.com) but it’s recommended to use the new portal instead.
+The activities are also found from O365 Unified Audit Log (UAL) and this log has nowadays a new home, the complicance (compliance.microsoft.com) portal. The old location is still active (protection.office.com) but redirects admin to the compliance portal when 'audit search' is selected.
 
-*Side note: During our tests, when filtered activities as “Application Administrative activities” or "user - Dan Park”, who added the application we didn’t see any results in the audit log.*
-
-![./media/ConsentGrant2.png](./media/ConsentGrant2.png)
-
-*When filters were not selected, the activities were visible*
+![./media/ConsentGrant2-1.PNG](./media/ConsentGrant2-1.PNG)
 
 
 ![./media/ConsentGrant3.png](./media/ConsentGrant3.png)
 
 ## Azure Workbooks
 
-Overview of consent requests and sign-in from users to the granted apps.
+Overview of consent requests and sign-in from users to the granted apps. With the built-in workbook you can drill down to individual app consents that's extremely useful when working in the environment with large number of activities in this area. 
 
-![./media/ConsentGrant4.png](./media/ConsentGrant4.png)
+![./media/ConsentGrant4-1.PNG](./media/ConsentGrant4-1.PNG)
+
+Individual app consents
+![./media/ConsentGrant4-2.PNG](./media/ConsentGrant4-2.PNG)
 
 ## PowerShell
+
+### Script to list delegated permission grants
 
 [Philippe Signoret](https://gist.github.com/psignoret) has written a PowerShell script to lists all delegated permission grants. Example:
 
@@ -71,6 +105,25 @@ Get-AzureADServicePrincipal -All $true | .\Get-AzureADPSPermissionGrants.ps1 -Pr
 This script is regularly updated and available from his GitHub page: [Get all permissions granted to an app in Azure AD · GitHub](https://gist.github.com/psignoret/9d73b00b377002456b24fcb808265c23)
 
 You can also search the Office 365 Audit log with PowerShell and create a report of the consent grants found in the results. Here's an example: https://office365itpros.com/2021/02/18/discover-new-office365-audit-events/
+
+## Integration of PowerShell + Azure Log Analytics and some magic with KQL
+Kudos to [Joosua Santasalo](https://twitter.com/SantasaloJoosua)  who made this possible.
+
+Azure AD consent analysis can be done also with combination of PowerShell, Azure Log Analytics and KQL if Azure AD log data (Sign-in logs, Audit logs, Non-Interactive log, ServicePrincipal log & ManagedIdentity log) is ingested to the Log Analytics workspace. 
+
+This can be achieved with the following steps:
+- Export app permissions with aforementioned [Philippe Signoret](https://gist.github.com/psignoret) PowerShell script
+- Create dedicated Azure storage account and ingest data exported from previous step to the storage account 
+- With Log Analytics externaldata operator you can use runtime storage for .CSV files. Storage files require SAS token to access, which is provided to the externaldata operator
+
+In this query we have combined data from the following sources:
+- AADServicePrincipalSignInLogs, AADManagedIdentitySignInLogs, SigninLogs & AADNonInteractiveUserSignInLogs
+- External data that contains Azure AD app permissions 
+
+This give us richer data for analyzing app consents and how widely the app is used. Information we used in example query:
+- Number of sign-ins, number of users, ClientDisplayName, permissions, principals & risk data
+ ![./media/LA-PS-ExtData-1.png](./media/LA-PS-ExtData-1.PNG)
+
 
 ## Microsoft Cloud App Security (MCAS)
 
@@ -89,6 +142,7 @@ MCAS offers way to detect automatically possible malicious applications. If you 
 ![./media/ConsentGrant7.png](./media/ConsentGrant7.png)
 
 ![./media/ConsentGrant8.png](./media/ConsentGrant8.png)
+
 
 ### MCAS Built-In Rules
 
@@ -115,6 +169,18 @@ The following policies are available out of the box in MCAS. It’s important to
 
 - Scans the OAuth apps connected to your environment and triggers an alert when an app downloads multiple files from Microsoft SharePoint or Microsoft OneDrive in a manner that is unusual for the user. This may indicate that the user account is compromised.
 
+
+### Application Governance Built-in Policies
+ 
+**Microsoft 365 OAuth Phishing Detection**
+- MAPG provides rules-based and ML-based detections to identify potential M365 OAuth phishing attacks.
+
+**Microsoft 365 OAuth App Reputation**
+- MAPG provides rules-based and ML-based detections to identify M365 OAuth apps which have exhibited suspicious behavior in other organizations
+
+**Microsoft 365 OAuth App Governance**
+- Alerts created by custom policies in AppG solution.
+
 *The following pictures shows configuration of two default policies*
 
 ![./media/ConsentGrant9.png](./media/ConsentGrant9.png)
@@ -135,13 +201,13 @@ Latency in this alert was approximately 20min in our tests.
 
 ![./media/ConsentGrant13.png](./media/ConsentGrant13.png)
 
-*Side note: During tests, we found that some application names are not accepted as registered applications but couldn’t find any documentation.*
+*Side note: During tests, we found that some application names were not accepted as registered applications but couldn’t find proper documentation about the topic.*
 
 ### MCAS Custom Rules
 
 Besides the built-in rules MCAS offers a way to create own custom policies based on the organization use cases. Useful in this case would be an alert every time when a user adds application that has “high” category permissions to Azure AD or the application category is “rare” or “uncommon”.
 
-OAuth App Added with High permissions
+**OAuth App Added with High permissions**
 
 - In this example the idea is to detect the application added to Azure AD that has high permissions and it’s “Community use” equals to “Rare & Uncommon”.
 
@@ -151,17 +217,37 @@ When MCAS scans the applications and detects possible malicious one with high pe
 
 ![./media/ConsentGrant15.png](./media/ConsentGrant15.png)
 
+## App Governance - Microsoft Cloud App Security (MCAS) add-on (AppG)
+App Governance, which is MCAS add-on, is the newest addition to Microsoft security solutions. Solution description from Microsoft: <em>'It's a security and policy management capability that customers can use to monitor and govern app behaviors and quickly identify, alert, and protect from risky behaviors with data, users, and apps. App governance is designed for&nbsp;OAuth-enabled apps&nbsp;that access&nbsp;Microsoft 365&nbsp;data via&nbsp;<a rel="noreferrer noopener" href="https://docs.microsoft.com/en-us/graph/use-the-api" target="_blank">Microsoft Graph APIs</a>'. &nbsp;</em></p>
+
+At the time of writing (09/13/2021) AppG is in public preview mode. Take into account that even it's MCAS add-on it requires a license, at least for now.
+
+### Architecture 
+
+Data is collected from different data sets such as Azure AD & Cloud App Security, the App Governance collect information and provides the data in a single pane of glass in compliance center (compliance.microsoft.com).
+
+![./media/AppG-Architecture.png](./media/AppG-Architecture.PNG)
+
+### Detection Policies and Visibility in App Governance
+AppG provides richer information than MCAS alone because it leverages data from both, Azure AD & MCAS. You can see information such as app permissions, usage and publisher information that helps to determine app risk levels from compliance point of view.
+
+![./media/AppG-data.png](./media/AppG-data.PNG)
+
+![./media/AppG-details.png](./media/AppG-details.PNG)
+
+![./media/AppG-Perms.png](./media/AppG-Perms.PNG)
+
 ## Azure Sentinel
 
-Azure Sentinel offers multiple out of the box rules related to the application administrative actions. In the picture below there are all default analytic rules listed that contains word “application”.
+Azure Sentinel offers multiple out of the box rules related to the application administrative actions. In the picture below there are listed all default Azure AD application related analytic rules.
 
-![./media/ConsentGrant16.png](./media/ConsentGrant16.png)
+![./media/AzSentinel-1.PNG](./media/AzSentinel-1.PNG)
 
-When integration between MCAS and Azure Sentinel is in place, and incidents are created based on MCAS alerts (MCAS doesn’t have incidents) you can expect to find the same MCAS application related alerts from the Azure Sentinel.
+When integration between M365 Defender (or MCAS) and Azure Sentinel is in place, and incidents are created based on MCAS alerts (MCAS doesn’t have incidents) you can expect to find the same MCAS application related alerts from the Azure Sentinel.
 
-![./media/ConsentGrant17.png](./media/ConsentGrant17.png)
+![./media/AzSentinel-2.PNG](./media/AzSentinel-2.PNG)
 
-![./media/ConsentGrant18.png](./media/ConsentGrant18.png)
+![./media/AzSentinel-3.PNG](./media/AzSentinel-3.PNG)
 
 **Azure Sentinel out of the box rules -** Mail.Read Permissions Granted to Application & Rare Application Consent - Incident examples
 
@@ -238,7 +324,7 @@ This defines and restricts the scope of permission which can be granted by the u
 
 AAD > User Settings > Enterprise Applications > ”Consent and Permissions” > “[Permission Classification](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/Permissions)"
 
-![./media/ConsentGrant24.png](./media/ConsentGrant24.png)
+![./media/ClassifyPermissions-1.png](./media/ClassifyPermissions-1.png)
 
 Disabling “app registration of users” and restricting user consent to “verified publishers” (or internals apps) on the low-risk permission are included in the recommendation from Microsoft to offer a “secure” user consent configuration.
 
@@ -374,7 +460,10 @@ AAD > User Settings > Enterprise Applications > ”[Admin consent requests (Prev
 
 ![./media/ConsentGrant31.png](./media/ConsentGrant31.png)
 
-Microsoft released some [recommendations on implementation and change process of admin consent request workflow](https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/configure-admin-consent-workflow). It’s important that every admin (who is part of the workflow process) is able to [evaluate the request](https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/manage-consent-requests#evaluating-a-request-for-tenant-wide-admin-consent) carefully and estimate the potential risk of the requested app. Verified publisher status and any compliance details from “MCAS Cloud App Catalog” should be included in the review.
+Microsoft released some [recommendations on implementation and change process of admin consent request workflow](https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/configure-admin-consent-workflow). It’s important that every admin (who is part of the workflow process) 
+- Is able to [evaluate the request](https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/manage-consent-requests#evaluating-a-request-for-tenant-wide-admin-consent) based on Microsoft guidance
+- Carefully and estimate the potential risk of the requested app. 
+    - Verified publisher status and any compliance details from “MCAS Cloud App Catalog” should be included in the review.
 
 *Side note: Microsoft released a documentation for admins with best practices in [managing consent to applications and evaluating consent requests](https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/manage-consent-requests).*
 
@@ -448,7 +537,7 @@ The following configuration could be preferred if you are already using a “Cus
 |Consent Policy| incl.| incl.| incl.|
 | Auto-remediation| ||MCAS|
 
-# Further reading (Update March 16th):
+# Further reading
 - [Azure AD, apps and consent grant (service accounts)](https://ingogegenwarth.wordpress.com/2021/02/23/aad-apps-consent-service-accounts/)
 - [TechCommunity Blog Post: Azure AD: Custom Application Consent Policies](https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/azure-ad-custom-application-consent-policies/ba-p/2115812)
 
