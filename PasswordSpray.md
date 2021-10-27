@@ -258,3 +258,4 @@ avoid disconnected identities in other Identity Systems with same credentials
 
 - [Protecting your organization against password spray attacks](https://www.microsoft.com/security/blog/2020/04/23/protecting-organization-password-spray-attacks/)
 - [Inside Microsoft Threat Protection: Mapping attack chains from cloud to endpoint](https://www.microsoft.com/security/blog/2020/06/18/inside-microsoft-threat-protection-mapping-attack-chains-from-cloud-to-endpoint/)
+- [Password Spray Investigation Playbook] (https://www.microsoft.com/security/blog/2020/04/23/)
