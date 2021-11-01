@@ -142,6 +142,14 @@ If thresholds are reached you will receive an email from Microsoft (based on the
 
 ![./media/PWSpray10.png](./media/PWSpray10.png)
 
+***ADFS Sign-in Logs in Azure AD***
+
+Since this playbook was announced there has been significant impovements in ADFS sign-in visibility in Azure AD. Earlier, only successful sign-ins in ADFS were found in Azure AD logs but after changes during 2021 you can send majority of ADFS related logs to Azure AD.
+
+This scenario can be achieved with Azure AD Connect Health Agent for ADFS. It requires Azure AD Connect Health for AD FS installed to all ADFS farm servers and upgraded to latest version (3.1.95.0 or later)
+
+Description by Microsoft: *The Connect Health for AD FS agent correlates multiple Event IDs from AD FS, dependent on the server version, to provide information about the request and error details if the request fails. This information is correlated to the Azure AD sign-ins report schema and displayed in the Azure AD Sign-In Report UX.*
+
 ### Side note: Detection of on-premises attacks to Active Directory
 
 **Microsoft Defender for Identity (Azure ATP)** - contains built-in alert rules that detects brute force & password spray type of attacks at the on-premises environment
