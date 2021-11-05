@@ -2,6 +2,7 @@
 
 Author: Sami Lamppu, Thomas Naunheim
 Created: November 2020
+Updated: November 2021
 
 *"A password spray attack is where multiple usernames are attacked using common passwords in a unified brute force manner to gain unauthorized access.”*
 
@@ -15,11 +16,12 @@ During our tests, we used different tools for simulating password spray attacks 
 Each of them accessing different API endpoints:
 
 - MSOLSpray (by Dafhack): 
-[https://graph.windows.net](https://graph.windows.net/)
+[MSOLSpray](https://github.com/dafthack/MSOLSpray)
 - [Invoke-AzureAdPasswordSprayAttack](https://danielchronlund.com/2020/03/17/azure-ad-password-spray-attacks-with-powershell-and-how-to-defend-your-tenant/) (by Daniel Chronlund):
-[https://reports.office365.com/ecp/reportingwebservice/reporting.svc](https://reports.office365.com/ecp/reportingwebservice/reporting.svc)
-- MSOLSpray (by Dafhack): 
-[https://graph.windows.net](https://graph.windows.net/)
+
+- MFASweep (by Dafhack): 
+[MFASweep](https://github.com/dafthack/MFASweep)
+
 - [Custom password spray tool made by Joosua Santasalo](https://twitter.com/santasalojoosua/status/1326060995614298112?s=21)
 - Logins to different cloud workloads:
 (EXO, O365 portal, Azure management API)
@@ -71,7 +73,7 @@ Source: [Guided UEBA Investigation Scenarios to empower your SOC](https://techco
 During our tests we have seen delay between a couple of hours to multiple days.
 - Identity Protection allows to remediate the user risk in case of a successful attack (user risk level will be changed to “high”). During our test, an unsuccessful attack has not changed the user risk and should be actively monitored as “Risk detection”.
 
-### Suspicious activity in Microsoft Cloud App Security (MCAS)
+### Suspicious activity in Microsoft Defender for Cloud Apps (former Cloud App Security)
 
 *Applies to Azure AD with licensed MCAS instance and configured App Connectors*
 
