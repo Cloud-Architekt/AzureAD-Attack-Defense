@@ -8,6 +8,26 @@ Updated: November 2021
 
 *MITRE ATT&CK: [Credential Access (T1110)](https://attack.mitre.org/techniques/T1110/003/)*
 
+- [Password Spray Attacks](#password-spray-attacks)
+  - [Attack](#attack)
+    - [Tools and Utilities to simulate Password Spray attacks](#tools-and-utilities-to-simulate-password-spray-attacks)
+    - [Enumeration of user names](#enumeration-of-user-names)
+  - [Detection](#detection)
+    - [Sign-in logs In Azure Active Directory](#sign-in-logs-in-azure-active-directory)
+    - [KQL Query in Azure Sentinel / Azure Monitor (based on AAD sign-in logs)](#kql-query-in-azure-sentinel--azure-monitor-based-on-aad-sign-in-logs)
+    - [Risk Detection “Password Spray” in Azure AD Identity Protection](#risk-detection-password-spray-in-azure-ad-identity-protection)
+    - [Suspicious activity in Microsoft Defender for Cloud Apps (former Cloud App Security)](#suspicious-activity-in-microsoft-defender-for-cloud-apps-former-cloud-app-security)
+    - [Side note: Visibility of attacks against inviting Azure AD Tenant](#side-note-visibility-of-attacks-against-inviting-azure-ad-tenant)
+    - [Side notes: Detection in Active Directory Federation Services environments](#side-notes-detection-in-active-directory-federation-services-environments)
+    - [Side note: Detection of on-premises attacks to Active Directory](#side-note-detection-of-on-premises-attacks-to-active-directory)
+    - [Side notes: Detection in PTA environments:](#side-notes-detection-in-pta-environments)
+    - [Automated Response and Remediation](#automated-response-and-remediation)
+    - [Lockout attackers from continue spray attacks](#lockout-attackers-from-continue-spray-attacks)
+    - [Auto-Remediation after a successful attack](#auto-remediation-after-a-successful-attack)
+    - [Auto-Response to attack-related entities](#auto-response-to-attack-related-entities)
+  - [Mitigation (and Reduced Attack Surface)](#mitigation-and-reduced-attack-surface)
+  - [Technical Background and References](#technical-background-and-references)
+
 ## Attack
 
 ### Tools and Utilities to simulate Password Spray attacks
@@ -51,15 +71,27 @@ Before starting spray attacks it’s technical possible to validate if a user ac
 
 ### KQL Query in Azure Sentinel / Azure Monitor (based on AAD sign-in logs)
 
-**Azure Sentinel** includes an analytic rule (built-in) to detect "[Password spray attack against Azure AD application](https://github.com/Azure/Azure-Sentinel/blob/master/Detections/SigninLogs/SigninPasswordSpray.yaml)” which will be triggered and worked very well during our attack simulations. The query is available [from the Azure Sentinel GitHub](https://github.com/Azure/Azure-Sentinel/blob/master/Detections/SigninLogs/SigninPasswordSpray.yaml) Repository and can be also used as “[Azure Monitor Alert](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/tutorial-response)” if you haven’t implemented Sentinel as your Cloud-SIEM solution.
+**Azure Sentinel** includes a few analytic rules (built-in) to detect possible password spray attack.
+
+- "[Password spray attack against Azure AD application](https://github.com/Azure/Azure-Sentinel/blob/master/Detections/SigninLogs/SigninPasswordSpray.yaml)” which will be triggered and worked very well during our attack simulations. The analytic rule is available [from the Azure Sentinel GitHub](https://github.com/Azure/Azure-Sentinel/blob/master/Detections/SigninLogs/SigninPasswordSpray.yaml) repository and also in Microsoft Sentinel instance (Rule templates). If environment doesn't have Microsoft Sentinel as Cloud-based SIEM solution the query can be also used as “[Azure Monitor Alert](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/tutorial-response)”.
 
 ![./media/PWSpray2.png](./media/PWSpray3.png)
 
+- [Potential Password Spray Attack (Uses Authentication Normalization)](https://github.com/Azure/Azure-Sentinel/blob/master/Detections/ASimAuthentication/imAuthPasswordSpray.yaml)
+  - This rule needs Advanced SIEM Information Model (ASIM) deployed. ASIM parsers can be easily deployed from [Azure Sentinel GitHub](https://github.com/Azure/Azure-Sentinel/tree/master/Parsers/ASim).
+    - In Microsoft Sentinel, parsing and normalizing happen at query time. Parsers are built as KQL user-defined functions that transform data in existing tables, such as CommonSecurityLog, custom logs tables, or Syslog, into the normalized schema. Once the parser is saved as a workspace function, it can be used like any Microsoft Sentinel table.
+
+*In the picture below you can see password spray attack related built-in rules in Microsoft Sentinel*.
+![./media/PwSpray7.6.PNG](./media/PwSpray7.6.PNG)
+
+
+
 *Example of an “Azure Sentinel Incident” in case of password spray attacks including entities for further hunting and investigation.*
+![./media/PWSpray4.gif](./media/PWSpray4.gif)
 
 Analytics of [“Entity Behavior” in Azure Sentinel](https://techcommunity.microsoft.com/t5/azure-sentinel/guided-ueba-investigation-scenarios-to-empower-your-soc/ba-p/1857100) allows further investigation in combination of other security alerts and events.
 
-![./media/PWSpray4.gif](./media/PWSpray4.gif)
+![./media/UEBA-1.PNG](./media/UEBA-1.PNG)
 
 *Entity insights of Azure Sentinel allows deep-dive investigation of potential attacks.
 Source: [Guided UEBA Investigation Scenarios to empower your SOC](https://techcommunity.microsoft.com/t5/azure-sentinel/guided-ueba-investigation-scenarios-to-empower-your-soc/ba-p/1857100) (Microsoft TechCommunity)*
@@ -72,6 +104,9 @@ Source: [Guided UEBA Investigation Scenarios to empower your SOC](https://techco
 - ML-based risk detection will be **calculated in [offline](https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-risks#sign-in-risk)** which leads to delay.
 During our tests we have seen delay between a couple of hours to multiple days.
 - Identity Protection allows to remediate the user risk in case of a successful attack (user risk level will be changed to “high”). During our test, an unsuccessful attack has not changed the user risk and should be actively monitored as “Risk detection”.
+- In August 2021 Microsoft announced updates on Azure AD Identity Protection detection mechanisms which leads to volume of sign-ins with log aggregate dropped by more than 60%, and the quality of the alerts, improved by 100%.
+
+More information about feature updates from Microsoft announcement: [Announcing Improved Identity Protection Signal Quality and Visibility](https://techcommunity.microsoft.com/t5/azure-active-directory-identity/announcing-improved-identity-protection-signal-quality-and/ba-p/2464410)
 
 ### Suspicious activity in Microsoft Defender for Cloud Apps (former Cloud App Security)
 
@@ -88,6 +123,11 @@ During our tests we have seen delay between a couple of hours to multiple days.
         - Threshold – low in test environment
 
           ![./media/PWSpray5.png](./media/PWSpray5.png)
+
+In the latest Microsoft Defender for Cloud Apps update (October 2021) there was a significant update for detecting possible password spray attacks (mainly reducing the alert noice). 
+- Impossible travel, activity from infrequent countries, activity from anonymous IP addresses, and activity from suspicious IP addresses alerts will not apply on failed logins.
+  
+*After a thorough security review, we decided to separate failed login handling from the alerts mentioned above. From now on, they'll only be triggered by successful login cases and not by unsuccessful logins or attack attempts. Mass failed login alert will still be applied if there are anomalous high amount of failed login attempts on a user.*
 
 ### Side note: Visibility of attacks against inviting Azure AD Tenant
 
@@ -114,7 +154,6 @@ Access of Guest users (B2B) will not be protected by Conditional Access Policies
 
 ### Side notes: Detection in Active Directory Federation Services environments
 
-*When analyzing logins from ADFS the key takeaway is that failed logins from ADFS are not found from Azure AD sign-in logs, only successful ones are.*
 
 ***Extranet Lockout & Extranet Smart Lockout***
 
@@ -142,17 +181,37 @@ It’s recommended to have AAD Connect Health for ADFS installed on ADFS servers
 
 If thresholds are reached you will receive an email from Microsoft (based on the notification settings) about failed logins from a potentially risky IP-address.
 
-![./media/PWSpray10.png](./media/PWSpray10.png)
+![./media/PwSpray7.4.PNG](./media/PwSpray7.4.PNG)
 
 ***ADFS Sign-in Logs in Azure AD***
 
-Since this playbook was announced there has been significant impovements in ADFS sign-in visibility in Azure AD. Earlier, only successful sign-ins in ADFS were found in Azure AD logs but after changes during 2021 you can send majority of ADFS related logs to Azure AD.
+Since this playbook was announced (October 2021) there has been significant improvements in ADFS sign-in visibility in Azure AD. Earlier, only successful sign-ins in ADFS were found in Azure AD logs but after changes during 2021 you can send majority of ADFS related logs to Azure AD.
 
 This scenario can be achieved with Azure AD Connect Health Agent for ADFS. It requires Azure AD Connect Health for AD FS installed to all ADFS farm servers and upgraded to latest version (3.1.95.0 or later)
 
-Description by Microsoft: *The Connect Health for AD FS agent correlates multiple Event IDs from AD FS, dependent on the server version, to provide information about the request and error details if the request fails. This information is correlated to the Azure AD sign-ins report schema and displayed in the Azure AD Sign-In Report UX.*
+*Description by Microsoft: The Connect Health for AD FS agent correlates multiple Event IDs from AD FS, dependent on the server version, to provide information about the request and error details if the request fails. This information is correlated to the Azure AD sign-ins report schema and displayed in the Azure AD Sign-In Report UX.*
+
+
+More information about the pre-requisites and how to establish:
+[ADFS sign-ins in Azre AD with Connect Health](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-health-ad-fs-sign-in)
+
+*Federated sign-ins in Azure AD sign-in logs*
+
+![./media/PWSpray7.2.png](./media/PWSpray7.2.png)
+
+*Federated sign-ins in Azure Log Analytics*
+
+![./media/PWSpray7.1.png](./media/PWSpray7.1.png)
+
+*Account lockout event from Web Application Proxy in Azure AD Sign-in logs*
+
+![./media/PWSpray7.3.png](./media/PWSpray7.3.png)
 
 ### Side note: Detection of on-premises attacks to Active Directory
+Investigation triggers at on-premises environment:
+- Large number of failed sign-ins (Event ID 411)
+- Spike in failed federated sign-ins in Azure AD / Log Analytics
+  - Azure AD Connect Health for ADFS report shows high number of bad password attempts or risky IPs
 
 **Microsoft Defender for Identity (Azure ATP)** - contains built-in alert rules that detects brute force & password spray type of attacks at the on-premises environment
 
@@ -256,16 +315,23 @@ avoid disconnected identities in other Identity Systems with same credentials
         - Check references by [Microsoft Research](https://www.microsoft.com/en-us/research/publication/password-guidance/) and [NIST password guidelines](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63-3.pdf)
         - Disable password expiration
         - Increase password length and block popular words as part of passwords
-    - Use AAD Password Protection (incl. Global and Custom Banned List) to strength the quality of passwords and avoid common passwords
+    - Use AAD Password Protection (incl. Global and Custom Banned List) to strength the quality of passwords and avoid common passwords - [Enable on-premises Azure AD Password Protection ](https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-password-ban-bad-on-premises-operations)
     - Design a modern approach for passwords in your Azure AD environment
     (Recommended read: [Blog post by Alexander Filipin](https://alexfilipin.medium.com/modernize-your-approach-to-passwords-with-the-azure-ad-identity-platform-e12769c37fbe))
 - Implement a process to reset compromised accounts and **block previous used credentials**
 - **Protection and prevention in exposing of user lists**
     - Monitoring and blocking of suspicious apps with “read directory data” or “read user profile” permissions
     - [Restrict guest users](https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/users-restrict-guest-permissions) (B2B) to prevent enumeration of user lists. [Consider the default permissions](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/users-default-permissions) of user types and prevent untrusted or external identities to become “member” permissions.
+-  **Block IP address of attacker (keep an eye out for changes to another IP address)**
+      - Blocking IP address blocks the immediate attack but it's easy to change IP address from attacker point of view. For that reason, monitor the activity after blocking the IP.
+- **Enable ADFS Extranet Lockout**
+  - If you are still using ADFS as IDP and not already enabled. How to implement - [Configure ADFS Extranet Lockout Protection](https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/operations/configure-ad-fs-extranet-soft-lockout-protection)
+- **Tag bad IP address in MCAS, SIEM, ADFS & Azure AD**
+  - To detect malicious IP-addresses in the future tag them as "bad/malicious" in the security solutions used in the environment.
 
 ## Technical Background and References
 
 - [Protecting your organization against password spray attacks](https://www.microsoft.com/security/blog/2020/04/23/protecting-organization-password-spray-attacks/)
 - [Inside Microsoft Threat Protection: Mapping attack chains from cloud to endpoint](https://www.microsoft.com/security/blog/2020/06/18/inside-microsoft-threat-protection-mapping-attack-chains-from-cloud-to-endpoint/)
-- [Password Spray Investigation Playbook] (https://www.microsoft.com/security/blog/2020/04/23/)
+- [Incident Response Playbook - Password Spray Investigation](https://docs.microsoft.com/en-us/security/compass/incident-response-playbook-password-spray)
+- [Protecting your organization against password spray attacks(https://www.microsoft.com/security/blog/2020/04/23/protecting-organization-password-spray-attacks/)]
