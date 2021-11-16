@@ -17,8 +17,6 @@ Unified SecOps of M365 Services</A><br>
 - <A href="#microsoft-sentinel-single-pane-of-glass-across-azure-microsoft-365-and-3rd-party-cloud-platforms"><b>Microsoft Sentinel:</b>
 “Single pane of glass” across Azure, M365 and "3rd party solutions"</A>
 
-## MDCA and "Defender for Identity": Unified SecOps of connected "Cloud Apps" and "Hybrid Identity"
-
 ## Identity Security Monitoring in a Hybrid Environment
 
 In the recent year, I‘ve talked about monitoring of Azure Active Directory in community sessions and talks. From my point of view a comprehensive monitoring of "identity security events must be an essential part of deployment plans and daily operations. Even though it may seem obvious as „best practice“ („[Actively monitor for suspicious activities](https://docs.microsoft.com/en-us/azure/security/fundamentals/identity-management-best-practices#actively-monitor-for-suspicious-activities?WT.mc_id=AZ-MVP-5003945)“), it is sometimes underrated.
@@ -83,9 +81,9 @@ Changes of Azure RBAC are also part of this activity logs.
 - [Azure Resource Logs (Diagnostic Logs)](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/resource-logs?WT.mc_id=AZ-MVP-5003945?WT.mc_id=AZ-MVP-5003945):
 Insights and "Audit Logs" of operations that were performed within an "Azure resource" are stored here. This includes the logging of identity and access (IAM)-related services such as "Azure KeyVault". You need to configure the [diagnostic settings to monitor access](https://docs.microsoft.com/en-us/azure/key-vault/general/howto-logging?WT.mc_id=AZ-MVP-5003945) of secrets and certificates which are stored in the vault.
 - [Storage of Security Events in Log Analytics](https://docs.microsoft.com/en-us/azure/security-center/security-center-enable-data-collection?WT.mc_id=AZ-MVP-5003945#setting-the-security-event-option-at-the-workspace-level):
-Collect all (security) events from servers in Azure and non-Azure/On-Premises infrastructure as part of the Azure Security Center and Data Collection.
+Collect all (security) events from servers in Azure and non-Azure/On-Premises infrastructure as part of the Microsoft Defender for Cloud and Data Collection.
     - [Collect data from physical/virtual server (hybrid environments) with Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-collect-windows-computer?WT.mc_id=AZ-MVP-5003945) and Log Analytics Agent (Event Logs and Performance Counter)
-    - Data Collection of "security logs" to Log Analytics can be [configured in "Azure Security Center"](https://docs.microsoft.com/en-us/azure/security-center/security-center-enable-data-collection#what-event-types-are-stored-for-common-and-minimal?WT.mc_id=AZ-MVP-5003945) by choosing "All Events", "Minimal" or "Common" options. Therefore it's strongly recommended to use the same workspace for "Azure Security Center" and "Azure Monitor" logs.
+    - Data Collection of "security logs" to Log Analytics can be [configured in "Azure Security Center"](https://docs.microsoft.com/en-us/azure/security-center/security-center-enable-data-collection#what-event-types-are-stored-for-common-and-minimal?WT.mc_id=AZ-MVP-5003945) by choosing "All Events", "Minimal" or "Common" options. Therefore it's strongly recommended to use the same workspace for "Microsoft Defender for Cloud" and "Azure Monitor" logs.
     - Use cases for (Active Directory) Domain Controller log queries:
         - [Query Active Directory Security Events using Azure Log Analytics and Azure Security Center (Blog post by Richard Hooper / Pixel Robots)](https://pixelrobots.co.uk/2019/07/query-active-directory-security-events-using-azure-log-analytics-on-the-cheap/)
         - [Using Azure Security Center and Log Analytics to Audit Use of NTLM](https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/using-azure-security-center-and-log-analytics-to-audit-use-of/ba-p/1077045?WT.mc_id=M365-MVP-5003945)
@@ -197,7 +195,7 @@ Azure Monitor is able to trigger complex actions based on defined rules (such as
 - [Customer-managed keys](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/customer-managed-keys?WT.mc_id=AZ-MVP-5003945) can be configured and are supported for encryption in "Azure Monitor".
 - Self-Service Password Reset (SSPR): Monitor blocked attempts or suspicious activity via [Azure Monitor Alerts or Microsoft Sentinel](https://www.cloud-architekt.net/azuread-sspr-deployment-and-detection/)
 - Consider service principal logs and the challenges to build relation to "Azure Activity" or "(Azure) DevOps Deployment pipeline" logs, [as described in my previous blog post](https://www.cloud-architekt.net/auditing-of-msi-and-service-principals/)!
-- Currently, there are four different "Windows Agents"  for Azure Monitor available. Read the Microsoft Docs article to get an overview of the various [Azure Monitor agents](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/agents-overview?WT.mc_id=AZ-MVP-5003945). The new "Azure Monitor agent" is "General Available" (GA) now and will be the consolidated solution. Consider that previous/legacy agents will be deprecated. Keep in mind to evaluate if your [solutions and scenarios are supported with the "new" Azure Monitor Agent](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/azure-monitor-agent-overview?tabs=PowerShellWindows?WT.mc_id=AZ-MVP-5003945#supported-services-and-features) (e.g. Microsoft Sentinel or Azure Security Center).
+- Currently, there are four different "Windows Agents"  for Azure Monitor available. Read the Microsoft Docs article to get an overview of the various [Azure Monitor agents](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/agents-overview?WT.mc_id=AZ-MVP-5003945). The new "Azure Monitor agent" is "General Available" (GA) now and will be the consolidated solution. Consider that previous/legacy agents will be deprecated. Keep in mind to evaluate if your [solutions and scenarios are supported with the "new" Azure Monitor Agent](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/azure-monitor-agent-overview?tabs=PowerShellWindows?WT.mc_id=AZ-MVP-5003945#supported-services-and-features) (e.g. Microsoft Sentinel or Microsoft Defender for Cloud).
 - Marius Sandbu has written an excellent ["deep dive" article about "Azure Monitor" and "Log Analytics"](https://msandbu.org/deep-dive-azure-monitor-and-log-analytics/) which is strongly recommended to read for a good understanding of the architecture.
 
 ## MDCA and "Defender for Identity": Unified SecOps of connected "Cloud Apps" and "Hybrid Identity"
@@ -212,9 +210,11 @@ Azure Monitor is able to trigger complex actions based on defined rules (such as
 
 *MDCA allows you to [connect Microsoft‘s Azure platform](https://docs.microsoft.com/en-us/cloud-app-security/connect-azure-to-microsoft-cloud-app-security?WT.mc_id=AZ-MVP-5003945) and other cloud platform provider ([AWS](https://docs.microsoft.com/en-us/cloud-app-security/connect-aws-to-microsoft-cloud-app-security?WT.mc_id=AZ-MVP-5003945) and [Google Cloud Platform](https://docs.microsoft.com/en-us/cloud-app-security/connect-google-gcp-to-microsoft-cloud-app-security)) via "App Connector". This makes the „Activity logs“ available in MDCA for investigation and trigger alerts. The security configuration of "Google Cloud" and "Amazon Web Services" (AWS) can be integrated to provide fundamental security recommendations based on the CIS benchmark.* 
 
-#### Azure Security Center (ASC) and MDCA-Integration
+#### Microsoft Defender for Cloud (fka Azure Security Center) and MDCA-Integration
 
-*Security Configuration [Assessment results](https://docs.microsoft.com/en-us/cloud-app-security/security-config?WT.mc_id=AZ-MVP-5003945) of MDCA will be collected from the "Azure Security Center". This gives you a common view of the [security posture, usage of cloud resources and suspicious activities](https://docs.microsoft.com/en-us/cloud-app-security/tutorial-cloud-platform-security) across your cloud infrastructure assets (in Microsoft Azure).*
+*Security Configuration [Assessment results](https://docs.microsoft.com/en-us/cloud-app-security/security-config?WT.mc_id=AZ-MVP-5003945) of MDCA will be collected from "Microsoft Defender for Cloud". This gives you a common view of the [security posture, usage of cloud resources and suspicious activities](https://docs.microsoft.com/en-us/cloud-app-security/tutorial-cloud-platform-security) across your cloud infrastructure assets (in Microsoft Azure).*
+
+_Side note: It's strongly recommended to have a look on the Multi-Cloud Posture Management features in "Microsoft Defender for Cloud" (MDC) to integrate 3rd Party Cloud providers (AWS, Google Cloud). There are a couple of benefits to use the Azure Portal and MDC for review of security configuration and assessments_ 
 
 #### Cloud Identity in MDCA
 
@@ -355,7 +355,8 @@ Automation of (governance) actions can be realized by "PowerAutomate". Microsoft
 - Currently, blocking access to Cloud apps by (custom) indicators in "Microsoft Defender for Endpoint" (MDE) has some limitations:
     - MDE allows 15.000 indicators per tenant
     - This feature is supported on Windows 10 only (no support for ATP on MacOS or Linux yet)
-- Detailed training on MDCA features is available for self-study as “[Ninja Training](https://techcommunity.microsoft.com/t5/microsoft-security-and/the-microsoft-cloud-app-security-mcas-ninja-training-is-here/ba-p/1877343?WT.mc_id=M365-MVP-5003945)”
+- Detailed training on MDCA features is available for self-study as “[Ninja Training](https://techcommunity.microsoft.com/t5/microsoft-security-and/the-microsoft-cloud-app-security-mcas-ninja-training-is-here/ba-p/1877343?WT.mc_id=M365-MVP-5003945)"
+- Overview of APIs and best practices in using them are described in a [TechCommunity blog post](https://techcommunity.microsoft.com/t5/security-compliance-and-identity/apis-and-best-security-practices-for-microsoft-defender-for/ba-p/2909931)?WT.mc_id=M365-MVP-5003945
 
 ### Considerations and References of Microsoft Defender for Identity (MDI)
 - Microsoft has published a [Ninja Training for MDI](https://techcommunity.microsoft.com/t5/security-compliance-identity/microsoft-defender-for-identity-ninja-training/ba-p/2117904?WT.mc_id=M365-MVP-5003945) which gives you a good overview about features and detections
@@ -376,7 +377,7 @@ Automation of (governance) actions can be realized by "PowerAutomate". Microsoft
 
 *Sample use case: SecOps needs a unified visibility of logs and possibility of hunting across all "Microsoft 365" services and assets (data, identity, endpoints and cloud apps). Consolidated view on logs and summarized incidents from all "M365 Defender" services with enriched data is needed. Using centralized investigation of recorded activities (telemetry) in M365 services and empowering built-in (auto)-remediation of incidents by "Automated Investigation and Response (AIR) System".* 
 
-![./media/identity-monitoring/AzIdentity_AzMonitor.png](./media/identity-monitoring/AzIdentity_MTP.png)
+![./media/identity-monitoring/AzIdentity_AzMonitor.png](./media/identity-monitoring/AzIdentity_M365D.png)
 
 Microsoft 365 Defender (formerly "Microsoft Threat Protection") supports various services from the "M365 platform". Check the "[supported services](https://docs.microsoft.com/en-us/microsoft-365/security/mtp/deploy-supported-services?WT.mc_id=M365-MVP-5003945)" list to understand which data sources can be integrated. Start using "M365 Defender" is very easy by "[turn on](https://docs.microsoft.com/en-us/microsoft-365/security/mtp/mtp-enable?WT.mc_id=M365-MVP-5003945)" the described setting in the "Microsoft 365 Security Center".
 
@@ -398,9 +399,10 @@ MDCA feeds many type of alerts to "M365 Defender" and "sign-in risk events" (det
     - "Impossible Travel" is detected by MDCA and will be shown in the "Identity Protection" blade of Azure AD. But this risk detection is also listed as MDCA alert ("Impossible travel activity") and will be shown in the "Incident" view of "M365 Defender" and exists in the "[AlertInfo](https://docs.microsoft.com/en-us/microsoft-365/security/mtp/advanced-hunting-alertinfo-table?WT.mc_id=M365-MVP-5003945)" table.
 
     ![./media/identity-monitoring/AzIdentity_M365D_Incidents.png](./media/identity-monitoring/AzIdentity_M365D_Incidents.png)
-    _Alerts from MDCA (and MDI) will be summarized as "Incidents" in the "M365 Security Portal". Detections by "Azure AD Identity Protection" (e.g. Password Spray) are missing. Update: Since Spring/Summer 2021, activity policies and custom policies will be shown forward to M365 Defender as alert._
+    
+    Alerts from MDCA (and MDI) will be summarized as "Incidents" in the "M365 Security Portal". Detections by "Azure AD Identity Protection" (e.g. Password Spray) are missing. Update: Since Spring/Summer 2021, activity policies and custom policies will be forward to M365 Defender as alert.
 
-    ![./media/identity-monitoring/AzIdentity_M365D_MDCAAlerts.png](./media/identity-monitoring/AzIdentity_M365D_MDCAAlerts.png)
+    ![./media/identity-monitoring/AzIdentity_M365D_MDCAAlerts.png](./media/identity-monitoring/AzIdentity_M365D_MCASAlerts.png)
     _In comparison with the list of alerts in MDCA, not existing alerts in "M365 Defender" are bordered in red._
 
 - [IdentityInfo:](https://docs.microsoft.com/en-us/microsoft-365/security/mtp/advanced-hunting-identityinfo-table?WT.mc_id=M365-MVP-5003945) Account information from various identity sources (including "Active Directory" and "Azure AD") will be stored here, to enable build relation between user objects (e.g. ObjectID, "On-Premises SID" and "Cloud SID"). Other details such as DisplayName, ProxyAddress or Account Status are also included.
@@ -640,7 +642,7 @@ Advanced logs (data) and all types of alerts from MDO are *not* available yet. A
 
 ### Incidents and Workbooks in "Microsoft Sentinel" blade
 
-Incidents blade of "Microsoft Sentinel" shows all alerts from the "connected data sources" in Microsoft Sentinel. This includes MDCA "custom alerts" (e.g. activity policy "Elevated Global Admin to Azure Management") and all other built-in policies or detections (e.g. "Mass Download by a single user" in MDCA). But also alerts from "Azure Security Center" ("Access from a Tor exit") and "Analytic rules" (from Microsoft Sentinel) on Azure Activity Logs ("Rare subscription-level operations") will be listed.
+Incidents blade of "Microsoft Sentinel" shows all alerts from the "connected data sources" in Microsoft Sentinel. This includes MDCA "custom alerts" (e.g. activity policy "Elevated Global Admin to Azure Management") and all other built-in policies or detections (e.g. "Mass Download by a single user" in MDCA). But also alerts from "Microsoft Defender for Cloud" ("Access from a Tor exit") and "Analytic rules" (from Microsoft Sentinel) on Azure Activity Logs ("Rare subscription-level operations") will be listed.
 
 ![./media/identity-monitoring/AzIdentity_AzSentinelIncidents.png](./media/identity-monitoring/AzIdentity_AzSentinelIncidents.png)
 
