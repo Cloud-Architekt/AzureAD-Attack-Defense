@@ -215,9 +215,8 @@ Azure Monitor is able to trigger complex actions based on defined rules (such as
 *MDCA allows you to [connect Microsoft‘s Azure platform](https://docs.microsoft.com/en-us/cloud-app-security/connect-azure-to-microsoft-cloud-app-security?WT.mc_id=AZ-MVP-5003945) and other cloud platform provider ([AWS](https://docs.microsoft.com/en-us/cloud-app-security/connect-aws-to-microsoft-cloud-app-security?WT.mc_id=AZ-MVP-5003945) and [Google Cloud Platform](https://docs.microsoft.com/en-us/cloud-app-security/connect-google-gcp-to-microsoft-cloud-app-security)) via "App Connector". This makes the "Activity logs" available in MDCA for investigation and trigger alerts. The security configuration of "Google Cloud" and "Amazon Web Services" (AWS) can be integrated to provide fundamental security recommendations based on the CIS benchmark.* 
 
 #### Microsoft Defender for Cloud (fka Azure Security Center) and MDCA-Integration
-
 *Security Configuration [Assessment results](https://docs.microsoft.com/en-us/cloud-app-security/security-config?WT.mc_id=AZ-MVP-5003945) of MDCA will be collected from "Microsoft Defender for Cloud". This gives you a common view of the [security posture, usage of cloud resources and suspicious activities](https://docs.microsoft.com/en-us/cloud-app-security/tutorial-cloud-platform-security) across your cloud infrastructure assets (in Microsoft Azure).*
-=======
+
 #### Microsoft Defender for Cloud and MCAS-Integration
 
 _Side note: It's strongly recommended to have a look on the Multi-Cloud Posture Management features in "Microsoft Defender for Cloud" (MDC) to integrate 3rd Party Cloud providers (AWS, Google Cloud). There are a couple of benefits to use the Azure Portal and MDC for review of security configuration and assessments_ 
