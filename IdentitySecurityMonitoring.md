@@ -10,11 +10,13 @@ _Created: December 2020, Updated November 2021_
 - <A href="#identity-security-monitoring-in-a-hybrid-environment">Identity Security Monitoring in a "Hybrid Environment"</A><br>
 - <A href="#azure-monitor-operational-logs-and-alerts-of-azure-ad-and-azure-workloads"><b>Azure Monitor:</b>
 Operational Logs and Alerts of "Azure AD" and "Azure Workloads"</A><br>
+
 - <A href="#mdca-and-defender-for-identity-unified-secops-of-connected-cloud-apps-and-hybrid-identity"><b>Microsoft Defender for Cloud Apps:</b>
 Unified SecOps of connected "Cloud Apps" and "Hybrid Identity"</A><br>
 - <A href="#microsoft-365-defender-unified-secops-of-m365-services"><b>Microsoft 365 Defender:</b>
 Unified SecOps of M365 Services</A><br>
 - <A href="#microsoft-sentinel-single-pane-of-glass-across-azure-microsoft-365-and-3rd-party-cloud-platforms"><b>Microsoft Sentinel:</b>
+
 “Single pane of glass” across Azure, M365 and "3rd party solutions"</A>
 
 ## Identity Security Monitoring in a Hybrid Environment
@@ -26,13 +28,14 @@ Monitoring across "Azure AD" and "Active Directory" (including spreading between
 ![./media/identity-monitoring/AzIdentity_Security.png](./media/identity-monitoring/AzIdentity_Security.png)
 _"Microsoft Defender for Identity" (MDI), "Microsoft Defender for Cloud Apps" (MDAC) and "Azure AD Identity Protection" (IPC) protects identities on various levels and platforms (On-Premises, Session/Cloud Apps and Cloud Identity/Sign-ins)_ 
 
-Implementing "identity security" does not end with „enabling“ those features or by following the recommendations by „[Identity Secure Score](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/identity-secure-score?WT.mc_id=AZ-MVP-5003945)“...
 
-It’s important to develop a "continuous improvement" strategy of detections and "operational guide" to empower and monitor your signals of „guards“. This includes also to provide workflows for automated response, an "unified view" for incident management/hunting, security processes and posture management.
+Implementing "identity security" does not end with "enabling" those features or by following the recommendations by „[Identity Secure Score](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/identity-secure-score?WT.mc_id=AZ-MVP-5003945)“...
+
+It’s important to develop a "continuous improvement" strategy of detections and "operational guide" to empower and monitor your signals of "guards“. This includes also to provide workflows for automated response, an "unified view" for incident management/hunting, security processes and posture management.
 
 Extensive possibilities of "User and Entity Behavior Analytics" (UEBA) allows SecOps to find anomalous activities (calculated by machine learning algorithms) across the various data sources or signals instead of building a manual correlation.
 
-At always, keep up-to-date and notified about latest changes of security features, attack/defense scenarios or security recommendations. Verification of effectiveness by "simulated attacks" should be also part of your operational tasks.
+As always, keep up-to-date and notified about latest changes of security features, attack/defense scenarios or security recommendations. Verification of effectiveness by "simulated attacks" should be also part of your operational tasks.
 
 This blog post is an attempt to give a detailed overview on solutions to collect identity-related security events and implement auto-response on threads or risks.
 Many links to detailed documentation by Microsoft and members of the community are included.
@@ -49,6 +52,7 @@ _Tip: Verify and evaluate your implemented solutions and detections in a simulat
 [Incident response playbooks](https://docs.microsoft.com/en-us/security/compass/incident-response-playbooks?WT.mc_id=AZ-MVP-5003945) and the [attack/defense scenarios from the community-driven "Azure AD Playbook" project](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense) are offering detailed guidance and considerations for attack simulations._
 
 *Note: Microsoft announced many product name changes at the Ignite 2020 and Ignite 2021. I've used all new product names in this article.
+
 A good overview of all name changes are included [in this blog post by Microsoft](https://techcommunity.microsoft.com/t5/itops-talk-blog/microsoft-365-and-azure-security-product-name-changes/ba-p/1719167?WT.mc_id=M365-MVP-5003945).*
 
 | Previous product name             | New product name                        | Previous portal URL | New portal URL | Migration on Unified M365 Security Portal |
@@ -74,16 +78,18 @@ A good overview of all name changes are included [in this blog post by Microsoft
 *[Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor?WT.mc_id=AZ-MVP-5003945) allows you to collect logs from the Azure platform and resources for visualization and alerting or forwarding to other destination (for long-term retention or advanced scenarios). In this use case we are using Microsoft "Log Analytics" to enable advanced (KQL-based) queries and centralized collection of logs*. *The following data sources should be considered to collect relevant information for your IAM security monitoring:*
 
 - [Azure Activity Logs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/view-activity-logs?WT.mc_id=AZ-MVP-5003945):
-Platform logs of Azure which includes details on various events in your subscriptions and resources (including administrative activities, service health, recommendations).
+Platform logs (management plane) of Azure which includes details on various events in your subscriptions and resources (including administrative activities, service health, recommendations).
 Changes of Azure RBAC are also part of this activity logs.
     - [Collect and analyze Azure Activity Logs in Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/activity-log-collect?WT.mc_id=AZ-MVP-5003945)
     - [Data schema of Azure Audit Logs](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/activity-log-schema?WT.mc_id=AZ-MVP-5003945?WT.mc_id=AZ-MVP-5003945)
 - [Azure Resource Logs (Diagnostic Logs)](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/resource-logs?WT.mc_id=AZ-MVP-5003945?WT.mc_id=AZ-MVP-5003945):
-Insights and "Audit Logs" of operations that were performed within an "Azure resource" are stored here. This includes the logging of identity and access (IAM)-related services such as "Azure KeyVault". You need to configure the [diagnostic settings to monitor access](https://docs.microsoft.com/en-us/azure/key-vault/general/howto-logging?WT.mc_id=AZ-MVP-5003945) of secrets and certificates which are stored in the vault.
+(data plane) Insights and "Audit Logs" of operations that were performed within an "Azure resource" are stored here. This includes the logging of identity and access (IAM)-related services such as "Azure KeyVault". You need to configure the [diagnostic settings to monitor access](https://docs.microsoft.com/en-us/azure/key-vault/general/howto-logging?WT.mc_id=AZ-MVP-5003945) of secrets and certificates which are stored in the vault.
 - [Storage of Security Events in Log Analytics](https://docs.microsoft.com/en-us/azure/security-center/security-center-enable-data-collection?WT.mc_id=AZ-MVP-5003945#setting-the-security-event-option-at-the-workspace-level):
 Collect all (security) events from servers in Azure and non-Azure/On-Premises infrastructure as part of the Microsoft Defender for Cloud and Data Collection.
     - [Collect data from physical/virtual server (hybrid environments) with Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-collect-windows-computer?WT.mc_id=AZ-MVP-5003945) and Log Analytics Agent (Event Logs and Performance Counter)
-    - Data Collection of "security logs" to Log Analytics can be [configured in "Azure Security Center"](https://docs.microsoft.com/en-us/azure/security-center/security-center-enable-data-collection#what-event-types-are-stored-for-common-and-minimal?WT.mc_id=AZ-MVP-5003945) by choosing "All Events", "Minimal" or "Common" options. Therefore it's strongly recommended to use the same workspace for "Microsoft Defender for Cloud" and "Azure Monitor" logs.
+
+    - Data Collection of "security logs" to Log Analytics can be [configured in "Microsoft Defender for Cloud"](https://docs.microsoft.com/en-us/azure/security-center/security-center-enable-data-collection#what-event-types-are-stored-for-common-and-minimal?WT.mc_id=AZ-MVP-5003945) by choosing "All Events", "Minimal" or "Common" options. Therefore it's strongly recommended to use the same workspace for "Azure Security Center" and "Azure Monitor" logs.
+
     - Use cases for (Active Directory) Domain Controller log queries:
         - [Query Active Directory Security Events using Azure Log Analytics and Azure Security Center (Blog post by Richard Hooper / Pixel Robots)](https://pixelrobots.co.uk/2019/07/query-active-directory-security-events-using-azure-log-analytics-on-the-cheap/)
         - [Using Azure Security Center and Log Analytics to Audit Use of NTLM](https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/using-azure-security-center-and-log-analytics-to-audit-use-of/ba-p/1077045?WT.mc_id=M365-MVP-5003945)
@@ -213,12 +219,15 @@ Azure Monitor is able to trigger complex actions based on defined rules (such as
 #### Microsoft Defender for Cloud (fka Azure Security Center) and MDCA-Integration
 
 *Security Configuration [Assessment results](https://docs.microsoft.com/en-us/cloud-app-security/security-config?WT.mc_id=AZ-MVP-5003945) of MDCA will be collected from "Microsoft Defender for Cloud". This gives you a common view of the [security posture, usage of cloud resources and suspicious activities](https://docs.microsoft.com/en-us/cloud-app-security/tutorial-cloud-platform-security) across your cloud infrastructure assets (in Microsoft Azure).*
+=======
+#### Microsoft Defender for Cloud and MCAS-Integration
 
 _Side note: It's strongly recommended to have a look on the Multi-Cloud Posture Management features in "Microsoft Defender for Cloud" (MDC) to integrate 3rd Party Cloud providers (AWS, Google Cloud). There are a couple of benefits to use the Azure Portal and MDC for review of security configuration and assessments_ 
 
 #### Cloud Identity in MDCA
 
 *Azure AD audit and sign-in events are covered by the „Office 365 connector“ in MDCA. But only interactive sign-in activities and sign-in activities from legacy protocols seems to be included.
+
 Advanced categories such as "Service Principals" aren't covered by the connector (yet).* 
 
 - Severity of (cloud) identity risk alerts can be managed by [MDCA integration of "AAD Identity Protection"](https://docs.microsoft.com/en-us/cloud-app-security/aadip-integration?WT.mc_id=AZ-MVP-5003945).
@@ -745,5 +754,3 @@ It's strongly recommended to use this integrated workbook to check the health of
 - Managed Identities (MSI) are supported and can be used for [authentication in the Microsoft Sentinel Logic App connectors](https://techcommunity.microsoft.com/t5/azure-sentinel/what-s-new-managed-identity-for-azure-sentinel-logic-apps/ba-p/2068204) since January 2021.
 - Hybrid Runbook Worker can be integrated to run a playbook as automated response in on-premises environments. For Example: [Disable Active Directory users in case of a security incident](https://techcommunity.microsoft.com/t5/azure-sentinel/automatically-disable-on-prem-ad-user-using-a-playbook-triggered/ba-p/2098272?WT.mc_id=AZ-MVP-5003945).
 - You want to learn KQL? Check the [Basic KQL Course from Pluralsight](https://www.pluralsight.com/courses/kusto-query-language-kql-from-scratch) or "[Become a KQL Ninja" (KQL Internals Study Guide) by Huy](https://security-tzu.com/2020/08/07/become-a-kql-ninja/).
-
-
