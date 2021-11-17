@@ -129,6 +129,10 @@ In the latest Microsoft Defender for Cloud Apps update (October 2021) there was 
   
 *After a thorough security review, we decided to separate failed login handling from the alerts mentioned above. From now on, they'll only be triggered by successful login cases and not by unsuccessful logins or attack attempts. Mass failed login alert will still be applied if there are anomalous high amount of failed login attempts on a user.*
 
+Even though, failed logins doesn't trigger alerts those increases investigation priority score in Defender for Cloud Apps UEBA feature and might trigger an alert from UEBA perspective.
+
+![./media/UEBA-2.PNG](./media/UEBA-2.PNG)
+
 ### Side note: Visibility of attacks against inviting Azure AD Tenant
 
 *Applies to Azure AD B2B Guest user (with Password Hash-Sync Cloud Authentication) to inviting tenant*
@@ -197,15 +201,15 @@ More information about the pre-requisites and how to establish:
 
 *Federated sign-ins in Azure AD sign-in logs*
 
-![./media/PWSpray7.2.png](./media/PWSpray7.2.png)
+![./media/PwSpray7.2.PNG](./media/PwSpray7.2.PNG)
 
 *Federated sign-ins in Azure Log Analytics*
 
-![./media/PWSpray7.1.png](./media/PWSpray7.1.png)
+![./media/PwSpray7.1.PNG](./media/PwSpray7.1.PNG)
 
 *Account lockout event from Web Application Proxy in Azure AD Sign-in logs*
 
-![./media/PWSpray7.3.png](./media/PWSpray7.3.png)
+![./media/PwSpray7.3.PNG](./media/PwSpray7.3.PNG)
 
 ### Side note: Detection of on-premises attacks to Active Directory
 Investigation triggers at on-premises environment:
