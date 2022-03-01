@@ -1,0 +1,14 @@
+let threshold = 1;
+let aadcServerIP = dynamic(["123.456.78.9","123.456.78.0"]);
+let aadFunc = (tableName:string){
+table(tableName)
+| where UserPrincipalName startswith "sync_" and UserPrincipalName endswith "onmicrosoft.com"
+| where IPAddress !in (aadcServerIP)
+| summarize StartTime = min(TimeGenerated), EndTime = max(TimeGenerated), applicationCount = dcount(AppDisplayName), 
+applicationSet = make_set(AppDisplayName), count() by UserPrincipalName, IPAddress, Type
+| where applicationCount >= threshold
+| extend timestamp = StartTime, AccountCustomEntity = UserPrincipalName, IPCustomEntity = IPAddress
+};
+let aadSignin = aadFunc("SigninLogs");
+let aadNonInt = aadFunc("AADNonInteractiveUserSignInLogs");
+union isfuzzy=true aadSignin, aadNonInt

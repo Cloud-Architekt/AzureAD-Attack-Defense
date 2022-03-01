@@ -1,0 +1,31 @@
+let DirSyncAssignedMembers = (IdentityInfo 
+ | where AssignedRoles contains "Directory Synchronization Accounts" 
+ | summarize by AccountObjectId); 
+let DirSyncNamedUsers = (SigninLogs
+| where UserPrincipalName startswith "sync_" and UserPrincipalName endswith "onmicrosoft.com"
+| summarize by AccountObjectId = UserId);
+let PIMOperations = dynamic(["Add member to role", "Add eligible member to role in PIM completed (timebound)", "Add eligible member to role in PIM requested (permanent)"]);
+AuditLogs
+| extend ActorAccountObjectId = tostring(parse_json(tostring(InitiatedBy.user)).id)
+| extend ActorAccountIPAddress = tostring(parse_json(tostring(InitiatedBy.user)).ipAddress)
+| extend TargetAccountObjectId = tostring(parse_json(tostring(TargetResources[0])).id)
+| where ActorAccountObjectId in (DirSyncAssignedMembers) or ActorAccountObjectId in (DirSyncNamedUsers)
+// Correlate with role-assignable users from IdentityInfo
+| join kind=inner ( IdentityInfo
+| extend AADRoles = parsejson(AssignedRoles)
+| where AADRoles != "[]"
+| distinct AccountObjectId) on $left.TargetAccountObjectId == $right.AccountObjectId
+// Correlate with users from recent PIM activities
+| join kind=leftouter ( AuditLogs
+    | where OperationName in (PIMOperations)
+    | mv-expand TargetResources
+    | extend AccountObjectId = tostring(parse_json(tostring(TargetResources)).id)
+    | where isnotempty(AccountObjectId)
+| distinct AccountObjectId) on $left.TargetAccountObjectId == $right.AccountObjectId
+| where ActorAccountObjectId != "9484ee3a-5169-4dcb-bfb2-41a446b3c337"
+// Correlate with role-assignable users from IdentityInfo
+| join kind=leftouter ( IdentityInfo
+    | extend AADRoles = parsejson(AssignedRoles)
+    | where AADRoles != "[]"
+| distinct AccountObjectId) on $left.TargetAccountObjectId == $right.AccountObjectId
+| project TimeGenerated, ActorAccountObjectId, OperationName, TargetUPN = tostring(parse_json(tostring(TargetResources[0])).userPrincipalName)
