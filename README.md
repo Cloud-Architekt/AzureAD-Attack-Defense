@@ -10,7 +10,7 @@ We invite identity or security experts from the community to work together on th
 - [Password Spray](PasswordSpray.md)
 - [Consent Grant](ConsentGrant.md)
 - [Service Principals in Azure DevOps Pipelines](ServicePrincipals-ADO.md)
-- [Azure AD Connect Sync Service Account ](ServicePrincipals-ADO.md)
+- [Azure AD Connect Sync Service Account ](AADCSyncServiceAccount.md)
 
 
 ## Appendix
