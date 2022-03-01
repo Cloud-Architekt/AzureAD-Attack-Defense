@@ -20,7 +20,7 @@ _Created: March 2022_
   - [Password Spray attacks to Azure AD connector account](#password-spray-attacks-to-azure-ad-connector-account)
 - [Mitigations](#mitigations)
     - [Increase visibility by implementing detections](#increase-visibility-by-implementing-detections)
-    - [Secure your AAD Connect Server and Service Accounts as Tier0 which is part of your “control plane” on-premises and in the cloud](#secure-your-aad-connect-server-and-service-accounts-as-tier0-which-is-part-of-your-control-plane-on-premises-and-in-the-cloud)
+    - [Secure your AAD Connect Server and Service Accounts as Tier0 (Control Plane)](#secure-your-aad-connect-server-and-service-accounts-as-tier0)
     - [Reduce attack surface for AAD Connect resources](#reduce-attack-surface-for-aad-connect-resources)
   - [Protect your cloud-only and privileged accounts from account take over](#protect-your-cloud-only-and-privileged-accounts-from-account-take-over)
   - [Other references and resources](#other-references-and-resources)
@@ -204,9 +204,9 @@ More information about detecting password spray attacks can be found [in this pl
   - “[Added temporary access pass or changed password of Azure AD connector account](./queries/AADConnectorAccount-AddedTAPorChangedPassword.kql.txt)”
   - ”[Disabled soft- or hard match of Azure AD Connect sync](./queries/AADConnect-ChangedDirSyncSettings.kql.txt)”
   
-### Secure your AAD Connect Server and Service Accounts as Tier0 which is part of your “control plane” on-premises and in the cloud
+### Secure your AAD Connect Server and Service Accounts as Tier0
 
-- Protect your AADC as Tier0 system
+- Protect your AADC as Tier0 system which is part of your “control plane” on-premises and in the cloud
     - Verify GPO, delegated permissions on OU, installed Agents or open admin interfaces
     - Verify your options for backup (use a full encrypted and safe way to isolate the backup, otherwise export configuration on a regular basis to restore without backup)
 - Follow Microsoft’s [best practices to “harden” AADC server implementation](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-install-prerequisites#harden-your-azure-ad-connect-server)
