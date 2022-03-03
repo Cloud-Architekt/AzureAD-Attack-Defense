@@ -9,8 +9,6 @@ _Created: March 2022_
   - [Architecture and Service Accounts](#architecture-and-service-accounts)
 - [Attack scenarios](#attack-scenarios)
 - [Detections](#detections)
-  - [Local application and system events from Azure AD Connect (Server)](#local-application-and-system-events-from-azure-ad-connect-server)
-  - [Removing AAD Sync Server(s) from AAD Connect Health](#removing-aad-sync-servers-from-aad-connect-health)
   - [Threat signals by using offensive tools on AADC servers](#threat-signals-by-using-offensive-tools-on-aadc-servers)
     - [Dumping credentials with AADInternals](#dumping-credentials-with-aadinternals)
     - [Updating credentials with AADInternals](#updating-credentials-with-aadinternals)
@@ -20,9 +18,12 @@ _Created: March 2022_
   - [Password Spray attacks to Azure AD connector account](#password-spray-attacks-to-azure-ad-connector-account)
 - [Mitigations](#mitigations)
     - [Increase visibility by implementing detections](#increase-visibility-by-implementing-detections)
-    - [Secure your AAD Connect Server and Service Accounts as Tier0 (Control Plane)](#secure-your-aad-connect-server-and-service-accounts-as-tier0)
+    - [Secure your AAD Connect Server and Service Accounts as Tier0](#secure-your-aad-connect-server-and-service-accounts-as-tier0)
     - [Reduce attack surface for AAD Connect resources](#reduce-attack-surface-for-aad-connect-resources)
   - [Protect your cloud-only and privileged accounts from account take over](#protect-your-cloud-only-and-privileged-accounts-from-account-take-over)
+- [Security Insights from Azure AD Connect Server](#security-insights-from-azure-ad-connect-server)
+  - [Local application and system events from Azure AD Connect (Server)](#local-application-and-system-events-from-azure-ad-connect-server)
+  - [Removing AAD Sync Server(s) from AAD Connect Health](#removing-aad-sync-servers-from-aad-connect-health)
   - [Other references and resources](#other-references-and-resources)
 
 # Introduction
@@ -94,41 +95,6 @@ In our templates of Microsoft Sentinel analytics rule, we’re using **[WatchLis
 
 **[IdentityInfo](https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/what-s-new-identityinfo-table-is-now-in-public-preview/ba-p/2571037)** table will be used to identify user accounts with an assignment to “Hybrid Identity Administrator”. Related Azure AD connector accounts can be also identified by directory role assignment (“Directory Synchronization Accounts”) which is also stored in “IdentityInfo”.
 
-## Local application and system events from Azure AD Connect (Server)
-
-Information from activities inside the Azure AD Connect server is logged to Windows Event logs. Most of the AADC-related activities are found from the “Application log”.
-
-These events can be sent to Microsoft Sentinel and underlying Azure Log Analytics workspace (or 3rd party SIEM) when needed. If Microsoft Sentinel is used in the environment there are two options to send the Windows Events:
-
-- Microsoft Monitoring Agent (MMA) also known as Azure Log Analytics agent
-- Azure Monitoring Agent (AMA) through Azure Arc
-
-Both agents obviously have pros and cons but we are not focusing on the agent capabilities in this playbook. Taking that into account, if you would like to have more information about the agent capabilities, we suggest starting with the Microsoft documentation:
-
-- [Collect Windows event log data sources with Log Analytics agent in Azure Monitor - Azure Monitor | Microsoft Docs](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/data-sources-windows-events)
-- [Configure data collection for the Azure Monitor agent - Azure Monitor | Microsoft Docs](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/data-collection-rule-azure-monitor-agent#limit-data-collection-with-custom-xpath-queries)
-- [Collect custom logs with Log Analytics agent in Azure Monitor - Azure Monitor | Microsoft Docs](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/data-sources-custom-logs#step-3-add-log-collection-paths)
-
-Our recommendation is to send AADC events at minimum from the application log to Sentinel and verify that all Azure AD Connect local logs are backed up from the server with the backup system (backup encrypted). AAD Connect produces great operational level logs and also [exports configuration change every time change is made by ‘AAD Connect’](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-import-export-config) from version 1.5.30.0 onwards. This configuration export can be used to restore the whole service when needed.
-
-- **Only changes made by Azure AD Connect are automatically exported.**
-    - Any changes made by using PowerShell, the Synchronization Service Manager, or the Synchronization Rules Editor must be exported on demand as needed to maintain an up-to-date copy. Export on demand can also be used to place a copy of the settings in a secure location for disaster recovery purposes.
-
-*Side note: If you are using Windows Sysinternals tool ‘Sysmon’ to collect events from your AADC Server these events can be sent to Log Analytics as a custom log. More information from - [How to deploy Sysmon and MMA Agent to receive logs in Azure Sentinel? | Microsoft 365 Security (m365internals.com)](https://m365internals.com/2021/05/17/how-to-deploy-sysmon-and-mma-agent-to-receive-logs-in-azure-sentinel/)*
-
-## Removing AAD Sync Server(s) from AAD Connect Health
-
-AAD Connect Health provides agent provides health information from AADC service and sends that information to Azure AD. The information is available in the dedicated AAD Connect Health blade in the Azure AD portal.
-
-![](./media/aadc-syncservice-acc/aadc-connecthealth.png)
-
-If the attacker wants to hide health events from the AADC server he/she might want to delete AADC servers from the portal. When deleted, there isn’t any event from the actual deletion process found from the Azure AD audit logs.
-
-The event from the deletion can be found from Microsoft Defender for Cloud Apps (MDCA) as in many similar use cases.
-
-![](./media/aadc-syncservice-acc/aadc-mdca1.png)
-
-![](./media/aadc-syncservice-acc/aadc-mdca2.png)
 
 ## Threat signals by using offensive tools on AADC servers
 
@@ -252,7 +218,46 @@ Include AAD Connect assets in Conditional Access Design
     
 If authentication is allowed only from certain IP-addresses access, Conditional Access will block the authentication requests. We often see that the AADC service account is just excluded from the policies but we would rather recommend creating a separate policy for the service accounts.
 
-![](./media/aadc-syncservice-acc/aadc-cafailed.png)
+![](./media/aadc-syncservice-acc/aadc-cafailed-1.png)
+
+# Security Insights from Azure AD Connect Server
+This chapter contains information about the Azure AD Connect server related security monitoring activities that can be established and also insights about Azure AD Connect Health. The latter one provides Azure AD Connect monitoring and performance data to Azure AD.
+
+## Local application and system events from Azure AD Connect (Server)
+
+Information from activities inside the Azure AD Connect server is logged to Windows Event logs. Most of the AADC-related activities are found from the “Application log”.
+
+These events can be sent to Microsoft Sentinel and underlying Azure Log Analytics workspace (or 3rd party SIEM) when needed. If Microsoft Sentinel is used in the environment there are two options to send the Windows Events:
+
+- Microsoft Monitoring Agent (MMA) also known as Azure Log Analytics agent
+- Azure Monitoring Agent (AMA) through Azure Arc
+
+Both agents obviously have pros and cons but we are not focusing on the agent capabilities in this playbook. Taking that into account, if you would like to have more information about the agent capabilities, we suggest starting with the Microsoft documentation:
+
+- [Collect Windows event log data sources with Log Analytics agent in Azure Monitor - Azure Monitor | Microsoft Docs](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/data-sources-windows-events)
+- [Configure data collection for the Azure Monitor agent - Azure Monitor | Microsoft Docs](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/data-collection-rule-azure-monitor-agent#limit-data-collection-with-custom-xpath-queries)
+- [Collect custom logs with Log Analytics agent in Azure Monitor - Azure Monitor | Microsoft Docs](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/data-sources-custom-logs#step-3-add-log-collection-paths)
+
+*Side note: Consider sending AADC events (at minimum from the application log) to your application log management solution (this could also include Microsoft Sentinel). AAD Connect produces great operational level logs and also [exports configuration change every time change is made by ‘AAD Connect’](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-import-export-config) from version 1.5.30.0 onwards. This configuration export can be used to restore the whole service when needed.*
+
+*- Only changes made by Azure AD Connect are automatically exported.
+    - Any changes made by using PowerShell, the Synchronization Service Manager, or the Synchronization Rules Editor must be exported on demand as needed to maintain an up-to-date copy. Export on demand can also be used to place a copy of the settings in a secure location for disaster recovery purposes.*
+
+*- If you are using Windows Sysinternals tool ‘Sysmon’ to collect events from your AADC Server these events can be sent to Log Analytics as a custom log. More information from - [How to deploy Sysmon and MMA Agent to receive logs in Azure Sentinel? | Microsoft 365 Security (m365internals.com)](https://m365internals.com/2021/05/17/how-to-deploy-sysmon-and-mma-agent-to-receive-logs-in-azure-sentinel/)*
+
+## Removing AAD Sync Server(s) from AAD Connect Health
+
+AAD Connect Health provides agent provides health information from AADC service and sends that information to Azure AD. The information is available in the dedicated AAD Connect Health blade in the Azure AD portal.
+
+![](./media/aadc-syncservice-acc/aadc-connecthealth.png)
+
+If the attacker wants to hide health events from the AADC server he/she might want to delete AADC servers from the portal. When deleted, there isn’t any event from the actual deletion process found from the Azure AD audit logs.
+
+The event from the deletion can be found from Microsoft Defender for Cloud Apps (MDCA) as in many similar use cases.
+
+![](./media/aadc-syncservice-acc/aadc-mdca1.png)
+
+![](./media/aadc-syncservice-acc/aadc-mdca2.png)
 
 ## Other references and resources
 
