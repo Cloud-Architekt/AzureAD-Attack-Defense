@@ -1,0 +1,10 @@
+let DirSyncRoleAssignedMembers = (IdentityInfo 
+ | where AssignedRoles contains "Directory Synchronization Accounts" 
+ | summarize by AccountObjectId, AccountUPN = tolower(AccountUPN)); 
+let DirSyncNamedUsers = (union isfuzzy=true AADNonInteractiveUserSignInLogs, SigninLogs
+| where UserPrincipalName startswith "sync_" and UserPrincipalName endswith "onmicrosoft.com"
+| summarize by AccountObjectId = UserId, AccountUPN = tolower(UserPrincipalName));
+let WatchList = _GetWatchlist('ServiceAccounts') | where ['Tags'] == "Azure AD Connect" | project AccountObjectId = ['Service AAD Object Id'];
+union isfuzzy=true DirSyncRoleAssignedMembers,DirSyncNamedUsers
+| distinct tostring(AccountObjectId), AccountUPN
+| where AccountObjectId in (!WatchList)
