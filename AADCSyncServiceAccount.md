@@ -4,7 +4,7 @@ _Author: Sami Lamppu and Thomas Naunheim_
 
 _Created: March 2022_
 
-- [Abuse of Azure AD Connect Sync Service Account](#draft-abuse-of-azure-ad-connect-sync-service-account)
+- [Abuse of Azure AD Connect Sync Service Account](#abuse-of-azure-ad-connect-sync-service-account)
 - [Introduction](#introduction)
   - [Architecture and Service Accounts](#architecture-and-service-accounts)
 - [Attack scenarios](#attack-scenarios)
@@ -13,8 +13,8 @@ _Created: March 2022_
     - [Dumping credentials with AADInternals](#dumping-credentials-with-aadinternals)
     - [Updating credentials with AADInternals](#updating-credentials-with-aadinternals)
   - [Changes of AAD Connect sync features](#changes-of-aad-connect-sync-features)
-  - [Takeover Azure AD connector by generation of Temporary access pass (TAP) as backdoor](#takeover-azure-ad-connector-by-generation-of-temporary-access-pass-tap-as-backdoor)
   - [Suspicious activities from Azure AD connector account](#suspicious-activities-from-azure-ad-connector-account)
+  - [Takeover Azure AD connector by generating Temporary access pass (TAP) as backdoor](#takeover-azure-ad-connector-by-generating-temporary-access-pass-tap-as-backdoor)
   - [Password Spray attacks to Azure AD connector account](#password-spray-attacks-to-azure-ad-connector-account)
 - [Mitigations](#mitigations)
     - [Increase visibility by implementing detections](#increase-visibility-by-implementing-detections)
@@ -46,12 +46,11 @@ Account will be created for each AAD Connect Server and is visible with display 
 
 **ADSync Service Account** takes place for running the synchronization service but has also access to the database for storing AADC information. No (direct) privileged access exists to Azure AD or Active Directory objects. Nevertheless, it’s a sensitive account because it plays a central part in running AADC services and data access (incl. SQL database).
 
-More details on [accounts and permissions](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/reference-connect-accounts-permissions) are described in Microsoft Docs articles.
+More details about Azure AD Connect [accounts and permissions](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/reference-connect-accounts-permissions) are described in Microsoft Docs articles.
 
 # Attack scenarios
 
-This chapter describes attack scenarios referring to this document scope.
-On the detection chapter you can expect to find detections for the attacks.
+This chapter describes attack scenarios referring to the document scope. 
 
 - Access to unprotected Azure AD Connect servers (not hardened or restricted access as Tier0 system) or exfiltration from uncontrolled/unencrypted backups allows access to AADC database.
     - Decryption and extraction of stored Azure AD and Active Directory credentials can be achieved by using [fox-it/adconnectdump](https://github.com/fox-it/adconnectdump).
@@ -73,12 +72,14 @@ On the detection chapter you can expect to find detections for the attacks.
     - Change configuration of "soft and hard matching" feature settings.
         - By default, cloud-only accounts are only protected if they are assigned to directory roles.
         - Hard matching can be blocked for cloud-only particularly. This feature was [introduced in October 2021](https://twitter.com/rjong999/status/1451316231286374439/photo).
-        - Only users with direct (role assignable group) membership to directory roles (such as GA) are particularly protected. As you can see in this test by using Privileged Access Groups (PAG), Role Assignable Groups (PRG) in a combination of eligible/permanent membership and ownership of group:
+        - Only users with direct (role assignable group) membership to directory roles (such as Global Admin) are particularly protected. 
+          - This can be seen in this test by using Privileged Access Groups (PAG), Role Assignable Groups (PRG) in a combination of eligible/permanent membership and ownership of group:
             
             ![](./media/aadc-syncservice-acc/aadc-pagprotection.png)
             
     - Blocking of soft and hard matching (recommended) could have been already configured.
-        - Nevertheless, "Hybrid identity admins" are able to modify this setting and could be used to "synchronize" accounts and take control of accounts with sensitive permissions outside of Azure AD directory roles. A great explanation about "[user hard and soft matching](https://dirteam.com/sander/2020/03/27/explained-user-hard-matching-and-soft-matching-in-azure-ad-connect/)" has been written by Sander Berkouwer.
+        - Nevertheless, "Hybrid identity admins" are able to modify this setting and could be used to "synchronize" accounts and take control of accounts with sensitive permissions outside of Azure AD directory roles. 
+          - A great explanation about "[user hard and soft matching](https://dirteam.com/sander/2020/03/27/explained-user-hard-matching-and-soft-matching-in-azure-ad-connect/)" has been written by Sander Berkouwer.
     - Directory role permissions allows to change ownership of "GraphAggregatorService" service principal and add app roles to self-grant arbitrary Microsoft Graph API permission.
         - More details about this service principal and abusing app roles are described in "[Azure Privilege Escalation via Azure API Permissions Abuse](https://posts.specterops.io/azure-privilege-escalation-via-azure-api-permissions-abuse-74aee1006f48)" by Andy Robbins.
 - Temporary Access Pass can be used by compromised high-privileged accounts or service accounts to create a backdoor on "On-Premises Directory Synchronization Service Account":
@@ -107,7 +108,7 @@ This helps us to identify user accounts with assigned "Directory Synchronization
   ![](./media/aadc-syncservice-acc/aadc-watchlistsvcaccounts.png)
 
 Both lists are using the same tag (Azure AD Connect) to identify related resources to the AADC operations and activities.
-This watchlists are an important part and pre-requisites for the custom analytics rules which we have written for this playbook.
+These Watchlists are an important part and pre-requisite for the custom analytics rules which we have written for this playbook.
 
 UEBA tables is another feature which will be included in one of the queries.
 We're using **[IdentityInfo](https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/what-s-new-identityinfo-table-is-now-in-public-preview/ba-p/2571037)** table to identify user accounts with directory role assignment to "Hybrid Identity Administrator". Related Azure AD connector accounts can be also identified by directory role assignment ("Directory Synchronization Accounts") which is also stored in "IdentityInfo".
@@ -161,7 +162,7 @@ In addition to the custom analytics rules, the following signals or queries coul
 - Any kind of risk events of Azure AD connector account (by Identity Protection) should be reviewed. Trigger incidents for those kind of events by using the [AADRiskyUsers](https://docs.microsoft.com/en-us/azure/azure-monitor/reference/tables/aadriskyusers) and [AADUserRiskEvents](https://docs.microsoft.com/de-de/azure/azure-monitor/reference/tables/aaduserriskevents) tables.
 - Any password change and user modification to the "AAD Sync Service Account" should be also reviewed
 
-## Takeover Azure AD connector by generation of Temporary access pass (TAP) as backdoor
+## Takeover Azure AD connector by generating Temporary access pass (TAP) as backdoor
 
 High-privileged role administrators (such as Global Admin) could be a TAP to use Azure AD connector account with any noise or service interruption (compare to password change).
 
@@ -174,11 +175,11 @@ This attack allows also to enforce (Smart) lockout which will end in stopping AA
 
 ![](./media/aadc-syncservice-acc/aadc-syncerrorspray.png)
 
-If AAD Connect service account is hammered by password spray attack, "**Microsoft Defender for Cloud Apps (MDCA)**" will be able to detect such activity:
+If AAD Connect service account is hammered by password spray attack, "**Microsoft Defender for Cloud Apps (MDCA)**" is able to detect such activity:
 
 ![](./media/aadc-syncservice-acc/aadc-mdcafailedlogins.png)
 
-More information about detecting password spray attacks can be found [in this playbook chapter](./PasswordSpray.md).
+More information about detecting password spray attacks can be found [from this playbook chapter](./PasswordSpray.md).
 
 # Mitigations
 
@@ -239,7 +240,7 @@ Include AAD Connect assets in Conditional Access Design to restrict and avoid at
     
     ![](./media/aadc-syncservice-acc/aadc-capolicy.png)
     
-If authentication is allowed only from certain IP-addresses access, Conditional Access will block the authentication requests. We often see that the "AADC service account" is just excluded from the policies but we would rather recommend creating a separate policy for the service accounts.
+If authentication is allowed only from certain IP-addresses access, Conditional Access will block the authentication requests. We often see that the "AADC service account" is just excluded from the policies but we would rather recommend creating a separate policy for the service accounts as mentioned above.
 
 ![](./media/aadc-syncservice-acc/aadc-cafailed-1.png)
 
