@@ -1,0 +1,8 @@
+AuditLogs
+| where OperationName has "Set DirSync feature" 
+| where Category has "DirectoryManagement" 
+| where parse_json(tostring(TargetResources[0].modifiedProperties))[0].displayName == "DirSyncFeatures" 
+| extend NewValue = parse_json(tostring(parse_json(tostring(TargetResources[0].modifiedProperties))[0].newValue))[0]  
+| extend OldValue = parse_json(tostring(parse_json(tostring(TargetResources[0].modifiedProperties))[0].oldValue))[0] 
+| extend UserPrincipalName =  parse_json(tostring(InitiatedBy.user)).userPrincipalName 
+| extend IPAddress =  parse_json(tostring(InitiatedBy.user)).ipAddress

@@ -1,0 +1,11 @@
+let AADConnectorAcc = (_GetWatchlist('ServiceAccounts')
+    | where ['Tags'] == "Azure AD Connect" | project AccountObjectId = ['Service AAD Object Id']);
+let AADCServer = (_GetWatchlist('HighValueAssets')
+    | where ['Tags'] == "Azure AD Connect" | project ['IP Address']);    
+AuditLogs
+| extend ActorAccountObjectId = tostring(parse_json(tostring(InitiatedBy.user)).id)
+| extend ActorAccountIPAddress = tostring(parse_json(tostring(InitiatedBy.user)).ipAddress)
+| extend TargetAccountObjectId = tostring(parse_json(tostring(TargetResources[0])).id)
+| where ActorAccountObjectId in (AADConnectorAcc)
+| join kind=leftouter (IdentityInfo | project AccountObjectId, AccountDisplayName, GroupMembership, AssignedRoles) on $left.TargetAccountObjectId == $right.AccountObjectId
+| project TimeGenerated, ActorAccountObjectId, TargetAccountObjectId, OperationName, TargetUPN = tostring(parse_json(tostring(TargetResources[0])).userPrincipalName), GroupMembership, AssignedRoles
