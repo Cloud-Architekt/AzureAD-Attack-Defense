@@ -139,7 +139,7 @@ The attacker needs to use "[Set-MsolDirSyncFeature](https://docs.microsoft.com/e
 
 ![](./media/aadc-syncservice-acc/aadc-auditdirsyncfeature1.png)
 
-Microsoft Sentinel Analytics rule "[Disabled soft- or hard match of Azure AD Connect sync](./queries/AADConnect-ChangedDirSyncSettings.kql)" allows to create incidents if "BlockSoftMatch" (ID: 1090617) or "BlockCloudObjectTakeoverThroughHardMatch" (566329) has been disabled:
+Microsoft Sentinel Analytics rule "[Disabled soft- or hard match of Azure AD Connect sync](./queries/AADConnect-ChangedDirSyncSettings.kql)" allows to create incidents if a identity synchronization features has been modified. The old and new value (in the audit log entry) is summed integer of all [DirSync feature settings](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-syncservice-features) which includes "BlockSoftMatch" or "BlockCloudObjectTakeoverThroughHardMatch" but also other important settings such as enable/disable "Password Hash Sync"
 
 ![](./media/aadc-syncservice-acc/aadc-auditdirsyncfeature2.png)
 
