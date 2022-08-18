@@ -6,22 +6,32 @@ All of the included scenarios, insights and comments are based on experiences fr
 It should be considered a living document, which has to be updated as practices progress and changes in attack and defense techniques.
 We invite identity or security experts from the community to work together on this publication and contribute updates, feedbacks, comments or further additions.
 
+## Background
+The initial idea for creating the ‘Azure AD Attack & Defense Playbook’ came from Thomas Naunheim. Our first Teams call was somewhere in Autumn 2020 where Thomas presented the idea and it was sold immediately. The first chapter was about the ‘Password Spray’ attack where we focused heavily on the AAD Identity Protection detection mechanism to detect ‘password spray’ type of attacks.
+
+For the next chapters (Consent Grant & Azure DevOps) we had lucky to have Joosua Santasalo part of the project as an author and reviewer.
+
+## Attack Scenarios
+
+Typically, one chapter has taken approximately 1-2 months of calendar time so it has been quite an effort to put all four (4) chapters & appendix together. During the last 1,5 years we have published the following chapters:
+
 ### Scenarios:
 - [Password Spray](PasswordSpray.md)
 - [Consent Grant](ConsentGrant.md)
 - [Service Principals in Azure DevOps Pipelines](ServicePrincipals-ADO.md)
+- [Overview of Identity Security Monitoring in Microsoft Cloud](IdentitySecurityMonitoring.md)
 - [Azure AD Connect Sync Service Account ](AADCSyncServiceAccount.md)
 - [Replay of Primary Refresh (PRT) and other issued tokens](ReplayOfPrimaryRefreshToken.md)
 
+In all chapters, we follow the same guideline. You can expect to find:
 
-## Appendix
-- [Overview of Identity Security Monitoring in Microsoft Cloud](IdentitySecurityMonitoring.md)
+- Description of the common attack scenarios
+- Detection of the attacks
+- Mitigation for the attack and instructions how to enhance your environment security posture based on document scope
 
-### In work: Next articles on other scenarios
-- Hybrid Identity Components
-- Phishing
+The following sections in this introduction contain a short description of each chapter you can find from the playbook.
 
-### Contributor
+### Contributors
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -46,4 +56,3 @@ We invite identity or security experts from the community to work together on th
 - **Reviewer:** We also look for experts who want to review or discuss the existing or new content before publishing!
 
 - **Feedback:** Feel free to suggest attack/defense scenarios that could be interesting for the community. We will add them to the backlog and idea collection!
-
