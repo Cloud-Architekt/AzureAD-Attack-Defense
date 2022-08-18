@@ -249,9 +249,9 @@ Invoke-MgGraphRequest -Method GET -Uri "[https://graph.microsoft.com/v1.0/me/dri
 *Side Note: You can also use a [mass download script](https://gist.github.com/f-bader/e0c8dd8ccbcb48e437fb4f243de125fb) which has been written for this scenario from Fabian Bader.*
 5. Another access token to a FOCI apps can be also requested. For example, Microsoft Teams:
     
-    ```powershell
-    $TeamsToken = RefreshTo-MSTeamsToken -RefreshToken $RefreshToken -Domain $Tenant -ClientId $ClientId -UseCAE
-    ```
+```powershell
+$TeamsToken = RefreshTo-MSTeamsToken -RefreshToken $RefreshToken -Domain $Tenant -ClientId $ClientId -UseCAE
+```
     
 6. Use AADInternals to test abusing access token by sending a message: 
     
@@ -460,7 +460,7 @@ To investigate the suspicious activity of the user session MDA provides a good s
     
 - Suspicious activities that generated score increase. Activities and logins from three different locations
 
-![Untitled](./media/replay-prt/PrtReplay20.png)
+    ![Untitled](./media/replay-prt/PrtReplay20.png)
 
 - MDA Activity Log provides information on the user activities from the last 30 days (MDA in general from the last 6 months)
     
@@ -593,7 +593,7 @@ From these, Azure Resource Manager (ARM) and Key Vault example alerts are seen b
      | extend timestamp = TimeGenerated, AccountCustomEntity = UserPrincipalName, IPCustomEntity = SourceIPAddress
     ```
     
-- 
+
 - The existing analytics rules to [detect attempts to AAD joined or registered devices and transport keys](https://github.com/Azure/Azure-Sentinel/pull/4199/files) can be used as hunting query
 
 ## Mitigations
