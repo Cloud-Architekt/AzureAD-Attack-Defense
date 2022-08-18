@@ -257,10 +257,9 @@ $TeamsToken = RefreshTo-MSTeamsToken -RefreshToken $RefreshToken -Domain $Tenant
     
     ![Untitled](./media/replay-prt/PrtReplay8.png)
     
-
 **Side notes and research results**
 
-- Default ****token lifetime variation is applied to organizations that have Continuous Access Evaluation (CAE) enabled, even if [Configurable Token Lifetime](https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/concept-continuous-access-evaluation) (CTL) policies are configured. Statements from [Microsoft Docs about access token lifetime](https://docs.microsoft.com/en-us/azure/active-directory/develop/access-tokens#access-token-lifetime):
+- Default token lifetime variation is applied to organizations that have Continuous Access Evaluation (CAE) enabled, even if [Configurable Token Lifetime](https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/concept-continuous-access-evaluation) (CTL) policies are configured. Statements from [Microsoft Docs about access token lifetime](https://docs.microsoft.com/en-us/azure/active-directory/develop/access-tokens#access-token-lifetime):
     - The ***default token lifetime for long-lived token lifetime ranges from 20 to 28 hours**. When the access token expires, the client must use the refresh token to (usually silently) acquire a new refresh token and access token.*
     - *Organizations that use Conditional Access sign-in frequency (SIF) to enforce how frequently sign-ins occur **cannot override default access token lifetime variation**.*
 - [Supported trigger](https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/concept-continuous-access-evaluation#critical-event-evaluation) and use cases (CAE-capable [clients](https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/concept-continuous-access-evaluation#client-side-claim-challenge) and [resource providers](https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/concept-continuous-access-evaluation#conditional-access-policy-evaluation)) for Critical Event Evaluation works very well to re-evaluate policies and offer an opportunity to prevent successful usage of the replayed access token. This affects also non-capable clients that will not be able to handle 401+ claim challenges (further access will be denied).
@@ -466,7 +465,6 @@ To investigate the suspicious activity of the user session MDA provides a good s
     
     ![Untitled](./media/replay-prt/PrtReplay21.png)
     
-
 **Side notes:** 
 
 - MDA does contain only interactive login information, not non-interactive login (such as refresh-token usage).
@@ -674,7 +672,6 @@ From these, Azure Resource Manager (ARM) and Key Vault example alerts are seen b
         
         ![](./media/replay-prt/PrtRevokeSignInSessions2.jpg)
         
-
 ## Appendix
 
 ### Research work on Primary Refresh Token (PRT)
