@@ -11,6 +11,7 @@ We invite identity or security experts from the community to work together on th
 - [Consent Grant](ConsentGrant.md)
 - [Service Principals in Azure DevOps Pipelines](ServicePrincipals-ADO.md)
 - [Azure AD Connect Sync Service Account ](AADCSyncServiceAccount.md)
+- [Replay of Primary Refresh (PRT) and other issued tokens](ReplayOfPrimaryRefreshToken.md)
 
 
 ## Appendix
