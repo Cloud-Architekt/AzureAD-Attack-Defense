@@ -746,13 +746,3 @@ You can't configure the lifetime of a refresh token. You can't reduce or lengthe
 #### Revocation
 
 [Primary Refresh Token (PRT) and Azure AD - Azure Active Directory | Microsoft Docs](https://docs.microsoft.com/en-us/azure/active-directory/devices/concept-primary-refresh-token#how-is-a-prt-invalidated)
-
-### Windows components for requesting and using a PRT
-
-Azure AD CloudAP and WAM plugin
-
-[Test case: PRT stays as software key (CL2)](https://www.notion.so/Test-case-PRT-stays-as-software-key-CL2-ca1869b2802e4906b3d57b5c634018a0)
-
-[MSRC-related content](https://www.notion.so/MSRC-related-content-d66b5cb2f9d84ed0b4eded16d8bf66e0)
-
-[Refresh Token](https://www.notion.so/Refresh-Token-10a8dceb2a67443dbd930201006c0e71)
