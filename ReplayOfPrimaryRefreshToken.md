@@ -468,7 +468,7 @@ To investigate the suspicious activity of the user session MDA provides a good s
 **Side notes:** 
 
 - MDA does contain only interactive login information, not non-interactive login (such as refresh-token usage).
-- Reference for advanced hunting queries for MDA "[Hunt for multi-stage incident with MDA data](./queries/MDA-Hunt-Multi-stage-incident.kql)"
+- Reference for advanced hunting queries for MDA "[Hunt for multi-stage incident with MDA data](./queries/MDA-Hunt-Multi-Stage-Incident.kql)"
 
 #### App Governance (MDA add-on)
 
