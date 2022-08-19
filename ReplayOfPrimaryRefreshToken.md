@@ -210,7 +210,7 @@ Access Tokens can be acquired without encryption by TPM-protected keys. Because 
 **Pre-requisites**
 
 - The CAE-capable token can be only requested and issued if the client is able to send a specific claim and the resource provider is supported by Azure AD.
-    - [Fabian Bader has written a great blog post about CAE](https://cloudbrothers.info/en/continuous-access-evaluation) including an [updated version of TokenTactics](https://github.com/f-bader/TokenTacticsV2).  We encourage to read Fabian’s excellent write up about this topic. 
+    - [Fabian Bader has written a great blog post about CAE](https://cloudbrothers.info/en/continuous-access-elevation) including an [updated version of TokenTactics](https://github.com/f-bader/TokenTacticsV2).  We encourage to read Fabian’s excellent write up about this topic. 
     This allows to reproduce of many CAE use cases by sending the `xms_cc` claim with the value of `cp1` as part of the token acquisition. We strongly recommend checking his deep-dive blog post about this topic.
 - A replay of access token is only successful if no critical event evaluation has been triggered
     - 401+ claim challenge to re-evaluate conditions can be only satisfied if an attacker is using a CAE-capable client and is able to pass all the conditions.
