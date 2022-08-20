@@ -203,7 +203,7 @@ Stay tuned…
 
 The default lifetime of an access token is assigned to a value between 60-90 minutes (75 minutes on average). An access token can not be revoked within a lifetime.
 Continuous access evaluation (CAE) has been implemented by Microsoft to increase the token life for a better user experience and resiliency but without increasing security risks.
-Therefore CAE offers the opportunity to reject tokens by the resource provider and enforce users to re-evaluate conditions for further access to Azure AD integrated resources. This feature is supported by a small number of [clients](https://www.notion.so/Chapter-5-Replay-of-Primary-Refresh-PRT-and-other-issued-tokens-from-an-Azure-AD-joined-device-6660c61a67574ca091affc56bd1de5a3) and resource providers (Exchange Online, SharePoint Online, Teams, Microsoft Graph). The supported events for re-evaluation (”[Critical event evaluation](https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/concept-continuous-access-evaluation#critical-event-evaluation)”) are also limited. More details can be found in [Microsoft Docs](https://www.notion.so/Chapter-5-Replay-of-Primary-Refresh-PRT-and-other-issued-tokens-from-an-Azure-AD-joined-device-6660c61a67574ca091affc56bd1de5a3).
+Therefore CAE offers the opportunity to reject tokens by the resource provider and enforce users to re-evaluate conditions for further access to Azure AD integrated resources. This feature is supported by a small number of [clients](https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/concept-continuous-access-evaluation#client-side-claim-challenge) and resource providers (Exchange Online, SharePoint Online, Teams, Microsoft Graph). The supported events for re-evaluation (”[Critical event evaluation](https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/concept-continuous-access-evaluation#critical-event-evaluation)”) are also limited.
 
 Access Tokens can be acquired without encryption by TPM-protected keys. Because of the long-live time, it could be an interesting target for attackers. Especially, replay activity of the token is not visible in the Azure AD sign-in logs. Only activity log of the resource provider (e.g. SharePoint) will be shown the access from the bad actor.
 
@@ -226,7 +226,7 @@ Access Tokens can be acquired without encryption by TPM-protected keys. Because 
     
     ![Untitled](./media/replay-prt/PrtReplay6.png)
     
-2. [Import the updated version of TokenTactics](https://www.notion.so/Chapter-5-Replay-of-Primary-Refresh-PRT-and-other-issued-tokens-from-an-Azure-AD-joined-device-6660c61a67574ca091affc56bd1de5a3) to your PowerShell. 
+2. [Import the updated version of TokenTactics](https://github.com/f-bader/TokentacticsV2) to your PowerShell. 
     1. Copy the stolen refresh token incl. ClientId from the previous step to the attacker's device. Run the following cmdlet to get an access token for Microsoft Graph API:
     
     ```powershell
@@ -242,7 +242,7 @@ Access Tokens can be acquired without encryption by TPM-protected keys. Because 
     
     ![Untitled](./media/replay-prt/PrtReplay7.png)
     
-4. Now, you can use this token to exfiltrate information by [downloading ********content of a DriveItem with ********Microsoft Graph API](https://www.notion.so/MSRC-related-content-d66b5cb2f9d84ed0b4eded16d8bf66e0), for example:
+4. Now, you can use this token to exfiltrate information by [downloading ********content of a DriveItem with ********Microsoft Graph API](https://docs.microsoft.com/en-us/graph/api/driveitem-get-content?view=graph-rest-1.0&tabs=http), for example:
 $ItemId = Read-Host
 Invoke-MgGraphRequest -Method GET -Uri "[https://graph.microsoft.com/v1.0/me/drive/items/$($ItemId)?select=id,@microsoft.graph.downloadUrl](https://graph.microsoft.com/v1.0/me/drive/items/01NIVZIG5YQYXGXQ5MPRH3ZRVUNXFFCNRS?select=id,@microsoft.graph.downloadUrl)"
 
@@ -605,7 +605,7 @@ From these, Azure Resource Manager (ARM) and Key Vault example alerts are seen b
 ![Untitled](./media/replay-prt/PrtReplay26.png)
 
 - Enforce using TPM in Device Compliance without Grace Period and restrict options to disable them (Azure Admins to modify security options of VM, users access to UEFI settings,…)
-- Create a [Windows Hello for Business Policy](https://www.notion.so/Chapter-5-Replay-of-Primary-Refresh-PRT-and-other-issued-tokens-from-an-Azure-AD-joined-device-6660c61a67574ca091affc56bd1de5a3) to require TPM. This prevents users to store PRT with strong authentication claim outside of the security chip.
+- Create a [Windows Hello for Business Policy](https://docs.microsoft.com/en-us/mem/intune/protect/windows-hello#create-a-windows-hello-for-business-policy) to require TPM. This prevents users to store PRT with strong authentication claim outside of the security chip.
 - Configure [Device Health Attestation (DHA) in MEM Compliance Policy](https://docs.microsoft.com/en-us/mem/intune/protect/compliance-policy-create-windows#windows-health-attestation-service-evaluation-rules) to evaluate rules for requiring BitLocker and Secure Boot.
 - Enforce [BitLocker disk encryption with TPM](https://docs.microsoft.com/en-us/mem/intune/protect/encrypt-devices) and [consider to block end-users from viewing recovery key](https://docs.microsoft.com/en-us/azure/active-directory/devices/device-management-azure-portal#block-users-from-viewing-their-bitlocker-keys-preview). The named configuration blocks users to have access to the hard disk after disabling TPM. This stops further activities to logon and store PRT outside of TPM.
 - Configure an Azure Policy to verify and monitor TPM configuration of all VMs in Azure which are able to use a virtual security chip.
@@ -628,7 +628,7 @@ From these, Azure Resource Manager (ARM) and Key Vault example alerts are seen b
     - Removing security intelligence updates
     - Disabling automatic actions on detected threats
 - Create a device compliance policy to require [“Microsoft Defender Antimalware” and Defender “Real-time protection”](https://docs.microsoft.com/en-us/mem/intune/protect/compliance-policy-create-windows#defender) and enforce the compliance check without a grace period (immediately).
-- [Require a minimal Machine Risk Score](https://www.notion.so/Chapter-5-Replay-of-Primary-Refresh-PRT-and-other-issued-tokens-from-an-Azure-AD-joined-device-6660c61a67574ca091affc56bd1de5a3) in Device Compliance Policy without a long “Grace Period”
+- [Require a minimal Machine Risk Score](https://docs.microsoft.com/en-us/mem/intune/protect/compliance-policy-create-windows#microsoft-defender-for-endpoint-rules) in Device Compliance Policy without a long “Grace Period”
     - Use a unique attribute on the device object which will be updated as soon an endpoint is on- or offboarded. This can be used as a dynamic group filter to build an assignment for Device Compliance policy to require a machine risk score. Otherwise, the device compliance will fail.
     - Consideration in Privileged Access Device scenarios, such as Secure Admin Workstation (SAW) or Privileged Access Workstation (PAW): Require the device to be under a ‘clear’ machine risk score. If changes in compliance policies are enforced immediately the changes are valid in a 5min timeframe (based on our tests).
 - Actively monitor your endpoints to detect malicious credential theft tools (such as Mimikatz & AADInternals)
@@ -657,7 +657,7 @@ From these, Azure Resource Manager (ARM) and Key Vault example alerts are seen b
         - In a hybrid identity scenario take into account AAD Connect and user sync. ‘UserAccountControl’ attribute sets the user state and if the user is disabled only in AAD, in the next AAD Connect sync cycle the attribute is overwritten and the user account is enabled again.
     - Use the MDI action account feature to disable the Active Directory user if a compromised account has been detected.
         - When deployed, pay attention to on-prem Active Directory delegations (permissions). Sander Berkouwer has written an excellent blog on how to programmatically assign permissions - [HOWTO: Programmatically add a Microsoft Defender for Identity Action Account to Active Directory - The things that are better left unspoken (dirteam.com)](https://dirteam.com/sander/2022/03/23/howto-programmatically-add-a-microsoft-defender-for-identity-action-account-to-active-directory/)
-- Evaluate and implement [“Microsoft Sentinel Fusion” rules](https://www.notion.so/Chapter-5-Replay-of-Primary-Refresh-PRT-and-other-issued-tokens-from-an-Azure-AD-joined-device-6660c61a67574ca091affc56bd1de5a3) that indicate e.g. that someone used known identity theft tools in combination with a suspicious Azure AD sign-in (Sign-in risk by Identity Protection).
+- Evaluate and implement [“Microsoft Sentinel Fusion” rules](https://docs.microsoft.com/en-us/azure/sentinel/fusion-scenario-reference#malicious-credential-theft-tool-execution-following-suspicious-sign-in) that indicate e.g. that someone used known identity theft tools in combination with a suspicious Azure AD sign-in (Sign-in risk by Identity Protection).
 - Implement “every time” sign-in frequency on device registration, sign-in, and user risk:
 - [Restrict user consent](https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/configure-user-consent?tabs=azure-portal) and implement [OAuth app policies](https://docs.microsoft.com/en-us/defender-cloud-apps/app-permission-policy) in Microsoft Defender for Cloud Apps (with governance actions to disable app) to prevent abuse of tokens by malicious registered apps
 
