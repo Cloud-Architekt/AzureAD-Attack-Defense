@@ -242,7 +242,7 @@ Access Tokens can be acquired without encryption by TPM-protected keys. Because 
     
     ![Untitled](./media/replay-prt/PrtReplay7.png)
     
-4. Now, you can use this token to exfiltrate information by [downloading ********content of a DriveItem with ********Microsoft Graph API](https://docs.microsoft.com/en-us/graph/api/driveitem-get-content?view=graph-rest-1.0&tabs=http), for example:
+4. Now, you can use this token to exfiltrate information by [downloading content of a DriveItem with Microsoft Graph API](https://docs.microsoft.com/en-us/graph/api/driveitem-get-content?view=graph-rest-1.0&tabs=http), for example:
 $ItemId = Read-Host
 Invoke-MgGraphRequest -Method GET -Uri "[https://graph.microsoft.com/v1.0/me/drive/items/$($ItemId)?select=id,@microsoft.graph.downloadUrl](https://graph.microsoft.com/v1.0/me/drive/items/01NIVZIG5YQYXGXQ5MPRH3ZRVUNXFFCNRS?select=id,@microsoft.graph.downloadUrl)"
 
