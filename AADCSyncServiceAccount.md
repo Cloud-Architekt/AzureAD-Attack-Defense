@@ -1,7 +1,6 @@
 # Abuse of Azure AD Connect Sync Service Account
 
 _Author: Sami Lamppu and Thomas Naunheim_
-
 _Created: March 2022_
 
 - [Abuse of Azure AD Connect Sync Service Account](#abuse-of-azure-ad-connect-sync-service-account)

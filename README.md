@@ -6,6 +6,24 @@ All of the included scenarios, insights and comments are based on experiences fr
 It should be considered a living document, which will be updated as practices progress & changes in attack and defense techniques.
 We invite identity or security experts from the community to work together on this publication and contribute updates, feedbacks, comments or further additions.
 
+## Chapters
+- [Password Spray](PasswordSpray.md)
+- [Consent Grant](ConsentGrant.md)
+- [Service Principals in Azure DevOps Pipelines](ServicePrincipals-ADO.md)
+- [Azure AD Connect Sync Service Account ](AADCSyncServiceAccount.md)
+- [Replay of Primary Refresh (PRT) and other issued tokens](ReplayOfPrimaryRefreshToken.md)
+
+##### Appendix:
+- [Overview of Identity Security Monitoring in Microsoft Cloud](IdentitySecurityMonitoring.md)
+
+In all chapters, we follow the same guideline on the chapter structure. When reading, you can expect to find:
+
+- Description of the common attack scenarios in every scenario
+- Detection of the attacks by leveraging Microsoft security stack
+- Mitigation for the attack and instructions how to improve your environment security posture based on the chapter scope
+
+The following sections contain a short description of each chapter you can find from the 'Azure AD Attack & Defense Playbook'.
+
 ## Background
 The initial idea for creating the ‘Azure AD Attack & Defense Playbook’ came from Thomas Naunheim. Our first Teams call was somewhere in Autumn 2020 where Thomas presented the idea and it was sold immediately.  
 
@@ -32,27 +50,8 @@ The first chapter was about the ‘Password Spray’ attack where we focused hea
 
 With the latest chapters we have had lucky to have other community members involved to the project such as [Joosua Santasalo](https://twitter.com/SantasaloJoosua), [Fabian Bader](https://twitter.com/fabian_bader) & [Christopher Brumm](https://twitter.com/cbrhh) part as a sparring partner and reviewer. 
 
-## Attack Scenarios
-
-Typically, one chapter has taken approximately 1-2 months of calendar time so it has been quite an effort to put all four (4) chapters & appendix together. During the last two (2) years we have published the following chapters:
-
-#### Scenarios:
-- [Password Spray](PasswordSpray.md)
-- [Consent Grant](ConsentGrant.md)
-- [Service Principals in Azure DevOps Pipelines](ServicePrincipals-ADO.md)
-- [Azure AD Connect Sync Service Account ](AADCSyncServiceAccount.md)
-- [Replay of Primary Refresh (PRT) and other issued tokens](ReplayOfPrimaryRefreshToken.md)
-
-##### Appendix:
-- [Overview of Identity Security Monitoring in Microsoft Cloud](IdentitySecurityMonitoring.md)
-
-In all chapters, we follow the same guideline on the chapter structure. When reading, you can expect to find:
-
-- Description of the common attack scenarios in every scenario
-- Detection of the attacks by leveraging Microsoft security stack
-- Mitigation for the attack and instructions how to improve your environment security posture based on the chapter scope
-
-The following sections contain a short description of each chapter you can find from the 'Azure AD Attack & Defense Playbook'.
+# Attack scenarios
+Typically, one chapter has taken approximately 1-2 months of calendar time so it has been quite an effort to put all four (4) chapters & appendix together. During the last two (2) years we did research on the following scenarios:
 
 ## Password Spray Attacks
 *“A password spray attack is where multiple usernames are attacked using common passwords in a unified brute force manner to gain unauthorized access.”*
