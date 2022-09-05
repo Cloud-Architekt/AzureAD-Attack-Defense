@@ -1,7 +1,7 @@
 # Service Principals in Azure DevOps (Release) Pipelines
 
-Author: Joosua Santasalo, Sami Lamppu, Thomas Naunheim
-Created: July 2021
+_Author: Joosua Santasalo, Sami Lamppu, Thomas Naunheim_
+_Created: July 2021_
 
 *In the following two attack scenarios we’ve set our focus on privileged service principals as part of release pipelines in Azure DevOps and the (potential) limited visibility in auditing.*
 

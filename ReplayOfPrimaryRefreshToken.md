@@ -1,5 +1,8 @@
 # Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device
 
+_Author: Sami Lamppu and Thomas Naunheim_
+_Created: August 2022_
+
 **Table of Content**
   - [Introduction](#introduction)
     - [Background](#background)
