@@ -75,7 +75,7 @@ Mitre Att&ck framework is commonly used for mapping Tactics, Techniques & Proced
 ## TTPs
 The TTPs found from the picture below could be used on the consent grant based attack. The used framework is modified from MITRE ATT&CK V12 with Office 365 & Azure AD included from the cloud matrix.
 
-![./media/mitre/ConsentGrant-3.PNG](./media/mitre/ConsentGrant-3.PNG)
+![./media/mitre/ConsentGrant-4.PNG](./media/mitre/ConsentGrant-4.PNG)
 
 ### TTP Description & Built-in Rules
 The following TTPs are mapped for the 'Consent Grant' attack scenario. From the table below, you can find TTPs description and link to the MITRE ATT&CK official documentation.
