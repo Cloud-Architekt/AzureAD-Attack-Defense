@@ -59,10 +59,11 @@ Most attackers are using leaked or stolen lists of usernames to start the attack
 Before starting spray attacks it’s technical possible to validate if a user account exists in a certain tenant. Login page in Azure AD returns an error message if the user name not exists. [Daniel Chronlund](https://danielchronlund.com/2020/03/13/automatic-azure-ad-user-account-enumeration-with-powershell-scary-stuff/) has written a script and blog post to demonstrate how to enumerate user accounts via PowerShell.
 
 ## MITRE ATT&CK Framework
-Mitre Att&ck framework is commonly used for mapping Tactics, Techniques & Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world. 
+MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques and Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world.
 
 ### Tactics, Techniques & Procedures (TTPs) in Password Spray Attack
-Password Spray is mapped to MITRE ATT&CK framework into T1110.003 sub-technique which is underneath 'Brute Force' technique in the matrix. The used framework is modified from MITRE ATT&CK V12 with Office 365 & Azure AD included from the cloud matrix. Because there isn't any other TTPs included, the picture emphasizes only TA0006 - Credential Access.
+Password Spray is mapped to MITRE ATT&CK framework into T1110.003 sub-technique which is underneath 'Brute Force' technique in the matrix. The used framework is modified from MITRE ATT&CK V12 with Office 365 & Azure AD included from the cloud matrix.
+Because there isn't any other TTPs included, the picture emphasizes only "TA0006 - Credential Access".
 
 ![./media/mitre/PwSpray-2.PNG](./media/mitre/PwSpray-2.PNG)
 
@@ -72,6 +73,7 @@ The following TTPs are mapped for the 'Password Spray' attack scenario. From the
 | TTPs         |  Description  |
 |--------------|-----------|
 |  Credential Access - [T1110 - T1110.003](https://attack.mitre.org/techniques/T1110/003/)| Adversaries may use a single or small list of commonly used passwords against many different accounts to attempt to acquire valid account credentials. Password spraying uses one password (e.g. 'Password01'), or a small list of commonly used passwords, that may match the complexity policy of the domain. Logins are attempted with that password against many different accounts on a network to avoid account lockouts that would normally occur when brute forcing a single account with many passwords |
+|||
 
 #### Detection Rules for Password Spray Scenario
 

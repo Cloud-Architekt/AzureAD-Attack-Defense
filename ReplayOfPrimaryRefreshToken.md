@@ -315,6 +315,19 @@ $TeamsToken = RefreshTo-MSTeamsToken -RefreshToken $RefreshToken -Domain $Tenant
 - Currently, it’s not possible to request CAE-capable tokens from Azure Instance Metadata Service (IMDS).
 - Cached tokens can be also found on local devices: Azure PowerShell is stored in “msal_token_cache.bin” ( .Azure folder in user’s profile) and encrypted by DPAPI
 
+## MITRE ATT&CK Framework
+MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques and Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world.
+
+### Tactics, Techniques & Procedures (TTPs) of the named attack scenarios
+
+### TTP on abusing service connections in Azure DevOps
+
+|  Attack Scenario |    TTPs         |  Description  |
+|--------------|-----------|-----------|
+|  Replay PRT with exfiltrated transport and session keys | OS Credential Dumping [T1003.006](https://attack.mitre.org/techniques/T1003/) | Adversaries may attempt to dump credentials to obtain account login and credential material, normally in the form of a hash or a clear text password, from the operating system and software. Credentials can then be used to perform Lateral Movement and access restricted information Several of the tools mentioned in associated sub-techniques may be used by both adversaries and professional security testers. Additional custom tools likely exist as well. |  
+|  Replay PRT with exfiltrated transport and session keys, Replay of CAE-capable Access Token, Stealing Access Token outside of device with Azure Cloud Shell | Steal Application Access Token - [T1528](https://attack.mitre.org/techniques/T1528/)| Adversaries can steal application access tokens as a means of acquiring credentials to access remote systems and resources. Application access tokens are used to make authorized API requests on behalf of a user or service and are commonly used as a way to access resources in cloud and container-based applications and software-as-a-service (SaaS). OAuth is one commonly implemented framework that issues tokens to users for access to systems. Adversaries who steal account API tokens in cloud and containerized environments may be able to access data and perform actions with the permissions of these accounts, which can lead to privilege escalation and further compromise of the environment. |
+|||
+
 ## Detections
 
 On the detection side, we are focusing on usual suspects, Microsoft cloud-based security solutions. Starting from the source of the attack, the device, and moving to the identity detections and finally to Sentinel which is acting as a SIEM solution in our example scenario.
