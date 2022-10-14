@@ -18,7 +18,7 @@ Updated: November 2021
       - [Detection Rules for Password Spray Scenario](#detection-rules-for-password-spray-scenario)
         - [Sentinel Rules](#sentinel-rules)
         - [Defender for Cloud App Rules](#defender-for-cloud-app-rules)
-      - [Azure AD Identity Protection Rules](#azure-ad-identity-protection-rules)
+        - [Azure AD Identity Protection Rules](#azure-ad-identity-protection-rules)
   - [Detection](#detection)
     - [Sign-in logs In Azure Active Directory](#sign-in-logs-in-azure-active-directory)
     - [KQL Query in Microsoft Sentinel / Azure Monitor (based on AAD sign-in logs)](#kql-query-in-microsoft-sentinel--azure-monitor-based-on-aad-sign-in-logs)
@@ -86,7 +86,7 @@ The following TTPs are mapped for the 'Password Spray' attack scenario. From the
 ##### Defender for Cloud App Rules
 - [Multiple failed login attempt](https://learn.microsoft.com/en-us/defender-cloud-apps/policy-template-reference)
 
-#### Azure AD Identity Protection Rules
+##### Azure AD Identity Protection Rules
 - [Password Spray - offline detection](https://learn.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-risks)
 
 ## Detection
