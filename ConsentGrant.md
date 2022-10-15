@@ -14,9 +14,6 @@ _The second update: October 2022_
 - [MITRE ATT&CK Framework](#mitre-attck-framework)
   - [TTPs](#ttps)
     - [TTP Description & Built-in Rules](#ttp-description--built-in-rules)
-    - [Detection Rules for Consent Grant Scenario](#detection-rules-for-consent-grant-scenario)
-      - [Sentinel Rules](#sentinel-rules)
-      - [Defender for Cloud Apps Rules](#defender-for-cloud-apps-rules)
 - [Detection](#detection)
   - [Azure AD Audit Logs](#azure-ad-audit-logs)
   - [Azure Workbooks](#azure-workbooks)
@@ -88,16 +85,7 @@ The following TTPs are mapped for the 'Consent Grant' attack scenario. From the 
 |Credential Access - [T1528](https://attack.mitre.org/techniques/T1528/) | Adversaries can steal application access tokens as a means of acquiring credentials to access remote systems and resources. 
 |Lateral Movement - [T1550.001](https://attack.mitre.org/techniques/T1550/001/) | Adversaries may use stolen application access tokens to bypass the typical authentication process and access restricted accounts, information, or services on remote systems. These tokens are typically stolen from users or services and used in lieu of login credentials. Application access tokens are used to make authorized API requests on behalf of a user or service and are commonly used as a way to access resources in cloud and container-based applications and software-as-a-service (SaaS). |
 
-### Detection Rules for Consent Grant Scenario
 
-#### Sentinel Rules
-- [Suspicious Service Principal creation activity](https://github.com/Azure/Azure-Sentinel/blob/master/Solutions/Azure%20Active%20Directory/Analytic%20Rules/SuspiciousServicePrincipalcreationactivity.yaml) - T1078, T1528
-- [Suspicious application consent for offline access](https://github.com/Azure/Azure-Sentinel/blob/master/Solutions/Azure%20Active%20Directory/Analytic%20Rules/SuspiciousOAuthApp_OfflineAccess.yaml) - T1528
-- [Suspicious application consent similar to PwnAuth](https://github.com/Azure/Azure-Sentinel/blob/master/Solutions/Azure%20Active%20Directory/Analytic%20Rules/MaliciousOAuthApp_PwnAuth.yaml) - T1528, T1550
-- [Azure Active Directory Hybrid Health AD FS Application](https://github.com/Azure/Azure-Sentinel/blob/master/Detections/AzureActivity/AADHybridHealthADFSSuspApp.yaml) - T1528, T1550
-- [Suspicious application consent similar to O365 Attack Toolkit](https://github.com/Azure/Azure-Sentinel/blob/master/Solutions/Azure%20Active%20Directory/Analytic%20Rules/MaliciousOAuthApp_O365AttackToolkit.yaml) - T1528, T1550
-
-#### Defender for Cloud Apps Rules
 
 # Detection
 
