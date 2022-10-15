@@ -12,7 +12,7 @@ _The second update: October 2022_
 - [Attack](#attack)
   - [In practice](#in-practice)
 - [MITRE ATT&CK Framework](#mitre-attck-framework)
-  - [TTPs](#ttps)
+  - [Tactics, Techniques & Procedures (TTPs) in Consent Grant Attack](#tactics-techniques--procedures-ttps-in-consent-grant-attack)
     - [TTP Description & Built-in Rules](#ttp-description--built-in-rules)
 - [Detection](#detection)
   - [Azure AD Audit Logs](#azure-ad-audit-logs)
@@ -69,8 +69,8 @@ The list possibilities are endless... 😊
 # MITRE ATT&CK Framework
 Mitre Att&ck framework is commonly used for mapping Tactics, Techniques & Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world. 
 
-## TTPs
-The TTPs found from the picture below could be used on the consent grant based attack. The used framework is modified from MITRE ATT&CK V12 with Office 365 & Azure AD included from the cloud matrix.
+## Tactics, Techniques & Procedures (TTPs) in Consent Grant Attack
+Consent Grant (know also as 'Illicit Consent Grant Attack' or 'OAuth Phishing') is mapped to a several TTPs which are highlighted on the picture. The used framework is modified from MITRE ATT&CK V12 with Office 365 & Azure AD included from the cloud matrix.
 
 ![./media/mitre/ConsentGrant-4.PNG](./media/mitre/ConsentGrant-4.PNG)
 
