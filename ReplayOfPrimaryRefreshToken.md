@@ -17,7 +17,7 @@ _Created: August 2022_
       - [Stealing Access Token outside of device with Azure Cloud Shell](#stealing-access-token-outside-of-device-with-azure-cloud-shell)
   - [MITRE ATT&CK Framework](#mitre-attck-framework)
     - [Tactics, Techniques & Procedures (TTPs) of the named attack scenarios](#tactics-techniques--procedures-ttps-of-the-named-attack-scenarios)
-    - [TTP on abusing service connections in Azure DevOps](#ttp-on-abusing-service-connections-in-azure-devops)
+    - [TTPs on abusing PRT in Azure AD Join Scenario](#ttps-on-abusing-prt-in-azure-ad-join-scenario)
   - [Detections](#detections)
     - [Suspicious authentication and activity to access PRT](#suspicious-authentication-and-activity-to-access-prt)
       - [Microsoft Defender for Endpoint (MDE)](#microsoft-defender-for-endpoint-mde)
@@ -323,7 +323,9 @@ MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques and Proc
 
 ### Tactics, Techniques & Procedures (TTPs) of the named attack scenarios
 
-### TTP on abusing service connections in Azure DevOps
+![./media/mitre/PRT-1](./media/mitre/PRT-1.PNG)
+
+### TTPs on abusing PRT in Azure AD Join Scenario
 
 |  Attack Scenario |    TTPs         |  Description  |
 |--------------|-----------|-----------|

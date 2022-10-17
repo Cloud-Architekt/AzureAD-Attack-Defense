@@ -67,6 +67,8 @@ MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques and Proc
 
 ### Tactics, Techniques & Procedures (TTPs) of the named attack scenarios
 
+![./media/mitre/ADO-1.PNG](./media/mitre/ADO-1.PNG)
+
 ### TTP on abusing service connections in Azure DevOps
 
 |  Attack Scenario |    TTPs         |  Description  |
