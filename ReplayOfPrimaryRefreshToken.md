@@ -4,6 +4,7 @@ _Author: Sami Lamppu and Thomas Naunheim_
 _Created: August 2022_
 
 **Table of Content**
+- [Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device](#replay-of-primary-refresh-prt-and-other-issued-tokens-from-an-azure-ad-joined-device)
   - [Introduction](#introduction)
     - [Background](#background)
   - [Attack scenarios](#attack-scenarios)
@@ -14,6 +15,9 @@ _Created: August 2022_
     - [Access Token (AT)](#access-token-at)
       - [A replay of CAE-capable Access Token](#a-replay-of-cae-capable-access-token)
       - [Stealing Access Token outside of device with Azure Cloud Shell](#stealing-access-token-outside-of-device-with-azure-cloud-shell)
+  - [MITRE ATT&CK Framework](#mitre-attck-framework)
+    - [Tactics, Techniques & Procedures (TTPs) of the named attack scenarios](#tactics-techniques--procedures-ttps-of-the-named-attack-scenarios)
+    - [TTP on abusing service connections in Azure DevOps](#ttp-on-abusing-service-connections-in-azure-devops)
   - [Detections](#detections)
     - [Suspicious authentication and activity to access PRT](#suspicious-authentication-and-activity-to-access-prt)
       - [Microsoft Defender for Endpoint (MDE)](#microsoft-defender-for-endpoint-mde)
@@ -45,7 +49,6 @@ _Created: August 2022_
     - [Session and token management in Azure AD](#session-and-token-management-in-azure-ad)
       - [Token lifetime](#token-lifetime)
       - [Revocation](#revocation)
-    - [Windows components for requesting and using a PRT](#windows-components-for-requesting-and-using-a-prt)
 
 ## Introduction
 
@@ -325,6 +328,8 @@ MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques and Proc
 |  Attack Scenario |    TTPs         |  Description  |
 |--------------|-----------|-----------|
 |  Replay PRT with exfiltrated transport and session keys | OS Credential Dumping [T1003.006](https://attack.mitre.org/techniques/T1003/) | Adversaries may attempt to dump credentials to obtain account login and credential material, normally in the form of a hash or a clear text password, from the operating system and software. Credentials can then be used to perform Lateral Movement and access restricted information Several of the tools mentioned in associated sub-techniques may be used by both adversaries and professional security testers. Additional custom tools likely exist as well. |  
+|  Replay PRT with exfiltrated transport and session keys, Replay of CAE-capable Access Token, Stealing Access Token outside of device with Azure Cloud Shell | Steal Application Access Token - [T1528](https://attack.mitre.org/techniques/T1528/)| Adversaries can steal application access tokens as a means of acquiring credentials to access remote systems and resources. Application access tokens are used to make authorized API requests on behalf of a user or service and are commonly used as a way to access resources in cloud and container-based applications and software-as-a-service (SaaS). OAuth is one commonly implemented framework that issues tokens to users for access to systems. Adversaries who steal account API tokens in cloud and containerized environments may be able to access data and perform actions with the permissions of these accounts, which can lead to privilege escalation and further compromise of the environment. |
+|  Replay PRT with exfiltrated transport and session keys | Unsecured Credentials: Private Keys [T1552.004](https://attack.mitre.org/techniques/T1552/004/) | Adversaries may search for private key certificate files on compromised systems for insecurely stored credentials. Private cryptographic keys and certificates are used for authentication, encryption/decryption, and digital signatures. Common key and certificate file extensions include: .key, .pgp, .gpg, .ppk., .p12, .pem, .pfx, .cer, .p7b, .asc. |  
 |  Replay PRT with exfiltrated transport and session keys, Replay of CAE-capable Access Token, Stealing Access Token outside of device with Azure Cloud Shell | Steal Application Access Token - [T1528](https://attack.mitre.org/techniques/T1528/)| Adversaries can steal application access tokens as a means of acquiring credentials to access remote systems and resources. Application access tokens are used to make authorized API requests on behalf of a user or service and are commonly used as a way to access resources in cloud and container-based applications and software-as-a-service (SaaS). OAuth is one commonly implemented framework that issues tokens to users for access to systems. Adversaries who steal account API tokens in cloud and containerized environments may be able to access data and perform actions with the permissions of these accounts, which can lead to privilege escalation and further compromise of the environment. |
 |||
 
