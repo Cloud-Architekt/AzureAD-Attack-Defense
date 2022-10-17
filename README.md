@@ -56,9 +56,10 @@ With the latest chapters we have had lucky to have other community members invol
 # MITRE ATT&CK Framework
 [Mitre Att&ck framework](https://attack.mitre.org/) is commonly used for mapping Tactics, Techniques & Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world. In this playbook, we are leveraging the MITRE ATT&CK framework v11 in all of the chapters to map Technics, Tactics & Procedures (TTPs) to the attack scenarios. This would help Blue Teams to build defenses for the corresponding scenarios.
 
-## TTPs & Detection Rules
-You can expect to find multiple detection rules from the individual chapters based on the specific attack scenario. Because the playbook has high number of detection rules, we decided to create visualization that contains all the attack scenarios & detection rules mapped to TTPs. Take also into account, every individual chapter has visualization for the corresponding attack scenario. 
+## Tactics, Techniques & Procedures (TTP)
+You can expect to find multiple detection rules from the individual chapters based on the specific attack scenario. Because the playbook has high number of detection rules, we decided to create visualization that contains all the attack scenarios mapped to TTPs. Take also into account, every individual chapter has visualization for the corresponding attack scenario. 
 
+## Detection Rules
 The detection rules used in the playbook (as yaml files) are found [insert link](daa.daa) 
 
 
