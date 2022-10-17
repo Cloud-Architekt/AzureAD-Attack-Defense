@@ -70,7 +70,7 @@ The list possibilities are endless... 😊
 Mitre Att&ck framework is commonly used for mapping Tactics, Techniques & Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world. 
 
 ## Tactics, Techniques & Procedures (TTPs) in Consent Grant Attack
-Consent Grant (know also as 'Illicit Consent Grant Attack' or 'OAuth Phishing') is mapped to a several TTPs which are highlighted on the picture. The used framework is modified from MITRE ATT&CK V12 with Office 365 & Azure AD included from the cloud matrix.
+Consent Grant (know also as 'Illicit Consent Grant Attack' or 'OAuth Phishing') is mapped to a several TTPs which are highlighted on the picture. The used framework is modified from MITRE ATT&CK v11 with Office 365 & Azure AD included from the cloud matrix.
 
 ![./media/mitre/ConsentGrant-4.PNG](./media/mitre/ConsentGrant-4.PNG)
 

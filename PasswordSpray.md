@@ -58,7 +58,7 @@ Before starting spray attacks it’s technical possible to validate if a user ac
 MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques and Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world.
 
 ### Tactics, Techniques & Procedures (TTPs) in Password Spray Attack
-Password Spray is mapped to MITRE ATT&CK framework into T1110.003 sub-technique which is underneath 'Brute Force' technique in the matrix. The used framework is modified from MITRE ATT&CK V12 with Office 365 & Azure AD included from the cloud matrix.
+Password Spray is mapped to MITRE ATT&CK framework into T1110.003 sub-technique which is underneath 'Brute Force' technique in the matrix. The used framework is modified from MITRE ATT&CK v11 with Office 365 & Azure AD included from the cloud matrix.
 Because there isn't any other TTPs included, the picture emphasizes only "TA0006 - Credential Access".
 
 ![./media/mitre/PwSpray-2.PNG](./media/mitre/PwSpray-2.PNG)
