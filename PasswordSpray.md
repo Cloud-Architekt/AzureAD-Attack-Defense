@@ -1,8 +1,8 @@
 # Password Spray Attacks
 
-Author: Sami Lamppu, Thomas Naunheim
-Created: November 2020
-Updated: November 2021
+_Author: Sami Lamppu, Thomas Naunheim_
+_Created: November 2020_
+_Updated: October 2022_
 
 *"A password spray attack is where multiple usernames are attacked using common passwords in a unified brute force manner to gain unauthorized access.”*
 

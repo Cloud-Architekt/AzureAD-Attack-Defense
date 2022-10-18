@@ -2,6 +2,7 @@
 
 _Author: Joosua Santasalo, Sami Lamppu, Thomas Naunheim_
 _Created: July 2021_
+_Updated: October 2022 (Added M&TRE mapping)_
 
 *In the following two attack scenarios we’ve set our focus on privileged service principals as part of release pipelines in Azure DevOps and the (potential) limited visibility in auditing.*
 

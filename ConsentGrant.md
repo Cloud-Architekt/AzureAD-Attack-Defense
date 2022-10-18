@@ -3,9 +3,7 @@
 _Author: Thomas Naunheim, Joosua Santasalo & Sami Lamppu_
 
 _Created: February 2021_
-
 _The initial update: September 2021_
-
 _The second update: October 2022_
 
 - [Consent Grant Attack](#consent-grant-attack)

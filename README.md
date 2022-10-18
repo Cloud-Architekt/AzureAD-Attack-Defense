@@ -21,6 +21,7 @@ In all chapters, we follow the same guideline on the chapter structure. When rea
 - Description of the common attack scenarios in every scenario
 - Detection of the attacks by leveraging Microsoft security stack
 - Mitigation for the attack and instructions how to improve your environment security posture based on the chapter scope
+- Matching of attack scenarios and detection capabilities to Tactics, Techniques & Procedures (TTPs) of [M&TRE Attack Framework](#mitre-attck-framework)
 
 The following sections contain a short description of each chapter you can find from the 'Azure AD Attack & Defense Playbook'.
 
@@ -54,14 +55,13 @@ The first chapter was about the ‘Password Spray’ attack where we focused hea
 With the latest chapters we have had lucky to have other community members involved to the project such as [Joosua Santasalo](https://twitter.com/SantasaloJoosua), [Fabian Bader](https://twitter.com/fabian_bader) & [Christopher Brumm](https://twitter.com/cbrhh) part as a sparring partner and reviewer. 
 
 # MITRE ATT&CK Framework
-[Mitre Att&ck framework](https://attack.mitre.org/) is commonly used for mapping Tactics, Techniques & Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world. In this playbook, we are leveraging the MITRE ATT&CK framework v11 in all of the chapters to map Technics, Tactics & Procedures (TTPs) to the attack scenarios. This would help Blue Teams to build defenses for the corresponding scenarios.
+[MITRE ATT&CK Framework](https://attack.mitre.org/) is commonly used for mapping Tactics, Techniques & Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world. In this playbook, we are leveraging the MITRE ATT&CK framework v11 in all of the chapters to map Technics, Tactics & Procedures (TTPs) to the attack scenarios. This would help Blue Teams to build defenses for the corresponding scenarios.
 
 ## Tactics, Techniques & Procedures (TTP)
-You can expect to find multiple detection rules from the individual chapters based on the specific attack scenario. Because the playbook has high number of detection rules, we decided to create visualization that contains all the attack scenarios mapped to TTPs. Take also into account, every individual chapter has visualization for the corresponding attack scenario. 
+You can expect to find multiple detection rules from the individual chapters based on the specific attack scenario. Because the playbook has a high number of detection rules, we decided to create visualization that contains all the attack scenarios mapped to TTPs. Take also into account, every individual chapter has visualization for the corresponding attack scenario. 
 
 ## Detection Rules
 The detection rules used in the playbook (as yaml files) are found [insert link](daa.daa) 
-
 
 # Attack scenarios
 Typically, one chapter has taken approximately 1-2 months of calendar time so it has been quite an effort to put all four (4) chapters & appendix together. During the last two (2) years we did research on the following scenarios:

@@ -2,6 +2,7 @@
 
 _Author: Sami Lamppu and Thomas Naunheim_
 _Created: August 2022_
+_Updated: October 2022 (Added M&TRE mapping)_
 
 **Table of Content**
 - [Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device](#replay-of-primary-refresh-prt-and-other-issued-tokens-from-an-azure-ad-joined-device)
