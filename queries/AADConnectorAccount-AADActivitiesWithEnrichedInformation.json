@@ -1,0 +1,68 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "Parameters": {
+    "Workspace": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "id": "[concat(resourceId('Microsoft.OperationalInsights/workspaces/providers', parameters('workspace'), 'Microsoft.SecurityInsights'),'/alertRules/5f1bdb2f-5622-4ab2-bc4b-96cc9ff480c8')]",
+      "name": "[concat(parameters('workspace'),'/Microsoft.SecurityInsights/5f1bdb2f-5622-4ab2-bc4b-96cc9ff480c8')]",
+      "type": "Microsoft.OperationalInsights/workspaces/providers/alertRules",
+      "kind": null,
+      "apiVersion": "2021-10-01-preview",
+      "properties": {
+        "name": "Activities from AAD connector account with enrichment of IdentityInfo",
+        "description": "'This hunting query can be used customized as detection or for further investigation of changes which was made by the whitelisted AAD connector account. It allows to find take over or synchronization to user objects with sensitive group membership or assigned AAD roles. This query is also useful to find anomaly of object changes.''",
+        "severity": "Medium",
+        "requiredDataConnectors": [
+          {
+            "connectorId": "AzureActiveDirectory",
+            "dataTypes": [
+              "AuditLogs"
+            ]
+          }
+        ],
+        "queryFrequency": "P1D",
+        "queryPeriod": "P1D",
+        "triggerOperator": "GreaterThan",
+        "triggerThreshold": 0,
+        "tactics": [
+          "CredentialAccess",
+          "PrivilegeEscalation",
+          "InitialAccess"
+        ],
+        "query": "let AADConnectorAcc = (_GetWatchlist('ServiceAccounts')\n    | where ['Tags'] == \"Azure AD Connect\" | project AccountObjectId = ['Service AAD Object Id']);\nlet AADCServer = (_GetWatchlist('HighValueAssets')\n    | where ['Tags'] == \"Azure AD Connect\" | project ['IP Address']);    \nAuditLogs\n| extend ActorAccountObjectId = tostring(parse_json(tostring(InitiatedBy.user)).id)\n| extend ActorAccountIPAddress = tostring(parse_json(tostring(InitiatedBy.user)).ipAddress)\n| extend TargetAccountObjectId = tostring(parse_json(tostring(TargetResources[0])).id)\n| where ActorAccountObjectId in (AADConnectorAcc)\n| join kind=leftouter (IdentityInfo | project AccountObjectId, AccountDisplayName, GroupMembership, AssignedRoles) on $left.TargetAccountObjectId == $right.AccountObjectId\n| project TimeGenerated, ActorAccountObjectId, TargetAccountObjectId, OperationName, TargetUPN = tostring(parse_json(tostring(TargetResources[0])).userPrincipalName), GroupMembership, AssignedRoles, ActorAccountIPAddress\n| extend timestamp = TimeGenerated, IPCustomEntity = ActorAccountIPAddress, AccountCustomEntity = TargetUPN\n",
+        "entityMappings": [
+          {
+            "entityType": "Account",
+            "fieldMappings": [
+              {
+                "identifier": "FullName",
+                "columnName": "AccountCustomEntity"
+              }
+            ]
+          },
+          {
+            "entityType": "IP",
+            "fieldMappings": [
+              {
+                "identifier": "Address",
+                "columnName": "IPCustomEntity"
+              }
+            ]
+          }
+        ],
+        "suppressionDuration": "PT1H",
+        "suppressionEnabled": "false",
+        "enabled": "true",
+        "techniques": [
+          "T1078"
+        ],
+        "displayName": "Activities from AAD connector account with enrichment of IdentityInfo"
+      }
+    }
+  ]
+}

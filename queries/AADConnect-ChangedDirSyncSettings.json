@@ -1,0 +1,66 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "Parameters": {
+    "Workspace": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "id": "[concat(resourceId('Microsoft.OperationalInsights/workspaces/providers', parameters('workspace'), 'Microsoft.SecurityInsights'),'/alertRules/ea66d776-3936-48b5-8e10-cdc550e616d7')]",
+      "name": "[concat(parameters('workspace'),'/Microsoft.SecurityInsights/ea66d776-3936-48b5-8e10-cdc550e616d7')]",
+      "type": "Microsoft.OperationalInsights/workspaces/providers/alertRules",
+      "kind": null,
+      "apiVersion": "2021-10-01-preview",
+      "properties": {
+        "name": "Disabled soft- or hard match of Azure AD Connect sync",
+        "description": "Change of AAD sync configuration to overwrite and take-over (Azure AD) cloud-only accounts from AADC server (on-premises)",
+        "severity": "Medium",
+        "requiredDataConnectors": [
+          {
+            "connectorId": "AzureActiveDirectory",
+            "dataTypes": [
+              "AuditLogs"
+            ]
+          }
+        ],
+        "queryFrequency": "P1D",
+        "queryPeriod": "P1D",
+        "triggerOperator": "GreaterThan",
+        "triggerThreshold": 0,
+        "tactics": [
+          "PrivilegeEscalation"
+        ],
+        "query": "AuditLogs\n| where OperationName has \"Set DirSync feature\" \n| where Category has \"DirectoryManagement\" \n| where parse_json(tostring(TargetResources[0].modifiedProperties))[0].displayName == \"DirSyncFeatures\" \n| extend NewValue = parse_json(tostring(parse_json(tostring(TargetResources[0].modifiedProperties))[0].newValue))[0]  \n| extend OldValue = parse_json(tostring(parse_json(tostring(TargetResources[0].modifiedProperties))[0].oldValue))[0] \n| extend UserPrincipalName =  parse_json(tostring(InitiatedBy.user)).userPrincipalName \n| extend IPAddress =  parse_json(tostring(InitiatedBy.user)).ipAddress\n| extend timestamp = TimeGenerated, IPCustomEntity = IPAddress, AccountCustomEntity = UserPrincipalName\n",
+        "entityMappings": [
+          {
+            "entityType": "Account",
+            "fieldMappings": [
+              {
+                "identifier": "FullName",
+                "columnName": "AccountCustomEntity"
+              }
+            ]
+          },
+          {
+            "entityType": "IP",
+            "fieldMappings": [
+              {
+                "identifier": "Address",
+                "columnName": "IPAddress"
+              }
+            ]
+          }
+        ],
+        "suppressionDuration": "PT1H",
+        "suppressionEnabled": "false",
+        "enabled": "true",
+        "techniques": [
+          "T1548"
+        ],
+        "displayName": "Disabled soft- or hard match of Azure AD Connect sync"
+      }
+    }
+  ]
+}
