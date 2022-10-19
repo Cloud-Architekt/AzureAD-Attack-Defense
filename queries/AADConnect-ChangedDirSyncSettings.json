@@ -30,7 +30,10 @@
         "triggerOperator": "GreaterThan",
         "triggerThreshold": 0,
         "tactics": [
-          "PrivilegeEscalation"
+          "Persistence",
+          "CredentialAccess",
+          "PrivilegeEscalation",
+          "InitialAccess"
         ],
         "query": "AuditLogs\n| where OperationName has \"Set DirSync feature\" \n| where Category has \"DirectoryManagement\" \n| where parse_json(tostring(TargetResources[0].modifiedProperties))[0].displayName == \"DirSyncFeatures\" \n| extend NewValue = parse_json(tostring(parse_json(tostring(TargetResources[0].modifiedProperties))[0].newValue))[0]  \n| extend OldValue = parse_json(tostring(parse_json(tostring(TargetResources[0].modifiedProperties))[0].oldValue))[0] \n| extend UserPrincipalName =  parse_json(tostring(InitiatedBy.user)).userPrincipalName \n| extend IPAddress =  parse_json(tostring(InitiatedBy.user)).ipAddress\n| extend timestamp = TimeGenerated, IPCustomEntity = IPAddress, AccountCustomEntity = UserPrincipalName\n",
         "entityMappings": [
@@ -57,7 +60,9 @@
         "suppressionEnabled": "false",
         "enabled": "true",
         "techniques": [
-          "T1548"
+          "T1136",
+          "T1098",
+          "T1078"
         ],
         "displayName": "Disabled soft- or hard match of Azure AD Connect sync"
       }
