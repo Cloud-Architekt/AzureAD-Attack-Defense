@@ -1,0 +1,5 @@
+pw spray	= green (#8ec843)
+consent grant 	= blue ( #66b1ff)
+ado 		= yellow (#ffe766)
+aadc		= ping (#ff66f4)
+prt		= orange (#ffaf66)
