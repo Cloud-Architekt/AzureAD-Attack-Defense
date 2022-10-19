@@ -21,7 +21,7 @@ In all chapters, we follow the same guideline on the chapter structure. When rea
 - Description of the common attack scenarios in every scenario
 - Detection of the attacks by leveraging Microsoft security stack
 - Mitigation for the attack and instructions how to improve your environment security posture based on the chapter scope
-- Matching of attack scenarios and detection capabilities to Tactics, Techniques & Procedures (TTPs) of [M&TRE Attack Framework](#mitre-attck-framework)
+- Matching of attack scenarios and detection capabilities to Tactics, Techniques & Procedures (TTPs) of [MTRE ATT&CK Framework](#mitre-attck-framework)
 
 The following sections contain a short description of each chapter you can find from the 'Azure AD Attack & Defense Playbook'.
 
