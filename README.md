@@ -60,8 +60,12 @@ With the latest chapters we have had lucky to have other community members invol
 ## Tactics, Techniques & Procedures (TTP)
 You can expect to find multiple detection rules from the individual chapters based on the specific attack scenario. Because the playbook has a high number of detection rules, we decided to create visualization that contains all the attack scenarios mapped to TTPs. Take also into account, every individual chapter has visualization for the corresponding attack scenario. 
 
-## Detection Rules as Rule Template
-All chapters has built-in detection rules as well as custom rules created during research. The detection rules from this playbook are available as [Microsoft Sentinel Rule Template (ready-to-deploy) in JSON (ARM Template) format here](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/main/queries).
+### Map of attack scenarios to TTP
+
+## Detections and rule templates for attack scenarios
+The related detection capabilities of Microsoft Security products (Microsoft 365 Defender, Microsoft Sentinel, Azure AD Identity Protection, Microsoft Defender for Cloud) will be covered in the detection part of the attack scenarios. Custom rule templates for Microsoft Sentinel, which has been developed for the playbook, are also mapped to the TTPs. The detection rules are available as [Microsoft Sentinel Rule Template (ready-to-deploy) in JSON (ARM Template) format here](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/main/queries).
+
+### Detection coverage of Microsoft Cloud Security Stack
 
 # Attack scenarios
 Typically, one chapter has taken approximately 1-2 months of calendar time so it has been quite an effort to put all four (4) chapters & appendix together. During the last two (2) years we did research on the following scenarios:
