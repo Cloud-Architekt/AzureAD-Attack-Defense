@@ -61,9 +61,6 @@ With the latest chapters we have had lucky to have other community members invol
 You can expect to find multiple detection rules from the individual chapters based on the specific attack scenario. Because the playbook has a high number of detection rules, we decided to create visualization that contains all the attack scenarios mapped to TTPs. Take also into account, every individual chapter has visualization for the corresponding attack scenario. 
 
 ### Map of attack scenarios to TTP
-
-<a href="">![](./media/mitre/AttackScenarios/Attacks-Combined.svg)</a>
-
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/AttackScenarios/Attacks-Combined.svg" target="_blank">![](./media/mitre/AttackScenarios/Attacks-Combined.svg)</a>
 
 ## Detections and rule templates for attack scenarios
