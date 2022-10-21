@@ -100,7 +100,7 @@ MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques and Proc
 
 ![./media/mitre/AADC-3.PNG](./media/mitre/AADC-3.PNG)
 
-<a href="./media/mitre/AttackScenarios/AADC.svg">![](./media/mitre/AttackScenarios/AADC.svg)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/AttackScenarios/AADC.svg" target="_blank">![](./media/mitre/AttackScenarios/AADC.svg)</a>
 
 ### TTP on abusing Azure AD Connect Sync Service Account
 

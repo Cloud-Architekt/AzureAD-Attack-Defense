@@ -62,14 +62,15 @@ You can expect to find multiple detection rules from the individual chapters bas
 
 ### Map of attack scenarios to TTP
 
-<a href="./media/mitre/AttackScenarios/Attacks-Combined.svg">![](./media/mitre/AttackScenarios/Attacks-Combined.svg)</a>
+<a href="">![](./media/mitre/AttackScenarios/Attacks-Combined.svg)</a>
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/AttackScenarios/Attacks-Combined.svg" target="_blank">![](./media/mitre/AttackScenarios/Attacks-Combined.svg)</a>
 
 ## Detections and rule templates for attack scenarios
 The related detection capabilities of Microsoft Security products (Microsoft 365 Defender, Microsoft Sentinel, Azure AD Identity Protection, Microsoft Defender for Cloud) will be covered in the detection part of the attack scenarios. Custom rule templates for Microsoft Sentinel, which has been developed for the playbook, are also mapped to the TTPs. The detection rules are available as [Microsoft Sentinel Rule Template (ready-to-deploy) in JSON (ARM Template) format here](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/main/queries).
 
 ### Detection coverage of Microsoft Cloud Security Stack
-
-<a href="./media/mitre/Rules/Rules-Combined.svg">![](./media/mitre/Rules/Rules-Combined.svg)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/Rules/Rules-Combined.svg" target="_blank">![](./media/mitre/Rules/Rules-Combined.svg)</a>
 
 # Attack scenarios
 Typically, one chapter has taken approximately 1-2 months of calendar time so it has been quite an effort to put all four (4) chapters & appendix together. During the last two (2) years we did research on the following scenarios:
