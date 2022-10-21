@@ -10,7 +10,7 @@ _Updated: October 2022 (Added M&TRE mapping)_
 - [Attack scenarios](#attack-scenarios)
   - [MITRE ATT&CK Framework](#mitre-attck-framework)
     - [Tactics, Techniques & Procedures (TTPs) of the named attack scenarios](#tactics-techniques--procedures-ttps-of-the-named-attack-scenarios)
-    - [TTP on abusing sAzure AD Connect Sync Service Account](#ttp-on-abusing-sazure-ad-connect-sync-service-account)
+    - [TTP on abusing Azure AD Connect Sync Service Account](#ttp-on-abusing-azure-ad-connect-sync-service-account)
 - [Detections](#detections)
   - [Threat signals by using offensive tools on AADC servers](#threat-signals-by-using-offensive-tools-on-aadc-servers)
     - [Dumping credentials with AADInternals](#dumping-credentials-with-aadinternals)
@@ -100,7 +100,9 @@ MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques and Proc
 
 ![./media/mitre/AADC-3.PNG](./media/mitre/AADC-3.PNG)
 
-### TTP on abusing sAzure AD Connect Sync Service Account
+<a href="./media/mitre/AttackScenarios/AADC.svg">![](./media/mitre/AttackScenarios/AADC.svg)</a>
+
+### TTP on abusing Azure AD Connect Sync Service Account
 
 |  Attack Scenario |    TTPs         |  Description  |
 |--------------|-----------|-----------|
