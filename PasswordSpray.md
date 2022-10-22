@@ -61,7 +61,7 @@ MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques and Proc
 Password Spray is mapped to MITRE ATT&CK framework into T1110.003 sub-technique which is underneath 'Brute Force' technique in the matrix. The used framework is modified from MITRE ATT&CK v11 with Office 365 & Azure AD included from the cloud matrix.
 Because there isn't any other TTPs included, the picture emphasizes only "TA0006 - Credential Access".
 
-![./media/mitre/PwSpray-2.PNG](./media/mitre/PwSpray-2.PNG)
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/AttackScenarios/Password_Spray.svg" target="_blank">![](./media/mitre/AttackScenarios/Password_Spray.svg)</a>
 
 ### TTP Description
 The following TTPs are mapped for the 'Password Spray' attack scenario. From the table below, you can find TTPs description and link to the MITRE ATT&CK official documentation.

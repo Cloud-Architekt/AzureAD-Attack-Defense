@@ -62,12 +62,43 @@ You can expect to find multiple detection rules from the individual chapters bas
 
 ### Map of attack scenarios to TTP
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/AttackScenarios/Attacks-Combined.svg" target="_blank">![](./media/mitre/AttackScenarios/Attacks-Combined.svg)</a>
+<br>
+
+<style>
+  .legend {
+    border: 0.1px;
+    border-style: solid;
+    border-color: black;
+    font-weight: 500;
+    padding-left: 10px;
+  }
+</style>
+
+<div style="width:500px"> 
+<div style="background-color:#D3D3D3;font-style:italic;font-weight: 700" class="legend">Legend of displayed Detection Capabilities:</div>
+<div style="background-color:#8ec843" class="legend">Green: Password Spray</div>
+<div style="background-color:#66b1ff" class="legend">Blue: Consent Grant</div>
+<div style="background-color:#ffe766" class="legend">Yellow: Service Principals in Azure DevOps Pipelines</div>
+<div style="background-color:#ff66f4" class="legend">Pink: Azure AD Connect Sync Service Account</div>
+<div style="background-color:#ffaf66" class="legend">Orange: Replay of Primary Refresh (PRT) and other issued tokens</div>
+</div>
 
 ## Detections and rule templates for attack scenarios
 The related detection capabilities of Microsoft Security products (Microsoft 365 Defender, Microsoft Sentinel, Azure AD Identity Protection, Microsoft Defender for Cloud) will be covered in the detection part of the attack scenarios. Custom rule templates for Microsoft Sentinel, which has been developed for the playbook, are also mapped to the TTPs. The detection rules are available as [Microsoft Sentinel Rule Template (ready-to-deploy) in JSON (ARM Template) format here](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/main/queries).
 
 ### Detection coverage of Microsoft Cloud Security Stack
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/Rules/Rules-Combined.svg" target="_blank">![](./media/mitre/Rules/Rules-Combined.svg)</a>
+<br>
+
+
+<div style="width:500px"> 
+<div style="background-color:#D3D3D3;font-style:italic;font-weight: 700" class="legend">Legend of displayed Detection Capabilities:</div>
+<div style="background-color:#66b1ff" class="legend">Blue: Azure AD Identity Protection</div>
+<div style="background-color:#8ec843" class="legend">Green: M365 Defender and Microsoft Defender for Cloud Apps</div>
+<div style="background-color:#ffaf66" class="legend">Orange: Custom Rule Templates in Microsoft Sentinel from Playbook</div>
+<div style="background-color:#9666ff" class="legend">Purple: Built-in Rule Templates in Microsoft Sentinel</div>
+<div style="background-color:#ffffff" class="legend">White: Combined Detections and Rule Templates</div>
+</div>
 
 # Attack scenarios
 Typically, one chapter has taken approximately 1-2 months of calendar time so it has been quite an effort to put all four (4) chapters & appendix together. During the last two (2) years we did research on the following scenarios:

@@ -70,7 +70,9 @@ Mitre Att&ck framework is commonly used for mapping Tactics, Techniques & Proced
 ## Tactics, Techniques & Procedures (TTPs) in Consent Grant Attack
 Consent Grant (know also as 'Illicit Consent Grant Attack' or 'OAuth Phishing') is mapped to a several TTPs which are highlighted on the picture. The used framework is modified from MITRE ATT&CK v11 with Office 365 & Azure AD included from the cloud matrix.
 
-![./media/mitre/ConsentGrant-4.PNG](./media/mitre/ConsentGrant-4.PNG)
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/AttackScenarios/Consent_Grant.svg" target="_blank">![](./media/mitre/AttackScenarios/Consent_Grant.svg)</a>
+
+<iframe src="https://mitre-attack.github.io/attack-navigator/enterprise/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FMitre-update%2Fmedia%2Fmitre%2FAttackScenarios%2FConsent_Grant.json&tabs=false&selecting_techniques=false" width="1000" height="500"></iframe>
 
 ### TTP Description & Built-in Rules
 The following TTPs are mapped for the 'Consent Grant' attack scenario. From the table below, you can find TTPs description and link to the MITRE ATT&CK official documentation.
@@ -82,8 +84,6 @@ The following TTPs are mapped for the 'Consent Grant' attack scenario. From the 
 | Defense Evasion - [T1550 - T1550.001](https://attack.mitre.org/techniques/T1550/001/) | Adversaries may also utilize links to perform consent phishing, typically with OAuth 2.0 request URLs that when accepted by the user provide permissions/access for malicious applications, allowing adversaries to Steal Application Access Tokens. 
 |Credential Access - [T1528](https://attack.mitre.org/techniques/T1528/) | Adversaries can steal application access tokens as a means of acquiring credentials to access remote systems and resources. 
 |Lateral Movement - [T1550.001](https://attack.mitre.org/techniques/T1550/001/) | Adversaries may use stolen application access tokens to bypass the typical authentication process and access restricted accounts, information, or services on remote systems. These tokens are typically stolen from users or services and used in lieu of login credentials. Application access tokens are used to make authorized API requests on behalf of a user or service and are commonly used as a way to access resources in cloud and container-based applications and software-as-a-service (SaaS). |
-
-
 
 # Detection
 
