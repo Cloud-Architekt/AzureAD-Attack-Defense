@@ -72,7 +72,7 @@ Consent Grant (know also as 'Illicit Consent Grant Attack' or 'OAuth Phishing') 
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/AttackScenarios/Consent_Grant.svg" target="_blank">![](./media/mitre/AttackScenarios/Consent_Grant.svg)</a>
 
-<iframe src="https://mitre-attack.github.io/attack-navigator/enterprise/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FMitre-update%2Fmedia%2Fmitre%2FAttackScenarios%2FConsent_Grant.json&tabs=false&selecting_techniques=false" width="1000" height="500"></iframe>
+<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/enterprise/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FMitre-update%2Fmedia%2Fmitre%2FAttackScenarios%2FConsent_Grant.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
 
 ### TTP Description & Built-in Rules
 The following TTPs are mapped for the 'Consent Grant' attack scenario. From the table below, you can find TTPs description and link to the MITRE ATT&CK official documentation.
