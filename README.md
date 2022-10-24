@@ -77,6 +77,7 @@ The related detection capabilities of Microsoft Security products (Microsoft 365
 <br>
 <a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FMitre-update%2Fmedia%2Fmitre%2FRules%2FRules_Combined.json" >Open in MITRE ATT&CK Navigator</a>
 
+
 # Attack scenarios
 Typically, one chapter has taken approximately 1-2 months of calendar time so it has been quite an effort to put all four (4) chapters & appendix together. During the last two (2) years we did research on the following scenarios:
 
