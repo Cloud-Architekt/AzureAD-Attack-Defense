@@ -63,10 +63,9 @@ You can expect to find multiple detection rules from the individual chapters bas
 ### Map of attack scenarios to TTP
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/AttackScenarios/Attacks_Combined.svg" target="_blank">![](./media/mitre/AttackScenarios/Attacks_Combined.svg)</a>
 <br>
-<img src="./media/mitre/AttackScenarios/Attacks_Combined_Legend.png" alt="drawing" width="500px"/>
+<img src="./media/mitre/AttackScenarios/Attacks_Combined_Legend.png" alt="drawing" width="500px" />
 <br>
-<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/enterprise/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FMitre-update%2Fmedia%2Fmitre%2FAttackScenarios%Attacks_Combined.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
-
+<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FMitre-update%2Fmedia%2Fmitre%2FAttackScenarios%2FAttacks_Combined.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
 
 ## Detections and rule templates for attack scenarios
 The related detection capabilities of Microsoft Security products (Microsoft 365 Defender, Microsoft Sentinel, Azure AD Identity Protection, Microsoft Defender for Cloud) will be covered in the detection part of the attack scenarios. Custom rule templates for Microsoft Sentinel, which has been developed for the playbook, are also mapped to the TTPs. The detection rules are available as [Microsoft Sentinel Rule Template (ready-to-deploy) in JSON (ARM Template) format here](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/main/queries).
@@ -74,11 +73,9 @@ The related detection capabilities of Microsoft Security products (Microsoft 365
 ### Detection coverage of Microsoft Cloud Security Stack
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/Rules/Rules_Combined.svg" target="_blank">![](./media/mitre/Rules/Rules_Combined.svg)</a>
 <br>
-
-<img src="./media/mitre/Rules/Rules_Combined_Legend.png" alt="drawing" width="500px"/>
-
+<img src="./media/mitre/Rules/Rules_Combined_Legend.png" width="500px" />
 <br>
-<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/enterprise/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FMitre-update%2Fmedia%2Fmitre%2FRules%Rules_Combined.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
+<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FMitre-update%2Fmedia%2Fmitre%2FRules%2FRules_Combined.json" >Open in MITRE ATT&CK Navigator</a>
 
 # Attack scenarios
 Typically, one chapter has taken approximately 1-2 months of calendar time so it has been quite an effort to put all four (4) chapters & appendix together. During the last two (2) years we did research on the following scenarios:
