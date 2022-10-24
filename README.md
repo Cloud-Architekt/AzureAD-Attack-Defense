@@ -61,35 +61,24 @@ With the latest chapters we have had lucky to have other community members invol
 You can expect to find multiple detection rules from the individual chapters based on the specific attack scenario. Because the playbook has a high number of detection rules, we decided to create visualization that contains all the attack scenarios mapped to TTPs. Take also into account, every individual chapter has visualization for the corresponding attack scenario. 
 
 ### Map of attack scenarios to TTP
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/AttackScenarios/Attacks-Combined.svg" target="_blank">![](./media/mitre/AttackScenarios/Attacks-Combined.svg)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/AttackScenarios/Attacks_Combined.svg" target="_blank">![](./media/mitre/AttackScenarios/Attacks_Combined.svg)</a>
 <br>
-
-<div style="width:500px"> 
-<div style="padding-left:10px;border-style:solid;border-color:black;border:0.1px;font-weight:500;background-color:#D3D3D3;font-style:italic;font-weight: 700">Legend of displayed Detection Capabilities:</div>
-<div style="padding-left:10px;border-style:solid;border-color:black;border:0.1px;font-weight:500;background-color:#D3D3D3;background-color:#8ec843">Green: Password Spray</div>
-<div style="padding-left:10px;border-style:solid;border-color:black;border:0.1px;font-weight:500;background-color:#D3D3D3;background-color:#66b1ff">Blue: Consent Grant</div>
-<div style="padding-left:10px;border-style:solid;border-color:black;border:0.1px;font-weight:500;background-color:#D3D3D3;background-color:#ffe766">Yellow: Service Principals in Azure DevOps Pipelines</div>
-<div style="padding-left:10px;border-style:solid;border-color:black;border:0.1px;font-weight:500;background-color:#D3D3D3;background-color:#ff66f4">Pink: Azure AD Connect Sync Service Account</div>
-<div style="padding-left:10px;border-style:solid;border-color:black;border:0.1px;font-weight:500;background-color:#D3D3D3;background-color:#ffaf66">Orange: Replay of Primary Refresh (PRT) and other issued tokens</div>
-</div>
+<img src="./media/mitre/AttackScenarios/Attacks_Combined_Legend.png" alt="drawing" width="500px"/>
+<br>
+<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/enterprise/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FMitre-update%2Fmedia%2Fmitre%2FAttackScenarios%Attacks_Combined.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
 
 
 ## Detections and rule templates for attack scenarios
 The related detection capabilities of Microsoft Security products (Microsoft 365 Defender, Microsoft Sentinel, Azure AD Identity Protection, Microsoft Defender for Cloud) will be covered in the detection part of the attack scenarios. Custom rule templates for Microsoft Sentinel, which has been developed for the playbook, are also mapped to the TTPs. The detection rules are available as [Microsoft Sentinel Rule Template (ready-to-deploy) in JSON (ARM Template) format here](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/main/queries).
 
 ### Detection coverage of Microsoft Cloud Security Stack
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/Rules/Rules-Combined.svg" target="_blank">![](./media/mitre/Rules/Rules-Combined.svg)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/Rules/Rules_Combined.svg" target="_blank">![](./media/mitre/Rules/Rules_Combined.svg)</a>
 <br>
 
+<img src="./media/mitre/Rules/Rules_Combined_Legend.png" alt="drawing" width="500px"/>
 
-<div style="width:500px"> 
-<div style="padding-left:10px;border-style:solid;border-color:black;border:0.1px;font-weight:500;background-color:#D3D3D3;font-style:italic;font-weight: 700">Legend of displayed Detection Capabilities:</div>
-<div style="padding-left:10px;border-style:solid;border-color:black;border:0.1px;font-weight:500;background-color:#66b1ff">Blue: Azure AD Identity Protection</div>
-<div style="padding-left:10px;border-style:solid;border-color:black;border:0.1px;font-weight:500;background-color:#8ec843">Green: M365 Defender and Microsoft Defender for Cloud Apps</div>
-<div style="padding-left:10px;border-style:solid;border-color:black;border:0.1px;font-weight:500;background-color:#ffaf66">Orange: Custom Rule Templates in Microsoft Sentinel from Playbook</div>
-<div style="padding-left:10px;border-style:solid;border-color:black;border:0.1px;font-weight:500;background-color:#9666ff">Purple: Built-in Rule Templates in Microsoft Sentinel</div>
-<div style="padding-left:10px;border-style:solid;border-color:black;border:0.1px;font-weight:500;background-color:#ffffff">White: Combined Detections and Rule Templates</div>
-</div>
+<br>
+<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/enterprise/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FMitre-update%2Fmedia%2Fmitre%2FRules%Rules_Combined.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
 
 # Attack scenarios
 Typically, one chapter has taken approximately 1-2 months of calendar time so it has been quite an effort to put all four (4) chapters & appendix together. During the last two (2) years we did research on the following scenarios:
