@@ -63,7 +63,7 @@ You can expect to find multiple detection rules from the individual chapters bas
 ### Map of attack scenarios to TTP
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Mitre-update/media/mitre/AttackScenarios/Attacks_Combined.svg" target="_blank">![](./media/mitre/AttackScenarios/Attacks_Combined.svg)</a>
 <br>
-<img src="./media/mitre/AttackScenarios/Attacks_Combined_Legend.png" alt="drawing" width="500px" />
+<img src="./media/mitre/AttackScenarios/Attacks_Combined_Legend.png" alt="drawing" width="498px" />
 <br>
 <a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FMitre-update%2Fmedia%2Fmitre%2FAttackScenarios%2FAttacks_Combined.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
 
