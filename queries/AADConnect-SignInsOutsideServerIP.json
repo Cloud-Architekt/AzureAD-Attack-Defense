@@ -1,0 +1,75 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "Parameters": {
+    "Workspace": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "id": "[concat(resourceId('Microsoft.OperationalInsights/workspaces/providers', parameters('workspace'), 'Microsoft.SecurityInsights'),'/alertRules/12531591-8392-4b4c-b117-485216bbf577')]",
+      "name": "[concat(parameters('workspace'),'/Microsoft.SecurityInsights/12531591-8392-4b4c-b117-485216bbf577')]",
+      "type": "Microsoft.OperationalInsights/workspaces/providers/alertRules",
+      "kind": null,
+      "apiVersion": "2021-10-01-preview",
+      "properties": {
+        "name": "Successful sign-ins from valid AAD connector account outside of whitelisted IP address from WatchList",
+        "description": "'Detection of sign-ins outside of a named public IP addresses. We're AccountObject ID from the \"Service Accounts\" watchlist to detect any sign-ins outside of the named IP address which is defined in the \"High Value Asses\" watchlist. Furthermore, we're covering all sign-ins to the AAD Connect Endpoints (Azure AD Sync and AAD Connect V2) to detect sign-ins that doesn't match with the WatchList.'",
+        "severity": "Medium",
+        "requiredDataConnectors": [
+          {
+            "connectorId": "AzureActiveDirectory",
+            "dataTypes": [
+              "SigninLogs"
+            ]
+          },
+          {
+            "connectorId": "AzureActiveDirectory",
+            "dataTypes": [
+              "AADNonInteractiveUserSignInLogs"
+            ]
+          }
+        ],
+        "queryFrequency": "P1D",
+        "queryPeriod": "P1D",
+        "triggerOperator": "GreaterThan",
+        "triggerThreshold": 0,
+        "tactics": [
+          "CredentialAccess",
+          "PrivilegeEscalation",
+          "InitialAccess"
+        ],
+        "query": "let AADCServer = (_GetWatchlist('HighValueAssets')\n    | where ['Tags'] == \"Azure AD Connect\" | project ['IP Address']);\nlet AADConnectorAcc = (_GetWatchlist('ServiceAccounts')\n    | where ['Tags'] == \"Azure AD Connect\" | project AccountObjectId = ['Service AAD Object Id']);\nunion isfuzzy=true AADNonInteractiveUserSignInLogs, SigninLogs\n// AADC APIs: AADSync = \"cb1056e2-e479-49de-ae31-7812af012ed8\", AAD Connect v2 = 6eb59a73-39b2-4c23-a70f-e2e3ce8965b1\n| where (UserId in (AADConnectorAcc) or AppId == \"cb1056e2-e479-49de-ae31-7812af012ed8\" or AppId == \"6eb59a73-39b2-4c23-a70f-e2e3ce8965b1\") and IPAddress !in (AADCServer)\n| where ResultType == \"0\"\n| project TimeGenerated,Category,UserPrincipalName, AppDisplayName, AppId, IPAddress, RiskState\n| extend timestamp = TimeGenerated, IPCustomEntity = IPAddress, AccountCustomEntity = UserPrincipalName\n",
+        "entityMappings": [
+          {
+            "entityType": "Account",
+            "fieldMappings": [
+              {
+                "identifier": "FullName",
+                "columnName": "AccountCustomEntity"
+              }
+            ]
+          },
+          {
+            "entityType": "IP",
+            "fieldMappings": [
+              {
+                "identifier": "Address",
+                "columnName": "IPCustomEntity"
+              }
+            ]
+          }
+        ],
+        "suppressionDuration": "PT1H",
+        "suppressionEnabled": "false",
+        "enabled": "true",
+        "techniques": [
+          "T1078",
+	        "T1528"
+        ],
+        "displayName": "Successful sign-ins from valid AAD connector account outside of whitelisted IP address from WatchList"
+      }
+    }
+  ]
+}

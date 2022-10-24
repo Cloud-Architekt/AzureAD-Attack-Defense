@@ -2,8 +2,27 @@
 
 _Author: Joosua Santasalo, Sami Lamppu, Thomas Naunheim_
 _Created: July 2021_
+_Updated: October 2022 (Added M&TRE mapping)_
 
 *In the following two attack scenarios we’ve set our focus on privileged service principals as part of release pipelines in Azure DevOps and the (potential) limited visibility in auditing.*
+
+- [Service Principals in Azure DevOps (Release) Pipelines](#service-principals-in-azure-devops-release-pipelines)
+  - [Attack](#attack)
+    - [Exfiltration of credentials or access token from Azure DevOps pipelines](#exfiltration-of-credentials-or-access-token-from-azure-devops-pipelines)
+    - [Using service connections outside of intended pipeline](#using-service-connections-outside-of-intended-pipeline)
+  - [MITRE ATT&CK Framework](#mitre-attck-framework)
+    - [Tactics, Techniques & Procedures (TTPs) of the named attack scenarios](#tactics-techniques--procedures-ttps-of-the-named-attack-scenarios)
+    - [TTP on abusing service connections in Azure DevOps](#ttp-on-abusing-service-connections-in-azure-devops)
+  - [Detection](#detection)
+    - [DevOps Auditing](#devops-auditing)
+  - [Mitigation](#mitigation)
+    - [Securing Azure DevOps environment](#securing-azure-devops-environment)
+    - [Prevention of Data Leak and Privilege Escalation](#prevention-of-data-leak-and-privilege-escalation)
+  - [Azure Pipeline Security](#azure-pipeline-security)
+  - [Service Connections](#service-connections)
+    - [Tracking of Service Connections and Enrichment of Security Informations from ADO API](#tracking-of-service-connections-and-enrichment-of-security-informations-from-ado-api)
+  - [Service Principal Security](#service-principal-security)
+- [References](#references)
 
 ## Attack
 
@@ -43,6 +62,24 @@ RBAC design and implementation of ADO can be complex because of various level of
 - Furthermore, the RBAC allows (by default) inheritance of permission to manage pipelines and the tasks (operations as part of the agent jobs). The following attack scenarios must be mitigated to prevent privilege escalation by takeover or manipulation of pipeline tasks:
     - Run malicious operations (on-behalf of the service connection)
     - Trusted supply chain and extensions to prevent malicious code as part of the DevOps Pipelines.
+
+## MITRE ATT&CK Framework
+MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques and Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world.
+
+### Tactics, Techniques & Procedures (TTPs) of the named attack scenarios
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/mitre/AttackScenarios/ADO.svg" target="_blank">![](./media/mitre/AttackScenarios/ADO.svg)</a>
+
+<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Fmitre%2FAttackScenarios%2FADO.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
+
+### TTP on abusing service connections in Azure DevOps
+
+|  Attack Scenario |    TTPs         |  Description  |
+|--------------|-----------|-----------|
+|  Exfiltrate credentials or access token from Azure DevOps pipelines | Steal Application Access Token - [T1528](https://attack.mitre.org/techniques/T1528/)| Adversaries can steal application access tokens as a means of acquiring credentials to access remote systems and resources. Application access tokens are used to make authorized API requests on behalf of a user or service and are commonly used as a way to access resources in cloud and container-based applications and software-as-a-service (SaaS). OAuth is one commonly implemented framework that issues tokens to users for access to systems. Adversaries who steal account API tokens in cloud and containerized environments may be able to access data and perform actions with the permissions of these accounts, which can lead to privilege escalation and further compromise of the environment. |
+| Using service connections outside of intended pipeline | Account Manipulation: Additional Cloud Credentials - [T1098.001](https://attack.mitre.org/techniques/T1098/001/)| Adversaries may add adversary-controlled credentials to a cloud account to maintain persistent access to victim accounts and instances within the environment. Adversaries may add credentials for Service Principals and Applications in addition to existing legitimate credentials in Azure AD. These credentials include both x509 keys and passwords.With sufficient permissions, there are a variety of ways to add credentials including the Azure Portal, Azure command line interface, and Azure or Az PowerShell modules. |
+| Using service connections outside of intended pipeline | Forge Web Credentials - [T1606](https://attack.mitre.org/techniques/T1496/)| Adversaries may forge credential materials that can be used to gain access to web applications or Internet services. Web applications and services (hosted in cloud SaaS environments or on-premise servers) often use session cookies, tokens, or other materials to authenticate and authorize user access. Adversaries may generate these credential materials in order to gain access to web resources. This differs from Steal Web Session Cookie, Steal Application Access Token, and other similar behaviors in that the credentials are new and forged by the adversary, rather than stolen or intercepted from legitimate users. The generation of web credentials often requires secret values, such as passwords, Private Keys, or other cryptographic seed values |
+|||
 
 ## Detection
 

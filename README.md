@@ -21,6 +21,7 @@ In all chapters, we follow the same guideline on the chapter structure. When rea
 - Description of the common attack scenarios in every scenario
 - Detection of the attacks by leveraging Microsoft security stack
 - Mitigation for the attack and instructions how to improve your environment security posture based on the chapter scope
+- Matching of attack scenarios and detection capabilities to Tactics, Techniques & Procedures (TTPs) of [MTRE ATT&CK Framework](#mitre-attck-framework)
 
 The following sections contain a short description of each chapter you can find from the 'Azure AD Attack & Defense Playbook'.
 
@@ -52,6 +53,31 @@ The first chapter was about the ‘Password Spray’ attack where we focused hea
 </table>
 
 With the latest chapters we have had lucky to have other community members involved to the project such as [Joosua Santasalo](https://twitter.com/SantasaloJoosua), [Fabian Bader](https://twitter.com/fabian_bader) & [Christopher Brumm](https://twitter.com/cbrhh) part as a sparring partner and reviewer. 
+
+# MITRE ATT&CK Framework
+[MITRE ATT&CK Framework](https://attack.mitre.org/) is commonly used for mapping Tactics, Techniques & Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world. In this playbook, we are leveraging the MITRE ATT&CK framework v11 in all of the chapters to map Technics, Tactics & Procedures (TTPs) to the attack scenarios. This would help Blue Teams to build defenses for the corresponding scenarios.
+
+## Tactics, Techniques & Procedures (TTP)
+You can expect to find multiple detection rules from the individual chapters based on the specific attack scenario. Because the playbook has a high number of detection rules, we decided to create visualization that contains all the attack scenarios mapped to TTPs. Take also into account, every individual chapter has visualization for the corresponding attack scenario. 
+
+### Map of attack scenarios to TTP
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/mitre/AttackScenarios/Attacks_Combined.svg" target="_blank">![](./media/mitre/AttackScenarios/Attacks_Combined.svg)</a>
+<br>
+<img src="./media/mitre/AttackScenarios/Attacks_Combined_Legend.png" alt="drawing" width="498px" />
+<br>
+<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Fmitre%2FAttackScenarios%2FAttacks_Combined.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
+
+## Detections and rule templates for attack scenarios
+The related detection capabilities of Microsoft Security products (Microsoft 365 Defender, Microsoft Sentinel, Azure AD Identity Protection, Microsoft Defender for Cloud) will be covered in the detection part of the attack scenarios. Custom rule templates for Microsoft Sentinel, which has been developed for the playbook, are also mapped to the TTPs. The detection rules are available as [Microsoft Sentinel Rule Template (ready-to-deploy) in JSON (ARM Template) format here](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/main/queries).
+
+### Detection coverage of Microsoft Cloud Security Stack
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/mitre/Rules/Rules_Combined.svg" target="_blank">![](./media/mitre/Rules/Rules_Combined.svg)</a>
+<br>
+<img src="./media/mitre/Rules/Rules_Combined_Legend.png" width="500px" />
+<br>
+<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Fmitre%2FRules%2FRules_Combined.json" >Open in MITRE ATT&CK Navigator</a>
+
+_Side note: We've used the existing TTP mapping from the Microsoft Sentinel rule templates and Microsoft 365 incident correlation. Some detections are not offering full MITRE ATT&CK coverage and are not included in this visualization._
 
 # Attack scenarios
 Typically, one chapter has taken approximately 1-2 months of calendar time so it has been quite an effort to put all four (4) chapters & appendix together. During the last two (2) years we did research on the following scenarios:

@@ -1,8 +1,8 @@
 # Password Spray Attacks
 
-Author: Sami Lamppu, Thomas Naunheim
-Created: November 2020
-Updated: November 2021
+_Author: Sami Lamppu, Thomas Naunheim_
+_Created: November 2020_
+_Updated: October 2022_
 
 *"A password spray attack is where multiple usernames are attacked using common passwords in a unified brute force manner to gain unauthorized access.”*
 
@@ -12,9 +12,12 @@ Updated: November 2021
   - [Attack](#attack)
     - [Tools and Utilities to simulate Password Spray attacks](#tools-and-utilities-to-simulate-password-spray-attacks)
     - [Enumeration of user names](#enumeration-of-user-names)
+  - [MITRE ATT&CK Framework](#mitre-attck-framework)
+    - [Tactics, Techniques & Procedures (TTPs) in Password Spray Attack](#tactics-techniques--procedures-ttps-in-password-spray-attack)
+    - [TTP Description](#ttp-description)
   - [Detection](#detection)
     - [Sign-in logs In Azure Active Directory](#sign-in-logs-in-azure-active-directory)
-    - [KQL Query in Azure Sentinel / Azure Monitor (based on AAD sign-in logs)](#kql-query-in-azure-sentinel--azure-monitor-based-on-aad-sign-in-logs)
+    - [KQL Query in Microsoft Sentinel / Azure Monitor (based on AAD sign-in logs)](#kql-query-in-microsoft-sentinel--azure-monitor-based-on-aad-sign-in-logs)
     - [Risk Detection “Password Spray” in Azure AD Identity Protection](#risk-detection-password-spray-in-azure-ad-identity-protection)
     - [Suspicious activity in Microsoft Defender for Cloud Apps (former Cloud App Security)](#suspicious-activity-in-microsoft-defender-for-cloud-apps-former-cloud-app-security)
     - [Side note: Visibility of attacks against inviting Azure AD Tenant](#side-note-visibility-of-attacks-against-inviting-azure-ad-tenant)
@@ -51,6 +54,25 @@ Each of them accessing different API endpoints:
 Most attackers are using leaked or stolen lists of usernames to start the attacks.
 Before starting spray attacks it’s technical possible to validate if a user account exists in a certain tenant. Login page in Azure AD returns an error message if the user name not exists. [Daniel Chronlund](https://danielchronlund.com/2020/03/13/automatic-azure-ad-user-account-enumeration-with-powershell-scary-stuff/) has written a script and blog post to demonstrate how to enumerate user accounts via PowerShell.
 
+## MITRE ATT&CK Framework
+MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques and Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world.
+
+### Tactics, Techniques & Procedures (TTPs) in Password Spray Attack
+Password Spray is mapped to MITRE ATT&CK framework into T1110.003 sub-technique which is underneath 'Brute Force' technique in the matrix. The used framework is modified from MITRE ATT&CK v11 with Office 365 & Azure AD included from the cloud matrix.
+Because there isn't any other TTPs included, the picture emphasizes only "TA0006 - Credential Access".
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/mitre/AttackScenarios/Password_Spray.svg" target="_blank">![](./media/mitre/AttackScenarios/Password_Spray.svg)</a>
+
+<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Fmitre%2FAttackScenarios%2FPassword_Spray.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
+
+### TTP Description
+The following TTPs are mapped for the 'Password Spray' attack scenario. From the table below, you can find TTPs description and link to the MITRE ATT&CK official documentation.
+
+| TTPs         |  Description  |
+|--------------|-----------|
+|  Credential Access - [T1110 - T1110.003](https://attack.mitre.org/techniques/T1110/003/)| Adversaries may use a single or small list of commonly used passwords against many different accounts to attempt to acquire valid account credentials. Password spraying uses one password (e.g. 'Password01'), or a small list of commonly used passwords, that may match the complexity policy of the domain. Logins are attempted with that password against many different accounts on a network to avoid account lockouts that would normally occur when brute forcing a single account with many passwords |
+|||
+
 ## Detection
 
 *There are several methods and options to detect Password Spray Attacks in an Azure AD environment that depends on your configured authentication options, type of users and licensed features.*
@@ -69,16 +91,16 @@ Before starting spray attacks it’s technical possible to validate if a user ac
 
     ![./media/PWSpray2.png](./media/PWSpray2.png)
 
-### KQL Query in Azure Sentinel / Azure Monitor (based on AAD sign-in logs)
+### KQL Query in Microsoft Sentinel / Azure Monitor (based on AAD sign-in logs)
 
-**Azure Sentinel** includes a few analytic rules (built-in) to detect possible password spray attack.
+**Microsoft Sentinel** includes a few analytic rules (built-in) to detect possible password spray attack.
 
-- "[Password spray attack against Azure AD application](https://github.com/Azure/Azure-Sentinel/blob/master/Detections/SigninLogs/SigninPasswordSpray.yaml)” which will be triggered and worked very well during our attack simulations. The analytic rule is available [from the Azure Sentinel GitHub](https://github.com/Azure/Azure-Sentinel/blob/master/Detections/SigninLogs/SigninPasswordSpray.yaml) repository and also in Microsoft Sentinel instance (Rule templates). If environment doesn't have Microsoft Sentinel as Cloud-based SIEM solution the query can be also used as “[Azure Monitor Alert](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/tutorial-response)”.
+- "[Password spray attack against Azure AD application](https://github.com/Azure/Azure-Sentinel/blob/master/Detections/SigninLogs/SigninPasswordSpray.yaml)” which will be triggered and worked very well during our attack simulations. The analytic rule is available [from the Microsoft Sentinel GitHub](https://github.com/Azure/Azure-Sentinel/blob/master/Detections/SigninLogs/SigninPasswordSpray.yaml) repository and also in Microsoft Sentinel instance (Rule templates). If environment doesn't have Microsoft Sentinel as Cloud-based SIEM solution the query can be also used as “[Azure Monitor Alert](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/tutorial-response)”.
 
 ![./media/PWSpray2.png](./media/PWSpray3.png)
 
 - [Potential Password Spray Attack (Uses Authentication Normalization)](https://github.com/Azure/Azure-Sentinel/blob/master/Detections/ASimAuthentication/imAuthPasswordSpray.yaml)
-  - This rule needs Advanced SIEM Information Model (ASIM) deployed. ASIM parsers can be easily deployed from [Azure Sentinel GitHub](https://github.com/Azure/Azure-Sentinel/tree/master/Parsers/ASim).
+  - This rule needs Advanced SIEM Information Model (ASIM) deployed. ASIM parsers can be easily deployed from [Microsoft Sentinel GitHub](https://github.com/Azure/Azure-Sentinel/tree/master/Parsers/ASim).
     - In Microsoft Sentinel, parsing and normalizing happen at query time. Parsers are built as KQL user-defined functions that transform data in existing tables, such as CommonSecurityLog, custom logs tables, or Syslog, into the normalized schema. Once the parser is saved as a workspace function, it can be used like any Microsoft Sentinel table.
 
 *In the picture below you can see password spray attack related built-in rules in Microsoft Sentinel*.
@@ -86,14 +108,14 @@ Before starting spray attacks it’s technical possible to validate if a user ac
 
 
 
-*Example of an “Azure Sentinel Incident” in case of password spray attacks including entities for further hunting and investigation.*
+*Example of an Microsoft Sentinel Incident” in case of password spray attacks including entities for further hunting and investigation.*
 ![./media/PWSpray4.gif](./media/PWSpray4.gif)
 
-Analytics of [“Entity Behavior” in Azure Sentinel](https://techcommunity.microsoft.com/t5/azure-sentinel/guided-ueba-investigation-scenarios-to-empower-your-soc/ba-p/1857100) allows further investigation in combination of other security alerts and events.
+Analytics of [“Entity Behavior” in Microsoft Sentinel](https://techcommunity.microsoft.com/t5/azure-sentinel/guided-ueba-investigation-scenarios-to-empower-your-soc/ba-p/1857100) allows further investigation in combination of other security alerts and events.
 
 ![./media/UEBA-1.PNG](./media/UEBA-1.PNG)
 
-*Entity insights of Azure Sentinel allows deep-dive investigation of potential attacks.
+*Entity insights of Microsoft Sentinel allows deep-dive investigation of potential attacks.
 Source: [Guided UEBA Investigation Scenarios to empower your SOC](https://techcommunity.microsoft.com/t5/azure-sentinel/guided-ueba-investigation-scenarios-to-empower-your-soc/ba-p/1857100) (Microsoft TechCommunity)*
 
 ### Risk Detection “Password Spray” in Azure AD Identity Protection
@@ -225,7 +247,7 @@ Investigation triggers at on-premises environment:
 
 ### Side notes: Detection in PTA environments:
 
-*Applies to Azure AD Premium Users (with PTA Cloud Authentication), Microsoft Defender for Identity and Collected Security Logs in Azure Sentinel*
+*Applies to Azure AD Premium Users (with PTA Cloud Authentication), Microsoft Defender for Identity and Collected Security Logs in Microsoft Sentinel*
 
 There are further sign-in error logs in case you are using PTA as your authentication method.
 
@@ -283,9 +305,9 @@ Local monitoring and detection of password spray or brute-force attacks can be a
 
 ### Auto-Response to attack-related entities
 
-*Applies to Azure AD environment with Premium License and Azure Sentinel instance*
+*Applies to Azure AD environment with Premium License and Microsoft Sentinel instance*
 
-Various sources of failed/successful password spray attacks should be **collected to Azure Sentinel**. This gives you the option to **run a playbook (auto-remediation) for blocking or investigation of the attack source** and avoid attackers to counting or changing the attack methods:
+Various sources of failed/successful password spray attacks should be **collected to Microsoft Sentinel**. This gives you the option to **run a playbook (auto-remediation) for blocking or investigation of the attack source** and avoid attackers to counting or changing the attack methods:
 
 - **[Isolation of company device](https://github.com/Azure/Azure-Sentinel/tree/master/Playbooks/Isolate-MDATPMachine)** (by “Microsoft Defender for Endpoint”)
 in case of an internal attack.

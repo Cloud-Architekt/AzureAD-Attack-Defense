@@ -3,17 +3,21 @@
 _Author: Thomas Naunheim, Joosua Santasalo & Sami Lamppu_
 
 _Created: February 2021_
-_Updated: September 2021_
+_The initial update: September 2021_
+_The second update: October 2022_
 
 - [Consent Grant Attack](#consent-grant-attack)
 - [Attack](#attack)
   - [In practice](#in-practice)
+- [MITRE ATT&CK Framework](#mitre-attck-framework)
+  - [Tactics, Techniques & Procedures (TTPs) in Consent Grant Attack](#tactics-techniques--procedures-ttps-in-consent-grant-attack)
+    - [TTP Description & Built-in Rules](#ttp-description--built-in-rules)
 - [Detection](#detection)
   - [Azure AD Audit Logs](#azure-ad-audit-logs)
   - [Azure Workbooks](#azure-workbooks)
   - [PowerShell](#powershell)
     - [Script to list delegated permission grants](#script-to-list-delegated-permission-grants)
-    - [Integration of PowerShell + Azure Log Analytics and some magic with KQL](#integration-of-powershell--azure-log-analytics-and-some-magic-with-kql)
+  - [Integration of PowerShell + Azure Log Analytics and some magic with KQL](#integration-of-powershell--azure-log-analytics-and-some-magic-with-kql)
   - [Microsoft Cloud App Security (MCAS)](#microsoft-cloud-app-security-mcas)
     - [MCAS Built-In Rules](#mcas-built-in-rules)
     - [Application Governance Built-in Policies](#application-governance-built-in-policies)
@@ -59,6 +63,27 @@ Attacker would start with some form of phishing; For example, perhaps a newslett
 Other more direct way is to create tool for M365 / Azure AD Admins, that collects useful data, and implements an actually useful service, but also misuses the permissions of that service (The service could create also new credentials for existing SPN, and continue using them in the guise of assumed legitimate actions)
 
 The list possibilities are endless... 😊
+
+# MITRE ATT&CK Framework
+Mitre Att&ck framework is commonly used for mapping Tactics, Techniques & Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world. 
+
+## Tactics, Techniques & Procedures (TTPs) in Consent Grant Attack
+Consent Grant (know also as 'Illicit Consent Grant Attack' or 'OAuth Phishing') is mapped to a several TTPs which are highlighted on the picture. The used framework is modified from MITRE ATT&CK v11 with Office 365 & Azure AD included from the cloud matrix.
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/mitre/AttackScenarios/Consent_Grant.svg" target="_blank">![](./media/mitre/AttackScenarios/Consent_Grant.svg)</a>
+
+<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Fmitre%2FAttackScenarios%2FConsent_Grant.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
+
+### TTP Description & Built-in Rules
+The following TTPs are mapped for the 'Consent Grant' attack scenario. From the table below, you can find TTPs description and link to the MITRE ATT&CK official documentation.
+
+| TTPs         | Description  |
+|--------------|-----------| 
+| Initial Access - [T1566.002](https://attack.mitre.org/techniques/T1566/002/) | Adversaries may also utilize links to perform consent phishing, typically with OAuth 2.0 request URLs that when accepted by the user provide permissions/access for malicious applications, allowing adversaries to Steal Application Access Tokens.
+| Initial Access - [T1078](https://attack.mitre.org/techniques/T1078/) | Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Compromised credentials may be used to bypass access controls placed on various resources on systems within the network and may even be used for persistent access to remote systems and externally available services, such as VPNs, Outlook Web Access and remote desktop.
+| Defense Evasion - [T1550 - T1550.001](https://attack.mitre.org/techniques/T1550/001/) | Adversaries may also utilize links to perform consent phishing, typically with OAuth 2.0 request URLs that when accepted by the user provide permissions/access for malicious applications, allowing adversaries to Steal Application Access Tokens. 
+|Credential Access - [T1528](https://attack.mitre.org/techniques/T1528/) | Adversaries can steal application access tokens as a means of acquiring credentials to access remote systems and resources. 
+|Lateral Movement - [T1550.001](https://attack.mitre.org/techniques/T1550/001/) | Adversaries may use stolen application access tokens to bypass the typical authentication process and access restricted accounts, information, or services on remote systems. These tokens are typically stolen from users or services and used in lieu of login credentials. Application access tokens are used to make authorized API requests on behalf of a user or service and are commonly used as a way to access resources in cloud and container-based applications and software-as-a-service (SaaS). |
 
 # Detection
 
