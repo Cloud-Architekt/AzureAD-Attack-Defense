@@ -2,7 +2,7 @@
 
 _Author: Thomas Naunheim_
 
-_Created: December 2020, Updated October 2022_
+_Created: December 2020, Updated November 2022_
 
 *Microsoft offers several solutions and services for securing (hybrid) identities and protecting access to workloads such as Azure, Office 365 or other integrated apps in Azure Active Directory. I like to give a detailed overview about data sources or signals that should be considered for monitoring based on identity-related activities, risk detections, alerts and events across the Microsoft ecosystem.*
 
@@ -255,8 +255,6 @@ _"Identity Protection" risk detections will be listed in the MDA alerts view._
     
 
     - MDA is using MDI data as source to collect activities from Active Directory as an "app". This gives you an "unified activity" overview of an user in "Azure AD", "Active Directory" and "MDA connected apps".
-
-
     ![./media/identity-monitoring/AzIdentity_MDA_UnifiedFailedLogins.png](./media/identity-monitoring/AzIdentity_MDA_UnifiedFailedLogins.png)
     _Example: Failed sign-in attempts to Active Directory or connected apps (in this case, "Azure Portal" and "Office 365")._
 
