@@ -18,15 +18,15 @@ _The second update: October 2022_
   - [PowerShell](#powershell)
     - [Script to list delegated permission grants](#script-to-list-delegated-permission-grants)
   - [Integration of PowerShell + Azure Log Analytics and some magic with KQL](#integration-of-powershell--azure-log-analytics-and-some-magic-with-kql)
-  - [Microsoft Cloud App Security (MCAS)](#microsoft-cloud-app-security-mcas)
-    - [MCAS Built-In Rules](#mcas-built-in-rules)
+  - [Microsoft Defender for Cloud Apps (MDA)](#microsoft-defender-for-cloud-apps-mda)
+    - [MDA Built-In Rules](#mda-built-in-rules)
     - [Application Governance Built-in Policies](#application-governance-built-in-policies)
     - [Example Alert based on built-in rule](#example-alert-based-on-built-in-rule)
-    - [MCAS Custom Rules](#mcas-custom-rules)
-  - [App Governance - Microsoft Cloud App Security (MCAS) add-on (AppG)](#app-governance---microsoft-cloud-app-security-mcas-add-on-appg)
+    - [MDA Custom Rules](#mda-custom-rules)
+  - [App Governance - Microsoft Defender for Cloud Apps (MDA) add-on (AppG)](#app-governance---microsoft-defender-for-cloud-apps-mda-add-on-appg)
     - [Architecture](#architecture)
     - [Detection Policies and Visibility in App Governance](#detection-policies-and-visibility-in-app-governance)
-  - [Azure Sentinel](#azure-sentinel)
+  - [Microsoft Sentinel](#microsoft-sentinel)
 - [Mitigation (and Reduced Attack Surface)](#mitigation-and-reduced-attack-surface)
   - [Disable Default Permissions for App Registrations](#disable-default-permissions-for-app-registrations)
   - [Restrict User Consent Permissions for End-Users](#restrict-user-consent-permissions-for-end-users)
@@ -44,9 +44,6 @@ _The second update: October 2022_
 *Normal remediation steps, like resetting passwords for breached accounts or requiring Multi-Factor Authentication (MFA) on accounts, are not effective against this type of attack since these are third-party applications and are external to the organization. These attacks leverage an interaction model that presumes the entity that is calling the information is automation and not a human.”*
 
 *Source: [Detect and Remediate Illicit Consent Grants - Office 365 | Microsoft Docs](https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/detect-and-remediate-illicit-consent-grants)*
-
-*Related MITRE ATT&CK Tactics: [Credential Access (T1110)](https://attack.mitre.org/tactics/TA0006/)* & 
-*[Steal Application Token (T158)](https://attack.mitre.org/techniques/T1528/)*
 
 *Youtube Video: [Demonstration - Illicit consent grant attack in Azure AD / Office 365](https://www.youtube.com/watch?v=h2dy23-S2to)*
 
@@ -89,13 +86,13 @@ The following TTPs are mapped for the 'Consent Grant' attack scenario. From the 
 
 There are many solutions and methods available for detecting illicit consent grant attack. Here is list (not 100% accurate) of the solutions that offer capabilities to identify and investigate consent grants and application registrations.
 
-- O365 SSC & new Compliance portal (Unified Audit Log)
-- Azure AD portal (Audit logs, workbooks & application management)
+- Microsoft 365 Security & Compliance portal (Unified Audit Log)
+- Microsoft Entra portal (Audit logs, workbooks & application management)
 - PowerShell tools (Get-AzureADPSPermissions)
 - Combination of Get-AzureADPSPermissions export, Azure Log Analytics & some KQL magic
-- Microsoft Cloud App security
+- Microsoft Defender for Cloud Apps (MDA)
     - App Governance
-- Azure Sentinel
+- Microsoft Sentinel
 
 ## Azure AD Audit Logs
 
@@ -103,7 +100,7 @@ The activities from Application Administrative category (registering app, granti
 
 ![./media/ConsentGrant1.png](./media/ConsentGrant1.png)
 
-The activities are also found from O365 Unified Audit Log (UAL) and this log has nowadays a new home, the complicance (compliance.microsoft.com) portal. The old location is still active (protection.office.com) but redirects admin to the compliance portal when 'audit search' is selected.
+The activities are also found from M365 Audit Log (UAL) and this log has nowadays a new home, the compliance (compliance.microsoft.com) or the security (security.microsoft.com) portal. 
 
 ![./media/ConsentGrant2-1.PNG](./media/ConsentGrant2-1.PNG)
 
@@ -129,12 +126,14 @@ Get-AzureADServicePrincipal -All $true | .\Get-AzureADPSPermissionGrants.ps1 -Pr
 
 This script is regularly updated and available from his GitHub page: [Get all permissions granted to an app in Azure AD · GitHub](https://gist.github.com/psignoret/9d73b00b377002456b24fcb808265c23)
 
-You can also search the Office 365 Audit log with PowerShell and create a report of the consent grants found in the results. Here's an example: https://office365itpros.com/2021/02/18/discover-new-office365-audit-events/
+You can also search the Microsoft 365 Audit log with PowerShell and create a report of the consent grants found in the results. Here's an example: https://office365itpros.com/2021/02/18/discover-new-office365-audit-events/
 
 ## Integration of PowerShell + Azure Log Analytics and some magic with KQL
-Kudos to [Joosua Santasalo](https://twitter.com/SantasaloJoosua)  who made this possible.
+Kudos to [Joosua Santasalo](https://twitter.com/SantasaloJoosua)  who made the next solution possible.
 
 Azure AD consent analysis can be done also with combination of PowerShell, Azure Log Analytics and KQL if Azure AD log data (Sign-in logs, Audit logs, Non-Interactive log, ServicePrincipal log & ManagedIdentity log) is ingested to the Log Analytics workspace. 
+
+Detailed instructions how to install and run the tool are found from [Joosua's GitHub](https://github.com/jsa2/CloudShellAadApps)
 
 This can be achieved with the following steps:
 - Export app permissions with aforementioned [Philippe Signoret](https://gist.github.com/psignoret) PowerShell script
@@ -150,28 +149,28 @@ This give us richer data for analyzing app consents and how widely the app is us
  ![./media/LA-PS-ExtData-1.png](./media/LA-PS-ExtData-1.PNG)
 
 
-## Microsoft Cloud App Security (MCAS)
+## Microsoft Defender for Cloud Apps (MDA)
 
-MCAS offers way to detect automatically possible malicious applications. If you suspect that you have malicious application already in your tenant the investigation blade can shed a light to analyze app permissions and also manage access (approved/ banned) to the apps. If application is banned from the MCAS, the access to the app is revoked from Azure AD.
+MDA offers way to detect automatically possible malicious applications. If you suspect that you have malicious application already in your tenant the investigation blade can shed a light to analyze app permissions and also manage access (approved/ banned) to the apps. If application is banned from the MDA, the access to the app is revoked from Azure AD.
 
-**Managing OAuth Apps in MCAS**
+**Managing OAuth Apps in MDA**
 
 ![./media/ConsentGrant5.png](./media/ConsentGrant5.png)
 
-**App permissions listed in MCAS**
+**App permissions listed in MDA**
 
 ![./media/ConsentGrant6.png](./media/ConsentGrant6.png)
 
-**Banning the app in MCAS**
+**Banning the app in MDA**
 
 ![./media/ConsentGrant7.png](./media/ConsentGrant7.png)
 
 ![./media/ConsentGrant8.png](./media/ConsentGrant8.png)
 
 
-### MCAS Built-In Rules
+### MDA Built-In Rules
 
-The following policies are available out of the box in MCAS. It’s important to understand that anomaly detection policies are only available for OAuth apps that are authorized in Azure Active Directory and the severity of OAuth app anomaly detection policies cannot be modified.
+The following policies are available out of the box in MDA. It’s important to understand that anomaly detection policies are only available for OAuth apps that are authorized in Azure Active Directory and the severity of OAuth app anomaly detection policies cannot be modified.
 
 **Unusual addition of credentials to an OAuth app**
 
@@ -228,9 +227,9 @@ Latency in this alert was approximately 20min in our tests.
 
 *Side note: During tests, we found that some application names were not accepted as registered applications but couldn’t find proper documentation about the topic.*
 
-### MCAS Custom Rules
+### MDA Custom Rules
 
-Besides the built-in rules MCAS offers a way to create own custom policies based on the organization use cases. Useful in this case would be an alert every time when a user adds application that has “high” category permissions to Azure AD or the application category is “rare” or “uncommon”.
+Besides the built-in rules MDA offers a way to create own custom policies based on the organization use cases. Useful in this case would be an alert every time when a user adds application that has “high” category permissions to Azure AD or the application category is “rare” or “uncommon”.
 
 **OAuth App Added with High permissions**
 
@@ -238,14 +237,12 @@ Besides the built-in rules MCAS offers a way to create own custom policies based
 
 ![./media/ConsentGrant14.png](./media/ConsentGrant14.png)
 
-When MCAS scans the applications and detects possible malicious one with high permission, the alert is created based on the policy settings.
+When MDA scans the applications and detects possible malicious one with high permission, the alert is created based on the policy settings.
 
 ![./media/ConsentGrant15.png](./media/ConsentGrant15.png)
 
-## App Governance - Microsoft Cloud App Security (MCAS) add-on (AppG)
-App Governance, which is MCAS add-on, is the newest addition to Microsoft security solutions. Solution description from Microsoft: <em>'It's a security and policy management capability that customers can use to monitor and govern app behaviors and quickly identify, alert, and protect from risky behaviors with data, users, and apps. App governance is designed for&nbsp;OAuth-enabled apps&nbsp;that access&nbsp;Microsoft 365&nbsp;data via&nbsp;<a rel="noreferrer noopener" href="https://docs.microsoft.com/en-us/graph/use-the-api" target="_blank">Microsoft Graph APIs</a>'. &nbsp;</em></p>
-
-At the time of writing (09/13/2021) AppG is in public preview mode. Take into account that even it's MCAS add-on it requires a license, at least for now.
+## App Governance - Microsoft Defender for Cloud Apps (MDA) add-on (AppG)
+App Governance, which is MDA add-on, is the newest addition to Microsoft security solutions. Solution description from Microsoft: <em>'It's a security and policy management capability that customers can use to monitor and govern app behaviors and quickly identify, alert, and protect from risky behaviors with data, users, and apps. App governance is designed for&nbsp;OAuth-enabled apps&nbsp;that access&nbsp;Microsoft 365&nbsp;data via&nbsp;<a rel="noreferrer noopener" href="https://docs.microsoft.com/en-us/graph/use-the-api" target="_blank">Microsoft Graph APIs</a>'. &nbsp;</em></p>
 
 ### Architecture 
 
@@ -254,7 +251,7 @@ Data is collected from different data sets such as Azure AD & Cloud App Security
 ![./media/AppG-Architecture.png](./media/AppG-Architecture.PNG)
 
 ### Detection Policies and Visibility in App Governance
-AppG provides richer information than MCAS alone because it leverages data from both, Azure AD & MCAS. You can see information such as app permissions, usage and publisher information that helps to determine app risk levels from compliance point of view.
+AppG provides richer information than MDA alone because it leverages data from both, Azure AD & MDA. You can see information such as app permissions, usage and publisher information that helps to determine app risk levels from compliance point of view.
 
 ![./media/AppG-data.png](./media/AppG-data.PNG)
 
@@ -262,19 +259,19 @@ AppG provides richer information than MCAS alone because it leverages data from 
 
 ![./media/AppG-Perms.png](./media/AppG-Perms.PNG)
 
-## Azure Sentinel
+## Microsoft Sentinel
 
-Azure Sentinel offers multiple out of the box rules related to the application administrative actions. In the picture below there are listed all default Azure AD application related analytic rules.
+Microsoft Sentinel offers multiple out of the box rules related to the application administrative actions. In the picture below there are listed all default Azure AD application related analytic rules.
 
 ![./media/AzSentinel-1.PNG](./media/AzSentinel-1.PNG)
 
-When integration between M365 Defender (or MCAS) and Azure Sentinel is in place, and incidents are created based on MCAS alerts (MCAS doesn’t have incidents) you can expect to find the same MCAS application related alerts from the Azure Sentinel.
+When integration between M365 Defender and Microsoft Sentinel is in place, the incidents are created based on MDA alerts in M365 Defender (MCAS doesn’t have incidents). With bi-directional sync in place you can expect to find the same MDA application related alerts from the Sentinel.
 
 ![./media/AzSentinel-2.PNG](./media/AzSentinel-2.PNG)
 
 ![./media/AzSentinel-3.PNG](./media/AzSentinel-3.PNG)
 
-**Azure Sentinel out of the box rules -** Mail.Read Permissions Granted to Application & Rare Application Consent - Incident examples
+**Microsoft Sentinel out of the box rules -** Mail.Read Permissions Granted to Application & Rare Application Consent - Incident examples
 
 ![./media/ConsentGrant19.png](./media/ConsentGrant19.png)
 
