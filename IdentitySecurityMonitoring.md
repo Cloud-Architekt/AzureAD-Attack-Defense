@@ -166,7 +166,7 @@ An overview about registered/usage of "authentication methods" and "Azure AD-int
     Optimize your Active Directory environment with the "Active Directory Health Check" solution in Azure Monitor
     - [AD Replication Status](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/ad-replication-status?WT.mc_id=AZ-MVP-5003945):
     Monitor your "Active Directory replication status" with Azure Monitor
-- [Azure Security Benchmark Workbook](https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/what-s-new-azure-security-benchmark-workbook-preview?WT.mc_id=AZ-MVP-5003945): Visualization of data collected by Microsoft Defender for Cloud to check compliance status in alignment with the Azure Security Benchmark (ASB). This contains also security controls regarding Identity Management and Privileged Access in Azure.
+- [Azure Security Benchmark Workbook](https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/azure-security-benchmark-v3-workbook/ba-p/3257673?WT.mc_id=AZ-MVP-5003945): Visualization of data collected by Microsoft Defender for Cloud to check compliance status in alignment with the Azure Security Benchmark (ASB). This contains also security controls regarding Identity Management and Privileged Access in Azure.
 
 ### Integration and Response in "Azure Monitor"
 
