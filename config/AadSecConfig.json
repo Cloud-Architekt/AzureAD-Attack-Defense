@@ -2,30 +2,27 @@
     {
         "ControlName": "Default Authorization Settings",
         "Description": "",        
-        "PolicyEndpoint": "authorizationPolicy",
-        "GraphUri": "https://graph.microsoft.com/beta/policies/authorizationPolicy",      
+        "GraphEndpoint": "authorizationPolicy",
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authorizationPolicy",        
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],          
         "Controls": [
             {
             "Name": "allowInvitesFrom",
             "DisplayName": "Guest Invitation",
-            "PortalDeepLink": "",
             "CurrentValue": "value.allowInvitesFrom",              
             "DefaultValue": "everyone",
             "RecommendedValue": "adminsAndGuestInviters",
-            "Description": "",
-            "McsbMapping": [],
-            "MitreTtpMapping": []
+            "Description": ""
             },
             {
             "Name": "allowedToCreateApps",
-            "DisplayName": "Allowed to create Apps",
-            "PortalDeepLink": "",                   
+            "DisplayName": "Allowed to create Apps",               
             "CurrentValue": "value.defaultUserRolePermissions.allowedToCreateApps",              
             "DefaultValue": "true",
             "RecommendedValue": "false",
-            "Description": "",
-            "McsbMapping": [],
-            "MitreTtpMapping": []
+            "Description": ""
             }            
         ]
     },
@@ -34,43 +31,159 @@
         "Description": "",
         "GraphEndpoint": "authenticationMethodsPolicy",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('MicrosoftAuthenticator')",      
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],              
         "Controls": [
             {
-            "Name": "numberMatchingRequiredState",
-            "DisplayName": "Number Matching",
-            "PortalDeepLink": "",
-            "CurrentValue": "featureSettings.numberMatchingRequiredState",              
-            "DefaultValue": "enabled",
-            "RecommendedValue": "enabled",
-            "Description": "",
-            "McsbMapping": [],
-            "MitreTtpMapping": []
+                "Name": "numberMatchingRequiredState",
+                "DisplayName": "Number Matching",
+                "CurrentValue": "featureSettings.numberMatchingRequiredState",              
+                "DefaultValue": "enabled",
+                "RecommendedValue": "enabled",
+                "Description": ""
             },
             {
-            "Name": "displayAppInformationRequiredState",
-            "DisplayName": "Display App Information",
-            "PortalDeepLink": "",                   
-            "CurrentValue": "featureSettings.displayAppInformationRequiredState",              
-            "DefaultValue": "true",
-            "RecommendedValue": "true",
-            "Description": "",
-            "McsbMapping": [],
-            "MitreTtpMapping": []
+                "Name": "displayAppInformationRequiredState",
+                "DisplayName": "Display App Information",                
+                "CurrentValue": "featureSettings.displayAppInformationRequiredState",              
+                "DefaultValue": "true",
+                "RecommendedValue": "true",
+                "Description": ""
             }            
         ]
     },
     {
-        "ControlName": "Authentication Method - Microsoft Authenticator",
+        "ControlName": "Authentication Method - FIDO2 security key",
         "Description": "",
         "GraphEndpoint": "authenticationMethodsPolicy",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Fido2')",
-        "Controls": []
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
     },
     {
-        "ControlName": "Authentication Method - Microsoft Authenticator",
+        "ControlName": "Authentication Method - Temporary Access Pass",
         "Description": "",
         "GraphEndpoint": "authenticationMethodsPolicy",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('TemporaryAccessPass')",
-        "Controls": []
-    }  
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    }, 
+    {
+        "ControlName": "Authentication Method - Third-party software OATH tokens",
+        "Description": "",
+        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('SoftwareOath')",
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    }, 
+    {
+        "ControlName": "Authentication Method - Email OTP",
+        "Description": "",
+        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Email')",
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    },  
+    {
+        "ControlName": "Authentication Method - Voice call",
+        "Description": "",
+        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Voice')",
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    }, 
+    {
+        "ControlName": "Authentication Method - SMS",
+        "Description": "",
+        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Sms')",
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    },    
+    {
+        "ControlName": "Authentication Method - Certificate-based authentication",
+        "Description": "",
+        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('X509Certificate')",
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    }           
 ]
