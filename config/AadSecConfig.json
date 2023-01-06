@@ -58,5 +58,17 @@
             "MitreTtpMapping": []
             }            
         ]
+    },
+    {
+        "ControlName": "Authentication Method - Microsoft Authenticator",
+        "Description": "",
+        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Fido2')"
+    },
+    {
+        "ControlName": "Authentication Method - Microsoft Authenticator",
+        "Description": "",
+        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('TemporaryAccessPass')"
     }  
 ]
