@@ -1,0 +1,62 @@
+[
+    {
+        "ControlName": "Default Authorization Settings",
+        "Description": "",        
+        "PolicyEndpoint": "authorizationPolicy",
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authorizationPolicy",      
+        "Controls": [
+            {
+            "Name": "allowInvitesFrom",
+            "DisplayName": "Guest Invitation",
+            "PortalDeepLink": "",
+            "CurrentValue": "value.allowInvitesFrom",              
+            "DefaultValue": "everyone",
+            "RecommendedValue": "adminsAndGuestInviters",
+            "Description": "",
+            "McsbMapping": [],
+            "MitreTtpMapping": []
+            },
+            {
+            "Name": "allowedToCreateApps",
+            "DisplayName": "Allowed to create Apps",
+            "PortalDeepLink": "",                   
+            "CurrentValue": "value.defaultUserRolePermissions.allowedToCreateApps",              
+            "DefaultValue": "true",
+            "RecommendedValue": "false",
+            "Description": "",
+            "McsbMapping": [],
+            "MitreTtpMapping": []
+            }            
+        ]
+    },
+    {
+        "ControlName": "Authentication Method - Microsoft Authenticator",
+        "Description": "",
+        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('MicrosoftAuthenticator')",      
+        "Controls": [
+            {
+            "Name": "numberMatchingRequiredState",
+            "DisplayName": "Number Matching",
+            "PortalDeepLink": "",
+            "CurrentValue": "featureSettings.numberMatchingRequiredState",              
+            "DefaultValue": "enabled",
+            "RecommendedValue": "enabled",
+            "Description": "",
+            "McsbMapping": [],
+            "MitreTtpMapping": []
+            },
+            {
+            "Name": "displayAppInformationRequiredState",
+            "DisplayName": "Display App Information",
+            "PortalDeepLink": "",                   
+            "CurrentValue": "featureSettings.displayAppInformationRequiredState",              
+            "DefaultValue": "true",
+            "RecommendedValue": "true",
+            "Description": "",
+            "McsbMapping": [],
+            "MitreTtpMapping": []
+            }            
+        ]
+    }  
+]
