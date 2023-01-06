@@ -63,12 +63,14 @@
         "ControlName": "Authentication Method - Microsoft Authenticator",
         "Description": "",
         "GraphEndpoint": "authenticationMethodsPolicy",        
-        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Fido2')"
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Fido2')",
+        "Controls": []
     },
     {
         "ControlName": "Authentication Method - Microsoft Authenticator",
         "Description": "",
         "GraphEndpoint": "authenticationMethodsPolicy",        
-        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('TemporaryAccessPass')"
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('TemporaryAccessPass')",
+        "Controls": []
     }  
 ]
