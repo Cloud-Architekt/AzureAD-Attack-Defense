@@ -9,21 +9,116 @@
         "MitreTtpMapping": [],          
         "Controls": [
             {
-            "Name": "allowInvitesFrom",
-            "DisplayName": "Guest Invitation",
-            "CurrentValue": "value.allowInvitesFrom",              
-            "DefaultValue": "everyone",
-            "RecommendedValue": "adminsAndGuestInviters",
-            "Description": ""
+                "Name": "allowInvitesFrom",
+                "DisplayName": "Guest Invitation",
+                "CurrentValue": "value.allowInvitesFrom",              
+                "DefaultValue": "everyone",
+                "RecommendedValue": "adminsAndGuestInviters",
+                "Description": ""
             },
             {
-            "Name": "allowedToCreateApps",
-            "DisplayName": "Allowed to create Apps",               
-            "CurrentValue": "value.defaultUserRolePermissions.allowedToCreateApps",              
-            "DefaultValue": "true",
-            "RecommendedValue": "false",
-            "Description": ""
+                "Name": "allowedToCreateApps",
+                "DisplayName": "Allowed to create Apps",               
+                "CurrentValue": "value.defaultUserRolePermissions.allowedToCreateApps",              
+                "DefaultValue": "true",
+                "RecommendedValue": "false",
+                "Description": ""
             }            
+        ]
+    },
+    {
+        "ControlName": "Default Settings",
+        "Description": "",        
+        "GraphEndpoint": "settings",
+        "GraphUri": "https://graph.microsoft.com/beta/settings",        
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],          
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "ControlName": "Default Activity Timeout",
+        "Description": "",        
+        "GraphEndpoint": "activityBasedTimeoutPolicies",
+        "GraphUri": "https://graph.microsoft.com/beta/policies/activityBasedTimeoutPolicies",        
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],          
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "ControlName": "Device Registration Policy",
+        "Description": "",        
+        "GraphEndpoint": "deviceRegistrationPolicy",
+        "GraphUri": "https://graph.microsoft.com/beta/policies/deviceRegistrationPolicy",        
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],          
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    },   
+    {
+        "ControlName": "External Identities",
+        "Description": "",        
+        "GraphEndpoint": "externalIdentitiesPolicy",
+        "GraphUri": "https://graph.microsoft.com/beta/policies/externalIdentitiesPolicy",        
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],          
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "ControlName": "Feature Rollout (Enabled Previews)",
+        "Description": "",        
+        "GraphEndpoint": "featureRolloutPolicies",
+        "GraphUri": "https://graph.microsoft.com/beta/policies/featureRolloutPolicies",        
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],          
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
         ]
     },
     {
@@ -166,7 +261,7 @@
                 "Description": ""
             }
         ]
-    },    
+    },
     {
         "ControlName": "Authentication Method - Certificate-based authentication",
         "Description": "",
@@ -185,5 +280,176 @@
                 "Description": ""
             }
         ]
-    }           
+    },
+    {
+        "ControlName": "Authentication Strength",
+        "Description": "",
+        "GraphEndpoint": "authenticationStrengthPolicies",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationStrengthPolicies",
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "ControlName": "Application Management - Default Policy",
+        "Description": "",
+        "GraphEndpoint": "defaultAppManagementPolicy",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/defaultAppManagementPolicy",
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    }, 
+    {
+        "ControlName": "Application Management - Custom policies",
+        "Description": "",
+        "GraphEndpoint": "appManagementPolicies",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/appManagementPolicies",
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "ControlName": "Application Management - Service Principal Creation",
+        "Description": "",
+        "GraphEndpoint": "servicePrincipalCreationPolicies",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/servicePrincipalCreationPolicies",
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "ControlName": "Consent Framework - Admin Consent Request",
+        "Description": "",
+        "GraphEndpoint": "servicePrincipalCreationPolicies",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy",
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "ControlName": "Consent Framework - Permission Grant",
+        "Description": "",
+        "GraphEndpoint": "permissionGrantPolicies",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/permissionGrantPolicies",
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    },       
+    {
+        "ControlName": "Cross Tenant Access Policy",
+        "Description": "",
+        "GraphEndpoint": "crossTenantAccessPolicy",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/crossTenantAccessPolicy",
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "ControlName": "Token Configuration - tokenIssuancePolicies",
+        "Description": "",
+        "GraphEndpoint": "tokenIssuancePolicies",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/tokenIssuancePolicies",
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "ControlName": "Token Configuration - Token Lifetime",
+        "Description": "",
+        "GraphEndpoint": "tokenLifetimePolicies",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/tokenLifetimePolicies",
+        "PortalDeepLink": "",
+        "McsbMapping": [],
+        "MitreTtpMapping": [],               
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Description": ""
+            }
+        ]
+    }
 ]
