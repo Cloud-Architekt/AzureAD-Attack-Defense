@@ -235,10 +235,11 @@ An attacker is capturing PowerShell process traffic from a compliant device and 
     
     ![Screenshot](./media/replay-prt/RefreshToken3.png)
     
-    1. Copy the `client_id` and `refresh_token` to the attacker’s device. Request an `access_token` token to another member of the FOCI*.
+   Copy the `client_id` and `refresh_token` to the attacker’s device. Request an `access_token` token to another member of the FOCI*.
     
     * *Some refresh tokens from [Microsoft client applications are compatible with each other](https://github.com/secureworks/family-of-client-ids-research#which-client-applications-are-compatible-with-each-other). This allows using a refresh token for redeeming an access token for any other client in the family. For example, stealing a refresh token of the application “Microsoft Bing Search for Microsoft Edge” is able to get an access token for “Microsoft Office” which allows gaining delegated access on a comprehensive user scope including the following sensitive Microsoft Graph API permissions. More details about “*[Family of Client IDs](https://github.com/secureworks/family-of-client-ids-research)*” (FOCI) can be found in the research article of SecureWorks.*
-    2. In this case, we are using the replayed refresh token to get a token to OneDrive:
+   
+   In this case, we are using the replayed refresh token to get a token to OneDrive:
         
         ![RefreshToken12](./media/replay-prt/RefreshToken12.jpg)
         
@@ -257,7 +258,7 @@ An attacker is capturing PowerShell process traffic from a compliant device and 
 
 The attacker is stealing refresh-token from a device where users can satisfy Conditional Access Policies and get refresh token without Web Account Manager (WAM) being involved in token and session cookie encryption.
 
-**Pre-requisites**com
+**Pre-requisites**
 
 - Valid and unencrypted Refresh Token can be issued outside of Cloud WAM and the integrated protection with DAPI. This is the case if a user is authenticated without using PRT for Browser SSO (for example using an in-private browser window).
     
