@@ -13,8 +13,8 @@ _Updated: January 2023 (Added RT attack scenarios), October 2022 (Added M&TRE ma
       - [Replay PRT with exfiltrated transport and session keys](#replay-prt-with-exfiltrated-transport-and-session-keys)
       - [Provisioning a new device to extract unprotected PRT keys (during the grace period)](#provisioning-a-new-device-to-extract-unprotected-prt-keys-during-the-grace-period)
     - [Refresh Token (RT)](#refresh-token-rt)
-    - [Replay Refresh Token from a device with decrypted HTTPS traffic](#replay-refresh-token-from-a-device-with-decrypted-https-traffic)
-    - [Replay Refresh Token without using WAM](#replay-refresh-token-without-using-wam)
+      - [Replay Refresh Token from a device with decrypted HTTPS traffic](#replay-refresh-token-from-a-device-with-decrypted-https-traffic)
+      - [Replay Refresh Token without using WAM](#replay-refresh-token-without-using-wam)
     - [Access Token (AT)](#access-token-at)
       - [A replay of CAE-capable Access Token](#a-replay-of-cae-capable-access-token)
       - [Stealing Access Token outside of device with Azure Cloud Shell](#stealing-access-token-outside-of-device-with-azure-cloud-shell)
@@ -199,7 +199,7 @@ Stolen PRT includes deviceId (not the Device Compliance Status) which will be us
 
 ![Untitled](./media/replay-prt/PrtReplay3.png)
 
-### Replay Refresh Token from a device with decrypted HTTPS traffic
+#### Replay Refresh Token from a device with decrypted HTTPS traffic
 
 **Attack Description**
 
@@ -251,7 +251,7 @@ An attacker is capturing PowerShell process traffic from a compliant device and 
         
 5. Optional: You can also use the previous refresh token to get another Azure (Core) Management access [t](https://github.com/f-bader/TokenTacticsV2)o use it in Azure PowerShell Module/CLI for further enumeration of resources on behalf of the user’s access.
 
-### Replay Refresh Token without using WAM
+#### Replay Refresh Token without using WAM
 
 **Attack Description**
 
