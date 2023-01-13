@@ -231,7 +231,7 @@ An attacker is capturing PowerShell process traffic from a compliant device and 
     
     Azure AD sign-in logs show the used incoming token type and satisfied device compliance:
     
-    ![Screenshot](./media/replay-prt/RefreshToken2.png)
+    ![Screenshot](./media/replay-prt/RefreshToken2.png | width=400)
     
     ![Screenshot](./media/replay-prt/RefreshToken3.png)
     
