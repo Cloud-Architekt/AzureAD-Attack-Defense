@@ -199,7 +199,7 @@ Stolen PRT includes deviceId (not the Device Compliance Status) which will be us
 
 ![Untitled](./media/replay-prt/PrtReplay3.png)
 
-#### Replay Refresh Token from a device with decrypted HTTPS traffic
+#### <u>Replay Refresh Token from a device with decrypted HTTPS traffic</u>
 
 **Attack Description**
 
