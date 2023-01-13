@@ -199,7 +199,7 @@ Stolen PRT includes deviceId (not the Device Compliance Status) which will be us
 
 ![Untitled](./media/replay-prt/PrtReplay3.png)
 
-#### <u>Replay Refresh Token from a device with decrypted HTTPS traffic</u>
+#### Replay Refresh Token from a device with decrypted HTTPS traffic
 
 **Attack Description**
 
@@ -241,14 +241,14 @@ An attacker is capturing PowerShell process traffic from a compliant device and 
    
    In this case, we are using the replayed refresh token to get a token to OneDrive:
         
-        ![RefreshToken12](./media/replay-prt/RefreshToken12.jpg)
-        
-        - Requested Token will be cached in a variable (`OneDriveToken` ) automatically by Token Tactics and can be used for further abuse.
-        - The event of the issued token is visible in the “NonInteractiveSignIns” and shows the satisfied CA policies incl. MFA and device compliance from replayed refresh token:
-        
-        ![Screenshot](./media/replay-prt/RefreshToken4.png)
-        
-        ![Screenshot](./media/replay-prt/RefreshToken5.png)
+    ![RefreshToken12](./media/replay-prt/RefreshToken12.jpg)
+    
+    - Requested Token will be cached in a variable (`OneDriveToken` ) automatically by Token Tactics and can be used for further abuse.
+    - The event of the issued token is visible in the “NonInteractiveSignIns” and shows the satisfied CA policies incl. MFA and device compliance from replayed refresh token:
+    
+    ![Screenshot](./media/replay-prt/RefreshToken4.png)
+    
+    ![Screenshot](./media/replay-prt/RefreshToken5.png)
         
 5. Optional: You can also use the previous refresh token to get another Azure (Core) Management access [t](https://github.com/f-bader/TokenTacticsV2)o use it in Azure PowerShell Module/CLI for further enumeration of resources on behalf of the user’s access.
 
