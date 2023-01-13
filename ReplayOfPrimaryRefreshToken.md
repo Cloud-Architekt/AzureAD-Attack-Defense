@@ -231,8 +231,7 @@ An attacker is capturing PowerShell process traffic from a compliant device and 
     
     Azure AD sign-in logs show the used incoming token type and satisfied device compliance:
     
-    <img src="./media/replay-prt/RefreshToken2.png" width=400>
-    ![Screenshot](./media/replay-prt/RefreshToken2.png | width=400)
+    <img src="./media/replay-prt/RefreshToken2.png" width=500>
     
     ![Screenshot](./media/replay-prt/RefreshToken3.png)
     
@@ -246,11 +245,10 @@ An attacker is capturing PowerShell process traffic from a compliant device and 
     
     - Requested Token will be cached in a variable (`OneDriveToken` ) automatically by Token Tactics and can be used for further abuse.
     - The event of the issued token is visible in the “NonInteractiveSignIns” and shows the satisfied CA policies incl. MFA and device compliance from replayed refresh token:
-    
-    ![Screenshot](./media/replay-prt/RefreshToken4.png)
-    
-    ![Screenshot](./media/replay-prt/RefreshToken5.png)
-        
+
+    <img src="./media/replay-prt/RefreshToken4.png" width=500>    
+    <img src="./media/replay-prt/RefreshToken4.png" width=700>    
+
 5. Optional: You can also use the previous refresh token to get another Azure (Core) Management access [t](https://github.com/f-bader/TokenTacticsV2)o use it in Azure PowerShell Module/CLI for further enumeration of resources on behalf of the user’s access.
 
 #### Replay Refresh Token without using WAM
@@ -330,7 +328,7 @@ Access Tokens can be acquired without encryption by TPM-protected keys. Because 
 
 1. Open in-private browser to have a session [without Browser SSO (which means also not using Primary Refresh Token and protection)](https://docs.microsoft.com/en-us/azure/active-directory/devices/concept-primary-refresh-token#browser-sso-using-prt).
     
-    ![Untitled](./media/replay-prt/PrtReplay5.png)
+    <img src="./media/replay-prt/PrtReplay5.png" width=700>    
     
     Navigate to SharePoint and copy a `refresh_token` which has been marked as ‘IsCAE’ token in the sign-in logs:
     
