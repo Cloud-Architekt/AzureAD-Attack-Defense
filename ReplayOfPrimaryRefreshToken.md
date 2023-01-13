@@ -247,7 +247,6 @@ An attacker is capturing PowerShell process traffic from a compliant device and 
     - The event of the issued token is visible in the “NonInteractiveSignIns” and shows the satisfied CA policies incl. MFA and device compliance from replayed refresh token:
 
     <img src="./media/replay-prt/RefreshToken4.png" width=500>    
-    <img src="./media/replay-prt/RefreshToken4.png" width=700>    
 
 5. Optional: You can also use the previous refresh token to get another Azure (Core) Management access [t](https://github.com/f-bader/TokenTacticsV2)o use it in Azure PowerShell Module/CLI for further enumeration of resources on behalf of the user’s access.
 
