@@ -235,7 +235,7 @@ An attacker is capturing PowerShell process traffic from a compliant device and 
     
     ![Screenshot](./media/replay-prt/RefreshToken3.png)
     
-   Copy the `client_id` and `refresh_token` to the attacker’s device. Request an `access_token` token to another member of the FOCI*.
+5. Copy the `client_id` and `refresh_token` to the attacker’s device. Install and import the PowerShell module “[TokenTactics](https://github.com/f-bader/TokenTacticsV2)”. Use one of the cmdlets to request an `access_token` token to another member of the FOCI*.
     
     * *Some refresh tokens from [Microsoft client applications are compatible with each other](https://github.com/secureworks/family-of-client-ids-research#which-client-applications-are-compatible-with-each-other). This allows using a refresh token for redeeming an access token for any other client in the family. For example, stealing a refresh token of the application “Microsoft Bing Search for Microsoft Edge” is able to get an access token for “Microsoft Office” which allows gaining delegated access on a comprehensive user scope including the following sensitive Microsoft Graph API permissions. More details about “*[Family of Client IDs](https://github.com/secureworks/family-of-client-ids-research)*” (FOCI) can be found in the research article of SecureWorks.*
    
@@ -243,12 +243,12 @@ An attacker is capturing PowerShell process traffic from a compliant device and 
         
     ![RefreshToken12](./media/replay-prt/RefreshToken12.jpg)
     
-    - Requested Token will be cached in a variable (`OneDriveToken` ) automatically by Token Tactics and can be used for further abuse.
-    - The event of the issued token is visible in the “NonInteractiveSignIns” and shows the satisfied CA policies incl. MFA and device compliance from replayed refresh token:
+    Requested Token will be cached in a variable (`OneDriveToken` ) automatically by Token Tactics and can be used for further abuse.
+    The event of the issued token is visible in the “NonInteractiveSignIns” and shows the satisfied CA policies incl. MFA and device compliance from replayed refresh token:
 
-    <img src="./media/replay-prt/RefreshToken4.png" width=500>    
+    <img src="./media/replay-prt/RefreshToken4.png" width=500>
 
-5. Optional: You can also use the previous refresh token to get another Azure (Core) Management access [t](https://github.com/f-bader/TokenTacticsV2)o use it in Azure PowerShell Module/CLI for further enumeration of resources on behalf of the user’s access.
+6. Optional: You can also use the previous refresh token to get another Azure (Core) Management access token use it in Azure PowerShell Module/CLI for further enumeration of resources on behalf of the user’s access.
 
 #### Replay Refresh Token from Microsoft Edge browser on compliant device
 
@@ -258,7 +258,7 @@ The attacker is stealing refresh-token from a device where users can satisfy Con
 
 **Pre-requisites**
 
-- Valid and unencrypted Refresh Token can be issued outside of Cloud WAM and the integrated protection with DAPI. This is the case if a user is authenticated without using PRT for Browser SSO (for example using an in-private browser window).
+- Valid and unencrypted Refresh Token can be issued outside of Cloud WAM and the integrated protection with DPAPI. This is the case if a user is authenticated without using PRT for Browser SSO (for example using an in-private browser window).
     
     *Side Note: Require device compliance with Conditional Access Policies enforces users to authenticate by using Browser SSO. In this case, WAM takes care of token protection by signing requests with the session key and decryption requires to use DPAPI key which is also encrypted by the session key. More details are available in the following docs article: [“How are app tokens and browser cookies protected?”](https://docs.microsoft.com/en-us/azure/active-directory/devices/concept-primary-refresh-token#how-are-app-tokens-and-browser-cookies-protected)*
     
