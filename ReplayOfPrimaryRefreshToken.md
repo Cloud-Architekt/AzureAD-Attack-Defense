@@ -2,7 +2,7 @@
 
 _Author: Sami Lamppu and Thomas Naunheim_
 _Created: August 2022_
-_Updated: October 2022 (Added M&TRE mapping)_
+_Updated: January 2023 (Added RT attack scenarios), October 2022 (Added M&TRE mapping)_
 
 **Table of Content**
 - [Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device](#replay-of-primary-refresh-prt-and-other-issued-tokens-from-an-azure-ad-joined-device)
@@ -13,11 +13,13 @@ _Updated: October 2022 (Added M&TRE mapping)_
       - [Replay PRT with exfiltrated transport and session keys](#replay-prt-with-exfiltrated-transport-and-session-keys)
       - [Provisioning a new device to extract unprotected PRT keys (during the grace period)](#provisioning-a-new-device-to-extract-unprotected-prt-keys-during-the-grace-period)
     - [Refresh Token (RT)](#refresh-token-rt)
+      - [Replay Refresh Token from a device with decrypted HTTPS traffic](#replay-refresh-token-from-a-device-with-decrypted-https-traffic)
+      - [Replay Refresh Token from Microsoft Edge browser on compliant device](#replay-refresh-token-from-microsoft-edge-browser-on-compliant-device)
     - [Access Token (AT)](#access-token-at)
       - [A replay of CAE-capable Access Token](#a-replay-of-cae-capable-access-token)
       - [Stealing Access Token outside of device with Azure Cloud Shell](#stealing-access-token-outside-of-device-with-azure-cloud-shell)
-  - [MITRE ATT&CK Framework](#mitre-attck-framework)
-    - [Tactics, Techniques & Procedures (TTPs) of the named attack scenarios](#tactics-techniques--procedures-ttps-of-the-named-attack-scenarios)
+  - [MITRE ATT\&CK Framework](#mitre-attck-framework)
+    - [Tactics, Techniques \& Procedures (TTPs) of the named attack scenarios](#tactics-techniques--procedures-ttps-of-the-named-attack-scenarios)
     - [TTPs on abusing PRT in Azure AD Join Scenario](#ttps-on-abusing-prt-in-azure-ad-join-scenario)
   - [Detections](#detections)
     - [Suspicious authentication and activity to access PRT](#suspicious-authentication-and-activity-to-access-prt)
@@ -28,7 +30,7 @@ _Updated: October 2022 (Added M&TRE mapping)_
       - [App Governance (MDA add-on)](#app-governance-mda-add-on)
       - [Sentinel - UEBA](#sentinel---ueba)
       - [Defender for Cloud (MDC)](#defender-for-cloud-mdc)
-    - [Additional Detections & Hunting](#additional-detections--hunting)
+    - [Additional Detections \& Hunting](#additional-detections--hunting)
       - [Sentinel - Hunting Queries](#sentinel---hunting-queries)
   - [Mitigations](#mitigations)
     - [Increase visibility by implementing detections](#increase-visibility-by-implementing-detections)
@@ -44,7 +46,7 @@ _Updated: October 2022 (Added M&TRE mapping)_
       - [ID Token](#id-token)
       - [Primary Refresh Token (PRT)](#primary-refresh-token-prt-1)
     - [Cryptographic key pairs during Device Registration (to protect PRT)](#cryptographic-key-pairs-during-device-registration-to-protect-prt)
-      - [Transport Key (tkpub/tkpriv) & Device Key (dkpub/dkpriv)](#transport-key-tkpubtkpriv--device-key-dkpubdkpriv)
+      - [Transport Key (tkpub/tkpriv) \& Device Key (dkpub/dkpriv)](#transport-key-tkpubtkpriv--device-key-dkpubdkpriv)
       - [Nonce](#nonce)
       - [Session Key](#session-key)
     - [Session and token management in Azure AD](#session-and-token-management-in-azure-ad)
@@ -197,8 +199,106 @@ Stolen PRT includes deviceId (not the Device Compliance Status) which will be us
 
 ![Untitled](./media/replay-prt/PrtReplay3.png)
 
-We’re working on a few attack scenarios to demonstrate the abuse and replay of refresh token.
-Stay tuned…
+#### Replay Refresh Token from a device with decrypted HTTPS traffic
+
+**Attack Description**
+
+An attacker is capturing PowerShell process traffic from a compliant device and decrypts HTTPS communication to login.microsoftonline.com.
+
+**Pre-requisites**
+
+- Installing Fiddler and certificate to decrypt HTTPS traffic on the target device
+- Local administrator permissions
+- Install and import the PowerShell module “[TokenTactics](https://github.com/f-bader/TokenTacticsV2)” on the “attacker machine” which allows to abuse stolen refresh token to get a new refresh and access token for the scoped application. Consider using the updated version by [Fabian Bader](http://www.cloudbrothers.info) which uses the V2.0 token endpoint and supports for CAE.
+
+**Steps to simulate an attack**
+
+1. Open Windows PowerShell and Fiddler to configure options to [capture and decrypt HTTPS traffic](https://docs.telerik.com/fiddler/configure-fiddler/tasks/decrypthttps)
+2. Optional: Drag the process capture icon to the Windows PowerShell window to filter the capture results.
+3. Import the Az PowerShell module and use the cmdlet “Connect-AzAccount”. PowerShell is requesting token by using redirect to browser on [localhost](http://localhost) (port 8400). This is necessary to satisfy device-based Conditional Access Policies by `device_id` .
+    
+    ![Screenshot](./media/replay-prt/RefreshToken.png)
+    
+4. Request an access token for Microsoft Graph from the Az PowerShell Module by using:
+    
+    ```powershell
+    Get-AzAccessToken -ResourceTypeName "MSGraph"
+    ```
+    
+    You will find a new request in Fiddler to the “/token”-Endpoint to get an `access_token`. This also includes the `refresh_token` from the Client “Azure PowerShell (”1950a258-227b-4e31-a9cf-717495945fc2”)
+    
+    ![Screenshot](./media/replay-prt/RefreshToken1.png)
+    
+    Azure AD sign-in logs show the used incoming token type and satisfied device compliance:
+    
+    <img src="./media/replay-prt/RefreshToken2.png" width=500>
+    
+    ![Screenshot](./media/replay-prt/RefreshToken3.png)
+    
+5. Copy the `client_id` and `refresh_token` to the attacker’s device. Install and import the PowerShell module “[TokenTactics](https://github.com/f-bader/TokenTacticsV2)”. Use one of the cmdlets to request an `access_token` token to another member of the FOCI*.
+    
+    * *Some refresh tokens from [Microsoft client applications are compatible with each other](https://github.com/secureworks/family-of-client-ids-research#which-client-applications-are-compatible-with-each-other). This allows using a refresh token for redeeming an access token for any other client in the family. For example, stealing a refresh token of the application “Microsoft Bing Search for Microsoft Edge” is able to get an access token for “Microsoft Office” which allows gaining delegated access on a comprehensive user scope including the following sensitive Microsoft Graph API permissions. More details about “*[Family of Client IDs](https://github.com/secureworks/family-of-client-ids-research)*” (FOCI) can be found in the research article of SecureWorks.*
+   
+   In this case, we are using the replayed refresh token to get a token to OneDrive:
+        
+    ![RefreshToken12](./media/replay-prt/RefreshToken12.jpg)
+    
+    Requested Token will be cached in a variable (`OneDriveToken` ) automatically by Token Tactics and can be used for further abuse.
+    The event of the issued token is visible in the “NonInteractiveSignIns” and shows the satisfied CA policies incl. MFA and device compliance from replayed refresh token:
+
+    <img src="./media/replay-prt/RefreshToken4.png" width=500>
+
+6. Optional: You can also use the previous refresh token to get another Azure (Core) Management access token use it in Azure PowerShell Module/CLI for further enumeration of resources on behalf of the user’s access.
+
+#### Replay Refresh Token from Microsoft Edge browser on compliant device
+
+**Attack Description**
+
+The attacker is stealing refresh-token from a device where users can satisfy Conditional Access Policies and get refresh token without Web Account Manager (WAM) being involved in token and session cookie encryption.
+
+**Pre-requisites**
+
+- Valid and unencrypted Refresh Token can be issued outside of Cloud WAM and the integrated protection with DPAPI. This is the case if a user is authenticated without using PRT for Browser SSO (for example using an in-private browser window).
+    
+    *Side Note: Require device compliance with Conditional Access Policies enforces users to authenticate by using Browser SSO. In this case, WAM takes care of token protection by signing requests with the session key and decryption requires to use DPAPI key which is also encrypted by the session key. More details are available in the following docs article: [“How are app tokens and browser cookies protected?”](https://docs.microsoft.com/en-us/azure/active-directory/devices/concept-primary-refresh-token#how-are-app-tokens-and-browser-cookies-protected)*
+    
+- Install and import the PowerShell module “[TokenTactics](https://github.com/f-bader/TokenTacticsV2)”
+
+**Steps to simulate an attack**
+
+1. Open developer bar in Microsoft Edge Chromium (F12)
+2. Enable the option “preserve log“ and navigate to office.com. Afterward, search for “login.microsoftonline.com”:
+    
+    ![Screenshot](./media/replay-prt/RefreshToken6.png)
+    
+3. Look for a payload that contains a token with grant_type `refresh_token`.
+Copy `refresh_token` and `client_id` to the attacker’s device.
+In this sample, the captured refresh token has been issued for “MyApps” (2793995e-0a7d-40d7-bd35-6968ba142197).
+    
+    ![Screenshot](./media/replay-prt/RefreshToken7.png)
+    
+4. Import the PowerShell module “[TokenTactics](https://github.com/f-bader/TokenTacticsV2)” to request a new token. In this sample, we are requesting tokens for Microsoft Graph API. It seems that even Apps outside of the known or documented FOCI (e.g., “MyApps”) can be used to gain a refresh and access token in the scope of the delegated permissions to Microsoft Graph.  The token will be cached automatically in a variable (in this case `$MSGraph`). As you can see below, the delegated permissions allows to get an access token for “Application.ReadWrite.All”.
+    
+    ![Screenshot](./media/replay-prt/RefreshToken8.png)
+    
+5. Use the access token in a client application to gain access to the resource. For example, Microsoft Graph SDK (Connect-MgGraph with parameter “AccessToken”) for accessing Microsoft 365 data.
+    
+    ![Screenshot](./media/replay-prt/RefreshToken9.png)
+    
+6. If the user has owner permissions on app registrations, credentials can be added to get persistent access on behalf of the application identity:
+    
+    ![Screenshot](./media/replay-prt/RefreshToken10.png)
+    
+
+The previous attack path can also be used to gain access to Azure Management. Replay of the Refresh Token for Microsoft Graph access from Microsoft SharePoint Online (89bee1f7-5e6e-4d8a-9f3d-ecd601259da7) can be used to get a refresh and access token for Azure Management API:
+
+![Screenshot](./media/replay-prt/RefreshToken11.png)
+
+**Side notes and research results**
+
+- Browser cookies are protected by a session key when enforcing device compliance. The session key and DPAPI are involved to protect the app tokens and browser cookies.
+- Suspicious sign-in behavior or properties (e.g., using an anonymous IP address) during requesting refresh and access token from stolen PRT will be effectively detected by Identity Protection if the sign-in frequency is set to “every time” in case of medium or higher sign-in risks. Risk policies can be bypassed (by using a previously satisfied MFA claim) if you do not use the sign-in frequency.
+- Refresh Token can be easily exfiltrated on macOS devices by user access to the Keychain. More details are described in the blog post: [Cloud-Architekt.net | Abuse, and replay of Azure AD refresh token from Microsoft Edge in macOS Keychain](https://www.cloud-architekt.net/abuse-and-replay-azuread-token-macos/)
 
 ### Access Token (AT)
 
@@ -227,7 +327,7 @@ Access Tokens can be acquired without encryption by TPM-protected keys. Because 
 
 1. Open in-private browser to have a session [without Browser SSO (which means also not using Primary Refresh Token and protection)](https://docs.microsoft.com/en-us/azure/active-directory/devices/concept-primary-refresh-token#browser-sso-using-prt).
     
-    ![Untitled](./media/replay-prt/PrtReplay5.png)
+    <img src="./media/replay-prt/PrtReplay5.png" width=700>    
     
     Navigate to SharePoint and copy a `refresh_token` which has been marked as ‘IsCAE’ token in the sign-in logs:
     
