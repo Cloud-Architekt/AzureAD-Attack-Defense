@@ -4,26 +4,137 @@
         "Description": "",        
         "GraphEndpoint": "authorizationPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/authorizationPolicy",        
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],          
         "Controls": [
             {
+                "Name": "allowedToUseSSPR",
+                "DisplayName": "Enabled Self service password reset",
+                "CurrentValue": "value.allowedToUseSSPR",              
+                "DefaultValue": "false",
+                "RecommendedValue": "true",
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/PasswordResetMenuBlade/~/Properties",
+                "Description": "Designates whether users in this directory can reset their own password."
+            },            
+            {
+                "Name": "blockMsolPowerShell",
+                "DisplayName": "Blocked MSOnline PowerShell access",
+                "CurrentValue": "value.blockMsolPowerShell",              
+                "DefaultValue": "false",
+                "RecommendedValue": "",
+                "PortalDeepLink": "",
+                "Description": "Specifies whether the user-based access to the legacy service endpoint used by MSOL PowerShell is blocked or not. This does not affect Azure AD Connect or Microsoft Graph."
+            },
+            {
+                "Name": "enabledPreviewFeatures",
+                "DisplayName": "Enabled ",
+                "CurrentValue": "value.enabledPreviewFeatures",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "PortalDeepLink": "",
+                "Description": "Manages access of (private) preview features in tenant."
+            },            
+            {
                 "Name": "allowInvitesFrom",
-                "DisplayName": "Guest Invitation",
+                "DisplayName": "Guest invite restrictions",
                 "CurrentValue": "value.allowInvitesFrom",              
                 "DefaultValue": "everyone",
                 "RecommendedValue": "adminsAndGuestInviters",
-                "Description": ""
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/CompanyRelationshipsMenuBlade/~/Settings",
+                "Description": "Manages controls who can invite guests to your directory to collaborate on resources secured by your Azure AD, such as SharePoint sites or Azure resources."
             },
             {
+                "Name": "allowedToSignUpEmailBasedSubscriptions",
+                "DisplayName": "",
+                "CurrentValue": "value.allowedToSignUpEmailBasedSubscriptions",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "PortalDeepLink": "",                
+                "Description": "Indicates whether users can sign up for email based subscriptions."
+            },
+            {
+                "Name": "allowEmailVerifiedUsersToJoinOrganization",
+                "DisplayName": "",
+                "CurrentValue": "value.allowEmailVerifiedUsersToJoinOrganization",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "PortalDeepLink": "",                
+                "Description": "Indicates whether a user can join the tenant by email validation."
+            },
+            {
+                "Name": "guestUserRoleId",
+                "DisplayName": "",
+                "CurrentValue": "value.guestUserRoleId",              
+                "DefaultValue": "10dae51f-b6af-4016-8d66-8c2a99b929b3",
+                "RecommendedValue": "2af84b1e-32c8-42b7-82bc-daa82404023b",
+                "PortalDeepLink": "",                
+                "Description": "Represents role templateId for the role that should be granted to guest user."
+            },
+            {
+                "Name": "permissionGrantPolicyIdsAssignedToDefaultUserRole",
+                "DisplayName": "User consent policy assigned for applications",
+                "CurrentValue": "value.permissionGrantPolicyIdsAssignedToDefaultUserRole",              
+                "DefaultValue": "",
+                "RecommendedValue": [
+                    "ManagePermissionGrantsForSelf.microsoft-user-default-low"
+                ],
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",                
+                "Description": "Defines if user consent to apps is allowed, and if it is, which app consent policy (permissionGrantPolicy) governs the permissions."
+            },
+            {
+                "Name": "allowUserConsentForRiskyApps",
+                "DisplayName": "",
+                "CurrentValue": "value.allowUserConsentForRiskyApps",              
+                "DefaultValue": "",
+                "RecommendedValue": "false",
+                "PortalDeepLink": "",                
+                "Description": "Indicates whether user consent for risky apps is allowed. For example, consent requests for newly registered multi-tenant apps that are not publisher verified and require non-basic permissions are considered risky."
+            },                                                                                                                                               
+            {
                 "Name": "allowedToCreateApps",
-                "DisplayName": "Allowed to create Apps",               
+                "DisplayName": "Default User Role Permissions - Allowed to create Apps",               
                 "CurrentValue": "value.defaultUserRolePermissions.allowedToCreateApps",              
                 "DefaultValue": "true",
                 "RecommendedValue": "false",
-                "Description": ""
-            }            
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/UserSettings",                
+                "Description": "Controls if non-admin users may register custom-developed applications for use within this directory."
+            },
+            {
+                "Name": "allowedToCreateSecurityGroups",
+                "DisplayName": "Default User Role Permissions - Allowed to create Security Groups",
+                "CurrentValue": "value.allowedToCreateSecurityGroups",              
+                "DefaultValue": "true",
+                "RecommendedValue": "",
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/General",                
+                "Description": "Defines default permission of user to create security groups in Azure portals, API or PowerShell. Global administrators and user administrators can still create security groups."
+            },
+            {
+                "Name": "allowedToCreateTenants",
+                "DisplayName": "Default User Role Permissions - Allowed to create Tenants",
+                "CurrentValue": "value.allowedToCreateTenants",              
+                "DefaultValue": "true",
+                "RecommendedValue": "",
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/UserSettings",                
+                "Description": "Restricts the creation of Azure AD tenants to the global administrator or tenant creator roles. Anyone who creates a tenant will become the global administrator for that tenant."
+            },
+            {
+                "Name": "allowedToReadBitlockerKeysForOwnedDevice",
+                "DisplayName": "Default User Role Permissions - Allowed to read BitLocker Keys for Owned Devices",
+                "CurrentValue": "value.allowedToReadBitlockerKeysForOwnedDevice",              
+                "DefaultValue": "true",
+                "RecommendedValue": "",
+                "PortalDeepLink": "",                
+                "Description": "Controls default access for members (end-user) to read BitLocker Keys of company-owned devices (device assigned to user)."
+            },
+            {
+                "Name": "allowedToReadOtherUsers",
+                "DisplayName": "Default User Role Permissions - Allowed to read other users",
+                "CurrentValue": "value.allowedToReadOtherUsers",              
+                "DefaultValue": "true",
+                "RecommendedValue": "true",
+                "PortalDeepLink": "",                
+                "Description": "prevents all non-admins from reading user information from the directory. This flag doesn't prevent reading user information in other Microsoft services like Exchange Online."
+            }              
         ]
     },
     {
@@ -31,7 +142,6 @@
         "Description": "",        
         "GraphEndpoint": "settings",
         "GraphUri": "https://graph.microsoft.com/beta/settings",        
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],          
         "Controls": [
@@ -41,6 +151,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -50,7 +161,6 @@
         "Description": "",        
         "GraphEndpoint": "activityBasedTimeoutPolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/activityBasedTimeoutPolicies",        
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],          
         "Controls": [
@@ -60,6 +170,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -69,7 +180,6 @@
         "Description": "",        
         "GraphEndpoint": "deviceRegistrationPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/deviceRegistrationPolicy",        
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],          
         "Controls": [
@@ -79,6 +189,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -88,7 +199,6 @@
         "Description": "",        
         "GraphEndpoint": "externalIdentitiesPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/externalIdentitiesPolicy",        
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],          
         "Controls": [
@@ -98,6 +208,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -107,7 +218,6 @@
         "Description": "",        
         "GraphEndpoint": "featureRolloutPolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/featureRolloutPolicies",        
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],          
         "Controls": [
@@ -117,6 +227,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -126,7 +237,6 @@
         "Description": "",
         "GraphEndpoint": "authenticationMethodsPolicy",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('MicrosoftAuthenticator')",      
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],              
         "Controls": [
@@ -136,6 +246,7 @@
                 "CurrentValue": "featureSettings.numberMatchingRequiredState",              
                 "DefaultValue": "enabled",
                 "RecommendedValue": "enabled",
+                "PortalDeepLink": "",                
                 "Description": ""
             },
             {
@@ -144,6 +255,7 @@
                 "CurrentValue": "featureSettings.displayAppInformationRequiredState",              
                 "DefaultValue": "true",
                 "RecommendedValue": "true",
+                "PortalDeepLink": "",                
                 "Description": ""
             }            
         ]
@@ -153,7 +265,6 @@
         "Description": "",
         "GraphEndpoint": "authenticationMethodsPolicy",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Fido2')",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -163,6 +274,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -172,7 +284,6 @@
         "Description": "",
         "GraphEndpoint": "authenticationMethodsPolicy",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('TemporaryAccessPass')",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -182,6 +293,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -191,7 +303,6 @@
         "Description": "",
         "GraphEndpoint": "authenticationMethodsPolicy",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('SoftwareOath')",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -201,6 +312,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -210,7 +322,6 @@
         "Description": "",
         "GraphEndpoint": "authenticationMethodsPolicy",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Email')",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -220,6 +331,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -229,7 +341,6 @@
         "Description": "",
         "GraphEndpoint": "authenticationMethodsPolicy",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Voice')",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -239,6 +350,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -248,7 +360,6 @@
         "Description": "",
         "GraphEndpoint": "authenticationMethodsPolicy",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Sms')",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -258,6 +369,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -267,7 +379,6 @@
         "Description": "",
         "GraphEndpoint": "authenticationMethodsPolicy",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('X509Certificate')",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -277,6 +388,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -286,7 +398,6 @@
         "Description": "",
         "GraphEndpoint": "authenticationStrengthPolicies",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationStrengthPolicies",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -296,6 +407,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -305,7 +417,6 @@
         "Description": "",
         "GraphEndpoint": "defaultAppManagementPolicy",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/defaultAppManagementPolicy",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -315,6 +426,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -324,7 +436,6 @@
         "Description": "",
         "GraphEndpoint": "appManagementPolicies",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/appManagementPolicies",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -334,6 +445,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -343,7 +455,6 @@
         "Description": "",
         "GraphEndpoint": "servicePrincipalCreationPolicies",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/servicePrincipalCreationPolicies",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -353,6 +464,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -362,7 +474,6 @@
         "Description": "",
         "GraphEndpoint": "servicePrincipalCreationPolicies",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -372,6 +483,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -380,8 +492,6 @@
         "ControlName": "Consent Framework - Permission Grant",
         "Description": "",
         "GraphEndpoint": "permissionGrantPolicies",        
-        "GraphUri": "https://graph.microsoft.com/beta/policies/permissionGrantPolicies",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -391,6 +501,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -400,7 +511,6 @@
         "Description": "",
         "GraphEndpoint": "crossTenantAccessPolicy",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/crossTenantAccessPolicy",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -410,6 +520,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -419,7 +530,6 @@
         "Description": "",
         "GraphEndpoint": "tokenIssuancePolicies",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/tokenIssuancePolicies",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -429,6 +539,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
@@ -438,7 +549,6 @@
         "Description": "",
         "GraphEndpoint": "tokenLifetimePolicies",        
         "GraphUri": "https://graph.microsoft.com/beta/policies/tokenLifetimePolicies",
-        "PortalDeepLink": "",
         "McsbMapping": [],
         "MitreTtpMapping": [],               
         "Controls": [
@@ -448,6 +558,7 @@
                 "CurrentValue": "",              
                 "DefaultValue": "",
                 "RecommendedValue": "",
+                "PortalDeepLink": "",                
                 "Description": ""
             }
         ]
