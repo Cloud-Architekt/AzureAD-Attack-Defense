@@ -75,9 +75,7 @@
                 "DisplayName": "User consent policy assigned for applications",
                 "CurrentValue": "value.permissionGrantPolicyIdsAssignedToDefaultUserRole",              
                 "DefaultValue": "",
-                "RecommendedValue": [
-                    "ManagePermissionGrantsForSelf.microsoft-user-default-low"
-                ],
+                "RecommendedValue": "ManagePermissionGrantsForSelf.microsoft-user-default-low",
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",                
                 "Description": "Defines if user consent to apps is allowed, and if it is, which app consent policy (permissionGrantPolicy) governs the permissions."
             },
