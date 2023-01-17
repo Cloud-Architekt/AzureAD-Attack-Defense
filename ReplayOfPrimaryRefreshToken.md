@@ -254,13 +254,9 @@ An attacker is capturing PowerShell process traffic from a compliant device and 
 
 **Attack Description**
 
-The attacker is stealing refresh-token from a device where users can satisfy Conditional Access Policies and get refresh token without Web Account Manager (WAM) being involved in token and session cookie encryption.
+The attacker is stealing refresh-token from browser traffic on a device where users can satisfy Conditional Access Policies and get refresh token via Browser SSO.
 
 **Pre-requisites**
-
-- Valid and unencrypted Refresh Token can be issued outside of Cloud WAM and the integrated protection with DPAPI. This is the case if a user is authenticated without using PRT for Browser SSO (for example using an in-private browser window).
-    
-    *Side Note: Require device compliance with Conditional Access Policies enforces users to authenticate by using Browser SSO. In this case, WAM takes care of token protection by signing requests with the session key and decryption requires to use DPAPI key which is also encrypted by the session key. More details are available in the following docs article: [“How are app tokens and browser cookies protected?”](https://docs.microsoft.com/en-us/azure/active-directory/devices/concept-primary-refresh-token#how-are-app-tokens-and-browser-cookies-protected)*
     
 - Install and import the PowerShell module “[TokenTactics](https://github.com/f-bader/TokenTacticsV2)”
 
@@ -277,15 +273,15 @@ In this sample, the captured refresh token has been issued for “MyApps” (279
     
     ![Screenshot](./media/replay-prt/RefreshToken7.png)
     
-4. Import the PowerShell module “[TokenTactics](https://github.com/f-bader/TokenTacticsV2)” to request a new token. In this sample, we are requesting tokens for Microsoft Graph API. It seems that even Apps outside of the known or documented FOCI (e.g., “MyApps”) can be used to gain a refresh and access token in the scope of the delegated permissions to Microsoft Graph.  The token will be cached automatically in a variable (in this case `$MSGraph`). As you can see below, the delegated permissions allows to get an access token for “Application.ReadWrite.All”.
+1. Import the PowerShell module “[TokenTactics](https://github.com/f-bader/TokenTacticsV2)” to request a new token. In this sample, we are requesting tokens for Microsoft Graph API. It seems that even Apps outside of the known or documented FOCI (e.g., “MyApps”) can be used to gain a refresh and access token in the scope of the delegated permissions to Microsoft Graph.  The token will be cached automatically in a variable (in this case `$MSGraph`). As you can see below, the delegated permissions allows to get an access token for “Application.ReadWrite.All”.
     
     ![Screenshot](./media/replay-prt/RefreshToken8.png)
     
-5. Use the access token in a client application to gain access to the resource. For example, Microsoft Graph SDK (Connect-MgGraph with parameter “AccessToken”) for accessing Microsoft 365 data.
+2. Use the access token in a client application to gain access to the resource. For example, Microsoft Graph SDK (Connect-MgGraph with parameter “AccessToken”) for accessing Microsoft 365 data.
     
     ![Screenshot](./media/replay-prt/RefreshToken9.png)
     
-6. If the user has owner permissions on app registrations, credentials can be added to get persistent access on behalf of the application identity:
+3. If the user has owner permissions on app registrations, credentials can be added to get persistent access on behalf of the application identity:
     
     ![Screenshot](./media/replay-prt/RefreshToken10.png)
     
@@ -520,7 +516,7 @@ This detection indicates that there are abnormal characteristics in the token su
 Suspicious sign-in behavior or properties (e.g. Atypical travel & Unfamiliar sign-in properties) during requesting refresh and access token will be effectively detected by Identity Protection if the sign-in frequency is set to “every time” in case of medium or higher sign-in risks. 
 
 - Risk policies can be bypassed (by using a previously satisfied MFA claim) if you don’t use the sign-in frequency.
-- Below you can find IPC detections from the ‘Replay Refresh Token without using WAM’ attack scenario
+- Below you can find IPC detections from the ‘Replay Refresh Token from Edge Browser on compliant device’ attack scenario
 
 ![Untitled](./media/replay-prt/PrtReplay16.png)
 
