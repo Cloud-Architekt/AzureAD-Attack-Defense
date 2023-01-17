@@ -254,10 +254,11 @@ An attacker is capturing PowerShell process traffic from a compliant device and 
 
 **Attack Description**
 
-The attacker is stealing refresh-token from browser traffic on a device where users can satisfy Conditional Access Policies and get refresh token via Browser SSO.
+The attacker is stealing refresh-token from browser traffic on a device where users can satisfy Conditional Access Policies and get refresh token without Web Account Manager (WAM) being involved in token and session cookie encryption.
 
 **Pre-requisites**
-    
+
+- Valid and unprotected Refresh Token which has been issued outside of WAM and PRT flow.
 - Install and import the PowerShell module “[TokenTactics](https://github.com/f-bader/TokenTacticsV2)”
 
 **Steps to simulate an attack**
