@@ -256,6 +256,9 @@ An attacker is capturing PowerShell process traffic from a compliant device and 
 
 The attacker is stealing refresh-token from browser traffic on a device where users can satisfy Conditional Access Policies and get refresh token without Web Account Manager (WAM) being involved in token and session cookie encryption.
 
+**Side note**
+PRT flow contains PRT cookie in the browser, which is included as part of the request header called "x-ms-RefreshTokenCredential" and request tokens from Azure AD. Detailed information about the authentication flow and be found from [Browser SSO Using PRT](https://learn.microsoft.com/en-us/azure/active-directory/devices/concept-primary-refresh-token#browser-sso-using-prt)
+
 **Pre-requisites**
 
 - Valid and unprotected Refresh Token which has been issued outside of WAM and PRT flow.
