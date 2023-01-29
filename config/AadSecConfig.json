@@ -1,9 +1,9 @@
 [
     {
         "ControlName": "Default Authorization Settings",
-        "Description": "",        
+        "Description": "",
         "GraphEndpoint": "authorizationPolicy",
-        "GraphUri": "https://graph.microsoft.com/beta/policies/authorizationPolicy",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authorizationPolicy",
         "MitreTactic": [],
         "MitreTechnique": [],
         "MitreMitigation": [],
@@ -21,11 +21,11 @@
                 "MitreMitigation": [],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/PasswordResetMenuBlade/~/Properties",
                 "Description": "Designates whether users in this directory can reset their own password."
-            },            
+            },
             {
                 "Name": "blockMsolPowerShell",
                 "DisplayName": "Blocked MSOnline PowerShell access",
-                "CurrentValue": "value.blockMsolPowerShell",              
+                "CurrentValue": "value.blockMsolPowerShell",
                 "DefaultValue": "false",
                 "RecommendedValue": "",
                 "Recommendation": "",
@@ -39,161 +39,161 @@
             {
                 "Name": "enabledPreviewFeatures",
                 "DisplayName": "Enabled ",
-                "CurrentValue": "value.enabledPreviewFeatures",              
+                "CurrentValue": "value.enabledPreviewFeatures",
                 "DefaultValue": "",
                 "RecommendedValue": "",
                 "Recommendation": "",
-                "Severity": "",                
+                "Severity": "",
                 "MitreTactic": [],
                 "MitreTechnique": [],
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
                 "Description": "Manages access of (private) preview features in tenant."
-            },            
+            },
             {
                 "Name": "allowInvitesFrom",
                 "DisplayName": "Guest invite restrictions",
-                "CurrentValue": "value.allowInvitesFrom",              
+                "CurrentValue": "value.allowInvitesFrom",
                 "DefaultValue": "everyone",
                 "RecommendedValue": "adminsAndGuestInviters",
                 "Recommendation": "",
                 "Severity": "",
                 "MitreTactic": ["TA003 - Persistence"],
                 "MitreTechnique": [],
-                "MitreMitigation": [],   
+                "MitreMitigation": [],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/CompanyRelationshipsMenuBlade/~/Settings",
                 "Description": "Manages controls who can invite guests to your directory to collaborate on resources secured by your Azure AD, such as SharePoint sites or Azure resources."
             },
             {
                 "Name": "allowedToSignUpEmailBasedSubscriptions",
                 "DisplayName": "",
-                "CurrentValue": "value.allowedToSignUpEmailBasedSubscriptions",              
+                "CurrentValue": "value.allowedToSignUpEmailBasedSubscriptions",
                 "DefaultValue": "",
                 "RecommendedValue": "",
                 "Recommendation": "",
                 "Severity": "",
                 "MitreTactic": ["TA001 - Initial Access"],
                 "MitreTechnique": [],
-                "MitreMitigation": [],   
+                "MitreMitigation": [],
                 "PortalDeepLink": "",
                 "Description": "Indicates whether users can sign up for email based subscriptions."
             },
             {
                 "Name": "allowEmailVerifiedUsersToJoinOrganization",
                 "DisplayName": "",
-                "CurrentValue": "value.allowEmailVerifiedUsersToJoinOrganization",              
+                "CurrentValue": "value.allowEmailVerifiedUsersToJoinOrganization",
                 "DefaultValue": "",
                 "RecommendedValue": "",
                 "Recommendation": "",
                 "Severity": "",
                 "MitreTactic": ["TA001 - Initial Access"],
                 "MitreTechnique": [],
-                "MitreMitigation": [],   
+                "MitreMitigation": [],
                 "PortalDeepLink": "",
                 "Description": "Indicates whether a user can join the tenant by email validation."
             },
             {
                 "Name": "guestUserRoleId",
                 "DisplayName": "",
-                "CurrentValue": "value.guestUserRoleId",              
+                "CurrentValue": "value.guestUserRoleId",
                 "DefaultValue": "10dae51f-b6af-4016-8d66-8c2a99b929b3",
                 "RecommendedValue": "2af84b1e-32c8-42b7-82bc-daa82404023b",
                 "Recommendation": "",
                 "Severity": "",
                 "MitreTactic": [""],
                 "MitreTechnique": [],
-                "MitreMitigation": [],   
+                "MitreMitigation": [],
                 "PortalDeepLink": "",
                 "Description": "Represents role templateId for the role that should be granted to guest user."
             },
             {
                 "Name": "permissionGrantPolicyIdsAssignedToDefaultUserRole",
                 "DisplayName": "User consent policy assigned for applications",
-                "CurrentValue": "value.permissionGrantPolicyIdsAssignedToDefaultUserRole",              
+                "CurrentValue": "value.permissionGrantPolicyIdsAssignedToDefaultUserRole",
                 "DefaultValue": "",
                 "RecommendedValue": "ManagePermissionGrantsForSelf.microsoft-user-default-low",
                 "Recommendation": "",
                 "Severity": "",
                 "MitreTactic": [""],
                 "MitreTechnique": [],
-                "MitreMitigation": [],                  
+                "MitreMitigation": [],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",
                 "Description": "Defines if user consent to apps is allowed, and if it is, which app consent policy (permissionGrantPolicy) governs the permissions."
             },
             {
                 "Name": "allowUserConsentForRiskyApps",
                 "DisplayName": "",
-                "CurrentValue": "value.allowUserConsentForRiskyApps",              
+                "CurrentValue": "value.allowUserConsentForRiskyApps",
                 "DefaultValue": "",
                 "RecommendedValue": "false",
                 "Recommendation": "",
-                "Severity": "",                
+                "Severity": "",
                 "MitreTactic": ["TA001 - Initial Access","TA005 - Defense Evasion","TA006 - Credential Access","TA008 - Lateral Movement"],
                 "MitreTechnique": ["T1566.002","T1078","T1550","T1528"],
-                "MitreMitigation": ["M1026"," M1018"],   
+                "MitreMitigation": ["M1026"," M1018"],
                 "PortalDeepLink": "",
                 "Description": "Indicates whether user consent for risky apps is allowed. For example, consent requests for newly registered multi-tenant apps that are not publisher verified and require non-basic permissions are considered risky."
-            },                                                                                                               
+            },
             {
                 "Name": "allowedToCreateApps",
-                "DisplayName": "Default User Role Permissions - Allowed to create Apps",               
-                "CurrentValue": "value.defaultUserRolePermissions.allowedToCreateApps",              
+                "DisplayName": "Default User Role Permissions - Allowed to create Apps",
+                "CurrentValue": "value.defaultUserRolePermissions.allowedToCreateApps",
                 "DefaultValue": "true",
                 "RecommendedValue": "false",
                 "Recommendation": "",
-                "Severity": "",                
+                "Severity": "",
                 "MitreTactic": ["TA001 - Initial Access","TA005 - Defense Evasion","TA006 - Credential Access","TA008 - Lateral Movement"],
                 "MitreTechnique": ["T1566.002","T1078","T1550","T1528"],
-                "MitreMitigation": ["M1026"," M1018"],        
+                "MitreMitigation": ["M1026"," M1018"],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/UserSettings",
                 "Description": "Controls if non-admin users may register custom-developed applications for use within this directory."
             },
             {
                 "Name": "allowedToCreateSecurityGroups",
                 "DisplayName": "Default User Role Permissions - Allowed to create Security Groups",
-                "CurrentValue": "value.allowedToCreateSecurityGroups",              
-                "DefaultValue": "true",
-                "RecommendedValue": "",
-                "Recommendation": "",
-                "Severity": "",                
-                "MitreTactic": ["TA003 - Persistence"],
-                "MitreTechnique": [],
-                "MitreMitigation": [],  
-                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/General",
-                "Description": "Defines default permission of user to create security groups in Azure portals, API or PowerShell. Global administrators and user administrators can still create security groups."
-            },
-            {
-                "Name": "allowedToCreateTenants",
-                "DisplayName": "Default User Role Permissions - Allowed to create Tenants",
-                "CurrentValue": "value.allowedToCreateTenants",              
-                "DefaultValue": "true",
-                "RecommendedValue": "",
-                "Recommendation": "",
-                "Severity": "",                
-                "MitreTactic": ["TA010 - Exfiltration","TA0040 - Impact"],
-                "MitreTechnique": [],
-                "MitreMitigation": [],  
-                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/UserSettings",
-                "Description": "Restricts the creation of Azure AD tenants to the global administrator or tenant creator roles. Anyone who creates a tenant will become the global administrator for that tenant."
-            },
-            {
-                "Name": "allowedToReadBitlockerKeysForOwnedDevice",
-                "DisplayName": "Default User Role Permissions - Allowed to read BitLocker Keys for Owned Devices",
-                "CurrentValue": "value.allowedToReadBitlockerKeysForOwnedDevice",              
+                "CurrentValue": "value.allowedToCreateSecurityGroups",
                 "DefaultValue": "true",
                 "RecommendedValue": "",
                 "Recommendation": "",
                 "Severity": "",
                 "MitreTactic": ["TA003 - Persistence"],
                 "MitreTechnique": [],
-                "MitreMitigation": [],  
+                "MitreMitigation": [],
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/General",
+                "Description": "Defines default permission of user to create security groups in Azure portals, API or PowerShell. Global administrators and user administrators can still create security groups."
+            },
+            {
+                "Name": "allowedToCreateTenants",
+                "DisplayName": "Default User Role Permissions - Allowed to create Tenants",
+                "CurrentValue": "value.allowedToCreateTenants",
+                "DefaultValue": "true",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": ["TA010 - Exfiltration","TA0040 - Impact"],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/UserSettings",
+                "Description": "Restricts the creation of Azure AD tenants to the global administrator or tenant creator roles. Anyone who creates a tenant will become the global administrator for that tenant."
+            },
+            {
+                "Name": "allowedToReadBitlockerKeysForOwnedDevice",
+                "DisplayName": "Default User Role Permissions - Allowed to read BitLocker Keys for Owned Devices",
+                "CurrentValue": "value.allowedToReadBitlockerKeysForOwnedDevice",
+                "DefaultValue": "true",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": ["TA003 - Persistence"],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
                 "PortalDeepLink": "",
                 "Description": "Controls default access for members (end-user) to read BitLocker Keys of company-owned devices (device assigned to user)."
             },
             {
                 "Name": "allowedToReadOtherUsers",
                 "DisplayName": "Default User Role Permissions - Allowed to read other users",
-                "CurrentValue": "value.allowedToReadOtherUsers",              
+                "CurrentValue": "value.allowedToReadOtherUsers",
                 "DefaultValue": "true",
                 "RecommendedValue": "true",
                 "Recommendation": "",
@@ -203,17 +203,17 @@
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
                 "Description": "prevents all non-admins from reading user information from the directory. This flag doesn't prevent reading user information in other Microsoft services like Exchange Online."
-            }              
+            }
         ]
     },
     {
         "ControlName": "Default Settings - Consent Policy Settings",
-        "Description": "",        
+        "Description": "",
         "GraphEndpoint": "settings",
-        "GraphUri": "https://graph.microsoft.com/beta/settings",        
+        "GraphUri": "https://graph.microsoft.com/beta/settings",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],    
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "EnableGroupSpecificConsent",
@@ -229,7 +229,6 @@
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",
                 "Description": "Group and team owners can authorize applications, such as applications published by third-party vendors, to access your organization's data associated with a group. For example, a team owner in Microsoft Teams can allow an app to read all Teams messages in the team, or list the basic profile of a group's members."
             },
-            ,
             {
                 "Name": "ConstrainGroupSpecificConsentToMembersOfGroupId",
                 "DisplayName": "Group owner consent for apps accessing data - Restricted to selected group owners",
@@ -243,7 +242,7 @@
                 "MitreMitigation": [],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",
                 "Description": "Only selected group owners can allow applications to access data for the groups they own."
-            }                     
+            },
             {
                 "Name": "BlockUserConsentForRiskyApps",
                 "DisplayName": "",
@@ -271,17 +270,17 @@
                 "MitreMitigation": [],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                 "Description": "If this option is set to enabled, then users request admin consent to any app that requires access to data they do not have the permission to grant. If this option is set to disabled, then users must contact their admin to request to consent in order to use the apps they need."
-            }                           
+            }
         ]
     },
     {
         "ControlName": "Default Settings - Password Rule Settings",
-        "Description": "",        
+        "Description": "",
         "GraphEndpoint": "settings",
-        "GraphUri": "https://graph.microsoft.com/beta/settings",        
+        "GraphUri": "https://graph.microsoft.com/beta/settings",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],    
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "BannedPasswordCheckOnPremisesMode",
@@ -338,7 +337,7 @@
                 "MitreMitigation": [],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                 "Description": "A list of words, one per line, to prevent your users from using in their passwords. You should include words specific to your organization, such as your products, trademarks, industries, local cities and towns, and local sports teams. Your list can contain up to 1000 words. These are case insensitive, and common character substitutions (o for 0, etc) are automatically considered."
-            },            
+            },
             {
                 "Name": "LockoutDurationInSeconds",
                 "DisplayName": "Smart Lockout - Lockout duration in seconds",
@@ -352,7 +351,7 @@
                 "MitreMitigation": [],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                 "Description": "The minimum length in seconds of each lockout. If an account locks repeatedly, this duration increases."
-            }
+            },
             {
                 "Name": "LockoutThreshold",
                 "DisplayName": "Smart Lockout - Lockout threshold",
@@ -366,17 +365,17 @@
                 "MitreMitigation": [],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                 "Description": "How many failed sign-ins are allowed on an account before its first lockout. If the first sign-in after a lockout also fails, the account locks out again."
-            }          
+            }
         ]
     },
     {
         "ControlName": "Default Settings - Classification and M365 Groups",
-        "Description": "",        
+        "Description": "",
         "GraphEndpoint": "settings",
-        "GraphUri": "https://graph.microsoft.com/beta/settings",        
+        "GraphUri": "https://graph.microsoft.com/beta/settings",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],    
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "NewUnifiedGroupWritebackDefault",
@@ -531,7 +530,7 @@
                 "MitreMitigation": [],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/General",
                 "Description": "The flag indicating whether Microsoft 365 group creation is allowed in the directory by non-admin users. This setting does not require an Azure Active Directory Premium P1 license."
-            },                
+            },
             {
                 "Name": "GroupCreationAllowedGroupId",
                 "DisplayName": "",
@@ -573,17 +572,17 @@
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
                 "Description": "A comma-delimited list of valid classification values that can be applied to Microsoft 365 groups. This setting does not apply when EnableMIPLabels == True."
-            }                                          
+            }
         ]
-    },       
+    },
     {
         "ControlName": "Default Activity Timeout",
-        "Description": "",        
+        "Description": "",
         "GraphEndpoint": "activityBasedTimeoutPolicies",
-        "GraphUri": "https://graph.microsoft.com/beta/policies/activityBasedTimeoutPolicies",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/activityBasedTimeoutPolicies",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],      
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "",
@@ -600,15 +599,15 @@
                 "Description": ""
             }
         ]
-    },  
+    },
     {
         "ControlName": "External Identities",
-        "Description": "",        
+        "Description": "",
         "GraphEndpoint": "externalIdentitiesPolicy",
-        "GraphUri": "https://graph.microsoft.com/beta/policies/externalIdentitiesPolicy",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/externalIdentitiesPolicy",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],      
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "",
@@ -628,12 +627,12 @@
     },
     {
         "ControlName": "Feature Rollout (Enabled Previews)",
-        "Description": "",        
+        "Description": "",
         "GraphEndpoint": "featureRolloutPolicies",
-        "GraphUri": "https://graph.microsoft.com/beta/policies/featureRolloutPolicies",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/featureRolloutPolicies",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],  
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "",
@@ -654,16 +653,16 @@
     {
         "ControlName": "Authentication Method - Microsoft Authenticator",
         "Description": "",
-        "GraphEndpoint": "authenticationMethodsPolicy",        
-        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('MicrosoftAuthenticator')",      
+        "GraphEndpoint": "authenticationMethodsPolicy",
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('MicrosoftAuthenticator')",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],       
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "numberMatchingRequiredState",
                 "DisplayName": "Number Matching",
-                "CurrentValue": "featureSettings.numberMatchingRequiredState",              
+                "CurrentValue": "featureSettings.numberMatchingRequiredState",
                 "DefaultValue": "enabled",
                 "RecommendedValue": "enabled",
                 "Recommendation": "",
@@ -672,12 +671,12 @@
                 "MitreTechnique": [],
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
-                "Description": ""                
+                "Description": ""
             },
             {
                 "Name": "displayAppInformationRequiredState",
                 "DisplayName": "Display App Information",
-                "CurrentValue": "featureSettings.displayAppInformationRequiredState",              
+                "CurrentValue": "featureSettings.displayAppInformationRequiredState",
                 "DefaultValue": "true",
                 "RecommendedValue": "true",
                 "Recommendation": "",
@@ -686,14 +685,14 @@
                 "MitreTechnique": [],
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
-                "Description": ""    
-            }            
+                "Description": ""
+            }
         ]
     },
     {
         "ControlName": "Authentication Method - FIDO2 security key",
         "Description": "",
-        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphEndpoint": "authenticationMethodsPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Fido2')",
         "MitreTactic": [],
         "MitreTechnique": [],
@@ -718,11 +717,11 @@
     {
         "ControlName": "Authentication Method - Temporary Access Pass",
         "Description": "",
-        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphEndpoint": "authenticationMethodsPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('TemporaryAccessPass')",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],         
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "",
@@ -739,15 +738,15 @@
                 "Description": ""
             }
         ]
-    }, 
+    },
     {
         "ControlName": "Authentication Method - Third-party software OATH tokens",
         "Description": "",
-        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphEndpoint": "authenticationMethodsPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('SoftwareOath')",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],       
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "",
@@ -764,15 +763,15 @@
                 "Description": ""
             }
         ]
-    }, 
+    },
     {
         "ControlName": "Authentication Method - Email OTP",
         "Description": "",
-        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphEndpoint": "authenticationMethodsPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Email')",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],        
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "",
@@ -789,15 +788,15 @@
                 "Description": ""
             }
         ]
-    },  
+    },
     {
         "ControlName": "Authentication Method - Voice call",
         "Description": "",
-        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphEndpoint": "authenticationMethodsPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Voice')",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],          
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "",
@@ -814,15 +813,15 @@
                 "Description": ""
             }
         ]
-    }, 
+    },
     {
         "ControlName": "Authentication Method - SMS",
         "Description": "",
-        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphEndpoint": "authenticationMethodsPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Sms')",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],     
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "",
@@ -843,7 +842,7 @@
     {
         "ControlName": "Authentication Method - Certificate-based authentication",
         "Description": "",
-        "GraphEndpoint": "authenticationMethodsPolicy",        
+        "GraphEndpoint": "authenticationMethodsPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('X509Certificate')",
         "MitreTactic": [],
         "MitreTechnique": [],
@@ -868,11 +867,11 @@
     {
         "ControlName": "Authentication Strength",
         "Description": "",
-        "GraphEndpoint": "authenticationStrengthPolicies",        
+        "GraphEndpoint": "authenticationStrengthPolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationStrengthPolicies",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],   
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "",
@@ -893,11 +892,11 @@
     {
         "ControlName": "Application Management - Default Policy",
         "Description": "",
-        "GraphEndpoint": "defaultAppManagementPolicy",        
+        "GraphEndpoint": "defaultAppManagementPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/defaultAppManagementPolicy",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],      
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "",
@@ -914,15 +913,15 @@
                 "Description": ""
             }
         ]
-    }, 
+    },
     {
         "ControlName": "Application Management - Custom policies",
         "Description": "",
-        "GraphEndpoint": "appManagementPolicies",        
+        "GraphEndpoint": "appManagementPolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/appManagementPolicies",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [], 
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "",
@@ -943,11 +942,11 @@
     {
         "ControlName": "Consent Framework - Admin Consent Request",
         "Description": "",
-        "GraphEndpoint": "servicePrincipalCreationPolicies",        
+        "GraphEndpoint": "servicePrincipalCreationPolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],      
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "",
@@ -968,8 +967,8 @@
     {
         "ControlName": "Consent Framework - Permission Grant",
         "Description": "",
-        "GraphEndpoint": "permissionGrantPolicies",     
-        "GraphUri": "https://graph.microsoft.com/beta/policies/permissionGrantPolicies",           
+        "GraphEndpoint": "permissionGrantPolicies",
+        "GraphUri": "https://graph.microsoft.com/beta/policies/permissionGrantPolicies",
         "MitreTactic": [],
         "MitreTechnique": [],
         "MitreMitigation": [],
@@ -989,11 +988,11 @@
                 "Description": ""
             }
         ]
-    },       
+    },
     {
         "ControlName": "Cross Tenant Access Policy",
         "Description": "",
-        "GraphEndpoint": "crossTenantAccessPolicy",        
+        "GraphEndpoint": "crossTenantAccessPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/crossTenantAccessPolicy",
         "MitreTactic": [],
         "MitreTechnique": [],
@@ -1018,7 +1017,7 @@
     {
         "ControlName": "Token Configuration - tokenIssuancePolicies",
         "Description": "",
-        "GraphEndpoint": "tokenIssuancePolicies",        
+        "GraphEndpoint": "tokenIssuancePolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/tokenIssuancePolicies",
         "MitreTactic": [],
         "MitreTechnique": [],
@@ -1043,11 +1042,11 @@
     {
         "ControlName": "Token Configuration - Token Lifetime",
         "Description": "",
-        "GraphEndpoint": "tokenLifetimePolicies",        
+        "GraphEndpoint": "tokenLifetimePolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/tokenLifetimePolicies",
         "MitreTactic": [],
         "MitreTechnique": [],
-        "MitreMitigation": [],    
+        "MitreMitigation": [],
         "Controls": [
             {
                 "Name": "",
