@@ -577,7 +577,7 @@
     },
     {
         "ControlName": "Default Activity Timeout",
-        "Description": "",
+        "Description": "Control the idle timeout for web sessions for applications that support activity-based timeout functionality",
         "GraphEndpoint": "activityBasedTimeoutPolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/activityBasedTimeoutPolicies",
         "MitreTactic": [],
@@ -585,9 +585,9 @@
         "MitreMitigation": [],
         "Controls": [
             {
-                "Name": "",
-                "DisplayName": "",
-                "CurrentValue": "",
+                "Name": "WebSessionIdleTimeout",
+                "DisplayName": "Enable directory level idle timeout",
+                "CurrentValue": "value.definition.ActivityBasedTimeoutPolicy.ApplicationPolicies.WebSessionIdleTimeout",
                 "DefaultValue": "",
                 "RecommendedValue": "",
                 "Recommendation": "",
@@ -595,14 +595,14 @@
                 "MitreTactic": [],
                 "MitreTechnique": [],
                 "MitreMitigation": [],
-                "PortalDeepLink": "",
-                "Description": ""
+                "PortalDeepLink": "https://portal.azure.com/#settings",
+                "Description": "Inactivity timeout is being enforced by this setting. You will be signed out after the configured time of inactivity."
             }
         ]
     },
     {
         "ControlName": "External Identities",
-        "Description": "",
+        "Description": "Controls whether external users can leave an Azure AD tenant via self-service controls",
         "GraphEndpoint": "externalIdentitiesPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/externalIdentitiesPolicy",
         "MitreTactic": [],
@@ -610,19 +610,33 @@
         "MitreMitigation": [],
         "Controls": [
             {
-                "Name": "",
-                "DisplayName": "",
-                "CurrentValue": "",
-                "DefaultValue": "",
-                "RecommendedValue": "",
+                "Name": "allowExternalIdentitiesToLeave",
+                "DisplayName": "External user leave settings",
+                "CurrentValue": "value.allowExternalIdentitiesToLeave",
+                "DefaultValue": "True",
+                "RecommendedValue": "True",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/CompanyRelationshipsMenuBlade/~/Settings",
+                "Description": "Allow external users to remove themselves from your organization"
+            },
+            {
+                "Name": "allowDeletedIdentitiesDataRemoval",
+                "DisplayName": "Deleted Identities Data Removal",
+                "CurrentValue": "value.allowDeletedIdentitiesDataRemoval",
+                "DefaultValue": "False",
+                "RecommendedValue": "False",
                 "Recommendation": "",
                 "Severity": "",
                 "MitreTactic": [],
                 "MitreTechnique": [],
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
-                "Description": ""
-            }
+                "Description": "Microsoft Docs describes this setting as: Reserved for future use."
+            }            
         ]
     },
     {
@@ -635,9 +649,9 @@
         "MitreMitigation": [],
         "Controls": [
             {
-                "Name": "",
+                "Name": "featureRolloutPolicy ",
                 "DisplayName": "",
-                "CurrentValue": "",
+                "CurrentValue": "value.featureRolloutPolicy ",
                 "DefaultValue": "",
                 "RecommendedValue": "",
                 "Recommendation": "",
@@ -646,7 +660,7 @@
                 "MitreTechnique": [],
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
-                "Description": ""
+                "Description": "Policy helps tenant administrators to pilot features of Azure AD with a specific group before enabling features for entire organization"
             }
         ]
     },
