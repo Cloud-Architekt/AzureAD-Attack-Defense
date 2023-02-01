@@ -902,7 +902,7 @@
                 "Description": ""
             }
         ]
-    },
+    },    
     {
         "ControlName": "Application Management - Default Policy",
         "Description": "",
@@ -952,10 +952,10 @@
                 "Description": ""
             }
         ]
-    },
+    },    
     {
         "ControlName": "Consent Framework - Admin Consent Request",
-        "Description": "",
+        "Description": "Represents the policy for enabling or disabling the Azure AD admin consent workflow. The admin consent workflow allows users to request access for apps that they wish to use and that require admin authorization before users can use the apps to access organizational data. ",
         "GraphEndpoint": "servicePrincipalCreationPolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy",
         "MitreTactic": [],
@@ -963,9 +963,79 @@
         "MitreMitigation": [],
         "Controls": [
             {
-                "Name": "",
-                "DisplayName": "",
-                "CurrentValue": "",
+                "Name": "isEnabled",
+                "DisplayName": "Users can request admin consent to apps they are unable to consent to",
+                "CurrentValue": "isEnabled",
+                "DefaultValue": "false",
+                "RecommendedValue": "true",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
+                "Description": "Defines if admin consent request feature is enabled or disabled"
+            },
+            {
+                "Name": "notifyReviewers",
+                "DisplayName": "Reviewers will receive email notifications for requests​",
+                "CurrentValue": "notifyReviewers",
+                "DefaultValue": "",
+                "RecommendedValue": "true",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
+                "Description": "Specifies whether reviewers will receive notifications"
+            },
+            {
+                "Name": "notifyReviewers",
+                "DisplayName": "Reviewers will receive email notifications when admin consent requests are about to expire​",
+                "CurrentValue": "notifyReviewers",
+                "DefaultValue": "",
+                "RecommendedValue": "true",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
+                "Description": "Specifies whether reviewers will receive reminder emails"
+            },
+            {
+                "Name": "requestDurationInDays",
+                "DisplayName": "Consent request expires after (days)​",
+                "CurrentValue": "requestDurationInDays",
+                "DefaultValue": "",
+                "RecommendedValue": "30",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
+                "Description": "Specifies the duration the request is active before it automatically expires if no decision is applied"
+            },
+            {
+                "Name": "reviewers",
+                "DisplayName": "Consent request expires after (days)​",
+                "CurrentValue": "reviewers",
+                "DefaultValue": "",
+                "RecommendedValue": "30",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
+                "Description": "The list of reviewers for the admin consent"
+            },
+            {
+                "Name": "version",
+                "DisplayName": "Consent request expires after (days)​",
+                "CurrentValue": "version",
                 "DefaultValue": "",
                 "RecommendedValue": "",
                 "Recommendation": "",
@@ -974,8 +1044,8 @@
                 "MitreTechnique": [],
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
-                "Description": ""
-            }
+                "Description": "Specifies the version of this policy. When the policy is updated, this version is updated"
+            }                        
         ]
     },
     {
