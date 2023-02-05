@@ -698,7 +698,7 @@
             {
                 "Name": "numberMatchingRequiredState",
                 "DisplayName": "Number Matching",
-                "CurrentValue": "featureSettings.numberMatchingRequiredState",
+                "CurrentValue": "featureSettings.numberMatchingRequiredState.state",
                 "DefaultValue": "enabled",
                 "RecommendedValue": "enabled",
                 "Recommendation": "",
@@ -710,9 +710,23 @@
                 "Description": ""
             },
             {
+                "Name": "numberMatchingRequiredState",
+                "DisplayName": "Number Matching",
+                "CurrentValue": "featureSettings.numberMatchingRequiredState.includeTarget.id",
+                "DefaultValue": "all_users",
+                "RecommendedValue": "all_users",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            },            
+            {
                 "Name": "displayAppInformationRequiredState",
                 "DisplayName": "Display App Information",
-                "CurrentValue": "featureSettings.displayAppInformationRequiredState",
+                "CurrentValue": "featureSettings.displayAppInformationRequiredState.state",
                 "DefaultValue": "true",
                 "RecommendedValue": "true",
                 "Recommendation": "",
@@ -736,9 +750,65 @@
         "MitreMitigation": [],
         "Controls": [
             {
-                "Name": "",
-                "DisplayName": "",
-                "CurrentValue": "",
+                "Name": "state",
+                "DisplayName": "State",
+                "CurrentValue": "state",
+                "DefaultValue": "enabled",
+                "RecommendedValue": "enabled",
+                "Recommendation": "enabled",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            },
+            {
+                "Name": "isSelfServiceRegistrationAllowed",
+                "DisplayName": "Allow self-service set up",
+                "CurrentValue": "isSelfServiceRegistrationAllowed",
+                "DefaultValue": "true",
+                "RecommendedValue": "trie",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Allows users to register a FIDO key through the MySecurityInfo portal, even if enabled by Authentication Methods policy."
+            },
+            {
+                "Name": "isAttestationEnforced",
+                "DisplayName": "Enforce attestation",
+                "CurrentValue": "isAttestationEnforced",
+                "DefaultValue": "true",
+                "RecommendedValue": "true",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Requires the FIDO security key metadata to be published and verified with the FIDO Alliance Metadata Service, and also pass Microsoft’s additional set of validation testing."
+            },
+            {
+                "Name": "keyRestrictions.isEnforced",
+                "DisplayName": "Enforce key restrictions",
+                "CurrentValue": "keyRestrictions.isEnforced",
+                "DefaultValue": "false",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Manages if registration of FIDO2 keys should be restricted."
+            },
+            {
+                "Name": "keyRestrictions.aaGuids",
+                "DisplayName": "Restricted",
+                "CurrentValue": "keyRestrictions.aaGuids",
                 "DefaultValue": "",
                 "RecommendedValue": "",
                 "Recommendation": "",
@@ -747,8 +817,22 @@
                 "MitreTechnique": [],
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
-                "Description": ""
-            }
+                "Description": "You can work with your Security key provider to determine the AAGuids of their devices for allowing or blocking usage."
+            },   
+            {
+                "Name": "keyRestrictions.enforcementType",
+                "DisplayName": "Restrict specific keys",
+                "CurrentValue": "keyRestrictions.enforcementType",
+                "DefaultValue": "block",
+                "RecommendedValue": "block",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Defines if list of AADGUID will be used to allow or block registration."
+            }        
         ]
     },
     {
