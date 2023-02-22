@@ -1580,18 +1580,7 @@
                 "Name": "certificateUserBindings",
                 "DisplayName": "Username binding",
                 "CurrentValue": "certificateUserBindings",
-                "DefaultValue": [
-                    {
-                        "x509CertificateField": "PrincipalName",
-                        "userProperty": "onPremisesUserPrincipalName",
-                        "priority": 1
-                    },
-                    {
-                        "x509CertificateField": "RFC822Name",
-                        "userProperty": "userPrincipalName",
-                        "priority": 2
-                    }
-                ],
+                "DefaultValue": "",
                 "RecommendedValue": "",
                 "Recommendation": "",
                 "Severity": "",
