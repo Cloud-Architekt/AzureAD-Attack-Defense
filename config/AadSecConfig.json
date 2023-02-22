@@ -834,7 +834,63 @@
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
                 "Description": "Object Id or scope of users which are excluded from showing geographic location in the Authenticator App."
-            }                
+            },
+            {
+                "Name": "includeTargets",
+                "DisplayName": "Included users/groups from using security keys",
+                "CurrentValue": "includeTargets.id",
+                "DefaultValue": "all_users",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "High",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Object Id or scope of users which will be able to use the Microsoft Authenticator App."
+            },
+            {
+                "Name": "includeTargetsAuthenticationMode",
+                "DisplayName": "Authentication Mode",
+                "CurrentValue": "includeTargets.authenticationMode",
+                "DefaultValue": "any",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Determines which types of notifications can be used for sign-in. Possible values are: any, deviceBasedPush (passwordless only), push."
+            },            
+            {
+                "Name": "includeTargetsRegistrationRequired",
+                "DisplayName": "Registration is required",
+                "CurrentValue": "includeTargets.isRegistrationRequired",
+                "DefaultValue": "false",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "High",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Determines whether the user is enforced to register the Microsoft Authenticator App."
+            },            
+            {
+                "Name": "excludeTargets",
+                "DisplayName": "Excluded users/groups from using security keys",
+                "CurrentValue": "excludeTargets.id",
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "High",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Object Id or scope of users which will be excluded to use the Microsoft Authenticator App."
+            }                         
         ]
     },
     {
@@ -945,6 +1001,20 @@
                 "PortalDeepLink": "",
                 "Description": "Object Id or scope of users which will be able to use FIDO2 security keys."
             },
+            {
+                "Name": "includeTargetsRegistrationRequired",
+                "DisplayName": "Registration is required",
+                "CurrentValue": "includeTargets.isRegistrationRequired",
+                "DefaultValue": "false",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "High",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Determines whether the user is enforced to register the authentication method."
+            },            
             {
                 "Name": "excludeTargets",
                 "DisplayName": "Excluded users/groups from using security keys",
@@ -1110,10 +1180,10 @@
         "MitreMitigation": [],
         "Controls": [
             {
-                "Name": "",
-                "DisplayName": "",
-                "CurrentValue": "",
-                "DefaultValue": "",
+                "Name": "state",
+                "DisplayName": "State",
+                "CurrentValue": "state",
+                "DefaultValue": "disabled",
                 "RecommendedValue": "",
                 "Recommendation": "",
                 "Severity": "",
@@ -1121,13 +1191,55 @@
                 "MitreTechnique": [],
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
-                "Description": ""
-            }
+                "Description": "Whether the Third-party software OATH token is enabled in the tenant."
+            },
+            {
+                "Name": "includeTargets",
+                "DisplayName": "Included users/groups from OATH token",
+                "CurrentValue": "includeTargets.id",
+                "DefaultValue": "all_users",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Object Id or scope of users which will be able to use OATH token."
+            },
+            {
+                "Name": "includeTargetsRegistrationRequired",
+                "DisplayName": "Registration is required",
+                "CurrentValue": "includeTargets.isRegistrationRequired",
+                "DefaultValue": "false",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "High",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Determines whether the user is enforced to register the authentication method."
+            },
+            {
+                "Name": "excludeTargets",
+                "DisplayName": "Excluded users/group from OATH token",
+                "CurrentValue": "excludeTargets.id",
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "High",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Object Id or scope of users which will be excluded to use OATH token."
+            }            
         ]
     },
     {
         "ControlName": "Authentication Method - Email OTP",
-        "Description": "Define configuration settings and users or groups that are enabled to use email address registered to a user. Email as an authentication method is available only for self-service password reset (SSPR).",
+        "Description": "Define configuration settings and users or groups that are enabled to use email address registered to a user. For members of a tenant, email OTP is usable only for Self-Service Password Recovery. It may also be configured to be used for sign-in by guest users.",
         "GraphEndpoint": "authenticationMethodsPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Email')",
         "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/emailauthenticationmethod",     
@@ -1136,10 +1248,10 @@
         "MitreMitigation": [],
         "Controls": [
             {
-                "Name": "",
-                "DisplayName": "",
-                "CurrentValue": "",
-                "DefaultValue": "",
+                "Name": "state",
+                "DisplayName": "State",
+                "CurrentValue": "state",
+                "DefaultValue": "disabled",
                 "RecommendedValue": "",
                 "Recommendation": "",
                 "Severity": "",
@@ -1147,13 +1259,69 @@
                 "MitreTechnique": [],
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
-                "Description": ""
-            }
+                "Description": "Whether Email OTP is enabled in the tenant."
+            },
+            {
+                "Name": "allowExternalIdToUseEmailOtp",
+                "DisplayName": "Allow external users to use email OTP",
+                "CurrentValue": "allowExternalIdToUseEmailOtp",
+                "DefaultValue": "default",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Determines whether email one-time password is usable by external users for authentication. Tenants in the default state who did not use public preview will automatically have email OTP enabled beginning in March 2021."
+            },            
+            {
+                "Name": "includeTargets",
+                "DisplayName": "Included users/groups from Email OTP",
+                "CurrentValue": "includeTargets.id",
+                "DefaultValue": "all_users",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Object Id or scope of users which will be able to use Email OTP."
+            },
+            {
+                "Name": "includeTargetsRegistrationRequired",
+                "DisplayName": "Registration is required",
+                "CurrentValue": "includeTargets.isRegistrationRequired",
+                "DefaultValue": "false",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "High",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "N/A"
+            },
+            {
+                "Name": "excludeTargets",
+                "DisplayName": "Excluded users/group from Email OTP",
+                "CurrentValue": "excludeTargets.id",
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "High",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Object Id or scope of users which will be excluded to use Email OTP."
+            }  
         ]
     },
     {
         "ControlName": "Authentication Method - Voice call",
-        "Description": "Define configuration settings and users or groups that are enabled to use voice call for authentication.",
+        "Description": "Define configuration settings and users or groups that are enabled to use voice call for authentication. Voice call is not usable as a first-factor authentication method.",
         "GraphEndpoint": "authenticationMethodsPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Voice')",
         "MitreTactic": ["TA0006 - Credential Access"],
@@ -1161,9 +1329,65 @@
         "MitreMitigation": [],
         "Controls": [
             {
-                "Name": "",
-                "DisplayName": "",
-                "CurrentValue": "",
+                "Name": "state",
+                "DisplayName": "State",
+                "CurrentValue": "state",
+                "DefaultValue": "disabled",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Whether the Voice call is enabled in the tenant."
+            },
+            {
+                "Name": "isOfficePhoneAllowed",
+                "DisplayName": "Phone Options - Office",
+                "CurrentValue": "isOfficePhoneAllowed",
+                "DefaultValue": "disabled",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Determines whether voice call is usable on office phone numbers. Mobile phone calls are always allowed."
+            },            
+            {
+                "Name": "includeTargets",
+                "DisplayName": "Included users/groups from Voice call",
+                "CurrentValue": "includeTargets.id",
+                "DefaultValue": "all_users",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Object Id or scope of users which will be able to use Voice call."
+            },
+            {
+                "Name": "includeTargetsRegistrationRequired",
+                "DisplayName": "Registration is required",
+                "CurrentValue": "includeTargets.isRegistrationRequired",
+                "DefaultValue": "false",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Determines whether the user is enforced to register the authentication method."
+            },
+            {
+                "Name": "excludeTargets",
+                "DisplayName": "Excluded users/group from Voice call",
+                "CurrentValue": "excludeTargets.id",
                 "DefaultValue": "",
                 "RecommendedValue": "",
                 "Recommendation": "",
@@ -1172,8 +1396,8 @@
                 "MitreTechnique": [],
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
-                "Description": ""
-            }
+                "Description": "Object Id or scope of users which will be excluded to use Voice call."
+            }  
         ]
     },
     {
@@ -1187,9 +1411,51 @@
         "MitreMitigation": [],
         "Controls": [
             {
-                "Name": "",
-                "DisplayName": "",
-                "CurrentValue": "",
+                "Name": "state",
+                "DisplayName": "State",
+                "CurrentValue": "state",
+                "DefaultValue": "disabled",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Whether the Voice call is enabled in the tenant."
+            },          
+            {
+                "Name": "includeTargets",
+                "DisplayName": "Included users/groups from Voice call",
+                "CurrentValue": "includeTargets.id",
+                "DefaultValue": "all_users",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Object Id or scope of users which will be able to use Voice call."
+            },
+            {
+                "Name": "includeTargetsRegistrationRequired",
+                "DisplayName": "Registration is required",
+                "CurrentValue": "includeTargets.isRegistrationRequired",
+                "DefaultValue": "false",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Determines whether the user is enforced to register the authentication method."
+            },
+            {
+                "Name": "excludeTargets",
+                "DisplayName": "Excluded users/group from Voice call",
+                "CurrentValue": "excludeTargets.id",
                 "DefaultValue": "",
                 "RecommendedValue": "",
                 "Recommendation": "",
@@ -1198,8 +1464,22 @@
                 "MitreTechnique": [],
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
-                "Description": ""
-            }
+                "Description": "Object Id or scope of users which will be excluded to use Voice call."
+            },
+            {
+                "Name": "includeTargets.isUsableForSignIn",
+                "DisplayName": "Usable for sign-in",
+                "CurrentValue": "includeTargets.isUsableForSignIn",
+                "DefaultValue": "true",
+                "RecommendedValue": "false",
+                "Recommendation": "https://learn.microsoft.com/en-us/azure/active-directory/authentication/howto-authentication-sms-signin",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Determines if users can use this authentication method to sign in to Azure AD. If setting is set to true, users can use this method for primary authentication."
+            }            
         ]
     },
     {
@@ -1213,9 +1493,51 @@
         "MitreMitigation": [],
         "Controls": [
             {
-                "Name": "",
-                "DisplayName": "",
-                "CurrentValue": "",
+                "Name": "state",
+                "DisplayName": "State",
+                "CurrentValue": "state",
+                "DefaultValue": "disabled",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Whether the CBA is enabled in the tenant."
+            },          
+            {
+                "Name": "includeTargets",
+                "DisplayName": "Included users/groups from CBA",
+                "CurrentValue": "includeTargets.id",
+                "DefaultValue": "all_users",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Object Id or scope of users which will be able to use CBA."
+            },
+            {
+                "Name": "includeTargetsRegistrationRequired",
+                "DisplayName": "Registration is required",
+                "CurrentValue": "includeTargets.isRegistrationRequired",
+                "DefaultValue": "false",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Determines whether the user is enforced to register the authentication method."
+            },
+            {
+                "Name": "excludeTargets",
+                "DisplayName": "Excluded users/group from CBA",
+                "CurrentValue": "excludeTargets.id",
                 "DefaultValue": "",
                 "RecommendedValue": "",
                 "Recommendation": "",
@@ -1224,8 +1546,61 @@
                 "MitreTechnique": [],
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
-                "Description": ""
-            }
+                "Description": "Object Id or scope of users which will be excluded to use CBA."
+            },
+            {
+                "Name": "authenticationModeConfiguration.x509CertificateAuthenticationDefaultMode",
+                "DisplayName": "Authentication binding - Protected Level",
+                "CurrentValue": "authenticationModeConfiguration.x509CertificateAuthenticationDefaultMode",
+                "DefaultValue": "x509CertificateSingleFactor",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Select the default protection level for all certificate bindings. The default binding will ensure the certificates bind to the selected protection strength setting unless special rules are applied. To override the default, create special rules."
+            },
+            {
+                "Name": "authenticationModeConfiguration.rules",
+                "DisplayName": "Authentication binding - Rules",
+                "CurrentValue": "authenticationModeConfiguration.rules",
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Rules are configured in addition to the authentication mode to bind a specific x509CertificateRuleType to an x509CertificateAuthenticationMode."
+            },
+            {
+                "Name": "certificateUserBindings",
+                "DisplayName": "Username binding",
+                "CurrentValue": "certificateUserBindings",
+                "DefaultValue": [
+                    {
+                        "x509CertificateField": "PrincipalName",
+                        "userProperty": "onPremisesUserPrincipalName",
+                        "priority": 1
+                    },
+                    {
+                        "x509CertificateField": "RFC822Name",
+                        "userProperty": "userPrincipalName",
+                        "priority": 2
+                    }
+                ],
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Defines the fields in the X.509 certificate that map to attributes of the Azure AD user object in order to bind the certificate to the user account."
+            }         
         ]
     },
     {
