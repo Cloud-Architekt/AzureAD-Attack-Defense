@@ -658,7 +658,7 @@
             {
                 "Name": "featureRolloutPolicy ",
                 "DisplayName": "",
-                "CurrentValue": "value.featureRolloutPolicy ",
+                "CurrentValue": "value",
                 "DefaultValue": "",
                 "RecommendedValue": "",
                 "Recommendation": "",
@@ -671,6 +671,178 @@
             }
         ]
     },
+    {
+        "ControlName": "Authentication Method - General Settings",
+        "Description": "The tenant-wide policy that controls which authentication methods are allowed in the tenant, authentication method registration requirements, and self-service password reset settings.",
+        "GraphEndpoint": "authenticationMethodsPolicy",
+        "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy",
+        "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/authenticationmethodspolicy-get",        
+        "MitreTactic": ["TA0006 - Credential Access"],
+        "MitreTechnique": [],
+        "MitreMitigation": [],
+        "Controls": [
+            {
+                "Name": "policyMigrationState",
+                "DisplayName": "Manage migration",
+                "CurrentValue": "policyMigrationState",
+                "DefaultValue": "premigration",
+                "RecommendedValue": "migrationComplete",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AdminAuthMethods",
+                "Description": "The state of migration of the authentication methods policy from the legacy multifactor authentication and self-service password reset (SSPR) policies. In January 2024, the legacy multifactor authentication and self-service password reset policies will be deprecated and you'll manage all authentication methods here in the authentication methods policy. Use this control to manage your migration from the legacy policies to the new unified policy."
+            },
+            {
+                "Name": "reportSuspiciousActivitySettingsState",
+                "DisplayName": "Report suspicious activity - State",
+                "CurrentValue": "reportSuspiciousActivitySettings.state",
+                "DefaultValue": "default",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AdminAuthMethods",
+                "Description": "Allows users to report suspicious activities if they receive an authentication request that they did not initiate. This control is available when using the Microsoft Authenticator app and voice calls. Reporting suspicious activity will set the user's risk to high. If the user is subject to risk-based Conditional Access policies, they may be blocked."
+            },
+            {
+                "Name": "reportSuspiciousActivitySettingsIncluded",
+                "DisplayName": "Report suspicious activity - Included users/groups",
+                "CurrentValue": "reportSuspiciousActivitySettings.includeTargets.id",
+                "DefaultValue": "all_users",
+                "RecommendedValue": "all_users",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AdminAuthMethods",
+                "Description": "Object Id or scope of users which will be included to report suspicious activities if they receive an authentication request that they did not initiate."
+            },
+            {
+                "Name": "reportSuspiciousActivitySettingsReporting code",
+                "DisplayName": "Report suspicious activity - Reporting code",
+                "CurrentValue": "reportSuspiciousActivitySettings.voiceReportingCode",
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AdminAuthMethods",
+                "Description": "Reporting code must be 0 - 9."
+            },
+            {
+                "Name": "systemCredentialPreferencesState",
+                "DisplayName": "System Credential Preferences - State",
+                "CurrentValue": "systemCredentialPreferences.state",
+                "DefaultValue": "default",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            },
+            {
+                "Name": "systemCredentialPreferencesStateIncluded",
+                "DisplayName": "System Credential Preferences - Included users/groups",
+                "CurrentValue": "systemCredentialPreferences.includeTargets.id",
+                "DefaultValue": "all_users",
+                "RecommendedValue": "all_users",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            },                     
+            {
+                "Name": "systemCredentialPreferencesStateExcluded",
+                "DisplayName": "Report suspicious activity - Excluded users/groups",
+                "CurrentValue": "reportSuspiciousActivitySettings.excludeTargets.id",
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            },       
+            {
+                "Name": "authenticationMethodsRegistrationCampaignState",
+                "DisplayName": "Registration campaign - State",
+                "CurrentValue": "registrationEnforcement.authenticationMethodsRegistrationCampaign.state",
+                "DefaultValue": "default",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
+                "Description": ""
+            },
+            {
+                "Name": "authenticationMethodsRegistrationCampaignIncluded",
+                "DisplayName": "Registration campaign - Included users/groups",
+                "CurrentValue": "registrationEnforcement.authenticationMethodsRegistrationCampaign.includeTargets.id",
+                "DefaultValue": "all_users",
+                "RecommendedValue": "all_users",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Users and groups of users that are prompted to set up the authentication method."
+            },
+            {
+                "Name": "authenticationMethodsRegistrationCampaignExcluded",
+                "DisplayName": "Registration campaign - Excluded users/groups",
+                "CurrentValue": "registrationEnforcement.authenticationMethodsRegistrationCampaign.includeTargets.targetedAuthenticationMethod",
+                "DefaultValue": "microsoftAuthenticator",
+                "RecommendedValue": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Users and groups of users that are excluded from being prompted to set up the authentication method."
+            },                           
+            {
+                "Name": "authenticationMethodsRegistrationCampaignExcluded",
+                "DisplayName": "Registration campaign - Excluded users/groups",
+                "CurrentValue": "registrationEnforcement.authenticationMethodsRegistrationCampaign.excludeTargets.id",
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            },
+            {
+                "Name": "authenticationMethodsRegistrationCampaignSnoozeDurationInDays",
+                "DisplayName": "Registration campaign - Days allowed to snooze",
+                "CurrentValue": "registrationEnforcement.authenticationMethodsRegistrationCampaign.snoozeDurationInDays",
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Specifies the number of days that the user sees a prompt again if they select 'Not now' and snoozes the prompt. Minimum: 0 days. Maximum: 14 days."
+            }
+        ]
+    },    
     {
         "ControlName": "Authentication Method - Microsoft Authenticator",
         "Description": "Define configuration settings and users or groups that are enabled to use Authenticator App",
@@ -1593,7 +1765,7 @@
         ]
     },
     {
-        "ControlName": "Authentication Strength",
+        "ControlName": "Authentication Strength (Coming soon)",
         "Description": "Define specific combinations of authentication methods and metadata. The authentication strength policy, when applied to a given scenario using Azure AD Conditional Access, defines which authentication methods must be used to authenticate in that scenarios.",
         "GraphEndpoint": "authenticationStrengthPolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationStrengthPolicies",
@@ -1619,7 +1791,7 @@
         ]
     },    
     {
-        "ControlName": "Application Management - Default Policy",
+        "ControlName": "Application Management - Default Policy (Coming soon)",
         "Description": "Tenant-wide application authentication method policy to enforce app management restrictions for all applications and service principals.",
         "GraphEndpoint": "defaultAppManagementPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/defaultAppManagementPolicy",
@@ -1645,7 +1817,7 @@
         ]
     },
     {
-        "ControlName": "Application Management - Custom policies",
+        "ControlName": "Application Management - Custom policies (Coming soon)",
         "Description": "Restrictions on app management operations for specific applications and service principals.",
         "GraphEndpoint": "appManagementPolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/appManagementPolicies",
@@ -1671,7 +1843,7 @@
         ]
     },    
     {
-        "ControlName": "Consent Framework - Admin Consent Request",
+        "ControlName": "Consent Framework - Admin Consent Request (Coming soon)",
         "Description": "Represents the policy for enabling or disabling the Azure AD admin consent workflow. The admin consent workflow allows users to request access for apps that they wish to use and that require admin authorization before users can use the apps to access organizational data. ",
         "GraphEndpoint": "servicePrincipalCreationPolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy",
@@ -1767,7 +1939,7 @@
         ]
     },
     {
-        "ControlName": "Consent Framework - Permission Grant",
+        "ControlName": "Consent Framework - Permission Grant (Coming soon)",
         "Description": "Describes the conditions under which permissions can be granted (for example, during application consent)",
         "GraphEndpoint": "permissionGrantPolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/permissionGrantPolicies",
@@ -1793,7 +1965,7 @@
         ]
     },
     {
-        "ControlName": "Cross Tenant Access Policy",
+        "ControlName": "Cross Tenant Access Policy (Coming soon)",
         "Description": "Represents the base policy in the directory for cross-tenant access settings",
         "GraphEndpoint": "crossTenantAccessPolicy",
         "GraphUri": "https://graph.microsoft.com/beta/policies/crossTenantAccessPolicy",
@@ -1819,7 +1991,7 @@
         ]
     },
     {
-        "ControlName": "Token Configuration - tokenIssuancePolicies",
+        "ControlName": "Token Configuration - tokenIssuancePolicies (Coming soon)",
         "Description": "Represents the policy to specify the characteristics of SAML tokens issued by Azure AD",
         "GraphEndpoint": "tokenIssuancePolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/tokenIssuancePolicies",
@@ -1845,7 +2017,7 @@
         ]
     },
     {
-        "ControlName": "Token Configuration - Token Lifetime",
+        "ControlName": "Token Configuration - Token Lifetime (Coming soon)",
         "Description": "Represents a policy that can control the lifetime of a JWT access token, an ID token or a SAML 1.1/2.0 token issued by Azure Active Directory (Azure AD)",
         "GraphEndpoint": "tokenLifetimePolicies",
         "GraphUri": "https://graph.microsoft.com/beta/policies/tokenLifetimePolicies",
