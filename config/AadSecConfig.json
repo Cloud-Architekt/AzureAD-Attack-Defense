@@ -118,7 +118,7 @@
                 "MitreTactic": [""],
                 "MitreTechnique": [],
                 "MitreMitigation": [],
-                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",
+                "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/Permissions",
                 "Description": "Defines if user consent to apps is allowed, and if it is, which app consent policy (permissionGrantPolicy) governs the permissions."
             },
             {
