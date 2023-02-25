@@ -1017,7 +1017,7 @@
             },
             {
                 "Name": "includeTargets",
-                "DisplayName": "Included users/groups from using security keys",
+                "DisplayName": "Included users/groups from using Authenticator App",
                 "CurrentValue": "includeTargets.id",
                 "DefaultValue": "all_users",
                 "RecommendedValue": "",
@@ -1059,7 +1059,7 @@
             },            
             {
                 "Name": "excludeTargets",
-                "DisplayName": "Excluded users/groups from using security keys",
+                "DisplayName": "Excluded users/groups from using Authenticator App",
                 "CurrentValue": "excludeTargets.id",
                 "DefaultValue": "",
                 "RecommendedValue": "",
