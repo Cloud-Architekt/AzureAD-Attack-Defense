@@ -1755,32 +1755,7 @@
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
                 "Description": "Rules are configured in addition to the authentication mode to bind a specific x509CertificateRuleType to an x509CertificateAuthenticationMode."
-            },
-            {
-                "Name": "certificateUserBindings",
-                "DisplayName": "Username binding",
-                "CurrentValue": "certificateUserBindings",
-                "DefaultValue": [
-                    {
-                        "x509CertificateField": "PrincipalName",
-                        "userProperty": "onPremisesUserPrincipalName",
-                        "priority": 1
-                    },
-                    {
-                        "x509CertificateField": "RFC822Name",
-                        "userProperty": "userPrincipalName",
-                        "priority": 2
-                    }
-                ],
-                "RecommendedValue": [],
-                "Recommendation": "",
-                "Severity": "",
-                "MitreTactic": [],
-                "MitreTechnique": [],
-                "MitreMitigation": [],
-                "PortalDeepLink": "",
-                "Description": "Defines the fields in the X.509 certificate that map to attributes of the Azure AD user object in order to bind the certificate to the user account."
-            }         
+            }        
         ]
     },
     {
