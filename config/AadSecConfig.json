@@ -1237,7 +1237,7 @@
             },
             {
                 "Name": "isUsableOnce",
-                "DisplayName": "",
+                "DisplayName": "One-time",
                 "CurrentValue": "isUsableOnce",
                 "DefaultValue": "false",
                 "RecommendedValue": "false",
@@ -1251,7 +1251,7 @@
             },
             {
                 "Name": "defaultLifetimeInMinutes",
-                "DisplayName": "",
+                "DisplayName": "Default lifetime",
                 "CurrentValue": "defaultLifetimeInMinutes",
                 "DefaultValue": "60",
                 "RecommendedValue": "",
@@ -1265,7 +1265,7 @@
             },
             {
                 "Name": "defaultLength",
-                "DisplayName": "",
+                "DisplayName": "Length",
                 "CurrentValue": "defaultLength",
                 "DefaultValue": "8",
                 "RecommendedValue": "",
@@ -1279,7 +1279,7 @@
             },
             {
                 "Name": "minimumLifetimeInMinutes",
-                "DisplayName": "",
+                "DisplayName": "Minimum lifetime",
                 "CurrentValue": "minimumLifetimeInMinutes",
                 "DefaultValue": "60",
                 "RecommendedValue": "",
@@ -1293,7 +1293,7 @@
             }, 
             {
                 "Name": "maximumLifetimeInMinutes",
-                "DisplayName": "",
+                "DisplayName": "Maximum lifetime",
                 "CurrentValue": "maximumLifetimeInMinutes",
                 "DefaultValue": "480",
                 "RecommendedValue": "",
