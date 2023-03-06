@@ -56,7 +56,7 @@ From the following MITRE Navigator pictures you can find mapping related to rele
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/mitre/Chapter6/AADCP6TTps.svg" target="_blank">![](./media/mitre/Chapter6/Consent/../AADCP6TTps.svg)</a>
 
-<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Fmitre%2FChapter6%2FAADCP6TTps.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
+<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FChapter6-AadSecConfig%2Fmedia%2Fmitre%2FChapter6%2FAADPB-CP6-TTPs.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
 
 ### TTP Description & Built-in Rules
 The following TTPs are mapped for the 'Azure AD Security Advisor' solution and AAD security settings. From the table below, you can find TTPs description and link to the MITRE ATT&CK official documentation.
