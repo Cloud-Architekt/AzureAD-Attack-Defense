@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "LogicAppName": {
-            "defaultValue": "Import-AADConfigToLAWS",
+            "defaultValue": "Import-AADSCAtoLAWS",
             "type": "string"
         },
         "LogAnalyticsWorkspaceName": {
@@ -27,7 +27,7 @@
             "type": "string"
         },
         "LAWSConnectionName": {
-            "defaultValue": "connection-Import-AADConfigToLAWS",
+            "defaultValue": "connection-Import-AADSCAtoLAWS",
             "type": "string"
         }
     },
