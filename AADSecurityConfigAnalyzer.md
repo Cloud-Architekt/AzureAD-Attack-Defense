@@ -13,6 +13,9 @@ _Created: March 2023_
     - [TTP Description \& Built-in Rules](#ttp-description--built-in-rules)
 - [Pre-requisites for the Solution Deployment](#pre-requisites-for-the-solution-deployment)
   - [Deployment](#deployment)
+    - [ARM Template](#arm-template)
+    - [PowerShell Script](#powershell-script)
+    - [Azure Workbook](#azure-workbook-1)
 - [FAQ](#faq)
 - [References](#references)
 
@@ -75,11 +78,16 @@ The following TTPs are mapped for the 'Azure AD Security Advisor' solution and A
 - deployment instructions 
   
 ## Deployment
-- tools used
-- permissions (script)
-- Logic app
-- laws
-- Sentinel
+For the deployment you need the following tools
+- ARM template
+- PowerShell script
+- Azure Workbook
+
+### ARM Template
+
+### PowerShell Script
+
+### Azure Workbook
 
 # FAQ
 Why we are not pulling the data from all of the endpoints? 
