@@ -20,7 +20,7 @@ _Created: March 2023_
 - [References](#references)
 
 # Description
-The purpose of the Azure AD Security Advisor solution is to provide a solution that pulls out Azure AD security configuration from the selected AAD endpoints and ingest the data to Azure Log Analytics. Azure Workbook is used for data visualization and Microsoft Sentinel can be used to create alerts/incidents when critical configuration change is detected. 
+The purpose of the Azure AD Security Config Analyzer solution is to provide a solution that pulls out Azure AD security configuration from the selected AAD endpoints and ingest the data to Azure Log Analytics. Azure Workbook is used for data visualization and Microsoft Sentinel can be used to create alerts/incidents when critical configuration change is detected. 
 
 ## Azure AD Endpoints Used by the Solution
 Full Azure AD GraphUri for the used endpoints by the solution are listed on the table below:
@@ -57,7 +57,7 @@ MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques & Proced
 From the following MITRE Navigator pictures you can find mapping related to relevant Azure AD endpoint security configurations.
 
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/mitre/Chapter6/AADCP6TTps.svg" target="_blank">![](./media/mitre/Chapter6/Consent/../AADCP6TTps.svg)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/mitre/Chapter6/TTPs.PNG" target="_blank">![](./media/mitre/Chapter6/Consent/../TTPs.PNG)</a>
 
 <a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FChapter6-AadSecConfig%2Fmedia%2Fmitre%2FChapter6%2FAADPB-CP6-TTPs.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
 
