@@ -24,20 +24,20 @@ Full Azure AD GraphUri for the used endpoints by the solution are listed on the 
 
 | Endpoint     |  Permissions     |  Notes     |
 |  ---  |  ---  |  ---  |
-| https://graph.microsoft.com/beta/policies/authorizationPolicy | Policy.ReadWrite.Authorization | |
+| https://graph.microsoft.com/beta/policies/authorizationPolicy | Policy.All | |
 | https://graph.microsoft.com/beta/settings     |  Policy.Read.All     |       |
-| https://graph.microsoft.com/beta/policies/activityBasedTimeoutPolicies      | Policy.Read.All, Policy.ReadWrite.ApplicationConfiguration      |       |
+| https://graph.microsoft.com/beta/policies/activityBasedTimeoutPolicies      | Policy.Read.All      |       |
 | https://graph.microsoft.com/beta/policies/externalIdentitiesPolicy      |  Policy.Read.All     |       |
 | https://graph.microsoft.com/beta/policies/featureRolloutPolicies     |  Directory.Read.All     |       |
-| https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy      | Policy.ReadWrite.AuthenticationMethod      |       |
-| https://graph.microsoft.com/beta/policies/authenticationStrengthPolicies      | Policy.Read.All, Policy.ReadWrite.ApplicationConfiguration, Policy.ReadWrite.ConditionalAccess      |       |
-| https://graph.microsoft.com/beta/policies/defaultAppManagementPolicy     | Policy.Read.All, Policy.ReadWrite.ApplicationConfiguration      |       |
-| https://graph.microsoft.com/beta/policies/appManagementPolicies      |  Policy.Read.All, Policy.ReadWrite.ApplicationConfiguration     |       |
-| https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy      | ConsentRequest.Read.All, Policy.ReadWrite.ConsentRequest      |       |
+| https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy      | Policy.Read.All      |       |
+| https://graph.microsoft.com/beta/policies/authenticationStrengthPolicies      | Policy.Read.All      |       |
+| https://graph.microsoft.com/beta/policies/defaultAppManagementPolicy     | Policy.Read.All      |       |
+| https://graph.microsoft.com/beta/policies/appManagementPolicies      |  Policy.Read.All     |       |
+| https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy      | ConsentRequest.Read.All, Directory.Read.All, ConsentRequest.Read.All      |       |
 | https://graph.microsoft.com/beta/policies/permissionGrantPolicies		  | Policy.Read.All | |
 | https://graph.microsoft.com/beta/policies/crossTenantAccessPolicy      | Policy.Read.All      |       |
-| https://graph.microsoft.com/beta/policies/tokenIssuancePolicies      |  Policy.Read.All, Policy.ReadWrite.ApplicationConfiguration     |       |
-| https://graph.microsoft.com/beta/policies/tokenLifetimePolicies      |  Policy.Read.All, Policy.ReadWrite.ApplicationConfiguration     |       |
+| https://graph.microsoft.com/beta/policies/tokenIssuancePolicies      |  Policy.Read.All     |       |
+| https://graph.microsoft.com/beta/policies/tokenLifetimePolicies      |  Policy.Read.All     |       |
 
 
 # Azure Workbook
