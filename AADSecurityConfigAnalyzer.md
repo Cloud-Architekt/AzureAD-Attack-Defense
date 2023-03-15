@@ -75,15 +75,39 @@ The following TTPs are mapped for the 'Azure AD Security Advisor' solution and A
 
 
 # Pre-requisites for the Solution Deployment
-- deployment instructions 
+To successfully deploy the solutions you need to have Azure Log Analytics workspace to use for storing the data as well as the following permissions:
+- Permissions for Azure to be able to deploy:
+  - Logic App
+  - Azure Workbook
+  - Permissions for Azure Log Analytics
+- Ability to add & configure Azure AD Managed Identities
+- Configure permissions for Managed Identity in Azure AD side (grant consent permissions)
+
+
   
 ## Deployment
-For the deployment you need the following tools
-- ARM template
-- PowerShell script
-- Azure Workbook
+Base deployment is established with ARM template that deploys Azure Logic App (Import-AADConfigToLAWS) and necessary API connection into it with Managed Identity. Besides ARM template permissions needs to be set for Managed Identity as well as deploy the Azure Workbook. Both are manual processes and not included in the ARM template deployment.
+
 
 ### ARM Template
+Azure ARM template is found from [Deploy folder](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/Chapter6-AadSecConfig/config/deploy/)
+
+The following parameters are required for the deployment:
+- Subscription
+- Resource group
+- Region
+- Logic App Name
+- Log Analytics Workspace Name
+- Log Analytics Workspace id
+- Log Analytics Workspace Key
+- LAWS Resource group
+- LAWS Subscription Id
+- LAWS Connection Name
+
+![](./media/AADSCA-Deploy-2.png)
+
+After successful deployment the following resources are deployed
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Deploy-1.PNG" target="_blank">![](./media/AADSCA-Deploy-1.PNG)</a>
 
 ### PowerShell Script
 
