@@ -1,0 +1,353 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "LogicAppName": {
+            "defaultValue": "Import-AADConfigToLAWS",
+            "type": "string"
+        },
+        "LogAnalyticsWorkspaceName": {
+            "defaultValue": "",
+            "type": "string"
+        },
+        "LogAnalyticsWorkspaceId": {
+            "defaultValue": "",
+            "type": "string"
+        },
+        "LogAnalyticsWorkspaceKey": {
+            "defaultValue": "",
+            "type": "securestring"
+        },
+        "LAWSResourceGroup": {
+            "defaultValue": "",
+            "type": "string"
+        },
+        "LAWSSubscriptionId": {
+            "defaultValue": "",
+            "type": "string"
+        },
+        "LAWSConnectionName": {
+            "defaultValue": "connection-Import-AADConfigToLAWS",
+            "type": "string"
+        }
+    },
+    "variables": {
+        "LAWSConnectionId": "[concat(resourceGroup().id, '/providers/Microsoft.Web/connections/', parameters('LAWSConnectionName'))]",
+        "LAWSConnectionApiId": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azureloganalyticsdatacollector')]",
+        "WorkbookSourceId" : "[concat('/subscriptions/', parameters('LAWSSubscriptionId'), '/resourcegroups/', parameters('LAWSResourceGroup'), '/providers/microsoft.operationalinsights/workspaces/', parameters('LogAnalyticsWorkspaceName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "[parameters('LAWSConnectionName')]",
+            "location": "westeurope",
+            "kind": "V1",
+            "properties": {
+                "displayName": "[parameters('LAWSConnectionName')]",
+                "customParameterValues": {},
+                "nonSecretParameterValues": {
+                    "token:TenantId": "[subscription().tenantId]",
+                    "token:grantType": "code"
+                },
+                "parameterValues": {
+                    "username": "[parameters('LogAnalyticsWorkspaceId')]",
+                    "password": "[parameters('LogAnalyticsWorkspaceKey')]"
+                  },
+                "api": {
+                    "name": "azureloganalyticsdatacollector",
+                    "displayName": "Azure Log Analytics Data Collector",
+                    "description": "Azure Log Analytics Data Collector will send data to any Azure Log Analytics workspace.",
+                    "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1549/1.0.1549.2680/azureloganalyticsdatacollector/icon.png",
+                    "brandColor": "#0072C6",
+                    "id": "[variables('LAWSConnectionApiId')]",
+                    "type": "Microsoft.Web/locations/managedApis"
+                },
+                "testLinks": []
+            }
+        },
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('LogicAppName')]",
+            "dependsOn" : [
+                "[variables('LAWSConnectionId')]"
+            ],
+            "location": "[resourceGroup().location]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "Recurrence": {
+                            "recurrence": {
+                                "frequency": "Day",
+                                "interval": 1
+                            },
+                            "evaluatedRecurrence": {
+                                "frequency": "Day",
+                                "interval": 1
+                            },
+                            "type": "Recurrence"
+                        }
+                    },
+                    "actions": {
+                        "For_each_AAD_Security_Config_Control": {
+                            "foreach": "@body('Parse_JSON_from_AAD_Security_Config_Schema')",
+                            "actions": {
+                                "Microsoft_Graph_Call_for_Security_Config": {
+                                    "runAfter": {
+                                        "Set_variable": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "Http",
+                                    "inputs": {
+                                        "authentication": {
+                                            "audience": "https://graph.microsoft.com",
+                                            "type": "ManagedServiceIdentity"
+                                        },
+                                        "method": "GET",
+                                        "uri": "@items('For_each_AAD_Security_Config_Control')['GraphUri']"
+                                    }
+                                },
+                                "Send_Data_to_Log_Analytics_Workspace": {
+                                    "runAfter": {
+                                        "Microsoft_Graph_Call_for_Security_Config": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "ApiConnection",
+                                    "inputs": {
+                                        "body": "@{body('Microsoft_Graph_Call_for_Security_Config')}",
+                                        "headers": {
+                                            "Log-Type": "@variables('LaCustomTableName')"
+                                        },
+                                        "host": {
+                                            "connection": {
+                                                "name": "@parameters('$connections')['azuremonitorlogs']['connectionId']"
+                                            }
+                                        },
+                                        "method": "post",
+                                        "path": "/api/logs"
+                                    }
+                                },
+                                "Set_variable": {
+                                    "runAfter": {},
+                                    "type": "SetVariable",
+                                    "inputs": {
+                                        "name": "GraphEndpoint",
+                                        "value": "@items('For_each_AAD_Security_Config_Control')['GraphUri']"
+                                    }
+                                }
+                            },
+                            "runAfter": {
+                                "Parse_JSON_from_AAD_Security_Config_Schema": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Foreach"
+                        },
+                        "Get_AAD_Security_Config_Schema": {
+                            "runAfter": {
+                                "Initialize_variable_for_MS_Graph_Endpoint_Version": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Http",
+                            "inputs": {
+                                "headers": {
+                                    "Content-Type": "application/json"
+                                },
+                                "method": "GET",
+                                "uri": "https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/config/AadSecConfig.json"
+                            }
+                        },
+                        "Initialize_variable_for_Custom_Table_Name": {
+                            "runAfter": {},
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "LaCustomTableName",
+                                        "type": "string",
+                                        "value": "AADSCA"
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_variable_for_MS_Graph_Endpoint": {
+                            "runAfter": {
+                                "Initialize_variable_for_Custom_Table_Name": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "GraphEndpoint",
+                                        "type": "string"
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_variable_for_MS_Graph_Endpoint_Version": {
+                            "runAfter": {
+                                "Initialize_variable_for_MS_Graph_Endpoint": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "GraphEndpointVersion",
+                                        "type": "string",
+                                        "value": "beta"
+                                    }
+                                ]
+                            }
+                        },
+                        "Parse_JSON_from_AAD_Security_Config_Schema": {
+                            "runAfter": {
+                                "Get_AAD_Security_Config_Schema": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ParseJson",
+                            "inputs": {
+                                "content": "@body('Get_AAD_Security_Config_Schema')",
+                                "schema": {
+                                    "items": {
+                                        "properties": {
+                                            "ControlName": {
+                                                "type": "string"
+                                            },
+                                            "Controls": {
+                                                "items": {
+                                                    "properties": {
+                                                        "CurrentValue": {
+                                                            "type": "string"
+                                                        },
+                                                        "DefaultValue": {
+                                                            "type": "string"
+                                                        },
+                                                        "Description": {
+                                                            "type": "string"
+                                                        },
+                                                        "DisplayName": {
+                                                            "type": "string"
+                                                        },
+                                                        "MitreMitigation": {
+                                                            "type": "array"
+                                                        },
+                                                        "MitreTactic": {
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "MitreTechnique": {
+                                                            "type": "array"
+                                                        },
+                                                        "Name": {
+                                                            "type": "string"
+                                                        },
+                                                        "PortalDeepLink": {
+                                                            "type": "string"
+                                                        },
+                                                        "Recommendation": {
+                                                            "type": "string"
+                                                        },
+                                                        "RecommendedValue": {
+                                                            "type": "string"
+                                                        },
+                                                        "Severity": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "Name",
+                                                        "DisplayName",
+                                                        "CurrentValue",
+                                                        "DefaultValue",
+                                                        "RecommendedValue",
+                                                        "Recommendation",
+                                                        "Severity",
+                                                        "MitreTactic",
+                                                        "MitreTechnique",
+                                                        "MitreMitigation",
+                                                        "PortalDeepLink",
+                                                        "Description"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "Description": {
+                                                "type": "string"
+                                            },
+                                            "GraphDocsUrl": {
+                                                "type": "string"
+                                            },
+                                            "GraphEndpoint": {
+                                                "type": "string"
+                                            },
+                                            "GraphUri": {
+                                                "type": "string"
+                                            },
+                                            "MitreMitigation": {
+                                                "type": "array"
+                                            },
+                                            "MitreTactic": {
+                                                "type": "array"
+                                            },
+                                            "MitreTechnique": {
+                                                "type": "array"
+                                            }
+                                        },
+                                        "required": [
+                                            "ControlName",
+                                            "Description",
+                                            "GraphEndpoint",
+                                            "GraphUri",
+                                            "MitreTactic",
+                                            "MitreTechnique",
+                                            "MitreMitigation",
+                                            "Controls"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "azuremonitorlogs": {
+                                "connectionId": "[variables('LAWSConnectionId')]",
+                                "connectionName": "[parameters('LAWSConnectionName')]",
+                                "id": "[variables('LAWSConnectionApiId')]"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
