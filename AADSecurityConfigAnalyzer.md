@@ -23,7 +23,7 @@ _Created: March 2023_
 The purpose of the Azure AD Security Config Analyzer solution is to provide a solution that pulls out Azure AD security configuration from the selected AAD endpoints and ingest the data to Azure Log Analytics. Azure Workbook is used for data visualization and Microsoft Sentinel can be used to create alerts/incidents when critical configuration change is detected. 
 
 # Architecture
-The following picture describes AADSCA architecture, used solution and data flows
+The following picture describes AADSCA solution architecture, used solution and data flows:
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/media/AADSCA-Architecture.png" target="_blank"><img src="./media/AADSCA-Architecture.png" width="1200" /></a>
 
@@ -54,13 +54,24 @@ This workbook provides insights into Azure Active Directory tenant security conf
 In addition to providing best practices, each configuration is mapped to MITRE ATT&CK framework, allowing you to to identify potentially vulnerable configurations in terms of tactics and techniques.
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/media/AADSCA-WB-1.png" target="_blank"><img src="./media/AADSCA-WB-1.png" width="1200" /></a>
-AADSCA-WB-1.png
 
 Each of the values are combined to "Status" field with the following combinations:
+|       |       |       |
+|  ---  |  ---  |  ---  |
+|       |       |       |
+|       |       |       |
+|       |       |       |
+|       |       |       |
+|       |       |       |
+|       |       |       |
+|       |       |       |
+|       |       |       |
+|       |       |       |
+
 
 
 # MITRE ATT&CK Framework
-MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques & Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world. Even though, security posture configuration cannot directly mapped to MITRE ATT&CK framework we wanted to map settings to the framework because indirectly settings has relation to possible attacks. 
+MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques & Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world. Even though, security posture configuration is not directly mapped to MITRE ATT&CK framework we wanted to map settings to the framework because indirectly settings has relation to possible attacks and adversary actions. 
 
 From the following MITRE Navigator pictures you can find mapping related to relevant Azure AD endpoint security configurations.
 
@@ -83,26 +94,27 @@ The following TTPs are mapped for the 'Azure AD Security Advisor' solution and A
 
 
 # Pre-requisites for the Solution Deployment
-To successfully deploy the solutions you need to have Azure Log Analytics workspace to use for storing the data as well as the following permissions:
-- Permissions for Azure to be able to deploy:
+To successfully deploy the solutions you need to have Azure Log Analytics workspace to use for storing the data as well as permission to create Azure resources & grant needed API permissions to the Managed Identity used by the Logic App. 
+
+What's needed:
   - Logic App
   - Azure Workbook
-  - Permissions for Azure Log Analytics
-- Ability to add & configure Azure AD Managed Identities
-- Configure permissions for Managed Identity in Azure AD side (grant consent permissions)
+  - Azure Log Analytics
+    - Preferred the same than Microsoft Sentinel is using
+- Ability to add & configure permissions for Azure AD Managed Identity
+  - Configure permissions for Managed Identity in Azure AD side (grant consent permissions)
 
 
-  
 ## Deployment
-Base deployment is established with ARM template that deploys Azure Logic App (Import-AADConfigToLAWS) and necessary API connection into it with Managed Identity. Besides ARM template permissions needs to be set for Managed Identity as well as deploy the Azure Workbook. Both are manual processes and not included in the ARM template deployment.
+Base deployment is initiliazed with ARM template that deploys Azure Logic App (Import-AADConfigToLAWS) and necessary API connection into it with Managed Identity. Besides ARM template permissions needs to be set for Managed Identity as well as deploy the Azure Workbook. Both are manual processes and not included in the ARM template deployment.
 
 
 ### ARM Template
-Azure ARM template is found from [Deploy folder](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/Chapter6-AadSecConfig/config/deploy/) or can be deployed here:
+Azure ARM template is found from [Deploy folder](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/Chapter6-AadSecConfig/config/deploy/) or can be deployed here with 'Deploy to Azure':
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FChapter6-AadSecConfig%2Fconfig%2Fdeploy%2FAADSCA-LogicApp.arm.json)
 
-The following parameters are required for the deployment:
+The following parameters are required for the successful deployment:
 - Subscription
 - Resource group
 - Region
@@ -116,10 +128,19 @@ The following parameters are required for the deployment:
 
 ![](./media/AADSCA-Deploy-2.png)
 
-After successful deployment the following resources are deployed
+After successful deployment the following resources are deployed:
+- Import-AADConfigToLAWS Logic App
+- API connection with managed identity connection that's needed for the Logic App
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Deploy-1.PNG" target="_blank">![](./media/AADSCA-Deploy-1.PNG)</a>
 
 ### PowerShell Script
+In our example, needed permissions for the AADSCA solution are set by PowerShell script. Feel free to use whatever method you find comfortable. The script assigns the following permissions:
+
+- $permissionsToAdd = @("Policy.Read.All", "ConsentRequest.Read.All", "Directory.Read.All")
+- $permissionsToAdd = @("ServicePrincipalEndpoint.Read.All")
+- $permissionsToAdd = @("Directory.AccessAsUser.All")
+- $permissionsToAdd = @("Policy.Read.PermissionGrant")
+
 
 ### Azure Workbook
 
