@@ -1,5 +1,5 @@
 # Azure AD Security Config Analyzer (AADSCA)
-Chapter 6 of the Azure AD Attack & Defense Playbook is all about The 'Azure AD Security Config Analytics' solution. This time, the focus is not on the possible attack paths against Azure AD but on how organizations can monitor and strengthen Azure AD's security posture.
+In the chapter 6 of Azure AD Attack & Defense Playbook we decided to take alternative approach and we are not covering possible Azure AD attack path. This time, the focus is on on proactive side, how organizations can monitor and strengthen Azure AD's security posture. For this purpose we created 'Azure AD Security Config Analytics' aka 'AADSCA' solution. 
 
 _Authors: Thomas Naunheim, Sami Lamppu & Markus Pitkäranta_
 _Created: March 2023_
