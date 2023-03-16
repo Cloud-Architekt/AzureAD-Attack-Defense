@@ -8,9 +8,9 @@ _Created: March 2023_
 - [Description](#description)
 - [Architecture](#architecture)
   - [Azure AD Endpoints Used by the Solution](#azure-ad-endpoints-used-by-the-solution)
-- [Azure Workbook](#azure-workbook)
 - [MITRE ATT\&CK Framework](#mitre-attck-framework)
     - [TTP Description \& Built-in Rules](#ttp-description--built-in-rules)
+- [Azure Workbook](#azure-workbook)
 - [Pre-requisites for the Solution Deployment](#pre-requisites-for-the-solution-deployment)
   - [Deployment](#deployment)
     - [ARM Template](#arm-template)
@@ -26,6 +26,7 @@ The purpose of the Azure AD Security Config Analyzer solution is to provide a so
 The following picture describes AADSCA solution architecture, used solution and data flows:
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/media/AADSCA-Architecture.png" target="_blank"><img src="./media/AADSCA-Architecture.png" width="1200" /></a>
+
 
 ## Azure AD Endpoints Used by the Solution
 The solutions uses several Azure AD endpoint to get security configuration settings from Azure AD. Worthwhile to mention, the 'AADSCA' solution does not cover all Azure AD endpoints. Full Azure AD GraphUri's for the currently used endpoints by the solution are listed on the table below:
@@ -46,26 +47,6 @@ The solutions uses several Azure AD endpoint to get security configuration setti
 | https://graph.microsoft.com/beta/policies/crossTenantAccessPolicy      | Policy.Read.All      |       |
 | https://graph.microsoft.com/beta/policies/tokenIssuancePolicies      |  Policy.Read.All     |       |
 | https://graph.microsoft.com/beta/policies/tokenLifetimePolicies      |  Policy.Read.All     |       |
-
-
-# Azure Workbook
-This workbook provides insights into Azure Active Directory tenant security configurations. The workbook compares current tenant configurations against best practices, and displays the status (current, recommended and default values) of each configuration. The best practices are based on community work (see Azure AD Attack and Defense GitHub intro chapter for details). You can also apply your own recommended values by taking a copy of the metadata JSON file, and updating the queries in this workbook to utilize the customized version.
-
-In addition to providing best practices, each configuration is mapped to MITRE ATT&CK framework, allowing you to to identify potentially vulnerable configurations in terms of tactics and techniques.
-
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/media/AADSCA-WB-1.png" target="_blank"><img src="./media/AADSCA-WB-1.png" width="1200" /></a>
-
-Each of the values are combined to "Status" field and can have the following values:
-
-|   Value    |  Description     |
-|  ---  |  ---  |
-|  Passed     |  The configuration is compliant with the recommended value     |
-|  Failed     |  The configuration is not compliant with the recommended value. The severity of the finding is High (this is shown in the tooltip)     |
-|  Review     |  The configuration is not compliant with the recommended value. The severity of the finding is Medium (this is shown in the tooltip)     |
-|  Verify     |  The configuration needs to be manually verified. The severity of the finding is Medium or High (this is shown in the tooltip)    |
-|  Informational     | There are no security implications with this configuration, and therefore is only considered informational in this context.      |
-
-
 
 
 # MITRE ATT&CK Framework
@@ -90,21 +71,40 @@ The following TTPs are mapped for the 'Azure AD Security Advisor' solution and A
 |Credential Access - [T1528](https://attack.mitre.org/techniques/T1528/) | Adversaries can steal application access tokens as a means of acquiring credentials to access remote systems and resources. Application access tokens are used to make authorized API requests on behalf of a user or service and are commonly used as a way to access resources in cloud and container-based applications and software-as-a-service (SaaS). OAuth is one commonly implemented framework that issues tokens to users for access to systems. Adversaries who steal account API tokens in cloud and containerized environments may be able to access data and perform actions with the permissions of these accounts, which can lead to privilege escalation and further compromise of the environment. 
 |Lateral Movement - [T1110](https://attack.mitre.org/techniques/T1110/) | Adversaries may use brute force techniques to gain access to accounts when passwords are unknown or when password hashes are obtained. Without knowledge of the password for an account or set of accounts, an adversary may systematically guess the password using a repetitive or iterative mechanism. Brute forcing passwords can take place via interaction with a service that will check the validity of those credentials or offline against previously acquired credential data, such as password hashes. |
 
+# Azure Workbook
+This workbook provides insights into Azure Active Directory tenant security configurations. The workbook compares current tenant configurations against best practices, and displays the status (current, recommended and default values) of each configuration. The best practices are based on community work (see Azure AD Attack and Defense GitHub intro chapter for details). You can also apply your own recommended values by taking a copy of the metadata JSON file, and updating the queries in this workbook to utilize the customized version.
 
+In addition to providing best practices, each configuration is mapped to MITRE ATT&CK framework, allowing you to to identify potentially vulnerable configurations in terms of tactics and techniques.
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/media/AADSCA-WB-1.png" target="_blank"><img src="./media/AADSCA-WB-1.png" width="1200" /></a>
+
+Each of the values are combined to "Status" field and can have the following values:
+
+|   Value    |  Description     |
+|  ---  |  ---  |
+|  Passed     |  The configuration is compliant with the recommended value     |
+|  Failed     |  The configuration is not compliant with the recommended value. The severity of the finding is High (this is shown in the tooltip)     |
+|  Review     |  The configuration is not compliant with the recommended value. The severity of the finding is Medium (this is shown in the tooltip)     |
+|  Verify     |  The configuration needs to be manually verified. The severity of the finding is Medium or High (this is shown in the tooltip)    |
+|  Informational     | There are no security implications with this configuration, and therefore is only considered informational in this context.      |
+
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-3.png" target="_blank">![](./media/AADSCA-WB-3.png)</a>
 # Pre-requisites for the Solution Deployment
-To successfully deploy the solutions you need to have Azure Log Analytics workspace to use for storing the data as well as permission to create Azure resources & grant needed API permissions to the Managed Identity used by the Logic App. 
+To successfully deploy the 'AADSCA' solution you need to have Azure Log Analytics workspace for storing the data as well as permission to create Azure resources & grant needed API permissions to the Managed Identity used by the Logic App. 
 
-What's needed:
+What's needed in a nutshell:
   - Logic App
   - Azure Workbook
   - Azure Log Analytics
-    - Preferred the same than Microsoft Sentinel is using
+    - Preferred to use the same Log Analytics workspace than Microsoft Sentinel is using
+    - This will provide more possibilities to leverage the collected data in Sentinel side such as create analytics rules
 - Ability to add & configure permissions for Azure AD Managed Identity
   - Configure permissions for Managed Identity in Azure AD side (grant consent permissions)
 
 
 ## Deployment
-Base deployment is initiliazed with ARM template that deploys Azure Logic App (Import-AADConfigToLAWS) and necessary API connection into it with Managed Identity. Besides ARM template permissions needs to be set for Managed Identity as well as deploy the Azure Workbook. Both are manual processes and not included in the ARM template deployment.
+Base deployment is initialized with ARM template that deploys Azure Logic App (Import-AADConfigToLAWS) and necessary API connection into it with Managed Identity. Besides ARM template permissions needs to be set for Managed Identity as well as deploy the Azure Workbook. Both are manual processes and not included in the ARM template deployment.
 
 
 ### ARM Template
@@ -124,15 +124,16 @@ The following parameters are required for the successful deployment:
 - LAWS Subscription Id
 - LAWS Connection Name
 
-![](./media/AADSCA-Deploy-2.png)
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Deploy-2.png" target="_blank">![](./media/AADSCA-Deploy-2.png)</a>
 
-After successful deployment the following resources are deployed:
+If deployment is successful the following resources are found from Azure subscription
+:
 - Import-AADConfigToLAWS Logic App
 - API connection with managed identity connection that's needed for the Logic App
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Deploy-1.PNG" target="_blank">![](./media/AADSCA-Deploy-1.PNG)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-3.png" target="_blank">![](./media/AADSCA-Deploy-1.PNG)</a>
 
 ### PowerShell Script
-In our example, needed permissions for the AADSCA solution are set by PowerShell script. Feel free to use whatever method you find comfortable. The script assigns the following permissions:
+In our example, needed permissions for the AADSCA solution (Managed Identity) are set by PowerShell script. Feel free to use whatever method you find comfortable. The script assigns the following permissions:
 
 - $permissionsToAdd = @("Policy.Read.All", "ConsentRequest.Read.All", "Directory.Read.All")
 - $permissionsToAdd = @("ServicePrincipalEndpoint.Read.All")
@@ -141,11 +142,25 @@ In our example, needed permissions for the AADSCA solution are set by PowerShell
 
 
 ### Azure Workbook
+Azure Workbook for the data visualization is manually deployed. Preferred way is to deploy it as Sentinel workbook to avoid mapping issues to Log Analytics.
+
+The Workbook is found from GitHub repo - [insert link](https://feta.fi).
+
+To deploy the workbook into Microsoft Sentinel:
+- From the Workbook blade in Sentinel - select 'Add workbook'
+- Select 'edit' mode & 'advanced editor' from the configuration blade
+- Paste the workbook as a code and save it
+
+pictures here
 
 # FAQ
 Why we are not pulling the data from all of the endpoints? 
 - Not all endpoints contain security related configuration settings
   
+Why all Azure AD endpoints that contain security related configuration are not included?
+- For the first release we didn't include all relevant endpoints. Those will be added in the future releases.
+
+
   Why MITRE ATT&CK mapping is made even though the solution is not part of attack scenario?
 - We see the benefit for adding the mapping even though the setting are not directly associated to the MITRE framework
 
