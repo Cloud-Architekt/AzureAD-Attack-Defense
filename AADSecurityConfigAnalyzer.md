@@ -6,9 +6,9 @@ _Created: March 2023_
 
 - [Azure AD Security Config Analyzer (AADSCA)](#azure-ad-security-config-analyzer-aadsca)
 - [Description](#description)
+- [Architecture](#architecture)
   - [Azure AD Endpoints Used by the Solution](#azure-ad-endpoints-used-by-the-solution)
 - [Azure Workbook](#azure-workbook)
-- [Architecture](#architecture)
 - [MITRE ATT\&CK Framework](#mitre-attck-framework)
     - [TTP Description \& Built-in Rules](#ttp-description--built-in-rules)
 - [Pre-requisites for the Solution Deployment](#pre-requisites-for-the-solution-deployment)
@@ -22,8 +22,13 @@ _Created: March 2023_
 # Description
 The purpose of the Azure AD Security Config Analyzer solution is to provide a solution that pulls out Azure AD security configuration from the selected AAD endpoints and ingest the data to Azure Log Analytics. Azure Workbook is used for data visualization and Microsoft Sentinel can be used to create alerts/incidents when critical configuration change is detected. 
 
+# Architecture
+The following picture describes AADSCA architecture, used solution and data flows
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/media/AADSCA-Architecture.png" target="_blank"><img src="./media/AADSCA-Architecture.png" width="1200" /></a>
+
 ## Azure AD Endpoints Used by the Solution
-Full Azure AD GraphUri for the used endpoints by the solution are listed on the table below:
+The solutions uses several Azure AD endpoint to get security configuration settings from Azure AD. Worthwhile to mention, the 'AADSCA' solution does not cover all Azure AD endpoints. Full Azure AD GraphUri's for the currently used endpoints by the solution are listed on the table below:
 
 | Endpoint     |  Permissions     |  Notes     |
 |  ---  |  ---  |  ---  |
@@ -44,12 +49,15 @@ Full Azure AD GraphUri for the used endpoints by the solution are listed on the 
 
 
 # Azure Workbook
-This workbook provides insights into Azure Active Directory tenant configurations. The workbook compares current tenant configurations against best practices, and displays the compliance status of each configuration. The best practices are based on community work (see Azure AD Attack and Defense GitHub intro chapter for details). You can also apply your own recommended values by taking a copy of the metadata JSON file, and updating the queries in this workbook to utilize the customized version.
+This workbook provides insights into Azure Active Directory tenant security configurations. The workbook compares current tenant configurations against best practices, and displays the status (current, recommended and default values) of each configuration. The best practices are based on community work (see Azure AD Attack and Defense GitHub intro chapter for details). You can also apply your own recommended values by taking a copy of the metadata JSON file, and updating the queries in this workbook to utilize the customized version.
 
 In addition to providing best practices, each configuration is mapped to MITRE ATT&CK framework, allowing you to to identify potentially vulnerable configurations in terms of tactics and techniques.
 
-# Architecture
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/media/AADSCA-Architecture.png" target="_blank"><img src="./media/AADSCA-Architecture.png" width="1200" /></a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/media/AADSCA-WB-1.png" target="_blank"><img src="./media/AADSCA-WB-1.png" width="1200" /></a>
+AADSCA-WB-1.png
+
+Each of the values are combined to "Status" field with the following combinations:
+
 
 # MITRE ATT&CK Framework
 MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques & Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world. Even though, security posture configuration cannot directly mapped to MITRE ATT&CK framework we wanted to map settings to the framework because indirectly settings has relation to possible attacks. 
@@ -127,4 +135,3 @@ Why we are not pulling the data from all of the endpoints?
 - [Apps & service principals in Azure AD - Microsoft identity platform | Microsoft Docs](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals)
 
 - [Microsoft identity platform scopes, permissions, and consent | Microsoft Docs](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent)
-
