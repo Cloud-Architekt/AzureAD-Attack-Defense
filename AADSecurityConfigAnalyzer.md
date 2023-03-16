@@ -55,18 +55,16 @@ In addition to providing best practices, each configuration is mapped to MITRE A
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/media/AADSCA-WB-1.png" target="_blank"><img src="./media/AADSCA-WB-1.png" width="1200" /></a>
 
-Each of the values are combined to "Status" field with the following combinations:
-|       |       |       |
-|  ---  |  ---  |  ---  |
-|       |       |       |
-|       |       |       |
-|       |       |       |
-|       |       |       |
-|       |       |       |
-|       |       |       |
-|       |       |       |
-|       |       |       |
-|       |       |       |
+Each of the values are combined to "Status" field and can have the following values:
+
+|   Value    |  Description     |
+|  ---  |  ---  |
+|  Passed     |  The configuration is compliant with the recommended value     |
+|  Failed     |  The configuration is not compliant with the recommended value. The severity of the finding is High (this is shown in the tooltip)     |
+|  Review     |  The configuration is not compliant with the recommended value. The severity of the finding is Medium (this is shown in the tooltip)     |
+|  Verify     |  The configuration needs to be manually verified. The severity of the finding is Medium or High (this is shown in the tooltip)    |
+|  Informational     | There are no security implications with this configuration, and therefore is only considered informational in this context.      |
+
 
 
 
