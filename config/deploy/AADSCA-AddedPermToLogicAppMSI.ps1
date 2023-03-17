@@ -11,7 +11,7 @@ if ($miObjectID -eq $null) {
 $appId = "00000003-0000-0000-c000-000000000000"
 
 
-$permissionsToAdd = @("Policy.Read.All", "ConsentRequest.Read.All", "Directory.Read.All","ServicePrincipalEndpoint.Read.All","Directory.AccessAsUser.All","Policy.Read.PermissionGrant")
+$permissionsToAdd = @("Policy.Read.All", "ConsentRequest.Read.All", "Directory.Read.All","ServicePrincipalEndpoint.Read.All","Policy.Read.PermissionGrant")
 
 $app = Get-AzureADServicePrincipal -Filter "AppId eq '$appId'"
 

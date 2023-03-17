@@ -1,5 +1,5 @@
 # Azure AD Security Config Analyzer (AADSCA)
-In the chapter 6 of Azure AD Attack & Defense Playbook we decided to take alternative approach and we are not covering possible Azure AD attack path. This time, the focus is on on proactive side, how organizations can monitor and strengthen Azure AD's security posture. For this purpose we created 'Azure AD Security Config Analytics' aka 'AADSCA' solution. 
+In the chapter 6 of Azure AD Attack & Defense Playbook we decided to take alternative approach and we are not covering possible Azure AD attack path. This time, the focus is on on proactive side, how organizations can monitor and strengthen Azure AD's security posture. For this purpose we created 'Azure AD Security Config Analytics' aka 'AADSCA' solution.
 
 _Authors: Thomas Naunheim, Sami Lamppu & Markus Pitkäranta_
 _Created: March 2023_
@@ -7,20 +7,23 @@ _Created: March 2023_
 - [Azure AD Security Config Analyzer (AADSCA)](#azure-ad-security-config-analyzer-aadsca)
 - [Description](#description)
 - [Architecture](#architecture)
-  - [Azure AD Endpoints Used by the Solution](#azure-ad-endpoints-used-by-the-solution)
+  - [Microsoft Graph API Endpoints used by the solution](#microsoft-graph-api-endpoints-used-by-the-solution)
 - [MITRE ATT\&CK Framework](#mitre-attck-framework)
     - [TTP Description \& Built-in Rules](#ttp-description--built-in-rules)
 - [Azure Workbook](#azure-workbook)
 - [Pre-requisites for the Solution Deployment](#pre-requisites-for-the-solution-deployment)
   - [Deployment](#deployment)
-    - [ARM Template](#arm-template)
-    - [PowerShell Script](#powershell-script)
+    - [ARM Template for Logic App](#arm-template-for-logic-app)
+    - [Assigning Graph API permissions to Managed Identity](#assigning-graph-api-permissions-to-managed-identity)
     - [Azure Workbook](#azure-workbook-1)
 - [FAQ](#faq)
 - [References](#references)
 
 # Description
-The purpose of the Azure AD Security Config Analyzer solution is to provide a solution that pulls out Azure AD security configuration from the selected AAD endpoints and ingest the data to Azure Log Analytics. Azure Workbook is used for data visualization and Microsoft Sentinel can be used to create alerts/incidents when critical configuration change is detected. 
+The purpose of the Azure AD Security Config Analyzer solution is to provide a solution that pulls out Azure AD security configuration from the selected Microsoft Graph API endpoints and ingest the data to Log Analytics. Azure Workbook is used for data visualization and Microsoft Sentinel can be used to create alerts/incidents when critical configuration change is detected.
+
+_DISCLAIMER: This is a community-driven project and not a official solution or product. This code-sample is provided "AS IT IS" without warranty of any kind, either expressed or implied, including but not limited to the implied warranties of merchantability and/or fitness for a particular purpose. This sample is not supported under any support program or service.. 
+We further disclaims all implied warranties including, without limitation, any implied warranties of merchantability or of fitness for a particular purpose. The entire risk arising out of the use or performance of the sample and documentation remains with you. In no event shall we, its authors, or anyone else involved in the creation, production, or delivery of the script be liable for any damages whatsoever (including, without limitation, damages for loss of business profits, business interruption, loss of business information, or other pecuniary loss) arising out of  the use of or inability to use the sample or documentation, even if Microsoft has been advised of the possibility of such damages._
 
 # Architecture
 The following picture describes AADSCA solution architecture, used solution and data flows:
@@ -28,8 +31,8 @@ The following picture describes AADSCA solution architecture, used solution and 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/media/AADSCA-Architecture.png" target="_blank"><img src="./media/AADSCA-Architecture.png" width="1200" /></a>
 
 
-## Azure AD Endpoints Used by the Solution
-The solutions uses several Azure AD endpoint to get security configuration settings from Azure AD. Worthwhile to mention, the 'AADSCA' solution does not cover all Azure AD endpoints. Full Azure AD GraphUri's for the currently used endpoints by the solution are listed on the table below:
+## Microsoft Graph API Endpoints used by the solution
+The solutions uses several Microsoft Graph API endpoint to get security configuration settings from Azure AD. Worthwhile to mention, the 'AADSCA' solution does not cover all Azure AD-related endpoints. Full Azure AD related GraphUri's for the currently used endpoints by the solution are listed on the table below:
 
 | Endpoint     |  Permissions     |  Notes     |
 |  ---  |  ---  |  ---  |
@@ -107,7 +110,7 @@ What's needed in a nutshell:
 Base deployment is initialized with ARM template that deploys Azure Logic App (Import-AADConfigToLAWS) and necessary API connection into it with Managed Identity. Besides ARM template permissions needs to be set for Managed Identity as well as deploy the Azure Workbook. Both are manual processes and not included in the ARM template deployment.
 
 
-### ARM Template
+### ARM Template for Logic App
 Azure ARM template is found from [Deploy folder](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/Chapter6-AadSecConfig/config/deploy/) or can be deployed here with 'Deploy to Azure':
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FChapter6-AadSecConfig%2Fconfig%2Fdeploy%2FAADSCA-LogicApp.arm.json)
@@ -132,19 +135,26 @@ If deployment is successful the following resources are found from Azure subscri
 - API connection with managed identity connection that's needed for the Logic App
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-3.png" target="_blank">![](./media/AADSCA-Deploy-1.PNG)</a>
 
-### PowerShell Script
-In our example, needed permissions for the AADSCA solution (Managed Identity) are set by PowerShell script. Feel free to use whatever method you find comfortable. The script assigns the following permissions:
+### Assigning Graph API permissions to Managed Identity
+In our example, needed permissions for the AADSCA solution (used by Managed Identity of Logic App) are set by PowerShell script. Feel free to use whatever method you find comfortable. The script assigns the following permissions:
 
-- $permissionsToAdd = @("Policy.Read.All", "ConsentRequest.Read.All", "Directory.Read.All")
-- $permissionsToAdd = @("ServicePrincipalEndpoint.Read.All")
-- $permissionsToAdd = @("Directory.AccessAsUser.All")
-- $permissionsToAdd = @("Policy.Read.PermissionGrant")
+- Policy.Read.All
+- ConsentRequest.Read.All
+- Directory.Read.All
+- ServicePrincipalEndpoint.Read.All
+- Policy.Read.PermissionGrant
 
+The permissions can be assigned from Azure Cloud Shell which provides a pre-installed Azure AD PowerShell Module.
+A sample script is available here:
+
+🔗[AADSCA-AddedPermToLogicAppMSI.ps1](config/deploy/AADSCA-AddedPermToLogicAppMSI.ps1)
 
 ### Azure Workbook
 Azure Workbook for the data visualization is manually deployed. Preferred way is to deploy it as Sentinel workbook to avoid mapping issues to Log Analytics.
 
-The Workbook is found from GitHub repo - [insert link](https://feta.fi).
+The Workbook is available from this GitHub repo:
+
+🔗[AADSCA.workbook](config/deploy/AADSCA.workbook)
 
 To deploy the workbook into Microsoft Sentinel:
 - From the Workbook blade in Sentinel - select 'Add workbook'
