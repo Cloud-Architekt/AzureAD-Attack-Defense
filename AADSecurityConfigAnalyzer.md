@@ -45,7 +45,7 @@ The solutions uses several Microsoft Graph API endpoint to get security configur
 | https://graph.microsoft.com/beta/policies/authenticationStrengthPolicies      | Policy.Read.All      |       |
 | https://graph.microsoft.com/beta/policies/defaultAppManagementPolicy     | Policy.Read.All      |       |
 | https://graph.microsoft.com/beta/policies/appManagementPolicies      |  Policy.Read.All     |       |
-| https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy      | ConsentRequest.Read.All, Directory.Read.All, ConsentRequest.Read.All      |       |
+| https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy      | ConsentRequest.Read.All, Directory.Read.All      |       |
 | https://graph.microsoft.com/beta/policies/permissionGrantPolicies		  | Policy.Read.All | |
 | https://graph.microsoft.com/beta/policies/crossTenantAccessPolicy      | Policy.Read.All      |       |
 | https://graph.microsoft.com/beta/policies/tokenIssuancePolicies      |  Policy.Read.All     |       |
