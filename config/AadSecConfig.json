@@ -906,7 +906,7 @@
             {
                 "Name": "numberMatchingRequiredStateIncluded",
                 "DisplayName": "Included users/groups of number matching for push notifications",
-                "CurrentValue": "featureSettings.numberMatchingRequiredState.includeTarget",
+                "CurrentValue": "featureSettings.numberMatchingRequiredState.includeTarget.id",
                 "DefaultValue": "all_users",
                 "RecommendedValue": "all_users",
                 "Recommendation": "",
@@ -920,7 +920,7 @@
             {
                 "Name": "numberMatchingRequiredStateExcluded",
                 "DisplayName": "Excluded users/groups of number matching for push notifications",
-                "CurrentValue": "featureSettings.numberMatchingRequiredState.excludeTarget",
+                "CurrentValue": "featureSettings.numberMatchingRequiredState.excludeTarget.id",
                 "DefaultValue": "",
                 "RecommendedValue": "",
                 "Recommendation": "",
