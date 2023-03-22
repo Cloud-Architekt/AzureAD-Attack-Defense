@@ -1098,9 +1098,9 @@
                 "Description": "Requires the FIDO security key metadata to be published and verified with the FIDO Alliance Metadata Service, and also pass Microsoft’s additional set of validation testing."
             },
             {
-                "Name": "keyRestrictions",
+                "Name": "keyRestrictions.isEnforced",
                 "DisplayName": "Enforce key restrictions",
-                "CurrentValue": "keyRestrictions",
+                "CurrentValue": "keyRestrictions.isEnforced",
                 "DefaultValue": "false",
                 "RecommendedValue": "",
                 "Recommendation": "",
@@ -1109,7 +1109,35 @@
                 "MitreTechnique": [],
                 "MitreMitigation": [],
                 "PortalDeepLink": "",
-                "Description": "Manages if registration of FIDO2 keys should be restricted. You can work with your Security key provider to determine the AAGuids of their devices for allowing or blocking usage. Defines if list of AADGUID will be used to allow or block registration."
+                "Description": "Manages if registration of FIDO2 keys should be restricted."
+            },
+            {
+                "Name": "keyRestrictions.aaGuids",
+                "DisplayName": "Restricted",
+                "CurrentValue": "keyRestrictions.aaGuids",
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "High",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "You can work with your Security key provider to determine the AAGuids of their devices for allowing or blocking usage."
+            },   
+            {
+                "Name": "keyRestrictions.enforcementType",
+                "DisplayName": "Restrict specific keys",
+                "CurrentValue": "keyRestrictions.enforcementType",
+                "DefaultValue": "block",
+                "RecommendedValue": "block",
+                "Recommendation": "",
+                "Severity": "High",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": "Defines if list of AADGUID will be used to allow or block registration."
             },
             {
                 "Name": "includeTargets",
