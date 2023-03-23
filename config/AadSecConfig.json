@@ -220,7 +220,7 @@
             {
                 "Name": "EnableGroupSpecificConsent",
                 "DisplayName": "Group owner consent for apps accessing data",
-                "CurrentValue": "value.EnableGroupSpecificConsent",
+                "CurrentValue": "value.values.EnableGroupSpecificConsent",
                 "DefaultValue": "True",
                 "RecommendedValue": "False",
                 "Recommendation": "CISA SCuBA 2.7: Non-Admin Users SHALL Be Prevented From Providing Consent To Third-Party Applications.",
@@ -234,7 +234,7 @@
             {
                 "Name": "ConstrainGroupSpecificConsentToMembersOfGroupId",
                 "DisplayName": "Group owner consent for apps accessing data - Restricted to selected group owners",
-                "CurrentValue": "value.ConstrainGroupSpecificConsentToMembersOfGroupId",
+                "CurrentValue": "value.values.ConstrainGroupSpecificConsentToMembersOfGroupId",
                 "DefaultValue": "",
                 "RecommendedValue": "",
                 "Recommendation": "",
@@ -248,7 +248,7 @@
             {
                 "Name": "BlockUserConsentForRiskyApps",
                 "DisplayName": "Block user consent for risky apps",
-                "CurrentValue": "value.BlockUserConsentForRiskyApps",
+                "CurrentValue": "value.values.BlockUserConsentForRiskyApps",
                 "DefaultValue": "true",
                 "RecommendedValue": "true",
                 "Recommendation": "https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/configure-risk-based-step-up-consent",
@@ -262,7 +262,7 @@
             {
                 "Name": "EnableAdminConsentRequests",
                 "DisplayName": "Users can request admin consent to apps they are unable to consent to​",
-                "CurrentValue": "value.EnableAdminConsentRequests",
+                "CurrentValue": "value.values.EnableAdminConsentRequests",
                 "DefaultValue": "false",
                 "RecommendedValue": "true",
                 "Recommendation": "CISA SCuBA 2.7: Non-Admin Users SHALL Be Prevented From Providing Consent To Third-Party Applications.",
