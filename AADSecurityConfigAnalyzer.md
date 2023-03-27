@@ -30,6 +30,8 @@ The following picture describes AADSCA solution architecture, used solution and 
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/media/AADSCA-Architecture.png" target="_blank"><img src="./media/AADSCA-Architecture.png" width="1200" /></a>
 
+_Reference architecture to integrate AADSCA as part of Microsoft Sentinel environment. Data will be ingested to same workspace as Sentinel.
+It depends on your implementation and design if you want to have an integration to dedicated, operational or existing Sentinel workspace._
 
 ## Microsoft Graph API Endpoints used by the solution
 The solutions uses several Microsoft Graph API endpoint to get security configuration settings from Azure AD. Worthwhile to mention, the 'AADSCA' solution does not cover all Azure AD-related endpoints. Full Azure AD related GraphUri's for the currently used endpoints by the solution are listed on the table below:
