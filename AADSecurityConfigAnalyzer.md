@@ -77,7 +77,7 @@ The following TTPs are mapped for the 'Azure AD Security Advisor' solution and A
 |Lateral Movement - [T1110](https://attack.mitre.org/techniques/T1110/) | Adversaries may use brute force techniques to gain access to accounts when passwords are unknown or when password hashes are obtained. Without knowledge of the password for an account or set of accounts, an adversary may systematically guess the password using a repetitive or iterative mechanism. Brute forcing passwords can take place via interaction with a service that will check the validity of those credentials or offline against previously acquired credential data, such as password hashes. |
 
 # Azure Workbook
-This workbook provides insights into Azure Active Directory tenant security configurations. The workbook compares current tenant configurations against best practices, and displays the status (current, recommended and default values) of each configuration. The best practices are based on community work (see Azure AD Attack and Defense GitHub intro chapter for details). You can also apply your own recommended values by taking a copy of the metadata JSON file, and updating the queries in this workbook to utilize the customized version.
+This workbook provides insights into Azure Active Directory tenant security configurations. The workbook compares current tenant configurations against best practices, and displays the status (current, recommended and default values) of each configuration. The best practices are based on community work see [Azure AD Attack and Defense GitHub intro chapter](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/blob/main/README.md) for details. You can also apply your own recommended values by taking a copy of the metadata JSON file, and updating the queries in this workbook to utilize the customized version.
 
 In addition to providing best practices, each configuration is mapped to MITRE ATT&CK framework, allowing you to to identify potentially vulnerable configurations in terms of tactics and techniques.
 
@@ -109,7 +109,11 @@ What's needed in a nutshell:
 
 
 ## Deployment
-Base deployment is initialized with ARM template that deploys Azure Logic App (Import-AADConfigToLAWS) and necessary API connection into it with Managed Identity. Besides ARM template permissions needs to be set for Managed Identity as well as deploy the Azure Workbook. Both are manual processes and not included in the ARM template deployment.
+Base deployment is initialized with ARM template that deploys Azure Logic App (Import-AADConfigToLAWS) and necessary API connection into it with Managed Identity. 
+- Azure Log Analytics custom table name: 'AadConfigState_CL'
+
+Besides ARM template permissions needs to be set for Managed Identity as well as deploy the Azure Workbook.
+- Both of these (permissions & workbook deployment) are manual processes and not included in the ARM template deployment.
 
 
 ### ARM Template for Logic App
@@ -133,8 +137,9 @@ The following parameters are required for the successful deployment:
 
 If deployment is successful the following resources are found from Azure subscription
 :
-- Import-AADConfigToLAWS Logic App
+- Logic App named as 'Import-AADConfigToLAWS'
 - API connection with managed identity connection that's needed for the Logic App
+  
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-3.png" target="_blank">![](./media/AADSCA-Deploy-1.PNG)</a>
 
 ### Assigning Graph API permissions to Managed Identity
@@ -163,17 +168,15 @@ To deploy the workbook into Microsoft Sentinel:
 - Select 'edit' mode & 'advanced editor' from the configuration blade
 - Paste the workbook as a code and save it
 
-pictures here
 
 # FAQ
 Why we are not pulling the data from all of the endpoints? 
-- Not all endpoints contain security related configuration settings
+- All AAD endpoints doesn't contain security related configuration settings.
   
 Why all Azure AD endpoints that contain security related configuration are not included?
-- For the first release we didn't include all relevant endpoints. Those will be added in the future releases.
+- To the first release we didn't include all relevant endpoints. Those will be added in the future updates & releases.
 
-
-  Why MITRE ATT&CK mapping is made even though the solution is not part of attack scenario?
+Why MITRE ATT&CK mapping is made even though the AAD settings are not part of the common attack scenarios?
 - We see the benefit for adding the mapping even though the setting are not directly associated to the MITRE framework
 
 # References
