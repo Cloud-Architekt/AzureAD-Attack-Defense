@@ -110,7 +110,7 @@ What's needed in a nutshell:
 
 ## Deployment
 Base deployment is initialized with ARM template that deploys Azure Logic App (Import-AADConfigToLAWS) and necessary API connection into it with Managed Identity. 
-- Azure Log Analytics custom table name: 'AadConfigState_CL'
+- Azure Log Analytics custom table name: 'AADSCA_CL'
 
 Besides ARM template permissions needs to be set for Managed Identity as well as deploy the Azure Workbook.
 - Both of these (permissions & workbook deployment) are manual processes and not included in the ARM template deployment.
