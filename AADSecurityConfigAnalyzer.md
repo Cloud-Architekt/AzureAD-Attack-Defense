@@ -113,7 +113,7 @@ Base deployment is initialized with ARM template that deploys Azure Logic App (I
 - Azure Log Analytics custom table name: 'AADSCA_CL'
 
 Besides ARM template permissions needs to be set for Managed Identity as well as deploy the Azure Workbook.
-- Both of these (permissions & workbook deployment) are manual processes and not included in the ARM template deployment.
+- Both of these (permissions & workbook deployment) are manual processes and not included in the ARM template deployment. 
 
 
 ### ARM Template for Logic App
@@ -138,18 +138,21 @@ The following parameters are required for the successful deployment:
 If deployment is successful the following resources are found from Azure subscription
 :
 - Logic App named as 'Import-AADConfigToLAWS'
+- Managed Identity named as 'Import-AADSCAtoLAWS'
 - API connection with managed identity connection that's needed for the Logic App
   
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-3.png" target="_blank">![](./media/AADSCA-Deploy-1.PNG)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Perms-2.PNG" target="_blank">![](./media/AADSCA-Perms-2.PNG)</a>
 
 ### Assigning Graph API permissions to Managed Identity
 In our example, needed permissions for the AADSCA solution (used by Managed Identity of Logic App) are set by PowerShell script. Feel free to use whatever method you find comfortable. The script assigns the following permissions:
 
-- Policy.Read.All
 - ConsentRequest.Read.All
 - Directory.Read.All
-- ServicePrincipalEndpoint.Read.All
+- Policy.Read.All
 - Policy.Read.PermissionGrant
+- ServicePrincipalEndpoint.Read.All
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-3.png" target="_blank">![](./media/AADSCA-Deploy-1.PNG)</a>
 
 The permissions can be assigned from Azure Cloud Shell which provides a pre-installed Azure AD PowerShell Module.
 A sample script is available here:
