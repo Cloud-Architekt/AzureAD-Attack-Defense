@@ -140,8 +140,8 @@ If deployment is successful the following resources are found from Azure subscri
 - Logic App named as 'Import-AADConfigToLAWS'
 - Managed Identity named as 'Import-AADSCAtoLAWS'
 - API connection with managed identity connection that's needed for the Logic App
-  
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Perms-2.PNG" target="_blank">![](./media/AADSCA-Perms-2.PNG)</a>
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-3.png" target="_blank">![](./media/AADSCA-Deploy-1.PNG)</a>
 
 ### Assigning Graph API permissions to Managed Identity
 In our example, needed permissions for the AADSCA solution (used by Managed Identity of Logic App) are set by PowerShell script. Feel free to use whatever method you find comfortable. The script assigns the following permissions:
@@ -152,7 +152,7 @@ In our example, needed permissions for the AADSCA solution (used by Managed Iden
 - Policy.Read.PermissionGrant
 - ServicePrincipalEndpoint.Read.All
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-3.png" target="_blank">![](./media/AADSCA-Deploy-1.PNG)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Perms-2.PNG" target="_blank">![](./media/AADSCA-Perms-2.PNG)</a>
 
 The permissions can be assigned from Azure Cloud Shell which provides a pre-installed Azure AD PowerShell Module.
 A sample script is available here:
