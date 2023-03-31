@@ -182,6 +182,9 @@ Why all Azure AD endpoints that contain security related configuration are not i
 Why MITRE ATT&CK mapping is made even though the AAD settings are not part of the common attack scenarios?
 - We see the benefit for adding the mapping even though the setting are not directly associated to the MITRE framework
 
+I'm seeing and permission error after initial deployment, what to do?
+- Azure Logic App caches permissions and it will take a while after permissions are valid. In testing phase it took max of 5-10min until Logic Apps was able to authenticate through Managed Identity to Azure AD. If you decide to change permissions afterwards it can take up to 24 hours until permissions are effective due Azure Logic Apps caching mechanism.
+
 # References
 
 - [Apps & service principals in Azure AD - Microsoft identity platform | Microsoft Docs](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals)
