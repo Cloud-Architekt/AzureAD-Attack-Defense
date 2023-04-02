@@ -170,7 +170,7 @@
                                     "Content-Type": "application/json"
                                 },
                                 "method": "GET",
-                                "uri": "https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/config/AadSecConfig.json"
+                                "uri": "https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/config/AadSecConfig.json"
                             }
                         },
                         "Initialize_variable_for_Custom_Table_Name": {

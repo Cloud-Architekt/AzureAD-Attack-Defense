@@ -28,7 +28,7 @@ We further disclaims all implied warranties including, without limitation, any i
 # Architecture
 The following picture describes AADSCA solution architecture, used solution and data flows:
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/media/AADSCA-Architecture.png" target="_blank"><img src="./media/AADSCA-Architecture.png" width="1200" /></a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Architecture.png" target="_blank"><img src="./media/AADSCA-Architecture.png" width="1200" /></a>
 
 _Reference architecture to integrate AADSCA as part of Microsoft Sentinel environment. Data will be ingested to same workspace as Sentinel.
 It depends on your implementation and design if you want to have an integration to dedicated, operational or existing Sentinel workspace._
@@ -62,7 +62,7 @@ From the following MITRE Navigator pictures you can find mapping related to rele
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/mitre/Chapter6/TTPs.PNG" target="_blank">![](./media/mitre/Chapter6/Consent/../TTPs.PNG)</a>
 
-<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FChapter6-AadSecConfig%2Fmedia%2Fmitre%2FChapter6%2FAADPB-CP6-TTPs.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
+<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Fmitre%2FChapter6%2FAADPB-CP6-TTPs.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
 
 ### TTP Description & Built-in Rules
 The following TTPs are mapped for the 'Azure AD Security Advisor' solution and AAD security settings. From the table below, you can find TTPs description and link to the MITRE ATT&CK official documentation.
@@ -81,7 +81,7 @@ This workbook provides insights into Azure Active Directory tenant security conf
 
 In addition to providing best practices, each configuration is mapped to MITRE ATT&CK framework, allowing you to to identify potentially vulnerable configurations in terms of tactics and techniques.
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/media/AADSCA-WB-1.png" target="_blank"><img src="./media/AADSCA-WB-1.png" width="1200" /></a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-1.png" target="_blank"><img src="./media/AADSCA-WB-1.png" width="1200" /></a>
 
 Each of the values are combined to "Status" field and can have the following values:
 
@@ -117,7 +117,7 @@ Besides ARM template permissions needs to be set for Managed Identity as well as
 
 
 ### ARM Template for Logic App
-Azure ARM template is found from [Deploy folder](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/Chapter6-AadSecConfig/config/deploy/) or can be deployed here with 'Deploy to Azure':
+Azure ARM template is found from [Deploy folder](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/main/config/deploy/) or can be deployed here with 'Deploy to Azure':
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FChapter6-AadSecConfig%2Fconfig%2Fdeploy%2FAADSCA-LogicApp.arm.json)
 
