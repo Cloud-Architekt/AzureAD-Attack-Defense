@@ -1,0 +1,40 @@
+[
+    {
+        "ControlName": "Application Management - Service Principal Creation",
+        "Description": "",
+        "GraphEndpoint": "servicePrincipalCreationPolicies",        
+        "GraphUri": "https://graph.microsoft.com/beta/policies/servicePrincipalCreationPolicies",
+        "MitreTactic": [],
+        "MitreMitigation": [],              
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "PortalDeepLink": "",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "ControlName": "Device Registration Policy",
+        "Description": "",        
+        "GraphEndpoint": "deviceRegistrationPolicy",
+        "GraphUri": "https://graph.microsoft.com/beta/policies/deviceRegistrationPolicy",        
+        "MitreTactic": [],
+        "MitreMitigation": [],         
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",              
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "PortalDeepLink": "",
+                "Description": ""
+            }
+        ]
+    }
+]
