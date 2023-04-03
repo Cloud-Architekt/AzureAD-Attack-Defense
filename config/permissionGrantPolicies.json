@@ -1,0 +1,584 @@
+{
+    "@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies",
+    "value": [
+        {
+            "id": "microsoft-all-application-permissions",
+            "displayName": "All application permissions, for any client app",
+            "description": "Includes all application permissions (app roles), for all APIs, for any client application.",
+            "includeAllPreApprovedApplications": false,
+            "resourceScopeType": "tenant",
+            "includes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-all-application-permissions')/includes",
+            "includes": [
+                {
+                    "id": "bddda1ec-0174-44d5-84e2-47fb0ac01595",
+                    "permissionClassification": "all",
+                    "permissionType": "application",
+                    "resourceApplication": "any",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": false,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                }
+            ],
+            "excludes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-all-application-permissions')/excludes",
+            "excludes": []
+        },
+        {
+            "id": "microsoft-all-application-permissions-for-chat",
+            "displayName": "All chat resource-specific application permissions, for any client app",
+            "description": "Includes all chat resoruce-specific application permissions, for all APIs, for any client application.",
+            "includeAllPreApprovedApplications": false,
+            "resourceScopeType": "chat",
+            "includes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-all-application-permissions-for-chat')/includes",
+            "includes": [
+                {
+                    "id": "013e8de3-5e79-4b0f-a440-8f7794086460",
+                    "permissionClassification": "all",
+                    "permissionType": "application",
+                    "resourceApplication": "any",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": false,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                }
+            ],
+            "excludes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-all-application-permissions-for-chat')/excludes",
+            "excludes": []
+        },
+        {
+            "id": "microsoft-all-application-permissions-for-group",
+            "displayName": "Includes apps that have been pre-approved by permission grant pre-approval policy for group",
+            "description": "Includes apps that have been pre-approved by permission grant pre-approval policy for group resource specific consent.",
+            "includeAllPreApprovedApplications": false,
+            "resourceScopeType": "group",
+            "includes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-all-application-permissions-for-group')/includes",
+            "includes": [
+                {
+                    "id": "1cf43e54-f240-4e19-8436-8d4fc4c97ab6",
+                    "permissionClassification": "all",
+                    "permissionType": "application",
+                    "resourceApplication": "any",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": false,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                }
+            ],
+            "excludes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-all-application-permissions-for-group')/excludes",
+            "excludes": []
+        },
+        {
+            "id": "microsoft-all-application-permissions-verified",
+            "displayName": "All application permissions, for client apps from verified publishers or this organization",
+            "description": "Includes all application permissions (app roles), for all APIs, for client applications from verified publishers or which were registered in this organization.",
+            "includeAllPreApprovedApplications": false,
+            "resourceScopeType": "tenant",
+            "includes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-all-application-permissions-verified')/includes",
+            "includes": [
+                {
+                    "id": "c6b9e210-8bf5-446f-81bf-618f5a9cad09",
+                    "permissionClassification": "all",
+                    "permissionType": "application",
+                    "resourceApplication": "any",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": true,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                },
+                {
+                    "id": "13eda53f-4c56-4c8e-878c-6df6f1d331ee",
+                    "permissionClassification": "all",
+                    "permissionType": "application",
+                    "resourceApplication": "any",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "<TENANTID>"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": false,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                }
+            ],
+            "excludes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-all-application-permissions-verified')/excludes",
+            "excludes": []
+        },
+        {
+            "id": "microsoft-application-admin",
+            "displayName": "Application Admin Policy",
+            "description": "Permissions consentable by Application Administrators.",
+            "includeAllPreApprovedApplications": false,
+            "resourceScopeType": "tenant",
+            "includes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-application-admin')/includes",
+            "includes": [
+                {
+                    "id": "811d2da7-443c-43da-96e7-28d285b234e9",
+                    "permissionClassification": "all",
+                    "permissionType": "application",
+                    "resourceApplication": "any",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": false,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                },
+                {
+                    "id": "60461179-740e-4d8b-9e00-1456a338c44b",
+                    "permissionClassification": "all",
+                    "permissionType": "delegated",
+                    "resourceApplication": "any",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": false,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                }
+            ],
+            "excludes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-application-admin')/excludes",
+            "excludes": [
+                {
+                    "id": "c85b029f-4abf-47d8-ae61-d2a38299033a",
+                    "permissionClassification": "all",
+                    "permissionType": "application",
+                    "resourceApplication": "00000003-0000-0000-c000-000000000000",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": false,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                },
+                {
+                    "id": "2a1fbb36-9d9a-42d8-8804-de2aa45aca80",
+                    "permissionClassification": "all",
+                    "permissionType": "application",
+                    "resourceApplication": "00000002-0000-0000-c000-000000000000",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": false,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "microsoft-company-admin",
+            "displayName": "Company Admin Policy",
+            "description": "Permissions consentable by Company Administrators.",
+            "includeAllPreApprovedApplications": false,
+            "resourceScopeType": "tenant",
+            "includes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-company-admin')/includes",
+            "includes": [
+                {
+                    "id": "1f06f3a1-42d3-4243-8fbc-5d0c30d4de4c",
+                    "permissionClassification": "all",
+                    "permissionType": "application",
+                    "resourceApplication": "any",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": false,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                },
+                {
+                    "id": "08619a19-ae6f-406c-b9a0-ea6af1f1558d",
+                    "permissionClassification": "all",
+                    "permissionType": "delegated",
+                    "resourceApplication": "any",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": false,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                }
+            ],
+            "excludes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-company-admin')/excludes",
+            "excludes": []
+        },
+        {
+            "id": "microsoft-pre-approval-apps-for-chat",
+            "displayName": "Includes apps that have been pre-approved by permission grant pre-approval policy for chat",
+            "description": "Includes apps that have been pre-approved by permission grant pre-approval policy for chat resource specific consent.",
+            "includeAllPreApprovedApplications": true,
+            "resourceScopeType": "chat",
+            "includes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-pre-approval-apps-for-chat')/includes",
+            "includes": [],
+            "excludes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-pre-approval-apps-for-chat')/excludes",
+            "excludes": []
+        },
+        {
+            "id": "microsoft-pre-approval-apps-for-group",
+            "displayName": "Includes apps that have been pre-approved by permission grant pre-approval policy for group",
+            "description": "Includes apps that have been pre-approved by permission grant pre-approval policy for group resource specific consent.",
+            "includeAllPreApprovedApplications": true,
+            "resourceScopeType": "group",
+            "includes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-pre-approval-apps-for-group')/includes",
+            "includes": [],
+            "excludes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-pre-approval-apps-for-group')/excludes",
+            "excludes": []
+        },
+        {
+            "id": "microsoft-user-default-legacy",
+            "displayName": "Default User Legacy Policy",
+            "description": "All delegated permissions that do not require admin consent as defined by the developer are consentable by member type users by default.",
+            "includeAllPreApprovedApplications": false,
+            "resourceScopeType": "tenant",
+            "includes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-user-default-legacy')/includes",
+            "includes": [
+                {
+                    "id": "e008dda9-5521-4e9b-a941-744b3aa7a610",
+                    "permissionClassification": "all",
+                    "permissionType": "delegatedUserConsentable",
+                    "resourceApplication": "any",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": false,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                }
+            ],
+            "excludes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-user-default-legacy')/excludes",
+            "excludes": []
+        },
+        {
+            "id": "microsoft-user-default-low",
+            "displayName": "Default User Low Risk Policy",
+            "description": "All low risk permissions are consentable by member type users by default.",
+            "includeAllPreApprovedApplications": false,
+            "resourceScopeType": "tenant",
+            "includes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-user-default-low')/includes",
+            "includes": [
+                {
+                    "id": "9c72ced4-50c7-4486-933e-6756d554b199",
+                    "permissionClassification": "low",
+                    "permissionType": "delegated",
+                    "resourceApplication": "any",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "<TENANTID>"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": false,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                },
+                {
+                    "id": "8ce99f96-730c-4ebd-8397-07ee65942b97",
+                    "permissionClassification": "low",
+                    "permissionType": "delegated",
+                    "resourceApplication": "any",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": true,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                }
+            ],
+            "excludes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-user-default-low')/excludes",
+            "excludes": []
+        },
+        {
+            "id": "microsoft-user-default-recommended",
+            "displayName": "Microsoft User Default Recommended Policy",
+            "description": "Permissions consentable based on Microsoft's current recommendations.",
+            "includeAllPreApprovedApplications": false,
+            "resourceScopeType": "tenant",
+            "includes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-user-default-recommended')/includes",
+            "includes": [
+                {
+                    "id": "939e5649-d754-4aa4-90df-8bfb027d11cc",
+                    "permissionClassification": "all",
+                    "permissionType": "delegated",
+                    "resourceApplication": "00000003-0000-0000-c000-000000000000",
+                    "permissions": [
+                        "7427e0e9-2fba-42fe-b0c0-848c9e6a8182",
+                        "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+                        "37f7f235-527c-4136-accd-4a02d197296e",
+                        "64a6cdd6-aab1-4aaf-94b8-3cc8405e90d0",
+                        "14dad69e-099b-42c9-810b-d002981feec1"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": true,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                }
+            ],
+            "excludes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('microsoft-user-default-recommended')/excludes",
+            "excludes": []
+        },
+        {
+            "id": "my-custom-policy",
+            "displayName": "My first custom consent policy",
+            "description": "This is a sample custom app consent policy.",
+            "includeAllPreApprovedApplications": false,
+            "resourceScopeType": "tenant",
+            "includes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('my-custom-policy')/includes",
+            "includes": [
+                {
+                    "id": "291aa06d-6ecb-4630-8612-fddad5881405",
+                    "permissionClassification": "low",
+                    "permissionType": "delegated",
+                    "resourceApplication": "any",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": true,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                },
+                {
+                    "id": "d269a39e-7950-452b-a6ec-e3110ac89ded",
+                    "permissionClassification": "low",
+                    "permissionType": "delegated",
+                    "resourceApplication": "any",
+                    "permissions": [
+                        "all"
+                    ],
+                    "clientApplicationIds": [
+                        "all"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "36955ea9-c98e-4749-b603-ffefe652dd90"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": false,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                },
+                {
+                    "id": "04f48377-2b75-4a6d-829e-5152d1bb95f1",
+                    "permissionClassification": "low",
+                    "permissionType": "delegated",
+                    "resourceApplication": "00000002-0000-0000-c000-000000000000",
+                    "permissions": [
+                        "311a71cc-e848-46a1-bdf8-97ff7156d8e6"
+                    ],
+                    "clientApplicationIds": [
+                        "e462442e-6682-465b-a31f-652a88bfbe51"
+                    ],
+                    "clientApplicationTenantIds": [
+                        "all"
+                    ],
+                    "clientApplicationPublisherIds": [
+                        "all"
+                    ],
+                    "clientApplicationsFromVerifiedPublisherOnly": false,
+                    "certifiedClientApplicationsOnly": false,
+                    "scopeSensitivityLabels": {
+                        "@odata.type": "#microsoft.graph.allScopeSensitivityLabels",
+                        "labelKind": "all"
+                    }
+                }
+            ],
+            "excludes@odata.context": "https://graph.microsoft.com/beta/$metadata#policies/permissionGrantPolicies('my-custom-policy')/excludes",
+            "excludes": []
+        }
+    ]
+}
