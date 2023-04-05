@@ -135,10 +135,10 @@ The following parameters are required for the successful deployment:
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Deploy-2.png" target="_blank">![](./media/AADSCA-Deploy-2.png)</a>
 
-If deployment is successful the following resources are found from Azure subscription
-:
-- Logic App named as 'Import-AADConfigToLAWS'
-- Managed Identity named as 'Import-AADSCAtoLAWS'
+If deployment is successful the following resources are found from Azure subscription:
+The following resources are found from the environment:
+- Logic Apps named as ‘Import-AADSCAtoLAWS’ in Azure subscription
+- System-assigned Managed Identity in Azure AD Enterprise Applications blade named as ‘Import-AADSCAtoLAWS’
 - API connection with managed identity connection that's needed for the Logic App
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-3.png" target="_blank">![](./media/AADSCA-Deploy-1.PNG)</a>
