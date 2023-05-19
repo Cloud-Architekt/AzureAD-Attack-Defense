@@ -1895,5 +1895,101 @@
                 "Description": ""
             }
         ]
-    }
+    },
+    {
+        "ControlName": "Azure AD Recommendations",
+        "Description": "Azure Active Directory (Azure AD) recommendations are personalized and actionable insights for you to implement Azure AD best practices in your tenant. The Azure AD recommendation service runs daily to check your tenant against predefined conditions for every recommendation. If the service detects that a recommendation applies to your tenant, the corresponding recommendation object is generated and its status is set to active.",
+        "GraphEndpoint": "recommendations",
+        "GraphUri": "https://graph.microsoft.com/beta/directory/recommendations",
+        "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/recommendation-list-impactedresources",
+        "MitreTactic": [],
+        "MitreTechnique": [],
+        "MitreMitigation": [],
+        "Controls": [
+            {
+                "Name": "Microsoft.Identity.IAM.Insights.UserRiskPolicy",
+                "DisplayName": "Protect all users with a user risk policy",
+                "CurrentValue": "status",
+                "DefaultValue": "",
+                "RecommendedValue": "completedBySystem",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            },
+            {
+                "Name": "Microsoft.Identity.IAM.Insights.SigninRiskPolicy",
+                "DisplayName": "Protect all users with a sign-in risk policy",
+                "CurrentValue": "status",
+                "DefaultValue": "",
+                "RecommendedValue": "completedBySystem",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            },
+            {
+                "Name": "Microsoft.Identity.IAM.Insights.AdminMFAV2",
+                "DisplayName": "Require multifactor authentication for administrative roles",
+                "CurrentValue": "status",
+                "DefaultValue": "",
+                "RecommendedValue": "completedBySystem",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            }, 
+            {
+                "Name": "Microsoft.Identity.IAM.Insights.RoleOverlap",
+                "DisplayName": "Use limited administrative roles",
+                "CurrentValue": "status",
+                "DefaultValue": "",
+                "RecommendedValue": "completedBySystem",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            },
+            {
+                "Name": "Microsoft.Identity.IAM.Insights.StaleApps",
+                "DisplayName": "Remove unused applications",
+                "CurrentValue": "status",
+                "DefaultValue": "",
+                "RecommendedValue": "completedBySystem",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            },
+            {
+                "Name": "Microsoft.Identity.IAM.Insights.ApplicationCredentialExpiry",
+                "DisplayName": "Renew expiring application credentials",
+                "CurrentValue": "status",
+                "DefaultValue": "",
+                "RecommendedValue": "completedBySystem",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            }                       
+        ]
+    }    
 ]
