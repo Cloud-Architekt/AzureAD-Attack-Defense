@@ -1664,7 +1664,7 @@
                 "Severity": "",
                 "MitreTactic": [],
                 "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreMitigation": ["M1027"],
                 "PortalDeepLink": "",
                 "Description": ""
             }
@@ -1690,7 +1690,7 @@
                 "Severity": "",
                 "MitreTactic": [],
                 "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreMitigation": ["M1027"],
                 "PortalDeepLink": "",
                 "Description": ""
             }
@@ -1714,9 +1714,9 @@
                 "RecommendedValue": "true",
                 "Recommendation": "",
                 "Severity": "",
-                "MitreTactic": [],
-                "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreTactic": ["TA0001 - Initial Access", "TA0005 - Defense Evasion", "TA0006 - Credential Access", "TA0008 - Lateral Movement"],
+                "MitreTechnique": ["T1078", "T1528", "T1550", "T1550.001", "T1566.002"],
+                "MitreMitigation": [" M1018","M1017"],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                 "Description": "Defines if admin consent request feature is enabled or disabled"
             },
@@ -1728,9 +1728,9 @@
                 "RecommendedValue": "true",
                 "Recommendation": "",
                 "Severity": "",
-                "MitreTactic": [],
-                "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreTactic": ["TA0001 - Initial Access", "TA0005 - Defense Evasion", "TA0006 - Credential Access", "TA0008 - Lateral Movement"],
+                "MitreTechnique": ["T1078", "T1528", "T1550", "T1550.001", "T1566.002"],
+                "MitreMitigation": [" M1018","M1017"],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                 "Description": "Specifies whether reviewers will receive notifications"
             },
@@ -1742,9 +1742,9 @@
                 "RecommendedValue": "true",
                 "Recommendation": "",
                 "Severity": "",
-                "MitreTactic": [],
-                "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreTactic": ["TA0001 - Initial Access", "TA0005 - Defense Evasion", "TA0006 - Credential Access", "TA0008 - Lateral Movement"],
+                "MitreTechnique": ["T1078", "T1528", "T1550", "T1550.001", "T1566.002"],
+                "MitreMitigation": [" M1018","M1017"],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                 "Description": "Specifies whether reviewers will receive reminder emails"
             },
@@ -1756,9 +1756,9 @@
                 "RecommendedValue": "30",
                 "Recommendation": "",
                 "Severity": "",
-                "MitreTactic": [],
-                "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreTactic": ["TA0001 - Initial Access", "TA0005 - Defense Evasion", "TA0006 - Credential Access", "TA0008 - Lateral Movement"],
+                "MitreTechnique": ["T1078", "T1528", "T1550", "T1550.001", "T1566.002"],
+                "MitreMitigation": [" M1018","M1017"],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                 "Description": "Specifies the duration the request is active before it automatically expires if no decision is applied"
             },
@@ -1770,9 +1770,9 @@
                 "RecommendedValue": "30",
                 "Recommendation": "",
                 "Severity": "",
-                "MitreTactic": [],
-                "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreTactic": ["TA0001 - Initial Access", "TA0005 - Defense Evasion", "TA0006 - Credential Access", "TA0008 - Lateral Movement"],
+                "MitreTechnique": ["T1078", "T1528", "T1550", "T1550.001", "T1566.002"],
+                "MitreMitigation": [" M1018","M1017"],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                 "Description": "The list of reviewers for the admin consent"
             },
@@ -1784,9 +1784,9 @@
                 "RecommendedValue": "",
                 "Recommendation": "",
                 "Severity": "",
-                "MitreTactic": [],
-                "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreTactic": ["TA0001 - Initial Access", "TA0005 - Defense Evasion", "TA0006 - Credential Access", "TA0008 - Lateral Movement"],
+                "MitreTechnique": ["T1078", "T1528", "T1550", "T1550.001", "T1566.002"],
+                "MitreMitigation": [" M1018","M1017"],
                 "PortalDeepLink": "",
                 "Description": "Specifies the version of this policy. When the policy is updated, this version is updated"
             }                        
