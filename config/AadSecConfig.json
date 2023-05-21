@@ -1729,7 +1729,7 @@
                 "Recommendation": "",
                 "Severity": "",
                 "MitreTactic": ["TA0001 - Initial Access", "TA0005 - Defense Evasion", "TA0006 - Credential Access", "TA0008 - Lateral Movement"],
-                "MitreTechnique": ["T1078", "T1528", "T1550", "T1550.001", "T1566.002"],
+                "MitreTechnique": ["T1528", "T1550", "T1550.001", "T1566.002"],
                 "MitreMitigation": [" M1018","M1017"],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                 "Description": "Specifies whether reviewers will receive notifications"
