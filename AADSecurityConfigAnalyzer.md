@@ -107,6 +107,14 @@ What's needed in a nutshell:
 - Ability to add & configure permissions for Azure AD Managed Identity
   - Configure permissions for Managed Identity in Azure AD side (grant consent permissions)
 
+# Optional: Create Microsoft Sentinel Incidents by AADSCA detected configuration changes
+We have updated AADSCA to offer a integration to Microsoft Sentinel by trigger the Logic App in case of policy changes and create an incident. The incident includes all details from the Workbook including:
+
+* Severity and MITRE Mapping based on classification by AadSecConf.json
+* Previous, New and Recommended Value of Setting
+* Details on the related setting incl. remediation steps
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Incident.png" target="_blank">![](./media/AADSCA-Incident.png)</a>
 
 ## Deployment
 Base deployment is initialized with ARM template that deploys Azure Logic App (Import-AADConfigToLAWS) and necessary API connection into it with Managed Identity. 
@@ -177,6 +185,28 @@ To deploy the workbook into Microsoft Sentinel:
 - From the Workbook blade in Sentinel - select 'Add workbook'
 - Select 'edit' mode & 'advanced editor' from the configuration blade
 - Paste the workbook as a code and save it
+
+### Microsoft Sentinel Integration for Incident Creation
+
+Pre-requisite: Deploy the Playbook-Version of AADSCA.
+
+1. Import both analytics rules from Rule Templates folder:
+
+    <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-ImportRuleTemplates.png" target="_blank">![](./media/AADSCA-ImportRuleTemplates.png)</a>
+
+
+    **Azure AD policy change has been detected**<br>
+    🔗([Policy-change-detected.json](config/ruletemplates/Policy-change-detected.json))
+    _Looking for policy operations (covers Authorization Policy changes) from Azure AD Audit Logs and create an informational incident which is used as trigger to initialize AADSCA._
+
+    **Azure AD Security Posture Issue has been detected by AADSCA**<br>
+    🔗([Posture-issue-detected.json](config/ruletemplates/Policy-change-detected.json))<br>
+    _Compares changes of CurrentValue between latest and previous dataset in AADSCA after the playbook has been executed. It creates an incident foreach configuration change which does not match with recommended value._
+
+2. Create an automation rule which triggers AADSCA Playbook after analytics rule "Azure AD policy change has been detected" has created an incident. In addition, it's recommended to create an auto-close of the informational incident about the policy change.
+
+  <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-AutomationRule.png" target="_blank">![](./media/AADSCA-AutomationRule.png)</a>
+
 
 
 # FAQ
