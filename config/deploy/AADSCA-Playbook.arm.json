@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "LogicAppName": {
-            "defaultValue": "Import-AADSCAtoLAWS",
+            "defaultValue": "Import-AADSCAbySentinel",
             "type": "string"
         },
         "LogAnalyticsWorkspaceName": {
@@ -31,7 +31,7 @@
             "type": "string"
         },
         "SentinelTriggerConnectionName": {
-            "defaultValue": "connection-Import-AADSCAfromSentinel",
+            "defaultValue": "connection-Import-AADSCASentinelTrigger",
             "type": "string"
         }        
     },
@@ -361,7 +361,7 @@
                                         "type": "ManagedServiceIdentity"
                                     }
                                 },
-                                "id": "[variables('SentinelTriggerSConnectionApiId')]"
+                                "id": "[variables('SentinelTriggerConnectionApiId')]"
                             }                            
                         }
                     }
