@@ -116,10 +116,17 @@ Besides ARM template permissions needs to be set for Managed Identity as well as
 - Both of these (permissions & workbook deployment) are manual processes and not included in the ARM template deployment. 
 
 
-### ARM Template for Logic App
-Azure ARM template is found from [Deploy folder](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/main/config/deploy/) or can be deployed here with 'Deploy to Azure':
+### ARM Template for Logic App and Sentinel Playbook
+There are two versions of a Logic App to ingest the data to Log Analytics or Microsoft Sentinel Workspace.
+Both ARM templates are available from the [Deploy folder](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/main/config/deploy/) or can be deployed below with 'Deploy to Azure' button.
+
+**Logic App with recurrence interval (default 24 hours)**:
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FChapter6-AadSecConfig%2Fconfig%2Fdeploy%2FAADSCA-LogicApp.arm.json)
+
+**Microsoft Sentinel Playbook with Incident Trigger**:
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FChapter6-AadSecConfig%2Fconfig%2Fdeploy%2FAADSCA-Playbook.arm.json)
 
 The following parameters are required for the successful deployment:
 - Subscription
@@ -132,6 +139,7 @@ The following parameters are required for the successful deployment:
 - LAWS Resource group
 - LAWS Subscription Id
 - LAWS Connection Name
+- Sentinel Trigger Connection Name (only for Playbook version)
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Deploy-2.png" target="_blank">![](./media/AADSCA-Deploy-2.png)</a>
 
