@@ -129,7 +129,7 @@
                 "RecommendedValue": "false",
                 "Recommendation": "https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/configure-risk-based-step-up-consent",
                 "Severity": "High",
-                "MitreTactic": ["TA0001 - Initial Access","TA0005 - Defense Evasion","TA0006 - Credential Access","TA0008 - Lateral Movement"],
+                "MitreTactic": ["Initial Access","Defense Evasion","Credential Access","Lateral Movement"],
                 "MitreTechnique": ["T1566.002","T1078","T1550","T1528"],
                 "MitreMitigation": ["M1017"," M1018"],
                 "PortalDeepLink": "",
