@@ -108,13 +108,16 @@ What's needed in a nutshell:
   - Configure permissions for Managed Identity in Azure AD side (grant consent permissions)
 
 # Optional: Create Microsoft Sentinel Incidents by AADSCA detected configuration changes
-We have updated AADSCA to offer a integration to Microsoft Sentinel by trigger the Logic App in case of policy changes and create an incident. The incident includes all details from the Workbook including:
+
+We have updated AADSCA to offer a integration to Microsoft Sentinel by trigger the Logic App in case of policy changes and create an incident. Currently only changes to `AuthorizationPolicy` will be covered by this solution. The incident includes all details from the Workbook including:
 
 * Severity and MITRE Mapping based on classification by AadSecConf.json
 * Previous, New and Recommended Value of Setting
 * Details on the related setting incl. remediation steps
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Incident.png" target="_blank">![](./media/AADSCA-Incident.png)</a>
+
+_Side Note: There's an expected delay (10-15 minutes) between configuration change and until the incident is showing in Microsoft Sentinel because of the integrated analytics rules and scheduled time (5 minutes)._
 
 ## Deployment
 Base deployment is initialized with ARM template that deploys Azure Logic App (Import-AADConfigToLAWS) and necessary API connection into it with Managed Identity. 
