@@ -205,7 +205,7 @@ Pre-requisite: Deploy the Playbook-Version of AADSCA.
 
 2. Create an automation rule which triggers AADSCA Playbook after analytics rule "Azure AD policy change has been detected" has created an incident. In addition, it's recommended to create an auto-close of the informational incident about the policy change.
 
-  <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-AutomationRule.png" target="_blank">![](./media/AADSCA-AutomationRule.png)</a>
+    <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-AutomationRule.png" target="_blank">![](./media/AADSCA-AutomationRule.png)</a>
 
 
 
