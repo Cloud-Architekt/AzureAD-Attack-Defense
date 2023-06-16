@@ -1664,7 +1664,7 @@
                 "Severity": "",
                 "MitreTactic": [],
                 "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreMitigation": ["M1027"],
                 "PortalDeepLink": "",
                 "Description": ""
             }
@@ -1690,7 +1690,7 @@
                 "Severity": "",
                 "MitreTactic": [],
                 "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreMitigation": ["M1027"],
                 "PortalDeepLink": "",
                 "Description": ""
             }
@@ -1714,9 +1714,9 @@
                 "RecommendedValue": "true",
                 "Recommendation": "",
                 "Severity": "",
-                "MitreTactic": [],
-                "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreTactic": ["TA0001 - Initial Access", "TA0005 - Defense Evasion", "TA0006 - Credential Access", "TA0008 - Lateral Movement"],
+                "MitreTechnique": ["T1078", "T1528", "T1550", "T1550.001", "T1566.002"],
+                "MitreMitigation": [" M1018","M1017"],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                 "Description": "Defines if admin consent request feature is enabled or disabled"
             },
@@ -1728,9 +1728,9 @@
                 "RecommendedValue": "true",
                 "Recommendation": "",
                 "Severity": "",
-                "MitreTactic": [],
-                "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreTactic": ["TA0001 - Initial Access", "TA0005 - Defense Evasion", "TA0006 - Credential Access", "TA0008 - Lateral Movement"],
+                "MitreTechnique": ["T1078","T1528", "T1550", "T1550.001", "T1566.002"],
+                "MitreMitigation": [" M1018","M1017"],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                 "Description": "Specifies whether reviewers will receive notifications"
             },
@@ -1742,9 +1742,9 @@
                 "RecommendedValue": "true",
                 "Recommendation": "",
                 "Severity": "",
-                "MitreTactic": [],
-                "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreTactic": ["TA0001 - Initial Access", "TA0005 - Defense Evasion", "TA0006 - Credential Access", "TA0008 - Lateral Movement"],
+                "MitreTechnique": ["T1078", "T1528", "T1550", "T1550.001", "T1566.002"],
+                "MitreMitigation": [" M1018","M1017"],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                 "Description": "Specifies whether reviewers will receive reminder emails"
             },
@@ -1756,9 +1756,9 @@
                 "RecommendedValue": "30",
                 "Recommendation": "",
                 "Severity": "",
-                "MitreTactic": [],
-                "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreTactic": ["TA0001 - Initial Access", "TA0005 - Defense Evasion", "TA0006 - Credential Access", "TA0008 - Lateral Movement"],
+                "MitreTechnique": ["T1078", "T1528", "T1550", "T1550.001", "T1566.002"],
+                "MitreMitigation": [" M1018","M1017"],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                 "Description": "Specifies the duration the request is active before it automatically expires if no decision is applied"
             },
@@ -1770,9 +1770,9 @@
                 "RecommendedValue": "30",
                 "Recommendation": "",
                 "Severity": "",
-                "MitreTactic": [],
-                "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreTactic": ["TA0001 - Initial Access", "TA0005 - Defense Evasion", "TA0006 - Credential Access", "TA0008 - Lateral Movement"],
+                "MitreTechnique": ["T1078", "T1528", "T1550", "T1550.001", "T1566.002"],
+                "MitreMitigation": [" M1018","M1017"],
                 "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                 "Description": "The list of reviewers for the admin consent"
             },
@@ -1784,9 +1784,9 @@
                 "RecommendedValue": "",
                 "Recommendation": "",
                 "Severity": "",
-                "MitreTactic": [],
-                "MitreTechnique": [],
-                "MitreMitigation": [],
+                "MitreTactic": ["TA0001 - Initial Access", "TA0005 - Defense Evasion", "TA0006 - Credential Access", "TA0008 - Lateral Movement"],
+                "MitreTechnique": ["T1078", "T1528", "T1550", "T1550.001", "T1566.002"],
+                "MitreMitigation": [" M1018","M1017"],
                 "PortalDeepLink": "",
                 "Description": "Specifies the version of this policy. When the policy is updated, this version is updated"
             }                        
@@ -1895,5 +1895,101 @@
                 "Description": ""
             }
         ]
-    }
+    },
+    {
+        "ControlName": "Azure AD Recommendations",
+        "Description": "Azure Active Directory (Azure AD) recommendations are personalized and actionable insights for you to implement Azure AD best practices in your tenant. The Azure AD recommendation service runs daily to check your tenant against predefined conditions for every recommendation. If the service detects that a recommendation applies to your tenant, the corresponding recommendation object is generated and its status is set to active.",
+        "GraphEndpoint": "recommendations",
+        "GraphUri": "https://graph.microsoft.com/beta/directory/recommendations",
+        "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/recommendation-list-impactedresources",
+        "MitreTactic": [],
+        "MitreTechnique": [],
+        "MitreMitigation": [],
+        "Controls": [
+            {
+                "Name": "Microsoft.Identity.IAM.Insights.UserRiskPolicy",
+                "DisplayName": "Protect all users with a user risk policy",
+                "CurrentValue": "status",
+                "DefaultValue": "",
+                "RecommendedValue": "completedBySystem",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            },
+            {
+                "Name": "Microsoft.Identity.IAM.Insights.SigninRiskPolicy",
+                "DisplayName": "Protect all users with a sign-in risk policy",
+                "CurrentValue": "status",
+                "DefaultValue": "",
+                "RecommendedValue": "completedBySystem",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            },
+            {
+                "Name": "Microsoft.Identity.IAM.Insights.AdminMFAV2",
+                "DisplayName": "Require multifactor authentication for administrative roles",
+                "CurrentValue": "status",
+                "DefaultValue": "",
+                "RecommendedValue": "completedBySystem",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            }, 
+            {
+                "Name": "Microsoft.Identity.IAM.Insights.RoleOverlap",
+                "DisplayName": "Use limited administrative roles",
+                "CurrentValue": "status",
+                "DefaultValue": "",
+                "RecommendedValue": "completedBySystem",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            },
+            {
+                "Name": "Microsoft.Identity.IAM.Insights.StaleApps",
+                "DisplayName": "Remove unused applications",
+                "CurrentValue": "status",
+                "DefaultValue": "",
+                "RecommendedValue": "completedBySystem",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            },
+            {
+                "Name": "Microsoft.Identity.IAM.Insights.ApplicationCredentialExpiry",
+                "DisplayName": "Renew expiring application credentials",
+                "CurrentValue": "status",
+                "DefaultValue": "",
+                "RecommendedValue": "completedBySystem",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            }                       
+        ]
+    }    
 ]
