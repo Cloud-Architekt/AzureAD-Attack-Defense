@@ -2047,7 +2047,7 @@
                 "ControlName": "Service Principals",
                 "Description": "Existing service principals in the tenant",
                 "GraphEndpoint": "serviceprincipals",
-                "GraphUri": "https://graph.microsoft.com/beta/serviceprincipals?$select=id,appid,displayName,appOwnerOrganizationId,servicePrincipalType,signInAudience,appRoles,AssignmentRequired,disabledByMicrosoftStatus,publisherName,accountEnabled,createdDateTime,keyCredentials,passwordCredentials,federatedIdentityCredentials",
+                "GraphUri": "https://graph.microsoft.com/beta/serviceprincipals?$select=id,appid,displayName,appOwnerOrganizationId,servicePrincipalType,signInAudience,AssignmentRequired,disabledByMicrosoftStatus,publisherName,accountEnabled,createdDateTime,keyCredentials,passwordCredentials,federatedIdentityCredentials&expand=appRoleAssignments",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/serviceprincipal-list?view=graph-rest-1.0&tabs=http",     
                 "MitreTactic": [],
                 "MitreTechnique": [],
