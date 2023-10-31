@@ -1,0 +1,20 @@
+[
+    {
+        "Category":    "Entra ID Tenant Configuration",
+        "Description": "Tenant-level configuration of Entra ID",
+        "CollectedBy": "LogicApp",
+        "TargetTable": "AADSCA_CL"
+    },
+    {
+        "Category":    "Entra Conditional Access",
+        "Description": "Insights Conditional Access configuration",
+        "CollectedBy": "LogicApp",        
+        "TargetTable": "AADSCA_CAP_CL"
+    },
+    {
+        "Category":    "Entra Workload ID",
+        "Description": "Insights of created Workload Identities",
+        "CollectedBy": "LogicApp",        
+        "TargetTable": "AADSCA_WID_CL"
+    }    
+]
