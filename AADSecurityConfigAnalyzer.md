@@ -12,10 +12,12 @@ _Created: March 2023_
     - [TTP Description \& Built-in Rules](#ttp-description--built-in-rules)
 - [Azure Workbook](#azure-workbook)
 - [Pre-requisites for the Solution Deployment](#pre-requisites-for-the-solution-deployment)
+- [Optional: Create Microsoft Sentinel Incidents by AADSCA detected configuration changes](#optional-create-microsoft-sentinel-incidents-by-aadsca-detected-configuration-changes)
   - [Deployment](#deployment)
-    - [ARM Template for Logic App](#arm-template-for-logic-app)
+    - [ARM Template for Logic App and Sentinel Playbook](#arm-template-for-logic-app-and-sentinel-playbook)
     - [Assigning Graph API permissions to Managed Identity](#assigning-graph-api-permissions-to-managed-identity)
     - [Azure Workbook](#azure-workbook-1)
+    - [Microsoft Sentinel Integration for Incident Creation](#microsoft-sentinel-integration-for-incident-creation)
 - [FAQ](#faq)
 - [References](#references)
 
@@ -36,22 +38,22 @@ It depends on your implementation and design if you want to have an integration 
 ## Microsoft Graph API Endpoints used by the solution
 The solutions uses several Microsoft Graph API endpoint to get security configuration settings from Azure AD. Worthwhile to mention, the 'AADSCA' solution does not cover all Azure AD-related endpoints. Full Azure AD related GraphUri's for the currently used endpoints by the solution are listed on the table below:
 
-| Endpoint     |  Permissions     |  Notes     |
-|  ---  |  ---  |  ---  |
-| https://graph.microsoft.com/beta/policies/authorizationPolicy | Policy.All | |
-| https://graph.microsoft.com/beta/settings     |  Policy.Read.All     |       |
-| https://graph.microsoft.com/beta/policies/activityBasedTimeoutPolicies      | Policy.Read.All      |       |
-| https://graph.microsoft.com/beta/policies/externalIdentitiesPolicy      |  Policy.Read.All     |       |
-| https://graph.microsoft.com/beta/policies/featureRolloutPolicies     |  Directory.Read.All     |       |
-| https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy      | Policy.Read.All      |       |
-| https://graph.microsoft.com/beta/policies/authenticationStrengthPolicies      | Policy.Read.All      |       |
-| https://graph.microsoft.com/beta/policies/defaultAppManagementPolicy     | Policy.Read.All      |       |
-| https://graph.microsoft.com/beta/policies/appManagementPolicies      |  Policy.Read.All     |       |
-| https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy      | ConsentRequest.Read.All, Directory.Read.All      |       |
-| https://graph.microsoft.com/beta/policies/permissionGrantPolicies		  | Policy.Read.All | |
-| https://graph.microsoft.com/beta/policies/crossTenantAccessPolicy      | Policy.Read.All      |       |
-| https://graph.microsoft.com/beta/policies/tokenIssuancePolicies      |  Policy.Read.All     |       |
-| https://graph.microsoft.com/beta/policies/tokenLifetimePolicies      |  Policy.Read.All     |       |
+| Endpoint     |  Permissions     | 
+|  ---  |  ---  |
+| https://graph.microsoft.com/beta/policies/authorizationPolicy | Policy.All |
+| https://graph.microsoft.com/beta/settings     |  Policy.Read.All     |
+| https://graph.microsoft.com/beta/policies/activityBasedTimeoutPolicies      | Policy.Read.All      |
+| https://graph.microsoft.com/beta/policies/externalIdentitiesPolicy      |  Policy.Read.All     |
+| https://graph.microsoft.com/beta/policies/featureRolloutPolicies     |  Directory.Read.All     |
+| https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy      | Policy.Read.All      |
+| https://graph.microsoft.com/beta/policies/authenticationStrengthPolicies      | Policy.Read.All      |
+| https://graph.microsoft.com/beta/policies/defaultAppManagementPolicy     | Policy.Read.All      |
+| https://graph.microsoft.com/beta/policies/appManagementPolicies      |  Policy.Read.All     | 
+| https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy      | ConsentRequest.Read.All, Directory.Read.All      |
+| https://graph.microsoft.com/beta/policies/permissionGrantPolicies		  | Policy.Read.All |
+| https://graph.microsoft.com/beta/policies/crossTenantAccessPolicy      | Policy.Read.All      |
+| https://graph.microsoft.com/beta/policies/tokenIssuancePolicies      |  Policy.Read.All     |
+| https://graph.microsoft.com/beta/policies/tokenLifetimePolicies      |  Policy.Read.All     |
 
 
 # MITRE ATT&CK Framework
@@ -166,6 +168,7 @@ In our example, needed permissions for the AADSCA solution (used by Managed Iden
 
 - ConsentRequest.Read.All
 - Directory.Read.All
+- DirectoryRecommendations.Read.All
 - Policy.Read.All
 - Policy.Read.PermissionGrant
 - ServicePrincipalEndpoint.Read.All
