@@ -38,14 +38,6 @@
             "linkLabel": "Conditional Access Coverage",
             "subTarget": "ConditionalAccessCoverage",
             "style": "link"
-          },
-          {
-            "id": "44df4fe7-65df-4991-ad8b-3798a4dd92f9",
-            "cellValue": "Tab",
-            "linkTarget": "parameter",
-            "linkLabel": "Workload Identity Security",
-            "subTarget": "WorkloadIdentitySecurity",
-            "style": "link"
           }
         ]
       },
@@ -54,7 +46,7 @@
     {
       "type": 1,
       "content": {
-        "json": "## Entra ID Security Config Analyzer (EIDSCA)\n---\n\n### Introduction\n\nThis workbook provides insights into Entra ID tenant configurations. The workbook compares current tenant configurations against best practices, and displays the compliance status of each configuration. The best practices are based on community work (see [Azure AD Attack and Defense GitHub repo](https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter6-AadSecConfig/config/AadSecConfig.json) for details). You can also apply your own recommended values by taking a copy of the metadata JSON file, and updating the queries in this workbook to utilize the customized version.\n\nIn addition to providing best practices, each configuration is mapped to [MITRE ATT&CK framework](https://attack.mitre.org/), allowing you to to identify potentially vulnerable configurations in terms of tactics and techniques. \n\n### Pre-requisites\nThis workbook requires Entra ID tenant configurations to be imported into a Log Analytics workspace. There are multiple ways of doing this, see [Azure AD - Attack and Defense Playbook](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense) for more information.\n\n### Notes\n**Status** can have the following values:\n- *Passed:* The configuration is compliant with the recommended value.\n- *Failed:* The configuration is not compliant with the recommended value. The severity of the finding is *High* (this is shown in the tooltip).\n- *Review:* The configuration is not compliant with the recommended value. The severity of the finding is *Medium* (this is shown in the tooltip).\n- *Verify:* The configuration needs to be manually verified. The severity of the finding is *Medium* or *High* (this is shown in the tooltip).\n- *Informational:* There are no security implications with this configuration, and therefore is only considered informational in this context.\n"
+        "json": "## Entra ID Security Config Analyzer (EIDSCA)\n---\n\n### Introduction\n\nThis workbook provides insights into Entra ID tenant configurations. The workbook compares current tenant configurations against best practices, and displays the compliance status of each configuration. The best practices are based on community work (see [Entra ID Attack and Defense GitHub repo](https://raw.githubusercontent.com/Cloud-Architekt/EntraID-Attack-Defense/Chapter6-AadSecConfig/config/AadSecConfig.json) for details). You can also apply your own recommended values by taking a copy of the metadata JSON file, and updating the queries in this workbook to utilize the customized version.\n\nIn addition to providing best practices, each configuration is mapped to [MITRE ATT&CK framework](https://attack.mitre.org/), allowing you to to identify potentially vulnerable configurations in terms of tactics and techniques. \n\n### Pre-requisites\nThis workbook requires Entra ID tenant configurations to be imported into a Log Analytics workspace. There are multiple ways of doing this, see [Entra ID - Attack and Defense Playbook](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense) for more information.\n\n### Notes\n**Status** can have the following values:\n- *Passed:* The configuration is compliant with the recommended value.\n- *Failed:* The configuration is not compliant with the recommended value. The severity of the finding is *High* (this is shown in the tooltip).\n- *Review:* The configuration is not compliant with the recommended value. The severity of the finding is *Medium* (this is shown in the tooltip).\n- *Verify:* The configuration needs to be manually verified. The severity of the finding is *Medium* or *High* (this is shown in the tooltip).\n- *Informational:* There are no security implications with this configuration, and therefore is only considered informational in this context.\n"
       },
       "conditionalVisibility": {
         "parameterName": "Tab",
@@ -88,7 +80,7 @@
             },
             "queryType": 1,
             "resourceType": "microsoft.resourcegraph/resources",
-            "value": "/subscriptions/49155717-da10-4b0a-9d3d-eb6c488afdcb/resourceGroups/rg-sentinel/providers/Microsoft.OperationalInsights/workspaces/sentinel-test"
+            "value": "/subscriptions/4d3e5b65-8a52-4b2f-b5cd-1670c700136b/resourceGroups/lab-mgmt/providers/Microsoft.OperationalInsights/workspaces/lab-la-4d3e5b65-8a52-4b2f-b5cd-1670c700136b"
           },
           {
             "id": "ce036b1b-59f0-4c96-9945-9ceab96e8cd2",
@@ -2573,7 +2565,7 @@
           {
             "type": 1,
             "content": {
-              "json": "### Changes to the selected conditional access policy\r\nThe following table shows the changes made to the selected policy during the selected time period.\r\n\r\n**Note!** You need to select a policy on the list above first."
+              "json": "### Unusual failure to the selected conditional access policy\r\nThe following table shows the unusual failure of users to selected policy during the selected time period. This requires to enable Microsoft Sentinel UEBA tables.\r\n\r\n**Note!** You need to select a policy on the list above first."
             },
             "customWidth": "50",
             "name": "text - 4",
@@ -2635,7 +2627,7 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "AuditLogs\r\n| where LoggedByService == \"Conditional Access\"\r\n| extend InitiatedBy = InitiatedBy.user.userPrincipalName\r\n| extend PolicyId = TargetResources[0].id\r\n| extend PolicyDisplayName = TargetResources[0].displayName\r\n| extend ModifiedProperties = TargetResources[0].modifiedProperties\r\n| where PolicyId == '{SelectedPolicyId}'\r\n| project ActivityDateTime, InitiatedBy, PolicyDisplayName, ModifiedProperties, ActivityDisplayName",
+              "query": "  BehaviorAnalytics\r\n  | where ActivityInsights.UnusualNumberOfAADConditionalAccessFailures == \"True\"\r\n  | extend UserPrincipalName = tolower(UserPrincipalName)\r\n  | join kind=inner (\r\n      union SigninLogs, AADNonInteractiveUserSignInLogs\r\n      | where ConditionalAccessStatus == \"failure\"\r\n      | mv-expand ConditionalAccessPolicies_dynamic\r\n      | extend ConditionalAccessResult = parse_json(ConditionalAccessPolicies_dynamic.result)\r\n      | extend ConditionalAccessName = parse_json(ConditionalAccessPolicies_dynamic.displayName)\r\n      | extend ConditionalAccessId = parse_json(ConditionalAccessPolicies_dynamic.id)\r\n      | extend ConditionalAccessEnforcedControl = parse_json(tostring(ConditionalAccessPolicies_dynamic.enforcedGrantControls))\r\n      | extend SourceIPAddress = IPAddress\r\n      | extend UserPrincipalName = tolower(UserPrincipalName)\r\n      | where ConditionalAccessResult == \"failure\"\r\n      | project TimeGenerated, UserDisplayName, UserPrincipalName, SourceIPAddress, tostring(ConditionalAccessName), tostring(ConditionalAccessId), tostring(ConditionalAccessResult), tostring(ConditionalAccessEnforcedControl), ResultType, ResultDescription, CorrelationId, IPAddress, AADTenantId\r\n  ) on UserPrincipalName, SourceIPAddress\r\n  | distinct UserDisplayName, UserPrincipalName, ConditionalAccessName, ConditionalAccessId, ConditionalAccessEnforcedControl, ResultType, ResultDescription, CorrelationId, AADTenantId, IPAddress\r\n  | where ConditionalAccessId == '{SelectedPolicyId}'\r\n  | summarize count() by UserDisplayName, UserPrincipalName, ConditionalAccessName, ResultType, ResultDescription, IPAddress",
               "size": 0,
               "showAnalytics": true,
               "timeContextFromParameter": "TimeRange",
@@ -2649,6 +2641,37 @@
             "name": "query - 5",
             "styleSettings": {
               "maxWidth": "50%"
+            }
+          },
+          {
+            "type": 1,
+            "content": {
+              "json": "### Changes to the selected conditional access policy\r\nThe following table shows the changes made to the selected policy during the selected time period.\r\n\r\n**Note!** You need to select a policy on the list above first."
+            },
+            "customWidth": "100",
+            "name": "text - 6",
+            "styleSettings": {
+              "maxWidth": "100%"
+            }
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AuditLogs\r\n| where LoggedByService == \"Conditional Access\"\r\n| extend InitiatedBy = InitiatedBy.user.userPrincipalName\r\n| extend PolicyId = TargetResources[0].id\r\n| extend PolicyDisplayName = TargetResources[0].displayName\r\n| extend ModifiedProperties = TargetResources[0].modifiedProperties\r\n| where PolicyId == '{SelectedPolicyId}'\r\n| project ActivityDateTime, InitiatedBy, PolicyDisplayName, ModifiedProperties, ActivityDisplayName",
+              "size": 0,
+              "showAnalytics": true,
+              "timeContextFromParameter": "TimeRange",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{SelectLogAnalytics}"
+              ]
+            },
+            "customWidth": "100",
+            "name": "query - 7",
+            "styleSettings": {
+              "maxWidth": "100%"
             }
           }
         ]
@@ -2669,7 +2692,7 @@
           {
             "type": 1,
             "content": {
-              "json": "### Percentage of sign ins requiring different authentication strengths\r\n\r\nThe following table blaa blaa..."
+              "json": "### Percentage of sign ins requiring different authentication strengths\r\n\r\nThe following list shows the count of interactive sign-ins using authentication methods of the {TimeRange}."
             },
             "conditionalVisibility": {
               "parameterName": "Tab",
@@ -2682,7 +2705,7 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "// Modified Version of previous query by Thomas\r\nSigninLogs\r\n| where TimeGenerated > ago(30d)\r\n| where ResultType == 0\r\n| where HomeTenantId == ResourceTenantId\r\n| where AppId !in (\"29d9ed98-a469-4536-ade2-f981bc1d605e\", \"38aa3b87-a06d-4817-b275-7a316988d93b\", \"dd762716-544d-4aeb-a526-687b73838a22\") //Exclude Windows Sign-in, Registration Client and Microsoft Authentication Broker\r\n| summarize\r\n    ['Total Signin Count']=count(),\r\n    ['Total Authentication Strength Count']=countif(AuthenticationRequirementPolicies has 'Authentication Strength(s)' and AuthenticationRequirement == \"multiFactorAuthentication\"),\r\n    ['Total MFA Count']=countif(AuthenticationRequirementPolicies !has 'Authentication Strength(s)' and AuthenticationRequirement == \"multiFactorAuthentication\"),\r\n    ['Total non MFA Count']=countif(AuthenticationRequirement == \"singleFactorAuthentication\")\r\n    by UserId\r\n| project\r\n    UserId,\r\n    ['Total Signin Count'],\r\n    ['Total Authentication Strength Count'],\r\n    ['Authentication Strength Percentage']=(todouble(['Total Authentication Strength Count']) * 100 / todouble(['Total Signin Count'])),\r\n    ['Total MFA Count'],\r\n    ['MFA Percentage']=(todouble(['Total MFA Count']) * 100 / todouble(['Total Signin Count'])),\r\n    ['Total non MFA Count'],\r\n    ['Non MFA Percentage']=(todouble(['Total non MFA Count']) * 100 / todouble(['Total Signin Count']))\r\n| sort by ['Total Signin Count'] desc\r\n",
+              "query": "SigninLogs\r\n| where ResultType == 0\r\n| where HomeTenantId == ResourceTenantId\r\n| where AppId !in (\"29d9ed98-a469-4536-ade2-f981bc1d605e\", \"38aa3b87-a06d-4817-b275-7a316988d93b\", \"dd762716-544d-4aeb-a526-687b73838a22\") //Exclude Windows Sign-in, Registration Client and Microsoft Authentication Broker\r\n| summarize\r\n    ['Total Signin Count']=count(),\r\n    ['Total Authentication Strength Count']=countif(AuthenticationRequirementPolicies has 'Authentication Strength(s)' and AuthenticationRequirement == \"multiFactorAuthentication\"),\r\n    ['Total MFA Count']=countif(AuthenticationRequirementPolicies !has 'Authentication Strength(s)' and AuthenticationRequirement == \"multiFactorAuthentication\"),\r\n    ['Total non MFA Count']=countif(AuthenticationRequirement == \"singleFactorAuthentication\")\r\n    by UserId, UserPrincipalName\r\n| project\r\n    UserId,\r\n    UserPrincipalName,\r\n    ['Total Signin Count'],\r\n    ['Total Authentication Strength Count'],\r\n    ['Authentication Strength Percentage']=(todouble(['Total Authentication Strength Count']) * 100 / todouble(['Total Signin Count'])),\r\n    ['Total MFA Count'],\r\n    ['MFA Percentage']=(todouble(['Total MFA Count']) * 100 / todouble(['Total Signin Count'])),\r\n    ['Total non MFA Count'],\r\n    ['Non MFA Percentage']=(todouble(['Total non MFA Count']) * 100 / todouble(['Total Signin Count']))\r\n| sort by ['Total Signin Count'] desc\r\n",
               "size": 0,
               "timeContextFromParameter": "TimeRange",
               "queryType": 0,
@@ -2719,7 +2742,7 @@
           {
             "type": 1,
             "content": {
-              "json": "### Sign-ins using different authentication methods\r\n\r\nThe following pie chart and table describe the different authentication methods used for multi-factor authentication."
+              "json": "### Sign-ins using different authentication methods\r\n\r\nThe following pie chart and table describe the different authentication methods used for multi-factor authentication of {TimeRange}."
             },
             "conditionalVisibility": {
               "parameterName": "Tab",
@@ -2732,7 +2755,7 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "//Visualize the MFA types used by your users, i.e text message, mobile app notification, verification code\r\n //Data connector required for this query - Azure Active Directory - Signin Logs\r\n// Sentinel-Queries/Azure Active Directory/Identity-VisualizeMFAMethods.kql at main · reprise99/Sentinel-Queries (github.com)\r\nSigninLogs\r\n| where TimeGenerated > ago (30d)\r\n| where AuthenticationRequirement == \"multiFactorAuthentication\"\r\n| project AuthenticationDetails\r\n| extend ['MFA Method'] = tostring(parse_json(AuthenticationDetails)[1].authenticationMethod)\r\n| summarize Count=count()by ['MFA Method']\r\n| where ['MFA Method'] != \"Previously satisfied\" and isnotempty(['MFA Method'])\r\n| sort by Count desc\r\n| render piechart with (title=\"Types of MFA Methods used\")\r\n",
+              "query": "//Visualize the MFA types used by your users, i.e text message, mobile app notification, verification code\r\n //Data connector required for this query - Azure Active Directory - Signin Logs\r\n// Sentinel-Queries/Azure Active Directory/Identity-VisualizeMFAMethods.kql at main · reprise99/Sentinel-Queries (github.com)\r\nSigninLogs\r\n| where AuthenticationRequirement == \"multiFactorAuthentication\"\r\n| project AuthenticationDetails\r\n| extend ['MFA Method'] = tostring(parse_json(AuthenticationDetails)[1].authenticationMethod)\r\n| summarize Count=count()by ['MFA Method']\r\n| where ['MFA Method'] != \"Previously satisfied\" and isnotempty(['MFA Method'])\r\n| sort by Count desc\r\n| render piechart with (title=\"Types of MFA Methods used\")\r\n",
               "size": 0,
               "timeContextFromParameter": "TimeRange",
               "queryType": 0,
@@ -2753,7 +2776,7 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "//Data connector required for this query - Azure Active Directory - Signin Logs\r\n//Sentinel-Queries/Azure Active Directory/Identity-MFAMethodsPivotTable.kql at main · reprise99/Sentinel-Queries (github.com)\r\nlet isGUID = \"[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}\";\r\nSigninLogs\r\n| where TimeGenerated > ago(30d)\r\n| mv-expand todynamic(AuthenticationDetails)\r\n| extend ['Authentication Method'] = tostring(AuthenticationDetails.authenticationMethod)\r\n//Exclude previously satisifed, passwords and other data and any UserPrincipalName that comes through as a guid\r\n| where ['Authentication Method'] !in (\"Previously satisfied\", \"Password\", \"Other\")\r\n    and isnotempty(['Authentication Method'])\r\n    and not(UserPrincipalName matches regex isGUID)\r\n//Create pivot table of each method and the count by user\r\n| evaluate pivot(['Authentication Method'], count(), UserPrincipalName)\r\n| sort by UserPrincipalName asc\r\n",
+              "query": "//Data connector required for this query - Azure Active Directory - Signin Logs\r\n//Sentinel-Queries/Azure Active Directory/Identity-MFAMethodsPivotTable.kql at main · reprise99/Sentinel-Queries (github.com)\r\nlet isGUID = \"[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}\";\r\nSigninLogs\r\n| mv-expand todynamic(AuthenticationDetails)\r\n| extend ['Authentication Method'] = tostring(AuthenticationDetails.authenticationMethod)\r\n//Exclude previously satisifed, passwords and other data and any UserPrincipalName that comes through as a guid\r\n| where ['Authentication Method'] !in (\"Previously satisfied\", \"Password\", \"Other\")\r\n    and isnotempty(['Authentication Method'])\r\n    and not(UserPrincipalName matches regex isGUID)\r\n//Create pivot table of each method and the count by user\r\n| evaluate pivot(['Authentication Method'], count(), UserPrincipalName)\r\n| sort by UserPrincipalName asc\r\n",
               "size": 4,
               "timeContextFromParameter": "TimeRange",
               "queryType": 0,
@@ -2814,7 +2837,7 @@
           {
             "type": 1,
             "content": {
-              "json": "### Percentage of sign-ins using MFA per application\r\n\r\nThe following table shows the percentage of sign-ins that use MFA per application."
+              "json": "### Percentage of sign-ins using MFA per application\r\n\r\nThe following table shows the percentage of sign-ins that use MFA per application of {TimeRange}, excluding Windows Sign-in, Registration Client and Microsoft Authentication Broker."
             },
             "conditionalVisibility": {
               "parameterName": "Tab",
@@ -2827,7 +2850,7 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "//Calculate the percentage of signins to each of your Azure AD applications that used MFA\r\n //Data connector required for this query - Azure Active Directory - Signin Logs\r\n //Sentinel-Queries/Azure Active Directory/Identity-MFAPercentageperapp.kql at main · reprise99/Sentinel-Queries (github.com)\r\nSigninLogs\r\n| where TimeGenerated > ago(30d)\r\n| where ResultType == 0\r\n| summarize\r\n    ['Total Signin Count']=count(),\r\n    ['Total MFA Count']=countif(AuthenticationRequirement == \"multiFactorAuthentication\"),\r\n    ['Total non MFA Count']=countif(AuthenticationRequirement == \"singleFactorAuthentication\")\r\n    by AppDisplayName\r\n| project\r\n    AppDisplayName,\r\n    ['Total Signin Count'],\r\n    ['Total MFA Count'],\r\n    ['Total non MFA Count'],\r\n    MFAPercentage=(todouble(['Total MFA Count']) * 100 / todouble(['Total Signin Count']))\r\n| sort by ['Total Signin Count'] desc, MFAPercentage asc  \r\n",
+              "query": "//Calculate the percentage of signins to each of your Azure AD applications that used MFA\r\n //Data connector required for this query - Azure Active Directory - Signin Logs\r\n //Sentinel-Queries/Azure Active Directory/Identity-MFAPercentageperapp.kql at main · reprise99/Sentinel-Queries (github.com)\r\nSigninLogs\r\n| where ResultType == 0\r\n| where AppId !in (\"29d9ed98-a469-4536-ade2-f981bc1d605e\", \"38aa3b87-a06d-4817-b275-7a316988d93b\", \"dd762716-544d-4aeb-a526-687b73838a22\")\r\n//Exclude Windows Sign-in, Registration Client and Microsoft Authentication Broker\r\n| summarize\r\n    ['Total Signin Count']=count(),\r\n    ['Total MFA Count']=countif(AuthenticationRequirement == \"multiFactorAuthentication\"),\r\n    ['Total non MFA Count']=countif(AuthenticationRequirement == \"singleFactorAuthentication\")\r\n    by AppDisplayName\r\n| project\r\n    AppDisplayName,\r\n    ['Total Signin Count'],\r\n    ['Total MFA Count'],\r\n    ['Total non MFA Count'],\r\n    MFAPercentage=(todouble(['Total MFA Count']) * 100 / todouble(['Total Signin Count']))\r\n| sort by ['Total Signin Count'] desc, MFAPercentage asc  \r\n",
               "size": 0,
               "timeContextFromParameter": "TimeRange",
               "queryType": 0,
@@ -2864,7 +2887,7 @@
           {
             "type": 1,
             "content": {
-              "json": "### Percentage of sign-ins using MFA per client\r\n\r\nThe following table shows the percentage of sign-ins using MFA per client."
+              "json": "### Percentage of sign-ins using MFA per client\r\n\r\nThe following table shows the percentage of sign-ins using MFA per client {TimeRange},\r\nexcluding Windows Sign-in, Registration Client and Microsoft Authentication Broker."
             },
             "conditionalVisibility": {
               "parameterName": "Tab",
@@ -2877,13 +2900,27 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "//Summarize the percentage of signins covered by MFA for your top 20 most popular Azure AD apps\r\n \r\n//Data connector required for this query - Azure Active Directory - Signin Logs\r\n //Microsoft Sentinel query\r\n//First create a list of your top 20 apps by finding distinct user count by application over 30 days\r\n//Sentinel-Queries/Azure Active Directory/Identity-SummarizeMFATop20Apps.kql at main · reprise99/Sentinel-Queries (github.com)\r\nlet top20apps=\r\n    SigninLogs\r\n    | where TimeGenerated > ago (30d)\r\n    | summarize UserCount=dcount(UserPrincipalName)by AppDisplayName\r\n    | sort by UserCount desc \r\n    | take 20\r\n    | project AppDisplayName;\r\n//Use that list to calculate the percentage of signins to those apps that are covered by MFA\r\nSigninLogs\r\n| where TimeGenerated > ago (30d)\r\n| where AppDisplayName in (top20apps)\r\n| summarize TotalCount=count(),\r\n    MFACount=countif(AuthenticationRequirement == \"multiFactorAuthentication\"),\r\n    nonMFACount=countif(AuthenticationRequirement == \"singleFactorAuthentication\")\r\n    by AppDisplayName\r\n| project\r\n    AppDisplayName,\r\n    TotalCount,\r\n    MFACount,\r\n    nonMFACount,\r\n    MFAPercentage=(todouble(MFACount) * 100 / todouble(TotalCount))\r\n| sort by MFAPercentage asc  \r\n",
+              "query": "//Summarize the percentage of signins covered by MFA for your top 20 most popular Azure AD apps\r\n \r\n//Data connector required for this query - Azure Active Directory - Signin Logs\r\n //Microsoft Sentinel query\r\n//First create a list of your top 20 apps by finding distinct user count by application over 30 days\r\n//Sentinel-Queries/Azure Active Directory/Identity-SummarizeMFATop20Apps.kql at main · reprise99/Sentinel-Queries (github.com)\r\nlet top20apps=\r\n    SigninLogs\r\n    | where TimeGenerated > ago (30d)\r\n    | summarize UserCount=dcount(UserPrincipalName)by AppDisplayName\r\n    | sort by UserCount desc \r\n    | take 20\r\n    | project AppDisplayName;\r\n//Use that list to calculate the percentage of signins to those apps that are covered by MFA\r\nSigninLogs\r\n| where AppDisplayName in (top20apps)\r\n| summarize TotalCount=count(),\r\n    MFACount=countif(AuthenticationRequirement == \"multiFactorAuthentication\"),\r\n    nonMFACount=countif(AuthenticationRequirement == \"singleFactorAuthentication\")\r\n    by AppDisplayName\r\n| project\r\n    AppDisplayName,\r\n    TotalCount,\r\n    MFACount,\r\n    nonMFACount,\r\n    MFAPercentage=(todouble(MFACount) * 100 / todouble(TotalCount))\r\n| sort by MFAPercentage asc  \r\n",
               "size": 0,
               "timeContextFromParameter": "TimeRange",
               "queryType": 0,
               "resourceType": "microsoft.operationalinsights/workspaces",
               "crossComponentResources": [
                 "{SelectLogAnalytics}"
+              ],
+              "gridSettings": {
+                "sortBy": [
+                  {
+                    "itemKey": "MFAPercentage",
+                    "sortOrder": 2
+                  }
+                ]
+              },
+              "sortBy": [
+                {
+                  "itemKey": "MFAPercentage",
+                  "sortOrder": 2
+                }
               ]
             },
             "conditionalVisibility": {
@@ -2914,7 +2951,7 @@
           {
             "type": 1,
             "content": {
-              "json": "### Failed sign-in reasons\r\n\r\nThe following table lists the main reasons for sign-in failures. "
+              "json": "### Failed sign-in reasons\r\n\r\nThe following table lists the main reasons for sign-in failures {TimeRange}."
             },
             "conditionalVisibility": {
               "parameterName": "Tab",
@@ -2964,7 +3001,7 @@
           {
             "type": 1,
             "content": {
-              "json": "### Authentication method for primary sign-in on Windows devices\r\n\r\nThe table below lists the authentication method for primary sign-in on Windows devices.\r\n\r\n**Note!** This query requires UEBA functionality on Microsoft Sentinel to be enabled for the workspace."
+              "json": "### Authentication method for primary sign-in on Windows devices\r\n\r\nThe table below lists the authentication method for primary sign-in on Windows devices {TimeRange}."
             },
             "conditionalVisibility": {
               "parameterName": "Tab",
@@ -2977,7 +3014,7 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "// Used Auth Method for primary sign-in on Windows Devices\r\n// Query over all Windows Sign-ins\r\nunion SigninLogs\r\n| where TimeGenerated >ago(30d)\r\n| where Resource == \"Microsoft.aadiam\" and AppDisplayName == \"Windows Sign In\"\r\n| extend authenticationMethod_ = tostring(parse_json(AuthenticationDetails)[0].authenticationMethod)\r\n| extend succeeded_ = tostring(parse_json(AuthenticationDetails)[0].succeeded)\r\n| where succeeded_ == \"true\"\r\n| extend authenticationStepDateTime_ = todatetime(tostring(parse_json(AuthenticationDetails)[0].authenticationStepDateTime))\r\n| extend displayName_ = tostring(DeviceDetail.displayName)\r\n| extend trustType_ = tostring(DeviceDetail.trustType)\r\n| extend deviceId_ = tostring(DeviceDetail.deviceId)\r\n| join kind=inner (\r\n  IdentityInfo\r\n  | where TimeGenerated > ago(14d)\r\n  | project TimeGenerated, AccountName, AccountObjectId\r\n  | summarize arg_max(TimeGenerated, *) by AccountObjectId)\r\n  on $left.UserId == $right.AccountObjectId\r\n| summarize Count=dcount(Identity) by authenticationMethod_, Identity\r\n| render piechart\r\n",
+              "query": "// Used Auth Method for primary sign-in on Windows Devices\r\n// Query over all Windows Sign-ins\r\nunion SigninLogs\r\n| where Resource == \"Microsoft.aadiam\" and AppDisplayName == \"Windows Sign In\"\r\n| extend authenticationMethod_ = tostring(parse_json(AuthenticationDetails)[0].authenticationMethod)\r\n| extend succeeded_ = tostring(parse_json(AuthenticationDetails)[0].succeeded)\r\n| where succeeded_ == \"true\"\r\n| extend authenticationStepDateTime_ = todatetime(tostring(parse_json(AuthenticationDetails)[0].authenticationStepDateTime))\r\n| extend displayName_ = tostring(DeviceDetail.displayName)\r\n| extend trustType_ = tostring(DeviceDetail.trustType)\r\n| extend deviceId_ = tostring(DeviceDetail.deviceId)\r\n| summarize Count=dcount(Identity) by authenticationMethod_, UserId\r\n| render piechart\r\n",
               "size": 0,
               "timeContextFromParameter": "TimeRange",
               "queryType": 0,
@@ -3006,7 +3043,9 @@
       }
     }
   ],
-  "fallbackResourceIds": [],
+  "fallbackResourceIds": [
+    "/subscriptions/4d3e5b65-8a52-4b2f-b5cd-1670c700136b/resourcegroups/lab-mgmt/providers/microsoft.operationalinsights/workspaces/lab-la-4d3e5b65-8a52-4b2f-b5cd-1670c700136b"
+  ],
   "fromTemplateId": "sentinel-UserWorkbook",
   "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
 }
