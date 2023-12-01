@@ -31,7 +31,7 @@ We further disclaims all implied warranties including, without limitation, any i
 # Architecture
 The following picture describes EIDSCA solution architecture, used solution and data flows:
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Architecture.png" target="_blank"><img src="./media/EIDSCA-Architecture.png" width="1200" /></a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Architecture.png" target="_blank"><img src="./media/AADSCA-Architecture.png" width="1200" /></a>
 
 _Reference architecture to integrate EIDSCA as part of Microsoft Sentinel environment. Data will be ingested to same workspace as Sentinel.
 It depends on your implementation and design if you want to have an integration to dedicated, operational or existing Sentinel workspace._
@@ -84,7 +84,7 @@ This workbook provides insights into Azure Active Directory tenant security conf
 
 In addition to providing best practices, each configuration is mapped to MITRE ATT&CK framework, allowing you to to identify potentially vulnerable configurations in terms of tactics and techniques.
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-1.png" target="_blank"><img src="./media/EIDSCA-WB-1.png" width="1200" /></a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-1.png" target="_blank"><img src="./media/AADSCA-WB-1.png" width="1200" /></a>
 
 Each of the values are combined to "Status" field and can have the following values:
 
@@ -97,7 +97,7 @@ Each of the values are combined to "Status" field and can have the following val
 |  Informational     | There are no security implications with this configuration, and therefore is only considered informational in this context.      |
 
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-3.png" target="_blank">![](./media/EIDSCA-WB-3.png)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-3.png" target="_blank">![](./media/AADSCA-WB-3.png)</a>
 # Pre-requisites for the Solution Deployment
 To successfully deploy the 'EIDSCA' solution you need to have Azure Log Analytics workspace for storing the data as well as permission to create Azure resources & grant needed API permissions to the Managed Identity used by the Logic App. 
 
@@ -118,7 +118,7 @@ We have updated EIDSCA to offer a integration to Microsoft Sentinel by trigger t
 * Previous, New and Recommended Value of Setting
 * Details on the related setting incl. remediation steps
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Incident.png" target="_blank">![](./media/EIDSCA-Incident.png)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Incident.png" target="_blank">![](./media/AADSCA-Incident.png)</a>
 
 _Side Note: There's an expected delay (10-15 minutes) between configuration change and until the incident is showing in Microsoft Sentinel because of the integrated analytics rules and scheduled time (5 minutes)._
 
@@ -155,14 +155,14 @@ The following parameters are required for the successful deployment:
 - LAWS Connection Name
 - Sentinel Trigger Connection Name (only for Playbook version)
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Deploy-2.png" target="_blank">![](./media/EIDSCA-Deploy-2.png)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Deploy-2.png" target="_blank">![](./media/AADSCA-Deploy-2.png)</a>
 
 The following resources are found from the environment:
 - Logic Apps named as ‘Import-AADSCAtoLAWS’ in Azure subscription
 - System-assigned Managed Identity in Entra ID Enterprise Applications blade named as ‘Import-AADSCAtoLAWS’
 - API connection with managed identity connection that's needed for the Logic App
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-3.png" target="_blank">![](./media/EIDSCA-Deploy-1.PNG)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-3.png" target="_blank">![](./media/AADSCA-Deploy-1.PNG)</a>
 
 ### Assigning Graph API permissions to Managed Identity
 In our example, needed permissions for the EIDSCA solution (used by Managed Identity of Logic App) are set by PowerShell script. Feel free to use whatever method you find comfortable. The script assigns the following permissions:
@@ -174,7 +174,7 @@ In our example, needed permissions for the EIDSCA solution (used by Managed Iden
 - Policy.Read.PermissionGrant
 - ServicePrincipalEndpoint.Read.All
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Perms-2.PNG" target="_blank">![](./media/EIDSCA-Perms-2.PNG)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Perms-2.PNG" target="_blank">![](./media/AADSCA-Perms-2.PNG)</a>
 
 The permissions can be assigned from Azure Cloud Shell which provides a pre-installed Azure AD PowerShell Module.
 A sample script is available here:
@@ -199,7 +199,7 @@ Pre-requisite: Deploy the Playbook-Version of EIDSCA.
 
 1. Import both analytics rules from Rule Templates folder:
 
-    <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-ImportRuleTemplates.png" target="_blank">![](./media/EIDSCA-ImportRuleTemplates.png)</a>
+    <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-ImportRuleTemplates.png" target="_blank">![](./media/AADSCA-ImportRuleTemplates.png)</a>
 
 
     **Azure AD policy change has been detected**<br>
@@ -212,7 +212,7 @@ Pre-requisite: Deploy the Playbook-Version of EIDSCA.
 
 2. Create an automation rule which triggers EIDSCA Playbook after analytics rule "Azure AD policy change has been detected" has created an incident. In addition, it's recommended to create an auto-close of the informational incident about the policy change.
 
-    <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-AutomationRule.png" target="_blank">![](./media/EIDSCA-AutomationRule.png)</a>
+    <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-AutomationRule.png" target="_blank">![](./media/AADSCA-AutomationRule.png)</a>
 
 
 
