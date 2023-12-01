@@ -126,80 +126,165 @@
                         }
                     },
                     "actions": {
-                        "For_each_AAD_Security_Config_Control": {
-                            "foreach": "@body('Parse_JSON_from_AAD_Security_Config_Schema')",
+                        "For_each_Data_Sources_from_AADSCA": {
                             "actions": {
-                                "Microsoft_Graph_Call_for_Security_Config": {
-                                    "runAfter": {
-                                        "Set_variable": [
-                                            "Succeeded"
-                                        ]
+                                "Switch_CollectedBy": {
+                                    "cases": {
+                                        "Case_Logic_App": {
+                                            "actions": {
+                                                "For_each_ControlArea": {
+                                                    "actions": {
+                                                        "Microsoft_Graph_Call_for_AAD_SCA_Control": {
+                                                            "inputs": {
+                                                                "authentication": {
+                                                                    "audience": "https://graph.microsoft.com",
+                                                                    "type": "ManagedServiceIdentity"
+                                                                },
+                                                                "method": "GET",
+                                                                "uri": "@items('For_each_ControlArea')['GraphUri']"
+                                                            },
+                                                            "runAfter": {
+                                                                "Set_variable_to_Graph_Endpoint_URL": [
+                                                                    "Succeeded"
+                                                                ]
+                                                            },
+                                                            "type": "Http"
+                                                        },
+                                                        "Set_variable_to_Graph_Endpoint_URL": {
+                                                            "inputs": {
+                                                                "name": "GraphEndpoint",
+                                                                "value": "@items('For_each_ControlArea')['GraphUri']"
+                                                            },
+                                                            "runAfter": {},
+                                                            "type": "SetVariable"
+                                                        },
+                                                        "Switch_on_ExpandValue": {
+                                                            "cases": {
+                                                                "Case": {
+                                                                    "actions": {
+                                                                        "For_each_multi-value_Microsoft_Graph_Response": {
+                                                                            "actions": {
+                                                                                "Send_Data_to_Azure_Log_Analytics_Workspace_from_Multi_Value": {
+                                                                                    "inputs": {
+                                                                                        "body": "@{items('For_each_multi-value_Microsoft_Graph_Response')}",
+                                                                                        "headers": {
+                                                                                            "Log-Type": "@items('For_each_Data_Sources_from_AADSCA')['TargetTable']"
+                                                                                        },
+                                                                                        "host": {
+                                                                                            "connection": {
+                                                                                                "name": "@parameters('$connections')['azuremonitorlogs']['connectionId']"
+                                                                                            }
+                                                                                        },
+                                                                                        "method": "post",
+                                                                                        "path": "/api/logs"
+                                                                                    },
+                                                                                    "runAfter": {},
+                                                                                    "type": "ApiConnection"
+                                                                                }
+                                                                            },
+                                                                            "foreach": "@body('Parse_JSON_from_multi-value_Microsoft_Graph_response')?['value']",
+                                                                            "runAfter": {
+                                                                                "Parse_JSON_from_multi-value_Microsoft_Graph_response": [
+                                                                                    "Succeeded"
+                                                                                ]
+                                                                            },
+                                                                            "type": "Foreach"
+                                                                        },
+                                                                        "Parse_JSON_from_multi-value_Microsoft_Graph_response": {
+                                                                            "inputs": {
+                                                                                "content": "@body('Microsoft_Graph_Call_for_AAD_SCA_Control')",
+                                                                                "schema": {
+                                                                                    "properties": {
+                                                                                        "@@odata.context": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "items": {
+                                                                                                "type": "object"
+                                                                                            },
+                                                                                            "type": "array"
+                                                                                        }
+                                                                                    },
+                                                                                    "type": "object"
+                                                                                }
+                                                                            },
+                                                                            "runAfter": {},
+                                                                            "type": "ParseJson"
+                                                                        }
+                                                                    },
+                                                                    "case": "True"
+                                                                }
+                                                            },
+                                                            "default": {
+                                                                "actions": {
+                                                                    "Send_Data_to_Azure_Log_Analytics_Workspace_as_Single_Value": {
+                                                                        "inputs": {
+                                                                            "body": "@{body('Microsoft_Graph_Call_for_AAD_SCA_Control')}",
+                                                                            "headers": {
+                                                                                "Log-Type": "@items('For_each_Data_Sources_from_AADSCA')['TargetTable']"
+                                                                            },
+                                                                            "host": {
+                                                                                "connection": {
+                                                                                    "name": "@parameters('$connections')['azuremonitorlogs']['connectionId']"
+                                                                                }
+                                                                            },
+                                                                            "method": "post",
+                                                                            "path": "/api/logs"
+                                                                        },
+                                                                        "runAfter": {},
+                                                                        "type": "ApiConnection"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "expression": "@items('For_each_Data_Sources_from_AADSCA')['ExpandValue']",
+                                                            "runAfter": {
+                                                                "Microsoft_Graph_Call_for_AAD_SCA_Control": [
+                                                                    "Succeeded"
+                                                                ]
+                                                            },
+                                                            "type": "Switch"
+                                                        }
+                                                    },
+                                                    "foreach": "@items('For_each_Data_Sources_from_AADSCA')['ControlArea']",
+                                                    "runAfter": {},
+                                                    "type": "Foreach"
+                                                }
+                                            },
+                                            "case": "LogicApp"
+                                        }
                                     },
-                                    "type": "Http",
-                                    "inputs": {
-                                        "authentication": {
-                                            "audience": "https://graph.microsoft.com",
-                                            "type": "ManagedServiceIdentity"
-                                        },
-                                        "method": "GET",
-                                        "uri": "@items('For_each_AAD_Security_Config_Control')['GraphUri']"
-                                    }
-                                },
-                                "Send_Data_to_Log_Analytics_Workspace": {
-                                    "runAfter": {
-                                        "Microsoft_Graph_Call_for_Security_Config": [
-                                            "Succeeded"
-                                        ]
+                                    "default": {
+                                        "actions": {}
                                     },
-                                    "type": "ApiConnection",
-                                    "inputs": {
-                                        "body": "@{body('Microsoft_Graph_Call_for_Security_Config')}",
-                                        "headers": {
-                                            "Log-Type": "@variables('LaCustomTableName')"
-                                        },
-                                        "host": {
-                                            "connection": {
-                                                "name": "@parameters('$connections')['azuremonitorlogs']['connectionId']"
-                                            }
-                                        },
-                                        "method": "post",
-                                        "path": "/api/logs"
-                                    }
-                                },
-                                "Set_variable": {
+                                    "expression": "@items('For_each_Data_Sources_from_AADSCA')['CollectedBy']",
                                     "runAfter": {},
-                                    "type": "SetVariable",
-                                    "inputs": {
-                                        "name": "GraphEndpoint",
-                                        "value": "@items('For_each_AAD_Security_Config_Control')['GraphUri']"
-                                    }
+                                    "type": "Switch"
                                 }
                             },
+                            "foreach": "@body('Parse_JSON_from_AAD_Security_Data_Sources')",
                             "runAfter": {
-                                "Parse_JSON_from_AAD_Security_Config_Schema": [
+                                "Parse_JSON_from_AAD_Security_Data_Sources": [
                                     "Succeeded"
                                 ]
                             },
                             "type": "Foreach"
                         },
-                        "Get_AAD_Security_Config_Schema": {
+                        "Get_AADSCA_Configuration": {
+                            "inputs": {
+                                "headers": {
+                                    "": "application/json"
+                                },
+                                "method": "GET",
+                                "uri": "https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/AADSCAv3/config/AadSecConfigV3.json"
+                            },
                             "runAfter": {
                                 "Initialize_variable_for_MS_Graph_Endpoint_Version": [
                                     "Succeeded"
                                 ]
                             },
-                            "type": "Http",
-                            "inputs": {
-                                "headers": {
-                                    "Content-Type": "application/json"
-                                },
-                                "method": "GET",
-                                "uri": "https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/config/AadSecConfig.json"
-                            }
+                            "type": "Http"
                         },
                         "Initialize_variable_for_Custom_Table_Name": {
-                            "runAfter": {},
-                            "type": "InitializeVariable",
                             "inputs": {
                                 "variables": [
                                     {
@@ -208,15 +293,11 @@
                                         "value": "AADSCA"
                                     }
                                 ]
-                            }
+                            },
+                            "runAfter": {},
+                            "type": "InitializeVariable"
                         },
                         "Initialize_variable_for_MS_Graph_Endpoint": {
-                            "runAfter": {
-                                "Initialize_variable_for_Custom_Table_Name": [
-                                    "Succeeded"
-                                ]
-                            },
-                            "type": "InitializeVariable",
                             "inputs": {
                                 "variables": [
                                     {
@@ -224,15 +305,15 @@
                                         "type": "string"
                                     }
                                 ]
-                            }
-                        },
-                        "Initialize_variable_for_MS_Graph_Endpoint_Version": {
+                            },
                             "runAfter": {
-                                "Initialize_variable_for_MS_Graph_Endpoint": [
+                                "Initialize_variable_for_Custom_Table_Name": [
                                     "Succeeded"
                                 ]
                             },
-                            "type": "InitializeVariable",
+                            "type": "InitializeVariable"
+                        },
+                        "Initialize_variable_for_MS_Graph_Endpoint_Version": {
                             "inputs": {
                                 "variables": [
                                     {
@@ -241,79 +322,124 @@
                                         "value": "beta"
                                     }
                                 ]
-                            }
-                        },
-                        "Parse_JSON_from_AAD_Security_Config_Schema": {
+                            },
                             "runAfter": {
-                                "Get_AAD_Security_Config_Schema": [
+                                "Initialize_variable_for_MS_Graph_Endpoint": [
                                     "Succeeded"
                                 ]
                             },
-                            "type": "ParseJson",
+                            "type": "InitializeVariable"
+                        },
+                        "Parse_JSON_from_AAD_Security_Data_Sources": {
                             "inputs": {
-                                "content": "@body('Get_AAD_Security_Config_Schema')",
+                                "content": "@body('Get_AADSCA_Configuration')",
                                 "schema": {
                                     "items": {
                                         "properties": {
-                                            "ControlName": {
+                                            "Category": {
                                                 "type": "string"
                                             },
-                                            "Controls": {
+                                            "CollectedBy": {
+                                                "type": "string"
+                                            },
+                                            "ControlArea": {
                                                 "items": {
                                                     "properties": {
-                                                        "CurrentValue": {
+                                                        "ControlName": {
                                                             "type": "string"
                                                         },
-                                                        "DefaultValue": {
-                                                            "type": "string"
+                                                        "Controls": {
+                                                            "items": {
+                                                                "properties": {
+                                                                    "CurrentValue": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "DefaultValue": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "Description": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "DisplayName": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "MitreMitigation": {
+                                                                        "type": "array"
+                                                                    },
+                                                                    "MitreTactic": {
+                                                                        "items": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "type": "array"
+                                                                    },
+                                                                    "MitreTechnique": {
+                                                                        "type": "array"
+                                                                    },
+                                                                    "Name": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "PortalDeepLink": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "Recommendation": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "RecommendedValue": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "Severity": {
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "Name",
+                                                                    "DisplayName",
+                                                                    "CurrentValue",
+                                                                    "DefaultValue",
+                                                                    "RecommendedValue",
+                                                                    "Recommendation",
+                                                                    "Severity",
+                                                                    "MitreTactic",
+                                                                    "MitreTechnique",
+                                                                    "MitreMitigation",
+                                                                    "PortalDeepLink",
+                                                                    "Description"
+                                                                ],
+                                                                "type": "object"
+                                                            },
+                                                            "type": "array"
                                                         },
                                                         "Description": {
                                                             "type": "string"
                                                         },
-                                                        "DisplayName": {
+                                                        "GraphDocsUrl": {
+                                                            "type": "string"
+                                                        },
+                                                        "GraphEndpoint": {
+                                                            "type": "string"
+                                                        },
+                                                        "GraphUri": {
                                                             "type": "string"
                                                         },
                                                         "MitreMitigation": {
                                                             "type": "array"
                                                         },
                                                         "MitreTactic": {
-                                                            "items": {
-                                                                "type": "string"
-                                                            },
                                                             "type": "array"
                                                         },
                                                         "MitreTechnique": {
                                                             "type": "array"
-                                                        },
-                                                        "Name": {
-                                                            "type": "string"
-                                                        },
-                                                        "PortalDeepLink": {
-                                                            "type": "string"
-                                                        },
-                                                        "Recommendation": {
-                                                            "type": "string"
-                                                        },
-                                                        "RecommendedValue": {
-                                                            "type": "string"
-                                                        },
-                                                        "Severity": {
-                                                            "type": "string"
                                                         }
                                                     },
                                                     "required": [
-                                                        "Name",
-                                                        "DisplayName",
-                                                        "CurrentValue",
-                                                        "DefaultValue",
-                                                        "RecommendedValue",
-                                                        "Recommendation",
-                                                        "Severity",
+                                                        "ControlName",
+                                                        "Description",
+                                                        "GraphEndpoint",
+                                                        "GraphUri",
                                                         "MitreTactic",
                                                         "MitreTechnique",
                                                         "MitreMitigation",
-                                                        "PortalDeepLink",
-                                                        "Description"
+                                                        "Controls"
                                                     ],
                                                     "type": "object"
                                                 },
@@ -322,40 +448,32 @@
                                             "Description": {
                                                 "type": "string"
                                             },
-                                            "GraphDocsUrl": {
+                                            "ExpandValue": {
                                                 "type": "string"
                                             },
-                                            "GraphEndpoint": {
+                                            "TargetTable": {
                                                 "type": "string"
-                                            },
-                                            "GraphUri": {
-                                                "type": "string"
-                                            },
-                                            "MitreMitigation": {
-                                                "type": "array"
-                                            },
-                                            "MitreTactic": {
-                                                "type": "array"
-                                            },
-                                            "MitreTechnique": {
-                                                "type": "array"
                                             }
                                         },
                                         "required": [
-                                            "ControlName",
+                                            "Category",
                                             "Description",
-                                            "GraphEndpoint",
-                                            "GraphUri",
-                                            "MitreTactic",
-                                            "MitreTechnique",
-                                            "MitreMitigation",
-                                            "Controls"
+                                            "CollectedBy",
+                                            "ExpandValue",
+                                            "TargetTable",
+                                            "ControlArea"
                                         ],
                                         "type": "object"
                                     },
                                     "type": "array"
                                 }
-                            }
+                            },
+                            "runAfter": {
+                                "Get_AADSCA_Configuration": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ParseJson"
                         }
                     },
                     "outputs": {}
