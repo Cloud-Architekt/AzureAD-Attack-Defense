@@ -2039,7 +2039,7 @@
     {
         "Category":    "Entra Workload ID",
         "Description": "Insights of created Workload Identities",
-        "CollectedBy": "LogicApp",
+        "CollectedBy": "Function",
         "ExpandValue": "True",
         "TargetTable": "AADSCA_WID_CL",
         "ControlArea": [
