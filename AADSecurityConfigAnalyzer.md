@@ -177,9 +177,10 @@ In our example, needed permissions for the EIDSCA solution (used by Managed Iden
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Perms-2.PNG" target="_blank">![](./media/AADSCA-Perms-2.PNG)</a>
 
 The permissions can be assigned from Azure Cloud Shell which provides a pre-installed Azure AD PowerShell Module.
-A sample script is available here:
+A sample script for AzureAD and Microsoft Graph PowerShell is available here:
 
-🔗[AADSCA-AddedPermToLogicAppMSI.ps1](config/deploy/AADSCA-AddedPermToLogicAppMSI.ps1)
+🔗[AADSCA-AddedPermToLogicAppMSI - AzureAD PowerShell](config/deploy/AADSCA-AddedPermToLogicAppMSI.ps1)
+🔗[AADSCA-AddedPermToLogicAppMSI - Microsoft Graph SDK PowerShell](config/deploy/AADSCA-AddedPermToLogicAppMSI-GraphSDK.ps1)
 
 ### Azure Workbook
 Azure Workbook for the data visualization is manually deployed. Preferred way is to deploy it as Sentinel workbook to avoid mapping issues to Log Analytics.
