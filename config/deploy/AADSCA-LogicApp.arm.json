@@ -29,6 +29,10 @@
         "LAWSConnectionName": {
             "defaultValue": "connection-Import-AADSCAtoLAWS",
             "type": "string"
+        },
+        "TriggerStartTime": {
+            "defaultValue": "[dateTimeAdd(utcNow('u'), 'P1D')]",
+            "type": "string"
         }
     },
     "variables": {
@@ -95,6 +99,7 @@
                                 "interval": 1
                             },
                             "recurrence": {
+                                "startTime": "[parameters('TriggerStartTime')]",
                                 "frequency": "Day",
                                 "interval": 1
                             },
