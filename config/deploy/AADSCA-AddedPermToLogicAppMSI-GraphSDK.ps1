@@ -6,7 +6,7 @@ Connect-MgGraph -Scopes Application.Read.All, AppRoleAssignment.ReadWrite.All, R
 
 # Object ID of AADSCA Logic App Managed Identity
 $MiObjectIDs = @()
-$MiObjectIDs = (Get-AzureADServicePrincipal -SearchString "Import-AADSCA").ObjectId
+$MiObjectIDs = (Get-MgServicePrincipal -Filter "startswith(DisplayName, 'Import-AADSCA')").Id
 if ($MiObjectIDs -eq $null) {
    $MiObjectIDs = Read-Host -Prompt "Enter ObjectId of Managed Identity (from Logic App):"
 }
