@@ -60,6 +60,9 @@
       "type": 9,
       "content": {
         "version": "KqlParameterItem/1.0",
+        "crossComponentResources": [
+          "value::selected"
+        ],
         "parameters": [
           {
             "id": "4666895c-a22c-4fad-be1c-a8d31c4383d9",
@@ -627,7 +630,8 @@
           }
         ],
         "style": "pills",
-        "queryType": 8
+        "queryType": 1,
+        "resourceType": "microsoft.operationalinsights/workspaces"
       },
       "conditionalVisibility": {
         "parameterName": "Tab",
@@ -2487,10 +2491,43 @@
             "name": "text - 36"
           },
           {
+            "type": 9,
+            "content": {
+              "version": "KqlParameterItem/1.0",
+              "parameters": [
+                {
+                  "id": "ff218b87-d982-4bb2-b95d-e196f0590765",
+                  "version": "KqlParameterItem/1.0",
+                  "name": "CAPDisplayMode",
+                  "label": "Display mode",
+                  "type": 10,
+                  "isRequired": true,
+                  "typeSettings": {
+                    "additionalResourceOptions": []
+                  },
+                  "jsonData": "[\r\n { \"value\": \"ExplicitOnly\", \"label\": \"Explicit configurations only\" },\r\n { \"value\": \"ExcplicitAndImplicit\", \"label\": \"Explicit and implicit configurations\", \"selected\": true }\r\n]\r\n",
+                  "timeContext": {
+                    "durationMs": 86400000
+                  },
+                  "value": "ExplicitOnly"
+                }
+              ],
+              "style": "pills",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces"
+            },
+            "conditionalVisibility": {
+              "parameterName": "Tab",
+              "comparison": "isEqualTo",
+              "value": "ConditionalAccessCoverage"
+            },
+            "name": "ParametersCAP"
+          },
+          {
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "{CAPCustomTableName}\r\n| summarize arg_max(TimeGenerated, *) by id_g\r\n| extend DisplayName = tostring(displayName_s)\r\n| extend PolicyId = tostring(id_g)\r\n//| extend Conditions = Policies.conditions\r\n//| mv-expand Conditions\r\n| extend State = case(\r\n    tostring(state_s) == \"enabled\", \"On\",\r\n    tostring(state_s) == \"disabled\", \"Off\",\r\n    tostring(state_s) == \"enabledForReportingButNotEnforced\", \"Report-only\",\r\n    \"Unknown\"\r\n)\r\n//| extend GrantControls = Policies.grantControls\r\n| extend CreatedTimeDate = createdDateTime_t\r\n| extend ModifiedTimeDate = modifiedDateTime_t\r\n| extend UsersInclude = conditions_users_includeUsers_s\r\n| extend UsersExclude = conditions_users_excludeUsers_s\r\n| extend CloudAppsInclude = conditions_applications_includeApplications_s\r\n| extend CloudAppsExclude = conditions_applications_excludeApplications_s\r\n| extend ClientPlatformsIncludeTmp = column_ifexists(\"conditions_platforms_includePlatforms_s\", todynamic(\"(all)\"))\r\n| extend ClientPlatformsInclude = case(\r\n    isnotempty(ClientPlatformsIncludeTmp), ClientPlatformsIncludeTmp, \r\n    todynamic(\"(all)\")\r\n)\r\n| extend ClientPlatformsExcludeTmp = column_ifexists(\"conditions_platforms_excludePlatforms_s\", todynamic(\"(none)\"))\r\n| extend ClientPlatformsExclude = case(\r\n    isnotempty(ClientPlatformsExcludeTmp), ClientPlatformsExcludeTmp,\r\n    todynamic(\"(none)\")\r\n)\r\n| extend ClientApps = conditions_clientAppTypes_s\r\n| extend LocationsInclude = case(\r\n    isnotnull(conditions_locations_includeLocations_s), conditions_locations_includeLocations_s,\r\n    todynamic(\"(all)\")\r\n)\r\n| extend LocationsExclude = case(\r\n    isnotnull(conditions_locations_excludeLocations_s), conditions_locations_excludeLocations_s,\r\n    todynamic(\"(none)\")\r\n)\r\n| extend UserRiskLevels = conditions_userRiskLevels_s \r\n| extend SigninRiskLevels = conditions_signInRiskLevels_s \r\n| extend GrantControls = grantControls_builtInControls_s\r\n| extend FullPolicyJson = pack_all()\r\n| sort by DisplayName asc\r\n| project ['Policy display name'] = DisplayName, State, ['Cloud apps included'] = CloudAppsInclude, ['Cloud apps excluded'] = CloudAppsExclude, ['Users included'] = UsersInclude, ['Users excluded'] = UsersExclude, ['Client platforms included'] = ClientPlatformsInclude, ['Client platforms excluded'] = ClientPlatformsExclude, ['Client apps'] = ClientApps, ['Locations included'] = LocationsInclude, ['Locations excluded'] = LocationsExclude, ['User risk levels'] = UserRiskLevels, ['Sign-in risk levels'] = SigninRiskLevels, ['Grant controls'] = GrantControls, CreatedTimeDate, ModifiedTimeDate, PolicyId, ['Full policy JSON'] = FullPolicyJson\r\n",
+              "query": "{CAPCustomTableName}\r\n| summarize arg_max(TimeGenerated, *) by id_g\r\n| extend DisplayName = tostring(displayName_s)\r\n| extend PolicyId = tostring(id_g)\r\n//| extend Conditions = Policies.conditions\r\n//| mv-expand Conditions\r\n| extend State = case(\r\n    tostring(state_s) == \"enabled\", \"On\",\r\n    tostring(state_s) == \"disabled\", \"Off\",\r\n    tostring(state_s) == \"enabledForReportingButNotEnforced\", \"Report-only\",\r\n    \"Unknown\"\r\n)\r\n//| extend GrantControls = Policies.grantControls\r\n| extend CreatedTimeDate = createdDateTime_t\r\n| extend ModifiedTimeDate = modifiedDateTime_t\r\n| extend UsersInclude = conditions_users_includeUsers_s\r\n| extend UsersExclude = conditions_users_excludeUsers_s\r\n| extend GroupsInclude = conditions_users_includeGroups_s\r\n| extend GroupsExclude = conditions_users_excludeGroups_s\r\n| extend CloudAppsInclude = conditions_applications_includeApplications_s\r\n| extend CloudAppsExclude = conditions_applications_excludeApplications_s\r\n| extend ClientPlatformsIncludeTmp = column_ifexists(\"conditions_platforms_includePlatforms_s\", \"\")\r\n| extend ClientPlatformsInclude = case(\r\n    '{CAPDisplayMode}' == \"ExplicitOnly\", ClientPlatformsIncludeTmp,\r\n    case(\r\n        isnotempty(ClientPlatformsIncludeTmp), ClientPlatformsIncludeTmp, \r\n        todynamic(\"(all)\")\r\n    )\r\n)\r\n| extend ClientPlatformsIncludeTooltip = case(\r\n    ClientPlatformsInclude == \"(all)\", \"This the implicit configuration. All platforms are included, because the setting has not been configured.\",\r\n    \"\"\r\n)\r\n| extend ClientPlatformsExcludeTmp = column_ifexists(\"conditions_platforms_excludePlatforms_s\", \"[]\")\r\n| extend ClientPlatformsExclude = case(\r\n    '{CAPDisplayMode}' == \"ExplicitOnly\", ClientPlatformsExcludeTmp,\r\n    case(\r\n        isnotempty(ClientPlatformsExcludeTmp), ClientPlatformsExcludeTmp,\r\n        todynamic(\"[]\")\r\n    )\r\n)\r\n| extend ClientApps = conditions_clientAppTypes_s\r\n| extend LocationsInclude = case(\r\n    '{CAPDisplayMode}' == \"ExplicitOnly\", conditions_locations_includeLocations_s,\r\n    case(\r\n        isnotempty(conditions_locations_includeLocations_s), conditions_locations_includeLocations_s,\r\n        todynamic(\"(all)\")\r\n    )\r\n)\r\n| extend LocationsIncludeTooltip = case(\r\n    LocationsInclude == \"(all)\", \"This the implicit configuration. All locations are included, because the setting has not been configured.\",\r\n    \"\"\r\n)\r\n| extend LocationsExclude = case(\r\n    '{CAPDisplayMode}' == \"ExplicitOnly\", conditions_locations_excludeLocations_s,\r\n    case(\r\n        isnotempty(conditions_locations_excludeLocations_s), conditions_locations_excludeLocations_s,\r\n        todynamic(\"[]\")\r\n    )\r\n)\r\n| extend UserRiskLevels = case(\r\n    '{CAPDisplayMode}' == \"ExplicitOnly\", conditions_userRiskLevels_s,\r\n    case(\r\n        array_length(todynamic(conditions_userRiskLevels_s)) != 0, conditions_userRiskLevels_s,\r\n        todynamic(\"(all)\")\r\n    )\r\n)\r\n| extend UserRiskLevelsTooltip = case(\r\n    UserRiskLevels == \"(all)\", \"This the implicit configuration. All user risk levels are included, because the setting has not been configured.\",\r\n    \"\"\r\n)\r\n| extend SigninRiskLevels = case(\r\n    '{CAPDisplayMode}' == \"ExplicitOnly\", conditions_signInRiskLevels_s,\r\n    case(\r\n        array_length(todynamic(conditions_signInRiskLevels_s)) != 0, conditions_signInRiskLevels_s,\r\n        todynamic(\"(all)\")\r\n    )\r\n)\r\n| extend SigninRiskLevelsTooltip = case(\r\n    UserRiskLevels == \"(all)\", \"This the implicit configuration. All sign-in risk levels are included, because the setting has not been configured.\",\r\n    \"\"\r\n)\r\n| extend GrantControls = grantControls_builtInControls_s\r\n| extend FullPolicyJson = pack_all()\r\n| sort by DisplayName asc\r\n| project ['Policy display name'] = DisplayName, State, ['Cloud apps included'] = CloudAppsInclude, ['Cloud apps excluded'] = CloudAppsExclude, ['Users included'] = UsersInclude, ['Users excluded'] = UsersExclude, ['Groups included'] = GroupsInclude, ['Groups excluded'] = GroupsExclude, ['Client platforms included'] = ClientPlatformsInclude, ['Client platforms excluded'] = ClientPlatformsExclude, ['Client apps'] = ClientApps, ['Locations included'] = LocationsInclude, ['Locations excluded'] = LocationsExclude, ['User risk levels'] = UserRiskLevels, ['Sign-in risk levels'] = SigninRiskLevels, ['Grant controls'] = GrantControls, CreatedTimeDate, ModifiedTimeDate, PolicyId, ['Full policy JSON'] = FullPolicyJson, ClientPlatformsIncludeTooltip, LocationsIncludeTooltip, UserRiskLevelsTooltip, SigninRiskLevelsTooltip\r\n",
               "size": 0,
               "timeContext": {
                 "durationMs": 86400000
@@ -2535,7 +2572,55 @@
                     }
                   },
                   {
+                    "columnMatch": "Client platforms included",
+                    "formatter": 0,
+                    "tooltipFormat": {
+                      "tooltip": "[\"ClientPlatformsIncludeTooltip\"]"
+                    }
+                  },
+                  {
+                    "columnMatch": "Locations included",
+                    "formatter": 0,
+                    "tooltipFormat": {
+                      "tooltip": "[\"LocationsIncludeTooltip\"]"
+                    }
+                  },
+                  {
+                    "columnMatch": "User risk levels",
+                    "formatter": 0,
+                    "tooltipFormat": {
+                      "tooltip": "[\"UserRiskLevelsTooltip\"]"
+                    }
+                  },
+                  {
+                    "columnMatch": "Sign-in risk levels",
+                    "formatter": 0,
+                    "tooltipFormat": {
+                      "tooltip": "[\"SigninRiskLevelsTooltip\"]"
+                    }
+                  },
+                  {
                     "columnMatch": "PolicyId",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "ClientPlatformsIncludeTooltip",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "LocationsIncludeTooltip",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "UserRiskLevelsTooltip",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "SigninRiskLevelsTooltip",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "ImplicitOrExplicit",
                     "formatter": 5
                   }
                 ]
@@ -2686,7 +2771,7 @@
         "comparison": "isEqualTo",
         "value": "ConditionalAccessCoverage"
       },
-      "name": "group - 26"
+      "name": "ConditionalAccessGroup"
     },
     {
       "type": 12,
