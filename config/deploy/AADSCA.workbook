@@ -2503,13 +2503,13 @@
                   "type": 10,
                   "isRequired": true,
                   "typeSettings": {
-                    "additionalResourceOptions": []
+                    "additionalResourceOptions": [],
+                    "showDefault": false
                   },
-                  "jsonData": "[\r\n { \"value\": \"ExplicitOnly\", \"label\": \"Explicit configurations only\" },\r\n { \"value\": \"ExcplicitAndImplicit\", \"label\": \"Explicit and implicit configurations\", \"selected\": true }\r\n]\r\n",
+                  "jsonData": "[\r\n { \"value\": \"ExplicitOnly\", \"label\": \"Show configured values only\" },\r\n { \"value\": \"ExcplicitAndImplicit\", \"label\": \"Show implicit (resulting) configurations\", \"selected\": true }\r\n]\r\n",
                   "timeContext": {
                     "durationMs": 86400000
-                  },
-                  "value": "ExplicitOnly"
+                  }
                 }
               ],
               "style": "pills",
