@@ -19,6 +19,7 @@ _Update_: December 2023_
     - [Assigning Graph API permissions to Managed Identity](#assigning-graph-api-permissions-to-managed-identity)
     - [Azure Workbook](#azure-workbook-1)
     - [Microsoft Sentinel Integration for Incident Creation](#microsoft-sentinel-integration-for-incident-creation)
+- [Feedback](#feedback)
 - [FAQ](#faq)
 - [Changelog](#changelog)
   - [Version 3.0 (February 2024)](#version-30-february-2024)
@@ -218,6 +219,8 @@ Pre-requisite: Deploy the Playbook-Version of EIDSCA.
     <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-AutomationRule.png" target="_blank">![](./media/AADSCA-AutomationRule.png)</a>
 
 
+# Feedback
+We are always interested in feedback to improve and verify which configuration settings could be added to this solution. Please use this [feedback form](https://forms.office.com/Pages/ResponsePage.aspx?id=P3WvLytmEUGlwHTkIxEBVkdHJ9TUc_hOuybLJkknZvFUREhRUVc0NFRDSzlWWFowQkZWNUZCWlE2US4u) to share your toughts and feedback on EIDSCA.
 
 # FAQ
 Why we are not pulling the data from all of the endpoints? 
