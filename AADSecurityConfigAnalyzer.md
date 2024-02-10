@@ -20,6 +20,8 @@ _Update_: December 2023_
     - [Azure Workbook](#azure-workbook-1)
     - [Microsoft Sentinel Integration for Incident Creation](#microsoft-sentinel-integration-for-incident-creation)
 - [FAQ](#faq)
+- [Changelog](#changelog)
+  - [Version 3.0 (February 2024)](#version-30-february-2024)
 - [References](#references)
 
 # Description
@@ -229,6 +231,16 @@ Why MITRE ATT&CK mapping is made even though the AAD settings are not part of th
 
 I'm seeing and permission error after initial deployment, what to do?
 - Azure Logic App caches permissions and it will take a while after permissions are valid. In testing phase it took max of 5-10min until Logic Apps was able to authenticate through Managed Identity to Entra ID. If you decide to change permissions afterwards it can take up to 24 hours until permissions are effective due Azure Logic Apps caching mechanism.
+
+# Changelog
+## Version 3.0 (February 2024)
+- Overall improvements in Workbook
+- New section for "Conditional Access" in Workbook, including visualzation of the following checks
+  - Table list of Conditional Access Policies 
+  - Changes to the selected conditional access policy
+  - Number of sign-in and effect of the selected policy
+  - Unusual failure to the policies (requires Microsoft Sentinel UEBA)
+- Updated schema to AadSecConfigV3.json for future releases
 
 # References
 
