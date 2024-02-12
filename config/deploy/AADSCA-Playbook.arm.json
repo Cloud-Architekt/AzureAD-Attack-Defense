@@ -275,7 +275,7 @@
                                     "": "application/json"
                                 },
                                 "method": "GET",
-                                "uri": "https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/AADSCAv3/config/AadSecConfigV3.json"
+                                "uri": "https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/config/AadSecConfigV3.json"
                             },
                             "runAfter": {
                                 "Initialize_variable_for_MS_Graph_Endpoint_Version": [

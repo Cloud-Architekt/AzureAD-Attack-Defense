@@ -469,7 +469,7 @@
             "label": "Metadata JSON for AADSCA",
             "type": 1,
             "isRequired": true,
-            "query": "{\"version\":\"1.0.0\",\"content\":\"[\\r\\n { \\\"value\\\": \\\"https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/AADSCAv3/config/AadSecConfig.json\\\" }\\r\\n]\",\"transformers\":null}",
+            "query": "{\"version\":\"1.0.0\",\"content\":\"[\\r\\n { \\\"value\\\": \\\"https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/config/AadSecConfig.json\\\" }\\r\\n]\",\"transformers\":null}",
             "isHiddenWhenLocked": true,
             "timeContext": {
               "durationMs": 86400000
