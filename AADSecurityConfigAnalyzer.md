@@ -3,7 +3,7 @@ We decided to take alternative approach for chapter 6 and we are not covering po
 
 _Authors: Thomas Naunheim, Sami Lamppu & Markus Pitkäranta_
 _Created: March 2023_
-_Update_: December 2023_
+_Update: February 2024_
 
 - [Entra ID Security Config Analyzer (EIDSCA)](#entra-id-security-config-analyzer-eidsca)
 - [Description](#description)
