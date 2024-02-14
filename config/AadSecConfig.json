@@ -1991,5 +1991,31 @@
                 "Description": ""
             }                       
         ]
-    }    
+    },
+    {
+        "ControlName": "Conditional Access Policies",
+        "Description": "Conditional Access Policies.",
+        "GraphEndpoint": "conditionalAccessPolicies",
+        "GraphUri": "https://graph.microsoft.com/beta/policies/conditionalAccessPolicies",
+        "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/conditionalaccesspolicy",     
+        "MitreTactic": [],
+        "MitreTechnique": [],
+        "MitreMitigation": [],
+        "Controls": [
+            {
+                "Name": "",
+                "DisplayName": "",
+                "CurrentValue": "",
+                "DefaultValue": "",
+                "RecommendedValue": "",
+                "Recommendation": "",
+                "Severity": "",
+                "MitreTactic": [],
+                "MitreTechnique": [],
+                "MitreMitigation": [],
+                "PortalDeepLink": "",
+                "Description": ""
+            }
+        ]
+    } 
 ]

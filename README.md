@@ -1,6 +1,6 @@
-# Azure AD - Attack and Defense Playbook
+# Microsoft Entra ID - Attack and Defense Playbook
 
-This publication is a collection of various common attack scenarios on Azure Active Directory and how they can be mitigated or detected.
+This publication is a collection of various common attack scenarios on Microsoft Entra and how they can be mitigated or detected.
 All of the included scenarios, insights and comments are based on experiences from the contributors during their attack simulations, hands-on or real-world scenarios.
 
 It should be considered a living document, which will be updated as practices progress & changes in attack and defense techniques.
@@ -10,9 +10,9 @@ We invite identity or security experts from the community to work together on th
 - [Password Spray](PasswordSpray.md)
 - [Consent Grant](ConsentGrant.md)
 - [Service Principals in Azure DevOps Pipelines](ServicePrincipals-ADO.md)
-- [Azure AD Connect Sync Service Account ](AADCSyncServiceAccount.md)
+- [Microsoft Entra Connect Sync Service Account ](AADCSyncServiceAccount.md)
 - [Replay of Primary Refresh (PRT) and other issued tokens](ReplayOfPrimaryRefreshToken.md)
-- [Azure AD Security Config Analyzer (AADSCA)](AADSecurityConfigAnalyzer.md)
+- [Entra ID Security Config Analyzer (EIDSCA)](AADSecurityConfigAnalyzer.md)
 
 ##### Appendix:
 - [Overview of Identity Security Monitoring in Microsoft Cloud](IdentitySecurityMonitoring.md)
@@ -24,12 +24,12 @@ In all chapters, we follow the same guideline on the chapter structure. When rea
 - Mitigation for the attack and instructions how to improve your environment security posture based on the chapter scope
 - Matching of attack scenarios and detection capabilities to Tactics, Techniques & Procedures (TTPs) of [MTRE ATT&CK Framework](#mitre-attck-framework)
 
-The following sections contain a short description of each chapter you can find from the 'Azure AD Attack & Defense Playbook'.
+The following sections contain a short description of each chapter you can find from the 'Entra ID Attack & Defense Playbook'.
 
 ## Background
 The initial idea for creating the ‘Azure AD Attack & Defense Playbook’ came from Thomas Naunheim. Our first Teams call was somewhere in Autumn 2020 where Thomas presented the idea and it was sold immediately.  
 
-The first chapter was about the ‘Password Spray’ attack where we focused heavily on the Azure AD Identity Protection detection mechanism to detect ‘password spray’ type of attacks. During the first chapter we learned that calendar time for finalizing the research might take significantly longer than expected due to the complexity of the research and different angles on the research. Scoping, like in any project type of work, is extremely important. 
+The first chapter was about the ‘Password Spray’ attack where we focused heavily on the Entra ID Protection (formely known as Azure AD Identity Protection) detection mechanism to detect ‘password spray’ type of attacks. During the first chapter we learned that calendar time for finalizing the research might take significantly longer than expected due to the complexity of the research and different angles on the research. Scoping, like in any project type of work, is extremely important. 
 
 ## Authors
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -50,6 +50,7 @@ The first chapter was about the ‘Password Spray’ attack where we focused hea
 <table>
   <tr>
     <td align="left"><a href="https://securecloud.blog/"><img src="https://pbs.twimg.com/profile_images/1314289282459275264/qINvzl6o_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Joosua Santasalo</b></sub></a><br /><a href="https://twitter.com/SantasaloJoosua" title="Twitter">💬</a> <a href="https://securecloud.blog/" title="Blog">📖</a></td>
+    <td align="left"><a href="https://securecloud.blog/"><img src="https://pbs.twimg.com/profile_images/1046318775753158657/CswVomK4_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Markus Pitkäranta</b></sub></a><br /><a href="https://twitter.com/PitkarantaM" title="Twitter">💬</a> <a href="https://longbeach.cloud/" title="Blog">📖</a></td>    
   </tr>
 </table>
 
@@ -69,7 +70,7 @@ You can expect to find multiple detection rules from the individual chapters bas
 <a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Fmitre%2FAttackScenarios%2FAttacks_Combined.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
 
 ## Detections and rule templates for attack scenarios
-The related detection capabilities of Microsoft Security products (Microsoft 365 Defender, Microsoft Sentinel, Azure AD Identity Protection, Microsoft Defender for Cloud) will be covered in the detection part of the attack scenarios. Custom rule templates for Microsoft Sentinel, which has been developed for the playbook, are also mapped to the TTPs. The detection rules are available as [Microsoft Sentinel Rule Template (ready-to-deploy) in JSON (ARM Template) format here](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/main/queries).
+The related detection capabilities of Microsoft Security products (Microsoft Defender XDR, Microsoft Sentinel, Azure Entra ID Connect, Microsoft Defender for Cloud) will be covered in the detection part of the attack scenarios. Custom rule templates for Microsoft Sentinel, which has been developed for the playbook, are also mapped to the TTPs. The detection rules are available as [Microsoft Sentinel Rule Template (ready-to-deploy) in JSON (ARM Template) format here](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/main/queries).
 
 ### Detection coverage of Microsoft Cloud Security Stack
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/mitre/Rules/Rules_Combined.svg" target="_blank">![](./media/mitre/Rules/Rules_Combined.svg)</a>
@@ -99,10 +100,10 @@ On the side notes, there are some considerations for the on-prem environment and
 
 Normal remediation steps, like resetting passwords for breached accounts or requiring Multi-Factor Authentication (MFA) on accounts, are not effective against this type of attack since these are third-party applications and are external to the organization. These attacks leverage an interaction model that presumes the entity that is calling the information is automation and not a human.” 
 
-The chapter contains an attack description and explanation of why it’s important to secure & monitor activities around the Azure AD Consent framework. In the detection chapter we used the following solutions: 
+The chapter contains an attack description and explanation of why it’s important to secure & monitor activities around the Entra ID Consent framework. In the detection chapter we used the following solutions: 
 
 - O365 SSC & new Compliance portal (Unified Audit Log)
-- Azure AD portal (Audit logs, workbooks & application management)
+- Entra ID portal (Audit logs, workbooks & application management)
 - PowerShell tools (Get-AzureADPSPermissions)
 - Combination of Get-AzureADPSPermissions export, Azure Log Analytics & some KQL magic
 - Microsoft Defender for Cloud Apps – App Governance
@@ -129,25 +130,25 @@ The chapter contains deep-dive information on how to secure the Azure DevOps env
 
 - [Service Principals in Azure DevOps Pipelines](ServicePrincipals-ADO.md)
 
-## Abuse of Azure AD Connect Sync Service Account
+## Abuse of Microsoft Entra Connect Sync Service Account
 In this paper we are mainly focusing on the following scenario: 
 
-- Attacking administrative account with directory role assignment to “Hybrid Identity Administrator” for managing Azure AD connect configurations
-- Abusing of Azure AD user “On-Premises Directory Synchronization Service Account” which will be used to synchronize objects from Azure AD Connect (AADC) Server (AD on-premises) to Azure AD. 
+- Attacking administrative account with directory role assignment to “Hybrid Identity Administrator” for managing Microsoft Entra Connect configurations
+- Abusing of Azure AD user “On-Premises Directory Synchronization Service Account” which will be used to synchronize objects from Microsoft Entra Connect (AADC) Server (AD on-premises) to Azure AD. 
 
 ![](./media/aadc-syncservice-acc/aadc-architecture.png)
 
 Out of scope are privilege escalation and attack paths from AADC server in direction to Active Directory (incl. abuse Azure AD DS connector account) 
 
-The latest chapter released on the 14th of March 2022 is all about abusing the Azure AD Connect sync service account. To be precise, the AAD Connect account is responsible for performing actions to the Azure AD side. 
+The latest chapter released on the 14th of March 2022 is all about abusing the Microsoft Entra Connect sync service account. To be precise, the AAD Connect account is responsible for performing actions to the Azure AD side. 
 
-The topic and attack scenario was extremely interesting for research work and even though I’ve worked a lot with Azure AD Connect in the past I have to admit that I’ve learned a lot during the last two (2) month period. We did some interesting findings which we haven’t noticed earlier. 
+The topic and attack scenario was extremely interesting for research work and even though I’ve worked a lot with Microsoft Entra Connect in the past I have to admit that I’ve learned a lot during the last two (2) month period. We did some interesting findings which we haven’t noticed earlier. 
 
 If you have read this far I encourage you to check out the KQL queries for Microsoft Sentinel which we created during our research work. 
 
-- [Azure AD Connect Sync Service Account ](AADCSyncServiceAccount.md)
+- [Microsoft Entra Connect Sync Service Account ](AADCSyncServiceAccount.md)
 
-## Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device
+## Replay of Primary Refresh (PRT) and other issued tokens from an Microsoft Entra joined device
 Microsoft has introduced Windows 11 with the requirement to use a Trusted Platform Module (TPM) chip. This has greatly increased the capabilities to use Windows 11 OS security features including an extra layer of protection for cloud-based authentication scenarios. The Primary Refresh Token (PRT) and other relevant keys can be well protected by TPM in Windows 11 but also in Windows 10 and Windows Server versions from 2016 and above. Taking this into account in this paper we mainly focus on the following scenarios:
 
 - Attack scenario with PRT and easy mitigation options (enforce TPM and device compliance) to reduce the attack surface. This will also covers considerations and dependencies in security configuration and cooperation of components to prevent successful token replay attacks.
@@ -158,7 +159,7 @@ Microsoft has introduced Windows 11 with the requirement to use a Trusted Platfo
 - [Replay of Primary Refresh (PRT) and other issued tokens](ReplayOfPrimaryRefreshToken.md)
 
 ## How to become part of the project and contribute?
-- **Update or new content (Pull Request):** As already mentioned, we like to have a living document which is driven by the Azure AD community! Share your results and insights as part of this project! Send a pull request to add your content to this project.
+- **Update or new content (Pull Request):** As already mentioned, we like to have a living document which is driven by the Entra community! Share your results and insights as part of this project! Send a pull request to add your content to this project.
 
 - **Issues/Outdated content:** Protection features or tools changes continually. Update the out-dated content (as part of pull request) or create an issue to point out
 
