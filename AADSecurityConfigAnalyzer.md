@@ -223,6 +223,11 @@ Pre-requisite: Deploy the Playbook-Version of EIDSCA.
 We are always interested in feedback to improve and verify which configuration settings could be added to this solution. Please use this [feedback form](https://forms.office.com/Pages/ResponsePage.aspx?id=P3WvLytmEUGlwHTkIxEBVkdHJ9TUc_hOuybLJkknZvFUREhRUVc0NFRDSzlWWFowQkZWNUZCWlE2US4u) to share your toughts and feedback on EIDSCA.
 
 # FAQ
+How to update existing AADSCA version?
+- The easiest way to do it is kind of in-place upgrade:
+    1. Deploy the Logic App on top of the old one using the ARM template
+    2. Deploy the workbook by copy-pasting the definition into the existing workbook using the advanced editor
+
 Why we are not pulling the data from all of the endpoints? 
 - All AAD endpoints doesn't contain security related configuration settings.
   
