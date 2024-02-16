@@ -1858,7 +1858,7 @@
                 "MitreMitigation": [],
                 "Controls": [
                     {
-                        "Name": "isEnabled",
+                        "Name": "blockSoftMatchEnabled",
                         "DisplayName": "Users can request admin consent to apps they are unable to consent to",
                         "CheckId": "EISCA-HY01",
                         "CurrentValue": "features.blockSoftMatchEnabled",
