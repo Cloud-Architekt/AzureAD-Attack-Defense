@@ -1861,7 +1861,7 @@
                         "Name": "isEnabled",
                         "DisplayName": "Users can request admin consent to apps they are unable to consent to",
                         "CheckId": "EISCA-HY01",
-                        "CurrentValue": "blockSoftMatchEnabled",
+                        "CurrentValue": "features.blockSoftMatchEnabled",
                         "DefaultValue": "false",
                         "RecommendedValue": "true",
                         "Recommendation": "",
