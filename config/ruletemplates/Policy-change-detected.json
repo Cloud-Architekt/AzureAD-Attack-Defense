@@ -14,8 +14,8 @@
             "kind": "Scheduled",
             "apiVersion": "2022-09-01-preview",
             "properties": {
-                "displayName": "Azure AD policy change has been detected",
-                "description": "Policy change has been detected which trigger a scan by AADSCA to analyze if  configuration changes has impact to identity security posture.",
+                "displayName": "Entra ID policy change has been detected",
+                "description": "Policy change has been detected which trigger a scan by EIDSCA to analyze if configuration changes has impact to identity security posture.",
                 "severity": "Informational",
                 "enabled": true,
                 "query": "AuditLogs\r\n| where OperationName == \"Update authorization policy\"",

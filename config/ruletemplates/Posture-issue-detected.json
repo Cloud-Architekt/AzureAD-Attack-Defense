@@ -14,7 +14,7 @@
             "kind": "Scheduled",
             "apiVersion": "2022-09-01-preview",
             "properties": {
-                "displayName": "Azure AD Security Posture Issue has been detected by AADSCA",
+                "displayName": "Entra ID Security Posture Issue has been detected by EIDSCA",
                 "description": "",
                 "severity": "Medium",
                 "enabled": true,
@@ -45,7 +45,7 @@
                     "aggregationKind": "AlertPerResult"
                 },
                 "alertDetailsOverride": {
-                    "alertDisplayNameFormat": "Authorization policy change of {{Configuration}} in Azure AD.",
+                    "alertDisplayNameFormat": "Authorization policy change of {{Configuration}} in Microsoft Entra ID.",
                     "alertDescriptionFormat": "The setting \"{{DisplayName}}\" has been changed from {{PreviousValue}} to {{CurrentValue}}.",
                     "alertTacticsColumnName": "MitreTactics",
                     "alertSeverityColumnName": "Severity"

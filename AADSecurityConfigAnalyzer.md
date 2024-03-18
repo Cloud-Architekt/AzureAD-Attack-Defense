@@ -185,6 +185,8 @@ A sample script for AzureAD and Microsoft Graph PowerShell is available here:
 🔗[AADSCA-AddedPermToLogicAppMSI - AzureAD PowerShell](config/deploy/AADSCA-AddedPermToLogicAppMSI.ps1)
 🔗[AADSCA-AddedPermToLogicAppMSI - Microsoft Graph SDK PowerShell](config/deploy/AADSCA-AddedPermToLogicAppMSI-GraphSDK.ps1)
 
+_Side note: Please keep in mind, the required permissions are required for Logic App "Import-AADSCAtoLAWS" but also for Sentinel Playbook "Import-AADSCAbySentinel" if you want to use them as well._
+
 ### Azure Workbook
 Azure Workbook for the data visualization is manually deployed. Preferred way is to deploy it as Sentinel workbook to avoid mapping issues to Log Analytics.
 
@@ -199,14 +201,14 @@ To deploy the workbook into Microsoft Sentinel:
 
 ### Microsoft Sentinel Integration for Incident Creation
 
-Pre-requisite: Deploy the Playbook-Version of EIDSCA.
+Pre-requisite: Deploy the Playbook-Version of EIDSCA, ingestion of Entra ID Audit Logs
 
 1. Import both analytics rules from Rule Templates folder:
 
     <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-ImportRuleTemplates.png" target="_blank">![](./media/AADSCA-ImportRuleTemplates.png)</a>
 
 
-    **Azure AD policy change has been detected**<br>
+    **Entra ID policy change has been detected**<br>
     🔗([Policy-change-detected.json](config/ruletemplates/Policy-change-detected.json))
     _Looking for policy operations (covers Authorization Policy changes) from Entra ID Audit Logs and create an informational incident which is used as trigger to initialize EIDSCA._
 
@@ -214,7 +216,7 @@ Pre-requisite: Deploy the Playbook-Version of EIDSCA.
     🔗([Posture-issue-detected.json](config/ruletemplates/Policy-change-detected.json))<br>
     _Compares changes of CurrentValue between latest and previous dataset in EIDSCA after the playbook has been executed. It creates an incident foreach configuration change which does not match with recommended value._
 
-2. Create an automation rule which triggers EIDSCA Playbook after analytics rule "Azure AD policy change has been detected" has created an incident. In addition, it's recommended to create an auto-close of the informational incident about the policy change.
+2. Create an automation rule which triggers EIDSCA Playbook after analytics rule "Entra ID policy change has been detected" has created an incident. In addition, it's recommended to create an auto-close of the informational incident about the policy change.
 
     <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-AutomationRule.png" target="_blank">![](./media/AADSCA-AutomationRule.png)</a>
 
@@ -223,7 +225,7 @@ Pre-requisite: Deploy the Playbook-Version of EIDSCA.
 We are always interested in feedback to improve and verify which configuration settings could be added to this solution. Please use this [feedback form](https://forms.office.com/Pages/ResponsePage.aspx?id=P3WvLytmEUGlwHTkIxEBVkdHJ9TUc_hOuybLJkknZvFUREhRUVc0NFRDSzlWWFowQkZWNUZCWlE2US4u) to share your toughts and feedback on EIDSCA.
 
 # FAQ
-How to update existing AADSCA version?
+How to update existing EIDSCA (formely named AADSCA) version?
 - The easiest way to do it is kind of in-place upgrade:
     1. Deploy the Logic App on top of the old one using the ARM template
     2. Deploy the workbook by copy-pasting the definition into the existing workbook using the advanced editor
