@@ -8,7 +8,7 @@
         "ControlArea": [
             {
                 "ControlName": "Default Authorization Settings",
-                "ControlId":  "EISCA-AP",
+                "ControlId":  "EIDSCA.AP",
                 "Description": "Manages authorization settings in Azure AD",
                 "GraphEndpoint": "authorizationPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authorizationPolicy",
@@ -20,7 +20,7 @@
                     {
                         "Name": "allowedToUseSSPR",
                         "DisplayName": "Enabled Self service password reset",
-                        "CheckId": "EISCA-AP01",
+                        "CheckId": "EIDSCA.AP01",
                         "CurrentValue": "value.allowedToUseSSPR",
                         "DefaultValue": "false",
                         "RecommendedValue": "true",
@@ -35,7 +35,7 @@
                     {
                         "Name": "blockMsolPowerShell",
                         "DisplayName": "Blocked MSOnline PowerShell access",
-                        "CheckId": "EISCA-AP02",
+                        "CheckId": "EIDSCA.AP02",
                         "CurrentValue": "value.blockMsolPowerShell",
                         "DefaultValue": "false",
                         "RecommendedValue": "",
@@ -50,7 +50,7 @@
                     {
                         "Name": "enabledPreviewFeatures",
                         "DisplayName": "Enabled ",
-                        "CheckId": "EISCA-AP03",
+                        "CheckId": "EIDSCA.AP03",
                         "CurrentValue": "value.enabledPreviewFeatures",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -65,7 +65,7 @@
                     {
                         "Name": "allowInvitesFrom",
                         "DisplayName": "Guest invite restrictions",
-                        "CheckId": "EISCA-AP04",
+                        "CheckId": "EIDSCA.AP04",
                         "CurrentValue": "value.allowInvitesFrom",
                         "DefaultValue": "everyone",
                         "RecommendedValue": "adminsAndGuestInviters",
@@ -80,7 +80,7 @@
                     {
                         "Name": "allowedToSignUpEmailBasedSubscriptions",
                         "DisplayName": "Sign-up for email based subscription",
-                        "CheckId": "EISCA-AP05",
+                        "CheckId": "EIDSCA.AP05",
                         "CurrentValue": "value.allowedToSignUpEmailBasedSubscriptions",
                         "DefaultValue": "true",
                         "RecommendedValue": "false",
@@ -95,7 +95,7 @@
                     {
                         "Name": "allowEmailVerifiedUsersToJoinOrganization",
                         "DisplayName": "User can joint the tenant by email validation",
-                        "CheckId": "EISCA-AP06",
+                        "CheckId": "EIDSCA.AP06",
                         "CurrentValue": "value.allowEmailVerifiedUsersToJoinOrganization",
                         "DefaultValue": "true",
                         "RecommendedValue": "false",
@@ -110,7 +110,7 @@
                     {
                         "Name": "guestUserRoleId",
                         "DisplayName": "Guest user access",
-                        "CheckId": "EISCA-AP07",
+                        "CheckId": "EIDSCA.AP07",
                         "CurrentValue": "value.guestUserRoleId",
                         "DefaultValue": "10dae51f-b6af-4016-8d66-8c2a99b929b3",
                         "RecommendedValue": "2af84b1e-32c8-42b7-82bc-daa82404023b",
@@ -125,7 +125,7 @@
                     {
                         "Name": "permissionGrantPolicyIdsAssignedToDefaultUserRole",
                         "DisplayName": "User consent policy assigned for applications",
-                        "CheckId": "EISCA-AP08",
+                        "CheckId": "EIDSCA.AP08",
                         "CurrentValue": "value.permissionGrantPolicyIdsAssignedToDefaultUserRole[0]",
                         "DefaultValue": "ManagePermissionGrantsForSelf.microsoft-user-default-legacy",
                         "RecommendedValue": "ManagePermissionGrantsForSelf.microsoft-user-default-low",
@@ -140,7 +140,7 @@
                     {
                         "Name": "allowUserConsentForRiskyApps",
                         "DisplayName": "Risk-based step-up consent",
-                        "CheckId": "EISCA-AP09",
+                        "CheckId": "EIDSCA.AP09",
                         "CurrentValue": "value.allowUserConsentForRiskyApps",
                         "DefaultValue": "false",
                         "RecommendedValue": "false",
@@ -155,7 +155,7 @@
                     {
                         "Name": "allowedToCreateApps",
                         "DisplayName": "Default User Role Permissions - Allowed to create Apps",
-                        "CheckId": "EISCA-AP10",
+                        "CheckId": "EIDSCA.AP10",
                         "CurrentValue": "value.defaultUserRolePermissions.allowedToCreateApps",
                         "DefaultValue": "true",
                         "RecommendedValue": "false",
@@ -170,7 +170,7 @@
                     {
                         "Name": "allowedToCreateSecurityGroups",
                         "DisplayName": "Default User Role Permissions - Allowed to create Security Groups",
-                        "CheckId": "EISCA-AP11",
+                        "CheckId": "EIDSCA.AP11",
                         "CurrentValue": "value.defaultUserRolePermissions.allowedToCreateSecurityGroups",
                         "DefaultValue": "true",
                         "RecommendedValue": "",
@@ -185,7 +185,7 @@
                     {
                         "Name": "allowedToCreateTenants",
                         "DisplayName": "Default User Role Permissions - Allowed to create Tenants",
-                        "CheckId": "EISCA-AP12",
+                        "CheckId": "EIDSCA.AP12",
                         "CurrentValue": "value.defaultUserRolePermissions.allowedToCreateTenants",
                         "DefaultValue": "true",
                         "RecommendedValue": "",
@@ -200,7 +200,7 @@
                     {
                         "Name": "allowedToReadBitlockerKeysForOwnedDevice",
                         "DisplayName": "Default User Role Permissions - Allowed to read BitLocker Keys for Owned Devices",
-                        "CheckId": "EISCA-AP13",
+                        "CheckId": "EIDSCA.AP13",
                         "CurrentValue": "value.defaultUserRolePermissions.allowedToReadBitlockerKeysForOwnedDevice",
                         "DefaultValue": "true",
                         "RecommendedValue": "",
@@ -215,7 +215,7 @@
                     {
                         "Name": "allowedToReadOtherUsers",
                         "DisplayName": "Default User Role Permissions - Allowed to read other users",
-                        "CheckId": "EISCA-AP14",
+                        "CheckId": "EIDSCA.AP14",
                         "CurrentValue": "value.defaultUserRolePermissions.allowedToReadOtherUsers",
                         "DefaultValue": "true",
                         "RecommendedValue": "true",
@@ -231,7 +231,7 @@
             },
             {
                 "ControlName": "Default Settings - Consent Policy Settings",
-                "ControlId":  "EISCA-CP",
+                "ControlId":  "EIDSCA.CP",
                 "Description": "Define the consent configurations that can be used to customize the tenant-wide and object-specific restrictions and allowed behavior",
                 "GraphEndpoint": "settings",
                 "GraphUri": "https://graph.microsoft.com/beta/settings",
@@ -243,7 +243,7 @@
                     {
                         "Name": "EnableGroupSpecificConsent",
                         "DisplayName": "Group owner consent for apps accessing data",
-                        "CheckId": "EISCA-CP01",
+                        "CheckId": "EIDSCA.CP01",
                         "CurrentValue": "value.values.EnableGroupSpecificConsent",
                         "DefaultValue": "True",
                         "RecommendedValue": "False",
@@ -258,7 +258,7 @@
                     {
                         "Name": "ConstrainGroupSpecificConsentToMembersOfGroupId",
                         "DisplayName": "Group owner consent for apps accessing data - Restricted to selected group owners",
-                        "CheckId": "EISCA-CP02",
+                        "CheckId": "EIDSCA.CP02",
                         "CurrentValue": "value.values.ConstrainGroupSpecificConsentToMembersOfGroupId",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -273,7 +273,7 @@
                     {
                         "Name": "BlockUserConsentForRiskyApps",
                         "DisplayName": "Block user consent for risky apps",
-                        "CheckId": "EISCA-CP03",
+                        "CheckId": "EIDSCA.CP03",
                         "CurrentValue": "value.values.BlockUserConsentForRiskyApps",
                         "DefaultValue": "true",
                         "RecommendedValue": "true",
@@ -288,7 +288,7 @@
                     {
                         "Name": "EnableAdminConsentRequests",
                         "DisplayName": "Users can request admin consent to apps they are unable to consent to​",
-                        "CheckId": "EISCA-CP04",
+                        "CheckId": "EIDSCA.CP04",
                         "CurrentValue": "value.values.EnableAdminConsentRequests",
                         "DefaultValue": "false",
                         "RecommendedValue": "true",
@@ -304,7 +304,7 @@
             },
             {
                 "ControlName": "Default Settings - Password Rule Settings",
-                "ControlId":  "EISCA-PR",
+                "ControlId":  "EIDSCA.PR",
                 "Description": "Define the password protection and Smart Lockout configurations that can be used to customize the tenant-wide and object-specific restrictions and allowed behavior",
                 "GraphEndpoint": "settings",
                 "GraphUri": "https://graph.microsoft.com/beta/settings",
@@ -316,7 +316,7 @@
                     {
                         "Name": "BannedPasswordCheckOnPremisesMode",
                         "DisplayName": "Password Protection - Mode",
-                        "CheckId": "EISCA-PR01",
+                        "CheckId": "EIDSCA.PR01",
                         "CurrentValue": "value.BannedPasswordCheckOnPremisesMode",
                         "DefaultValue": "Audit",
                         "RecommendedValue": "Enforce",
@@ -331,7 +331,7 @@
                     {
                         "Name": "EnableBannedPasswordCheckOnPremises",
                         "DisplayName": "Password Protection - Enable password protection on Windows Server Active Directory",
-                        "CheckId": "EISCA-PR02",
+                        "CheckId": "EIDSCA.PR02",
                         "CurrentValue": "value.EnableBannedPasswordCheckOnPremises",
                         "DefaultValue": "False",
                         "RecommendedValue": "True",
@@ -346,7 +346,7 @@
                     {
                         "Name": "EnableBannedPasswordCheck",
                         "DisplayName": "Enforce custom list",
-                        "CheckId": "EISCA-PR03",
+                        "CheckId": "EIDSCA.PR03",
                         "CurrentValue": "value.EnableBannedPasswordCheck",
                         "DefaultValue": "True",
                         "RecommendedValue": "True",
@@ -361,7 +361,7 @@
                     {
                         "Name": "BannedPasswordList",
                         "DisplayName": "Password Protection - Custom banned password list",
-                        "CheckId": "EISCA-PR04",
+                        "CheckId": "EIDSCA.PR04",
                         "CurrentValue": "value.BannedPasswordList",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -376,7 +376,7 @@
                     {
                         "Name": "LockoutDurationInSeconds",
                         "DisplayName": "Smart Lockout - Lockout duration in seconds",
-                        "CheckId": "EISCA-PR05",                        
+                        "CheckId": "EIDSCA.PR05",                        
                         "CurrentValue": "value.LockoutDurationInSeconds",
                         "DefaultValue": "60",
                         "RecommendedValue": "60",
@@ -391,7 +391,7 @@
                     {
                         "Name": "LockoutThreshold",
                         "DisplayName": "Smart Lockout - Lockout threshold",
-                        "CheckId": "EISCA-PR06",                        
+                        "CheckId": "EIDSCA.PR06",                        
                         "CurrentValue": "value.LockoutThreshold",
                         "DefaultValue": "10",
                         "RecommendedValue": "10",
@@ -407,7 +407,7 @@
             },
             {
                 "ControlName": "Default Settings - Classification and M365 Groups",
-                "ControlId":  "EISCA-ST",
+                "ControlId":  "EIDSCA.ST",
                 "Description": "Define group configurations that can be used to customize the tenant-wide and object-specific restrictions and allowed behavior",
                 "GraphEndpoint": "settings",
                 "GraphUri": "https://graph.microsoft.com/beta/settings",
@@ -419,7 +419,7 @@
                     {
                         "Name": "NewUnifiedGroupWritebackDefault",
                         "DisplayName": "Default writeback setting for newly created Microsoft 365 groups",
-                        "CheckId": "EISCA-ST01",                        
+                        "CheckId": "EIDSCA.ST01",                        
                         "CurrentValue": "value.NewUnifiedGroupWritebackDefault",
                         "DefaultValue": "true",
                         "RecommendedValue": "",
@@ -434,7 +434,7 @@
                     {
                         "Name": "EnableMIPLabels",
                         "DisplayName": "Microsoft Information Protection (MIP) Sensitivity labels to Microsoft 365 groups",
-                        "CheckId": "EISCA-ST02",                                                
+                        "CheckId": "EIDSCA.ST02",                                                
                         "CurrentValue": "value.EnableMIPLabels",
                         "DefaultValue": "false",
                         "RecommendedValue": "",
@@ -449,7 +449,7 @@
                     {
                         "Name": "CustomBlockedWordsList",
                         "DisplayName": "M365 groups naming convention - Custom blocked words list",
-                        "CheckId": "EISCA-ST03",                                                
+                        "CheckId": "EIDSCA.ST03",                                                
                         "CurrentValue": "value.CustomBlockedWordsList",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -464,7 +464,7 @@
                     {
                         "Name": "EnableMSStandardBlockedWords",
                         "DisplayName": "M365 groups naming convention - Microsoft Standard List of blocked words (deprecated)",
-                        "CheckId": "EISCA-ST04",                                                
+                        "CheckId": "EIDSCA.ST04",                                                
                         "CurrentValue": "value.EnableMSStandardBlockedWords",
                         "DefaultValue": "false",
                         "RecommendedValue": "",
@@ -479,7 +479,7 @@
                     {
                         "Name": "ClassificationDescriptions",
                         "DisplayName": "M365 groups naming convention - Classification descriptions",
-                        "CheckId": "EISCA-ST05",                                                
+                        "CheckId": "EIDSCA.ST05",                                                
                         "CurrentValue": "value.ClassificationDescriptions",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -494,7 +494,7 @@
                     {
                         "Name": "DefaultClassification",
                         "DisplayName": "M365 groups naming convention - Default classification",
-                        "CheckId": "EISCA-ST06",                                                
+                        "CheckId": "EIDSCA.ST06",                                                
                         "CurrentValue": "value.DefaultClassification",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -509,7 +509,7 @@
                     {
                         "Name": "PrefixSuffixNamingRequirement",
                         "DisplayName": "M365 groups naming convention - prefix/suffix naming requirement",
-                        "CheckId": "EISCA-ST07",                                                
+                        "CheckId": "EIDSCA.ST07",                                                
                         "CurrentValue": "value.PrefixSuffixNamingRequirement",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -524,7 +524,7 @@
                     {
                         "Name": "AllowGuestsToBeGroupOwner",
                         "DisplayName": "M365 groups - Allow Guests to become Group Owner",
-                        "CheckId": "EISCA-ST08",                                                
+                        "CheckId": "EIDSCA.ST08",                                                
                         "CurrentValue": "value.AllowGuestsToBeGroupOwner",
                         "DefaultValue": "false",
                         "RecommendedValue": "false",
@@ -539,7 +539,7 @@
                     {
                         "Name": "AllowGuestsToAccessGroups",
                         "DisplayName": "M365 groups - Allow Guests to have access to groups content",
-                        "CheckId": "EISCA-ST09",                                                
+                        "CheckId": "EIDSCA.ST09",                                                
                         "CurrentValue": "value.AllowGuestsToAccessGroups",
                         "DefaultValue": "True",
                         "RecommendedValue": "True",
@@ -554,7 +554,7 @@
                     {
                         "Name": "GuestUsageGuidelinesUrl",
                         "DisplayName": "M365 groups - Guest usage guidelines URL",
-                        "CheckId": "EISCA-ST10",                        
+                        "CheckId": "EIDSCA.ST10",                        
                         "CurrentValue": "value.GuestUsageGuidelinesUrl",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -569,7 +569,7 @@
                     {
                         "Name": "EnableGroupCreation",
                         "DisplayName": "M365 groups - Enable Group creation for any members",
-                        "CheckId": "EISCA-ST11",                        
+                        "CheckId": "EIDSCA.ST11",                        
                         "CurrentValue": "value.EnableGroupCreation",
                         "DefaultValue": "True",
                         "RecommendedValue": "",
@@ -584,7 +584,7 @@
                     {
                         "Name": "GroupCreationAllowedGroupId",
                         "DisplayName": "M365 groups - Allow group created for a specific security group",
-                        "CheckId": "EISCA-ST12",                        
+                        "CheckId": "EIDSCA.ST12",                        
                         "CurrentValue": "value.GroupCreationAllowedGroupId",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -599,7 +599,7 @@
                     {
                         "Name": "AllowToAddGuests",
                         "DisplayName": "M365 groups - Allow to add Guests",
-                        "CheckId": "EISCA-ST13",                        
+                        "CheckId": "EIDSCA.ST13",                        
                         "CurrentValue": "value.AllowToAddGuests",
                         "DefaultValue": "True",
                         "RecommendedValue": "",
@@ -614,7 +614,7 @@
                     {
                         "Name": "ClassificationList",
                         "DisplayName": "M365 groups - Classification list",
-                        "CheckId": "EISCA-ST14",                                                
+                        "CheckId": "EIDSCA.ST14",                                                
                         "CurrentValue": "value.ClassificationList",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -630,7 +630,7 @@
             },
             {
                 "ControlName": "Default Activity Timeout",
-                "ControlId":  "EISCA-DA",
+                "ControlId":  "EIDSCA.DA",
                 "Description": "Control the idle timeout for web sessions for applications that support activity-based timeout functionality",
                 "GraphEndpoint": "activityBasedTimeoutPolicies",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/activityBasedTimeoutPolicies",
@@ -642,7 +642,7 @@
                     {
                         "Name": "WebSessionIdleTimeout",
                         "DisplayName": "Enable directory level idle timeout",
-                        "CheckId": "EISCA-DA01",                        
+                        "CheckId": "EIDSCA.DA01",                        
                         "CurrentValue": "value.definition.ActivityBasedTimeoutPolicy.ApplicationPolicies.WebSessionIdleTimeout",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -658,7 +658,7 @@
             },
             {
                 "ControlName": "External Identities",
-                "ControlId":  "EISCA-EX",
+                "ControlId":  "EIDSCA.EX",
                 "Description": "Controls whether external users can leave an Azure AD tenant via self-service controls",
                 "GraphEndpoint": "externalIdentitiesPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/externalIdentitiesPolicy",
@@ -670,7 +670,7 @@
                     {
                         "Name": "allowExternalIdentitiesToLeave",
                         "DisplayName": "External user leave settings",
-                        "CheckId": "EISCA-EX01",                        
+                        "CheckId": "EIDSCA.EX01",                        
                         "CurrentValue": "value.allowExternalIdentitiesToLeave",
                         "DefaultValue": "True",
                         "RecommendedValue": "",
@@ -685,7 +685,7 @@
                     {
                         "Name": "allowDeletedIdentitiesDataRemoval",
                         "DisplayName": "Deleted Identities Data Removal",
-                        "CheckId": "EISCA-EX02",                        
+                        "CheckId": "EIDSCA.EX02",                        
                         "CurrentValue": "value.allowDeletedIdentitiesDataRemoval",
                         "DefaultValue": "False",
                         "RecommendedValue": "",
@@ -701,7 +701,7 @@
             },
             {
                 "ControlName": "Feature Rollout (Enabled Previews)",
-                "ControlId":  "EISCA-FT",
+                "ControlId":  "EIDSCA.FT",
                 "Description": "Defines a rollout and pilot feature before enabling for entire organization",
                 "GraphEndpoint": "featureRolloutPolicies",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/featureRolloutPolicies",
@@ -713,7 +713,7 @@
                     {
                         "Name": "featureRolloutPolicy",
                         "DisplayName": "",
-                        "CheckId": "EISCA-FT01",                        
+                        "CheckId": "EIDSCA.FT01",                        
                         "CurrentValue": "value",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -729,7 +729,7 @@
             },
             {
                 "ControlName": "Authentication Method - General Settings",
-                "ControlId":  "EISCA-AG",
+                "ControlId":  "EIDSCA.AG",
                 "Description": "The tenant-wide policy that controls which authentication methods are allowed in the tenant, authentication method registration requirements, and self-service password reset settings.",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy",
@@ -741,7 +741,7 @@
                     {
                         "Name": "policyMigrationState",
                         "DisplayName": "Manage migration",
-                        "CheckId": "EISCA-AG01",                        
+                        "CheckId": "EIDSCA.AG01",                        
                         "CurrentValue": "policyMigrationState",
                         "DefaultValue": "premigration",
                         "RecommendedValue": "migrationComplete",
@@ -756,7 +756,7 @@
                     {
                         "Name": "reportSuspiciousActivitySettingsState",
                         "DisplayName": "Report suspicious activity - State",
-                        "CheckId": "EISCA-AG02",   
+                        "CheckId": "EIDSCA.AG02",   
                         "CurrentValue": "reportSuspiciousActivitySettings.state",
                         "DefaultValue": "default",
                         "RecommendedValue": "enabled",
@@ -771,7 +771,7 @@
                     {
                         "Name": "reportSuspiciousActivitySettingsIncluded",
                         "DisplayName": "Report suspicious activity - Included users/groups",
-                        "CheckId": "EISCA-AG03",   
+                        "CheckId": "EIDSCA.AG03",   
                         "CurrentValue": "reportSuspiciousActivitySettings.includeTargets.id",
                         "DefaultValue": "all_users",
                         "RecommendedValue": "all_users",
@@ -786,7 +786,7 @@
                     {
                         "Name": "reportSuspiciousActivitySettingsReporting code",
                         "DisplayName": "Report suspicious activity - Reporting code",
-                        "CheckId": "EISCA-AG04",   
+                        "CheckId": "EIDSCA.AG04",   
                         "CurrentValue": "reportSuspiciousActivitySettings.voiceReportingCode",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -801,7 +801,7 @@
                     {
                         "Name": "systemCredentialPreferencesState",
                         "DisplayName": "System Credential Preferences - State",
-                        "CheckId": "EISCA-AG05",   
+                        "CheckId": "EIDSCA.AG05",   
                         "CurrentValue": "systemCredentialPreferences.state",
                         "DefaultValue": "default",
                         "RecommendedValue": "",
@@ -816,7 +816,7 @@
                     {
                         "Name": "systemCredentialPreferencesStateIncluded",
                         "DisplayName": "System Credential Preferences - Included users/groups",
-                        "CheckId": "EISCA-AG06",   
+                        "CheckId": "EIDSCA.AG06",   
                         "CurrentValue": "systemCredentialPreferences.includeTargets.id",
                         "DefaultValue": "all_users",
                         "RecommendedValue": "",
@@ -831,7 +831,7 @@
                     {
                         "Name": "systemCredentialPreferencesStateExcluded",
                         "DisplayName": "System Credential Preferences - Excluded users/groups",
-                        "CheckId": "EISCA-AG07",   
+                        "CheckId": "EIDSCA.AG07",   
                         "CurrentValue": "systemCredentialPreferences.excludeTargets.id",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -846,7 +846,7 @@
                     {
                         "Name": "authenticationMethodsRegistrationCampaignState",
                         "DisplayName": "Registration campaign - State",
-                        "CheckId": "EISCA-AG08",   
+                        "CheckId": "EIDSCA.AG08",   
                         "CurrentValue": "registrationEnforcement.authenticationMethodsRegistrationCampaign.state",
                         "DefaultValue": "default",
                         "RecommendedValue": "",
@@ -861,7 +861,7 @@
                     {
                         "Name": "authenticationMethodsRegistrationCampaignIncluded",
                         "DisplayName": "Registration campaign - Included users/groups",
-                        "CheckId": "EISCA-AG09",   
+                        "CheckId": "EIDSCA.AG09",   
                         "CurrentValue": "registrationEnforcement.authenticationMethodsRegistrationCampaign.includeTargets.id",
                         "DefaultValue": "all_users",
                         "RecommendedValue": "",
@@ -876,7 +876,7 @@
                     {
                         "Name": "authenticationMethodsRegistrationCampaignTargetedAuthenticationMethod",
                         "DisplayName": "Registration campaign - Authentication Method",
-                        "CheckId": "EISCA-AG10",   
+                        "CheckId": "EIDSCA.AG10",   
                         "CurrentValue": "registrationEnforcement.authenticationMethodsRegistrationCampaign.includeTargets.targetedAuthenticationMethod",
                         "DefaultValue": "microsoftAuthenticator",
                         "RecommendedValue": "",
@@ -891,7 +891,7 @@
                     {
                         "Name": "authenticationMethodsRegistrationCampaignExcluded",
                         "DisplayName": "Registration campaign - Excluded users/groups",
-                        "CheckId": "EISCA-AG11",   
+                        "CheckId": "EIDSCA.AG11",   
                         "CurrentValue": "registrationEnforcement.authenticationMethodsRegistrationCampaign.excludeTargets.id",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -906,7 +906,7 @@
                     {
                         "Name": "authenticationMethodsRegistrationCampaignSnoozeDurationInDays",
                         "DisplayName": "Registration campaign - Days allowed to snooze",
-                        "CheckId": "EISCA-AG12",   
+                        "CheckId": "EIDSCA.AG12",   
                         "CurrentValue": "registrationEnforcement.authenticationMethodsRegistrationCampaign.snoozeDurationInDays",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -922,7 +922,7 @@
             },
             {
                 "ControlName": "Authentication Method - Microsoft Authenticator",
-                "ControlId":  "EISCA-AM",
+                "ControlId":  "EIDSCA.AM",
                 "Description": "Define configuration settings and users or groups that are enabled to use Authenticator App",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('MicrosoftAuthenticator')",
@@ -934,7 +934,7 @@
                     {
                         "Name": "state",
                         "DisplayName": "State",
-                        "CheckId": "EISCA-AM01",   
+                        "CheckId": "EIDSCA.AM01",   
                         "CurrentValue": "state",
                         "DefaultValue": "enabled",
                         "RecommendedValue": "enabled",
@@ -949,7 +949,7 @@
                     {
                         "Name": "isSoftwareOathEnabled",
                         "DisplayName": "Allow use of Microsoft Authenticator OTP",
-                        "CheckId": "EISCA-AM02",   
+                        "CheckId": "EIDSCA.AM02",   
                         "CurrentValue": "state",
                         "DefaultValue": "enabled",
                         "RecommendedValue": "enabled",
@@ -964,7 +964,7 @@
                     {
                         "Name": "numberMatchingRequiredState",
                         "DisplayName": "Require number matching for push notifications",
-                        "CheckId": "EISCA-AM03",   
+                        "CheckId": "EIDSCA.AM03",   
                         "CurrentValue": "featureSettings.numberMatchingRequiredState.state",
                         "DefaultValue": "enabled",
                         "RecommendedValue": "enabled",
@@ -979,7 +979,7 @@
                     {
                         "Name": "numberMatchingRequiredStateIncluded",
                         "DisplayName": "Included users/groups of number matching for push notifications",
-                        "CheckId": "EISCA-AM04",   
+                        "CheckId": "EIDSCA.AM04",   
                         "CurrentValue": "featureSettings.numberMatchingRequiredState.includeTarget.id",
                         "DefaultValue": "all_users",
                         "RecommendedValue": "all_users",
@@ -994,7 +994,7 @@
                     {
                         "Name": "numberMatchingRequiredStateExcluded",
                         "DisplayName": "Excluded users/groups of number matching for push notifications",
-                        "CheckId": "EISCA-AM05",   
+                        "CheckId": "EIDSCA.AM05",   
                         "CurrentValue": "featureSettings.numberMatchingRequiredState.excludeTarget.id",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1009,7 +1009,7 @@
                     {
                         "Name": "displayAppInformationRequiredState",
                         "DisplayName": "Show application name in push and passwordless notifications",
-                        "CheckId": "EISCA-AM06",   
+                        "CheckId": "EIDSCA.AM06",   
                         "CurrentValue": "featureSettings.displayAppInformationRequiredState.state",
                         "DefaultValue": "enabled",
                         "RecommendedValue": "enabled",
@@ -1024,7 +1024,7 @@
                     {
                         "Name": "displayAppInformationRequiredStateIncluded",
                         "DisplayName": "Included users/groups to show application name in push and passwordless notifications",
-                        "CheckId": "EISCA-AM07",   
+                        "CheckId": "EIDSCA.AM07",   
                         "CurrentValue": "featureSettings.displayAppInformationRequiredState.includeTarget.id",
                         "DefaultValue": "all_users",
                         "RecommendedValue": "all_users",
@@ -1039,7 +1039,7 @@
                     {
                         "Name": "displayAppInformationRequiredStateExcluded",
                         "DisplayName": "Excluded users/groups to show application name in push and passwordless notifications",
-                        "CheckId": "EISCA-AM08",   
+                        "CheckId": "EIDSCA.AM08",   
                         "CurrentValue": "featureSettings.displayAppInformationRequiredState.excludeTarget.id",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1054,7 +1054,7 @@
                     {
                         "Name": "displayLocationInformationRequiredState",
                         "DisplayName": "Show geographic location in push and passwordless notifications",
-                        "CheckId": "EISCA-AM09",   
+                        "CheckId": "EIDSCA.AM09",   
                         "CurrentValue": "featureSettings.displayLocationInformationRequiredState.state",
                         "DefaultValue": "enabled",
                         "RecommendedValue": "enabled",
@@ -1069,7 +1069,7 @@
                     {
                         "Name": "displayLocationInformationRequiredStateIncluded",
                         "DisplayName": "Included users/groups to show geographic location in push and passwordless notifications",
-                        "CheckId": "EISCA-AM10",   
+                        "CheckId": "EIDSCA.AM10",   
                         "CurrentValue": "featureSettings.displayLocationInformationRequiredState.includeTarget.id",
                         "DefaultValue": "all_users",
                         "RecommendedValue": "all_users",
@@ -1084,7 +1084,7 @@
                     {
                         "Name": "displayLocationInformationRequiredExcluded",
                         "DisplayName": "Excluded users/groups to show geographic location in push and passwordless notifications",
-                        "CheckId": "EISCA-AM11",   
+                        "CheckId": "EIDSCA.AM11",   
                         "CurrentValue": "featureSettings.displayLocationInformationRequiredState.excludeTarget.id",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1099,7 +1099,7 @@
                     {
                         "Name": "includeTargets",
                         "DisplayName": "Included users/groups from using Authenticator App",
-                        "CheckId": "EISCA-AM12",   
+                        "CheckId": "EIDSCA.AM12",   
                         "CurrentValue": "includeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1114,7 +1114,7 @@
                     {
                         "Name": "excludeTargets",
                         "DisplayName": "Excluded users/groups from using Authenticator App",
-                        "CheckId": "EISCA-AM13",   
+                        "CheckId": "EIDSCA.AM13",   
                         "CurrentValue": "excludeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1130,7 +1130,7 @@
             },
             {
                 "ControlName": "Authentication Method - FIDO2 security key",
-                "ControlId":  "EISCA-AF",
+                "ControlId":  "EIDSCA.AF",
                 "Description": "Define configuration settings and users or groups that are enabled to use FIDO2 security keys",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Fido2')",
@@ -1142,7 +1142,7 @@
                     {
                         "Name": "state",
                         "DisplayName": "State",
-                        "CheckId": "EISCA-AF01",   
+                        "CheckId": "EIDSCA.AF01",   
                         "CurrentValue": "state",
                         "DefaultValue": "enabled",
                         "RecommendedValue": "enabled",
@@ -1157,7 +1157,7 @@
                     {
                         "Name": "isSelfServiceRegistrationAllowed",
                         "DisplayName": "Allow self-service set up",
-                        "CheckId": "EISCA-AF02",   
+                        "CheckId": "EIDSCA.AF02",   
                         "CurrentValue": "isSelfServiceRegistrationAllowed",
                         "DefaultValue": "true",
                         "RecommendedValue": "true",
@@ -1172,7 +1172,7 @@
                     {
                         "Name": "isAttestationEnforced",
                         "DisplayName": "Enforce attestation",
-                        "CheckId": "EISCA-AF03",   
+                        "CheckId": "EIDSCA.AF03",   
                         "CurrentValue": "isAttestationEnforced",
                         "DefaultValue": "true",
                         "RecommendedValue": "true",
@@ -1187,7 +1187,7 @@
                     {
                         "Name": "keyRestrictions.isEnforced",
                         "DisplayName": "Enforce key restrictions",
-                        "CheckId": "EISCA-AF04",   
+                        "CheckId": "EIDSCA.AF04",   
                         "CurrentValue": "keyRestrictions.isEnforced",
                         "DefaultValue": "false",
                         "RecommendedValue": "",
@@ -1202,7 +1202,7 @@
                     {
                         "Name": "keyRestrictions.aaGuids",
                         "DisplayName": "Restricted",
-                        "CheckId": "EISCA-AF05",   
+                        "CheckId": "EIDSCA.AF05",   
                         "CurrentValue": "keyRestrictions.aaGuids",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1217,7 +1217,7 @@
                     {
                         "Name": "keyRestrictions.enforcementType",
                         "DisplayName": "Restrict specific keys",
-                        "CheckId": "EISCA-AF06",   
+                        "CheckId": "EIDSCA.AF06",   
                         "CurrentValue": "keyRestrictions.enforcementType",
                         "DefaultValue": "block",
                         "RecommendedValue": "block",
@@ -1232,7 +1232,7 @@
                     {
                         "Name": "includeTargets",
                         "DisplayName": "Included users/groups from using security keys",
-                        "CheckId": "EISCA-AF07",   
+                        "CheckId": "EIDSCA.AF07",   
                         "CurrentValue": "includeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1247,7 +1247,7 @@
                     {
                         "Name": "excludeTargets",
                         "DisplayName": "Excluded users/groups from using security keys",
-                        "CheckId": "EISCA-AF08",   
+                        "CheckId": "EIDSCA.AF08",   
                         "CurrentValue": "excludeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1263,7 +1263,7 @@
             },
             {
                 "ControlName": "Authentication Method - Temporary Access Pass",
-                "ControlId":  "EISCA-AT",
+                "ControlId":  "EIDSCA.AT",
                 "Description": "Define configuration settings and users or groups that are enabled to use Temporary Access Pass",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('TemporaryAccessPass')",
@@ -1275,7 +1275,7 @@
                     {
                         "Name": "state",
                         "DisplayName": "State",
-                        "CheckId": "EISCA-AT01",   
+                        "CheckId": "EIDSCA.AT01",   
                         "CurrentValue": "state",
                         "DefaultValue": "enabled",
                         "RecommendedValue": "enabled",
@@ -1290,7 +1290,7 @@
                     {
                         "Name": "isUsableOnce",
                         "DisplayName": "One-time",
-                        "CheckId": "EISCA-AT02",                           
+                        "CheckId": "EIDSCA.AT02",                           
                         "CurrentValue": "isUsableOnce",
                         "DefaultValue": "false",
                         "RecommendedValue": "false",
@@ -1305,7 +1305,7 @@
                     {
                         "Name": "defaultLifetimeInMinutes",
                         "DisplayName": "Default lifetime",
-                        "CheckId": "EISCA-AT03",   
+                        "CheckId": "EIDSCA.AT03",   
                         "CurrentValue": "defaultLifetimeInMinutes",
                         "DefaultValue": "60",
                         "RecommendedValue": "",
@@ -1320,7 +1320,7 @@
                     {
                         "Name": "defaultLength",
                         "DisplayName": "Length",
-                        "CheckId": "EISCA-AT04",   
+                        "CheckId": "EIDSCA.AT04",   
                         "CurrentValue": "defaultLength",
                         "DefaultValue": "8",
                         "RecommendedValue": "",
@@ -1335,7 +1335,7 @@
                     {
                         "Name": "minimumLifetimeInMinutes",
                         "DisplayName": "Minimum lifetime",
-                        "CheckId": "EISCA-AT05",   
+                        "CheckId": "EIDSCA.AT05",   
                         "CurrentValue": "minimumLifetimeInMinutes",
                         "DefaultValue": "60",
                         "RecommendedValue": "",
@@ -1350,7 +1350,7 @@
                     {
                         "Name": "maximumLifetimeInMinutes",
                         "DisplayName": "Maximum lifetime",
-                        "CheckId": "EISCA-AT06",   
+                        "CheckId": "EIDSCA.AT06",   
                         "CurrentValue": "maximumLifetimeInMinutes",
                         "DefaultValue": "480",
                         "RecommendedValue": "",
@@ -1365,7 +1365,7 @@
                     {
                         "Name": "includeTargets",
                         "DisplayName": "Included users/groups from Temporary Access Pass",
-                        "CheckId": "EISCA-AT07",   
+                        "CheckId": "EIDSCA.AT07",   
                         "CurrentValue": "includeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1380,7 +1380,7 @@
                     {
                         "Name": "excludeTargets",
                         "DisplayName": "Excluded users/group from Temporary Access Pass",
-                        "CheckId": "EISCA-AT08",   
+                        "CheckId": "EIDSCA.AT08",   
                         "CurrentValue": "excludeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1396,7 +1396,7 @@
             },
             {
                 "ControlName": "Authentication Method - Third-party software OATH tokens",
-                "ControlId":  "EISCA-AO",
+                "ControlId":  "EIDSCA.AO",
                 "Description": "Define configuration settings and users or groups that are enabled to use software OATH token",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('SoftwareOath')",
@@ -1408,7 +1408,7 @@
                     {
                         "Name": "state",
                         "DisplayName": "State",
-                        "CheckId": "EISCA-AO01",   
+                        "CheckId": "EIDSCA.AO01",   
                         "CurrentValue": "state",
                         "DefaultValue": "disabled",
                         "RecommendedValue": "",
@@ -1423,7 +1423,7 @@
                     {
                         "Name": "includeTargets",
                         "DisplayName": "Included users/groups from OATH token",
-                        "CheckId": "EISCA-AO02",   
+                        "CheckId": "EIDSCA.AO02",   
                         "CurrentValue": "includeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1438,7 +1438,7 @@
                     {
                         "Name": "excludeTargets",
                         "DisplayName": "Excluded users/group from OATH token",
-                        "CheckId": "EISCA-AO03",   
+                        "CheckId": "EIDSCA.AO03",   
                         "CurrentValue": "excludeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1454,7 +1454,7 @@
             },
             {
                 "ControlName": "Authentication Method - Email OTP",
-                "ControlId":  "EISCA-AE",
+                "ControlId":  "EIDSCA.AE",
                 "Description": "Define configuration settings and users or groups that are enabled to use email address registered to a user. For members of a tenant, email OTP is usable only for Self-Service Password Recovery. It may also be configured to be used for sign-in by guest users.",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Email')",
@@ -1466,7 +1466,7 @@
                     {
                         "Name": "state",
                         "DisplayName": "State",
-                        "CheckId": "EISCA-AE01",   
+                        "CheckId": "EIDSCA.AE01",   
                         "CurrentValue": "state",
                         "DefaultValue": "disabled",
                         "RecommendedValue": "",
@@ -1481,7 +1481,7 @@
                     {
                         "Name": "allowExternalIdToUseEmailOtp",
                         "DisplayName": "Allow external users to use email OTP",
-                        "CheckId": "EISCA-AE02",   
+                        "CheckId": "EIDSCA.AE02",   
                         "CurrentValue": "allowExternalIdToUseEmailOtp",
                         "DefaultValue": "default",
                         "RecommendedValue": "",
@@ -1496,7 +1496,7 @@
                     {
                         "Name": "includeTargets",
                         "DisplayName": "Included users/groups from Email OTP",
-                        "CheckId": "EISCA-AE03",   
+                        "CheckId": "EIDSCA.AE03",   
                         "CurrentValue": "includeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1511,7 +1511,7 @@
                     {
                         "Name": "excludeTargets",
                         "DisplayName": "Excluded users/group from Email OTP",
-                        "CheckId": "EISCA-AE04",   
+                        "CheckId": "EIDSCA.AE04",   
                         "CurrentValue": "excludeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1527,7 +1527,7 @@
             },
             {
                 "ControlName": "Authentication Method - Voice call",
-                "ControlId":  "EISCA-AV",
+                "ControlId":  "EIDSCA.AV",
                 "Description": "Define configuration settings and users or groups that are enabled to use voice call for authentication. Voice call is not usable as a first-factor authentication method.",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Voice')",
@@ -1538,7 +1538,7 @@
                     {
                         "Name": "state",
                         "DisplayName": "State",
-                        "CheckId": "EISCA-AV01",   
+                        "CheckId": "EIDSCA.AV01",   
                         "CurrentValue": "state",
                         "DefaultValue": "disabled",
                         "RecommendedValue": "disabled",
@@ -1553,7 +1553,7 @@
                     {
                         "Name": "isOfficePhoneAllowed",
                         "DisplayName": "Phone Options - Office",
-                        "CheckId": "EISCA-AV02",   
+                        "CheckId": "EIDSCA.AV02",   
                         "CurrentValue": "isOfficePhoneAllowed",
                         "DefaultValue": "disabled",
                         "RecommendedValue": "",
@@ -1568,7 +1568,7 @@
                     {
                         "Name": "includeTargets",
                         "DisplayName": "Included users/groups from Voice call",
-                        "CheckId": "EISCA-AV03",   
+                        "CheckId": "EIDSCA.AV03",   
                         "CurrentValue": "includeTargets",
                         "DefaultValue": "all_users",
                         "RecommendedValue": "",
@@ -1583,7 +1583,7 @@
                     {
                         "Name": "excludeTargets",
                         "DisplayName": "Excluded users/group from Voice call",
-                        "CheckId": "EISCA-AV04",   
+                        "CheckId": "EIDSCA.AV04",   
                         "CurrentValue": "excludeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1599,7 +1599,7 @@
             },
             {
                 "ControlName": "Authentication Method - SMS",
-                "ControlId":  "EISCA-AS",
+                "ControlId":  "EIDSCA.AS",
                 "Description": "Define configuration settings and users or groups that are enabled to use text messages for authentication.",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Sms')",
@@ -1611,7 +1611,7 @@
                     {
                         "Name": "state",
                         "DisplayName": "State",
-                        "CheckId": "EISCA-AS01",   
+                        "CheckId": "EIDSCA.AS01",   
                         "CurrentValue": "state",
                         "DefaultValue": "disabled",
                         "RecommendedValue": "",
@@ -1626,7 +1626,7 @@
                     {
                         "Name": "includeTargets",
                         "DisplayName": "Included users/groups from Voice call",
-                        "CheckId": "EISCA-AS02",   
+                        "CheckId": "EIDSCA.AS02",   
                         "CurrentValue": "includeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1641,7 +1641,7 @@
                     {
                         "Name": "excludeTargets",
                         "DisplayName": "Excluded users/group from Voice call",
-                        "CheckId": "EISCA-AS03",   
+                        "CheckId": "EIDSCA.AS03",   
                         "CurrentValue": "excludeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1657,7 +1657,7 @@
             },
             {
                 "ControlName": "Authentication Method - Certificate-based authentication",
-                "ControlId":  "EISCA-AC",
+                "ControlId":  "EIDSCA.AC",
                 "Description": "Define configuration settings and users or groups that are enabled to use certificate-based authentication.",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('X509Certificate')",
@@ -1669,7 +1669,7 @@
                     {
                         "Name": "state",
                         "DisplayName": "State",
-                        "CheckId": "EISCA-AC01",   
+                        "CheckId": "EIDSCA.AC01",   
                         "CurrentValue": "state",
                         "DefaultValue": "disabled",
                         "RecommendedValue": "",
@@ -1684,7 +1684,7 @@
                     {
                         "Name": "includeTargets",
                         "DisplayName": "Included users/groups from CBA",
-                        "CheckId": "EISCA-AC02",   
+                        "CheckId": "EIDSCA.AC02",   
                         "CurrentValue": "includeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1699,7 +1699,7 @@
                     {
                         "Name": "excludeTargets",
                         "DisplayName": "Excluded users/group from CBA",
-                        "CheckId": "EISCA-AC03",   
+                        "CheckId": "EIDSCA.AC03",   
                         "CurrentValue": "excludeTargets",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1714,7 +1714,7 @@
                     {
                         "Name": "authenticationModeConfiguration.x509CertificateAuthenticationDefaultMode",
                         "DisplayName": "Authentication binding - Protected Level",
-                        "CheckId": "EISCA-AC04",   
+                        "CheckId": "EIDSCA.AC04",   
                         "CurrentValue": "authenticationModeConfiguration.x509CertificateAuthenticationDefaultMode",
                         "DefaultValue": "x509CertificateSingleFactor",
                         "RecommendedValue": "",
@@ -1729,7 +1729,7 @@
                     {
                         "Name": "authenticationModeConfiguration.rules",
                         "DisplayName": "Authentication binding - Rules",
-                        "CheckId": "EISCA-AC05",   
+                        "CheckId": "EIDSCA.AC05",   
                         "CurrentValue": "authenticationModeConfiguration.rules",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1745,7 +1745,7 @@
             },
             {
                 "ControlName": "Consent Framework - Admin Consent Request",
-                "ControlId":  "EISCA-CR",
+                "ControlId":  "EIDSCA.CR",
                 "Description": "Represents the policy for enabling or disabling the Azure AD admin consent workflow. The admin consent workflow allows users to request access for apps that they wish to use and that require admin authorization before users can use the apps to access organizational data. ",
                 "GraphEndpoint": "servicePrincipalCreationPolicies",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy",
@@ -1757,7 +1757,7 @@
                     {
                         "Name": "isEnabled",
                         "DisplayName": "Users can request admin consent to apps they are unable to consent to",
-                        "CheckId": "EISCA-CR01",
+                        "CheckId": "EIDSCA.CR01",
                         "CurrentValue": "isEnabled",
                         "DefaultValue": "false",
                         "RecommendedValue": "true",
@@ -1772,7 +1772,7 @@
                     {
                         "Name": "notifyReviewers",
                         "DisplayName": "Reviewers will receive email notifications for requests​",
-                        "CheckId": "EISCA-CR02",
+                        "CheckId": "EIDSCA.CR02",
                         "CurrentValue": "notifyReviewers",
                         "DefaultValue": "false",
                         "RecommendedValue": "true",
@@ -1787,7 +1787,7 @@
                     {
                         "Name": "notifyReviewers",
                         "DisplayName": "Reviewers will receive email notifications when admin consent requests are about to expire​",
-                        "CheckId": "EISCA-CR03",
+                        "CheckId": "EIDSCA.CR03",
                         "CurrentValue": "notifyReviewers",
                         "DefaultValue": "",
                         "RecommendedValue": "true",
@@ -1802,7 +1802,7 @@
                     {
                         "Name": "requestDurationInDays",
                         "DisplayName": "Consent request duration (days)​",
-                        "CheckId": "EISCA-CR04",
+                        "CheckId": "EIDSCA.CR04",
                         "CurrentValue": "requestDurationInDays",
                         "DefaultValue": "",
                         "RecommendedValue": "30",
@@ -1817,7 +1817,7 @@
                     {
                         "Name": "reviewers",
                         "DisplayName": "Reviewers​",
-                        "CheckId": "EISCA-CR05",
+                        "CheckId": "EIDSCA.CR05",
                         "CurrentValue": "reviewers",
                         "DefaultValue": "",
                         "RecommendedValue": "30",
@@ -1832,7 +1832,7 @@
                     {
                         "Name": "version",
                         "DisplayName": "Consent request expires after (days)​",
-                        "CheckId": "EISCA-CR06",
+                        "CheckId": "EIDSCA.CR06",
                         "CurrentValue": "version",
                         "DefaultValue": "",
                         "RecommendedValue": "",
@@ -1848,7 +1848,7 @@
             },
             {
                 "ControlName": "Hybrid Identity - Synchronization Settings",
-                "ControlId":  "EISCA-HY",
+                "ControlId":  "EIDSCA.HY",
                 "Description": "A container for on-premises directory synchronization functionalities that are available for the organization.",
                 "GraphEndpoint": "onPremisesSynchronization",
                 "GraphUri": "https://graph.microsoft.com/beta/directory/onPremisesSynchronization",
@@ -1860,7 +1860,7 @@
                     {
                         "Name": "blockSoftMatchEnabled",
                         "DisplayName": "Users can request admin consent to apps they are unable to consent to",
-                        "CheckId": "EISCA-HY01",
+                        "CheckId": "EIDSCA.HY01",
                         "CurrentValue": "features.blockSoftMatchEnabled",
                         "DefaultValue": "false",
                         "RecommendedValue": "true",
