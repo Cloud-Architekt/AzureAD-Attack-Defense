@@ -1328,7 +1328,7 @@
                         "MitreTechnique": [],
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
-                        "Description": "Requires the FIDO security key metadata to be published and verified with the FIDO Alliance Metadata Service, and also pass Microsoft’s additional set of validation testing."
+                        "Description": "Requires the FIDO security key metadata to be published and verified with the FIDO Alliance Metadata Service, and also pass Microsoft's additional set of validation testing."
                     },
                     {
                         "Name": "keyRestrictions.isEnforced",
@@ -1364,9 +1364,9 @@
                         "Name": "keyRestrictions.enforcementType",
                         "DisplayName": "Restrict specific keys",
                         "CheckId": "EIDSCA.AF06",
-                        "CurrentValue": "keyRestrictions.enforcementType",
-                        "DefaultValue": "block",
-                        "RecommendedValue": "block",
+                        "CurrentValue": "values.keyRestrictions.aaGuids -notcontains $null -and ($values.keyRestrictions.enforcementType -eq 'allow' -or $values.keyRestrictions.enforcementType -eq 'block')",
+                        "DefaultValue": "false",
+                        "RecommendedValue": "true",
                         "Recommendation": "",
                         "Severity": "High",
                         "MitreTactic": [],
@@ -1943,7 +1943,7 @@
                     },
                     {
                         "Name": "notifyReviewers",
-                        "DisplayName": "Reviewers will receive email notifications for requests​",
+                        "DisplayName": "Reviewers will receive email notifications for requests",
                         "CheckId": "EIDSCA.CR02",
                         "CurrentValue": "notifyReviewers",
                         "DefaultValue": "false",
@@ -1972,7 +1972,7 @@
                     },
                     {
                         "Name": "notifyReviewers",
-                        "DisplayName": "Reviewers will receive email notifications when admin consent requests are about to expire​",
+                        "DisplayName": "Reviewers will receive email notifications when admin consent requests are about to expire",
                         "CheckId": "EIDSCA.CR03",
                         "CurrentValue": "notifyReviewers",
                         "DefaultValue": "",
@@ -1993,7 +1993,7 @@
                             "T1566.002"
                         ],
                         "MitreMitigation": [
-                            " M1018",
+                            "M1018",
                             "M1017"
                         ],
                         "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
@@ -2001,7 +2001,7 @@
                     },
                     {
                         "Name": "requestDurationInDays",
-                        "DisplayName": "Consent request duration (days)​",
+                        "DisplayName": "Consent request duration (days)",
                         "CheckId": "EIDSCA.CR04",
                         "CurrentValue": "requestDurationInDays",
                         "DefaultValue": "",
@@ -2030,7 +2030,7 @@
                     },
                     {
                         "Name": "reviewers",
-                        "DisplayName": "Reviewers​",
+                        "DisplayName": "Reviewers",
                         "CheckId": "EIDSCA.CR05",
                         "CurrentValue": "reviewers",
                         "DefaultValue": "",
@@ -2059,7 +2059,7 @@
                     },
                     {
                         "Name": "version",
-                        "DisplayName": "Consent request expires after (days)​",
+                        "DisplayName": "Consent request expires after (days)",
                         "CheckId": "EIDSCA.CR06",
                         "CurrentValue": "version",
                         "DefaultValue": "",
