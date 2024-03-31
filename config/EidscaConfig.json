@@ -1364,7 +1364,7 @@
                         "Name": "keyRestrictions.enforcementType",
                         "DisplayName": "Restrict specific keys",
                         "CheckId": "EIDSCA.AF06",
-                        "CurrentValue": "values.keyRestrictions.aaGuids -notcontains $null -and ($values.keyRestrictions.enforcementType -eq 'allow' -or $values.keyRestrictions.enforcementType -eq 'block')",
+                        "CurrentValue": "values.keyRestrictions.aaGuids -notcontains $null -and ($result.keyRestrictions.enforcementType -eq 'allow' -or $result.keyRestrictions.enforcementType -eq 'block')",
                         "DefaultValue": "false",
                         "RecommendedValue": "true",
                         "Recommendation": "",
