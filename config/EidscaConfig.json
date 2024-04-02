@@ -108,7 +108,7 @@
                     },
                     {
                         "Name": "allowEmailVerifiedUsersToJoinOrganization",
-                        "DisplayName": "User can joint the tenant by email validation",
+                        "DisplayName": "User can join the tenant by email validation",
                         "CheckId": "EIDSCA.AP06",
                         "SkipCondition": "",
                         "CurrentValue": "allowEmailVerifiedUsersToJoinOrganization",
