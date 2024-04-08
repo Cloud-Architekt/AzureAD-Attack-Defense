@@ -16,6 +16,7 @@ We invite identity or security experts from the community to work together on th
 
 ##### Appendix:
 - [Overview of Identity Security Monitoring in Microsoft Cloud](IdentitySecurityMonitoring.md)
+- [How to prevent lateral movement to Entra ID when your Active Directory has fallen](LateralMovementADEID.md)
 
 In all chapters, we follow the same guideline on the chapter structure. When reading, you can expect to find:
 
