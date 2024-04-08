@@ -16,7 +16,7 @@ Quickly form a response team and divide up the tasks. After an initial brief ana
 
 Microsoft also has a [guide for organizing an incident response](https://www.microsoft.com/content/dam/microsoft/final/en-us/microsoft-brand/documents/Navigating-the-Maze-of-Incident-Response.pdf) - which I would highly recommend. The containment measures described here fall into the Infrastructure Lead category and are to be seen as Moderate to Aggressive.
 
-![DARTIncidentHandling](media\containment\DARTIncidentHandling.png)
+![DARTIncidentHandling](./media/containment/DARTIncidentHandling.png)
 
 Since Active Directory plays a central role in many environments, there are various ways for attackers to expand their influence. From a defender's point of view, I suggest (without knowing the environment) severing the following connections for containment:
 - Connections to other forests and partners
@@ -72,7 +72,7 @@ Since phase 2 has a dependency on passwords it is reasonable to have a brief loo
 - Tools like John the Ripper (here is [a guide](https://craighays.com/cracking-active-directory-passwords-password-audit-part-2/)) or Hashcat (here is [a guide](https://infinitelogins.com/2020/04/16/abusing-llmnr-nbtns-part-2-cracking-ntlmv2-hashes/)) are very effective in cracking the extracted passwords and the main factors for the time you have are.
 - How long the cracking takes depends on the length and complexity of the password and the version and configuration of your Domain Controllers. Assuming that you only have AES encrypted NT hashes and no RC4 encrypted LM hashes (see [here](https://learn.microsoft.com/en-us/windows-server/security/kerberos/passwords-technical-overview#passwords-stored-in-active-directory)) you can compare your password policy with this benchmark (this is MD5 instead of the used MD4 algorithm which is slightly more secure…)
 
-![Source: [https://www.hivesystems.io/password](https://www.hivesystems.io/password)](media\containment\HivePassword.jpeg)
+![Source: [https://www.hivesystems.io/password](https://www.hivesystems.io/password)](./media/containment/HivePassword.jpeg)
 Source: [https://www.hivesystems.io/password](https://www.hivesystems.io/password)
 
 > 💡 But sadly this is the benchmark for random passwords - Users are choosing often easy to guess passwords and since everyone uses at first word lists with these tools, you have to assume that all user passwords are instantly cracked… 😑
@@ -95,7 +95,7 @@ You can do this in the portal:
     - hint: the role Directory Synchronisation Accounts is not visible in the portal
 - Edit Properties → Settings → Uncheck “Account enabled” and “Revoke Sessions” for this account.
 
-![EIDCAccount](media\containment\EIDCAccount.png)
+![EIDCAccount](./media/containment/EIDCAccount.png)
 
 **How to do it with PowerShell?**
 
@@ -203,7 +203,7 @@ If this is not already the case you need to lock down your administrative access
 - all roles [in this table](https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference#all-roles) with the label PRIVILEGED like Hybrid Identity Administrator or Intune Administrator
 - a never persistent browser session and a reasonable Sign-in frequency (e.g. 10 hours)
 
-![AdminCAP](media\containment\AdminCAP.png)
+![AdminCAP](./media/containment/AdminCAP.png)
 
 **Why should I do this?**
 Passwords are not secure (easy to crack, often reused for multiple accounts, stored somewhere,…) and you don’t want them to be the only factor. In addition admins often have cached sessions / cookies on their machines (and attackers know this 😉).
@@ -224,7 +224,7 @@ means: Disable legacy configurations in the legacy MFA console allowing to bypas
 - Clear the list for ***skip multi-factor authentication for requests from following IP address subnets***.
 - Clear the checkbox to ***allow users to remember multi-factor authentication on devices they trust…***
     
-    ![LegacyMFA](media\containment\LegacyMFA.png)
+    ![LegacyMFA](./media/containment/LegacyMFA.png)
     
 
 **Why should I do this?**
@@ -240,7 +240,7 @@ At first, all workload identity secrets or certificates must be considered compr
 
 You now have two options on how to proceed:
 
-![WorkloadIdentityDecision](media\containment\WorkloadIdentityDecision.png)
+![WorkloadIdentityDecision](./media/containment/WorkloadIdentityDecision.png)
 
 > If in doubt, I would recommend the aggressive approach…
 > 
@@ -284,7 +284,7 @@ means: Disable the Kerberos-based authentication in Entra ID if you’re using P
 
 If you don’t know if SSSO is enabled - quick check the config in the [Entra portal](https://entra.microsoft.com/#view/Microsoft_AAD_Connect_Provisioning/AADConnectMenuBlade/~/ConnectSync).
 
-![SeamlessSSO](media\containment\SeamlessSSO.png)
+![SeamlessSSO](./media/containment/SeamlessSSO.png)
 
 > If enabled, you have to disable it!
 > 
@@ -423,7 +423,7 @@ For ADFS it must also be clear that going back means completely rebuilding the f
 means: Prevent the write back of new passwords to Active Directory while password change or reset
 
 **How to do it in the portal?**
-![PasswordWriteback](media\containment\PasswordWriteback.png)
+![PasswordWriteback](./media/containment/PasswordWriteback.png)
 
 **Why should I do this?**
 The passwords are compromised and you may have to ask or force your users to set new passwords. However, since it would be very unhelpful to synchronize these new passwords back into the OnPrem environment, we should disable this writeback for the time being.
