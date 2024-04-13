@@ -281,6 +281,8 @@ Workload identities often have high permissions in Entra and Azure and can be us
 
 The only exception is the restriction to IP addresses through Conditional Access, but since the attacker is already in your network, this option is currently rather unfavorable.
 
+For (much) more information you should read [Thomas Blog series about Workload Identities](https://www.cloud-architekt.net/entra-workload-id-introduction-and-delegation/)
+
 **Effect of the action?**
 The functional restrictions vary greatly depending on the affected application and it makes sense to check which connections can be considered secure and to release these apps again or restrict them to certain IP addresses (outside the OnPrem environment) in a timely manner after the policy has been created.
 
