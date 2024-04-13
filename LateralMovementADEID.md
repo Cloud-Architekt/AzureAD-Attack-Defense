@@ -49,11 +49,11 @@ My experience from incident response operations has taught me: act early and act
 
 This part is time critical and you want to do this in the first minutes. You have to assume that you lost the OnPrem environment and you want to defend the tenant.
 
-- [ ] <A href="#block-the-entra-id-connect-sync-account">Block the Entra ID Connect sync account</A><br>
-- [ ]  <A href="#block-synced-admin-accounts">Block synced Admin Accounts</A><br>
-- [ ] <A href="#configure-an-admin-conditional-access-policy">Configure an Admin Conditional Access Policy</A><br>
-- [ ] <A href="#delete-mfa-bypasses-in-the-legacy-mfa-console">Delete MFA bypasses in the legacy MFA console</A><br>
-- [ ] <A href="#block-access-for-workload-identities">Block access for Workload Identities</A><br>
+- [ ] [Block the Entra ID Connect sync account](#block-the-entra-id-connect-sync-account)
+- [ ]  [Block synced Admin Accounts](#block-synced-admin-accounts)
+- [ ] [Configure an Admin Conditional Access Policy](#configure-an-admin-conditional-access-policy)
+- [ ] [Delete MFA bypasses in the legacy MFA console](#delete-mfa-bypasses-in-the-legacy-mfa-console)
+- [ ] [Block access for Workload Identities](#block-access-for-workload-identities)
 
 ### Phase 2: Protect User Accounts
 
@@ -62,11 +62,10 @@ The attacker had Domain Admin privileges and (unless you know better) you have t
 This part has depending on your current config a big user impact and you should combine it with user information. However, good preparation pays off in this area. In a well-secured environment that uses Password Hash Sync, all steps have already been implemented in advance.
 
 - [ ] [Disable Seamless SSO](#disable-seamless-sso)
-- [ ] <A href="#disable-seamless-sso">Disable Seamless SSO
-- [ ] <A href="#enforce-mfa-and-restrict-the-registration">Enforce MFA and restrict the registration
+- [ ] [Enforce MFA and restrict the registration](#enforce-mfa-and-restrict-the-registration)
 - [ ] Delete Trusted Locations in Conditional Access
-- [ ] <A href="#optional-disable-onprem-authentication">Optional: Disable OnPrem Authentication</A><br>
-- [ ] <A href="#optional-disable-password-write-back">Optional: Disable Password Writeback</A><br>
+- [ ] [Optional: Disable OnPrem Authentication](#optional-disable-onprem-authentication)
+- [ ] [Optional: Disable Password Writeback](#optional-disable-password-write-back)
 
 #### About Active Directory password cracking
 
@@ -456,12 +455,12 @@ It therefore makes sense - as already discussed with regard to the deactivation 
 
 The best preparation for an emergency is a securely configured environment. The measures described in this section can not only significantly reduce the number of actions required in an emergency, but also significantly increase security in general. And I would always prefer to perform the changes described above in a planned situation rather than out of an emergency. So, you can and should implement the following measures described above as early as possible, regardless of the emergency:
 
-- [ ] <A href="#block-synced-admin-accounts">Block synced Admin Accounts</A><br>
-- [ ] <A href="#delete-mfa-bypasses-in-the-legacy-mfa-console">Delete MFA bypasses in the legacy MFA console</A><br>
-- [ ] <A href="#configure-an-admin-conditional-access-policy">Configure an Admin Conditional Access Policy</A><br>
-- [ ] <A href="#enforce-mfa-and-restrict-the-registration">Enforce MFA and restrict the registration</A><br>
+- [ ] [Block synced Admin Accounts](#block-synced-admin-accounts)
+- [ ] [Delete MFA bypasses in the legacy MFA console](#delete-mfa-bypasses-in-the-legacy-mfa-console)
+- [ ] [Configure an Admin Conditional Access Policy](#configure-an-admin-conditional-access-policy)
+- [ ] [Enforce MFA and restrict the registration](#enforce-mfa-and-restrict-the-registration)
 - [ ]  Delete Trusted Locations in Conditional Access
-- [ ] <A href="#disable-seamless-sso">Disable Seamless SSO</A><br>
+- [ ] [Disable Seamless SSO](#disable-seamless-sso)
 
 ### Workload Identities (used OnPrem)
 
