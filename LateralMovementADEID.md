@@ -13,11 +13,11 @@ Maybe you’re reading this right now because have bookmarked it for the case of
 
 Quickly form a response team and divide up the tasks. After an initial brief analysis of the attack, isolating the attacking systems and limiting the damage are the order of the day. NIST has defined a simple and clear process for this (can be read in detail in the [Computer Security Incident Handling Guide](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r2.pdf)).
 
-![NISTIncidentHandling](./media/containment/NISTIncidentHandling.png)
-
 Microsoft also has a [guide for organizing an incident response](https://www.microsoft.com/content/dam/microsoft/final/en-us/microsoft-brand/documents/Navigating-the-Maze-of-Incident-Response.pdf) - which I would highly recommend. The containment measures described here fall into the Infrastructure Lead category and are to be seen as Moderate to Aggressive.
 
-![DARTIncidentHandling](./media/containment/DARTIncidentHandling.png)
+| NIST | DART |
+| ---- | ---- |
+| ![NISTIncidentHandling](./media/containment/NISTIncidentHandling.png) | ![DARTIncidentHandling](./media/containment/DARTIncidentHandling.png) |
 
 Since Active Directory plays a central role in many environments, there are various ways for attackers to expand their influence. From a defender's point of view, I suggest (without knowing the environment) severing the following connections for containment:
 
