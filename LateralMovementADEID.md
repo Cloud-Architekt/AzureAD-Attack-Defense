@@ -5,7 +5,8 @@ _Created: March 2023_
 
 A checklist to protect your Entra ID when Active Directory is compromised and how to prepare for this situation
 
-# Intro
+## Intro
+
 At the moment, the biggest threat to an Entra ID tenant in the vast majority of environments comes from the connected Active Directory. Attackers are (currently) focusing heavily on on-prem environments, as these are generally much more difficult to protect and are also in a much worse state. And it's often not far from there to the cloud…
 
 Maybe you’re reading this right now because have bookmarked it for the case of emergency. As someone who is regularly assisting people in such situations my advice is the same as from Douglas Adams: **Don’t Panic!**
@@ -19,12 +20,14 @@ Microsoft also has a [guide for organizing an incident response](https://www.mic
 ![DARTIncidentHandling](./media/containment/DARTIncidentHandling.png)
 
 Since Active Directory plays a central role in many environments, there are various ways for attackers to expand their influence. From a defender's point of view, I suggest (without knowing the environment) severing the following connections for containment:
+
 - Connections to other forests and partners
 - Connections to the OT environment
 - Connections to the backup system
 - Connections to Entra ID
 
 This blog post is about the latter and has the goal of
+
 1. give you clear advice what to do to protect your Entra ID when your AD is compromised
 2. explain you why I’ve chosen these steps and some background information
 3. help you to prepare for this situation
@@ -35,13 +38,14 @@ I assume that when you start working through this list you are sure that your AD
 - Microsoft Defender for Endpoint (MDE) alarms indicating a compromised Domain Controller
 - MDI/MDE alarms indicating a compromised Domain Admin account
 
-# First Aid Checklist
-> There is this german [quote from Friedrich von Logau](https://de.wikiquote.org/wiki/Friedrich_von_Logau): "***In Gefahr und tiefer Not bedeutet der mittlere Weg den sicheren Tod***" what can be translated to "***In Danger and Deep Distress, the Middle Way Spells Certain Death***”
-> 
+## First Aid Checklist
+
+> There is this german [quote from Friedrich von Logau](https://de.wikiquote.org/wiki/Friedrich_von_Logau): "_**In Gefahr und tiefer Not bedeutet der mittlere Weg den sicheren Tod***" what can be translated to "***In Danger and Deep Distress, the Middle Way Spells Certain Death**_”
+>
 
 My experience from incident response operations has taught me: act early and act decisively!
 
-## Phase 1: Prevent full compromise
+### Phase 1: Prevent full compromise
 
 This part is time critical and you want to do this in the first minutes. You have to assume that you lost the OnPrem environment and you want to defend the tenant.
 
@@ -51,8 +55,7 @@ This part is time critical and you want to do this in the first minutes. You hav
 - [ ] <A href="#delete-mfa-bypasses-in-the-legacy-mfa-console">Delete MFA bypasses in the legacy MFA console</A><br>
 - [ ] <A href="#block-access-for-workload-identities">Block access for Workload Identities</A><br>
 
-
-## Phase 2: Protect User Accounts
+### Phase 2: Protect User Accounts
 
 The attacker had Domain Admin privileges and (unless you know better) you have to assume that he made a dump of the ntds.dit and can offline try to crack them. Depending on your AD password policies and your already implemented measures in Entra ID you have between hours and days to react on this.  
 
@@ -64,7 +67,7 @@ This part has depending on your current config a big user impact and you should 
 - [ ] <A href="#optional-disable-onprem-authentication">Optional: Disable OnPrem Authentication</A><br>
 - [ ] <A href="#optional-disable-password-write-back">Optional: Disable Password Writeback</A><br>
 
-### About Active Directory password cracking
+#### About Active Directory password cracking
 
 Since phase 2 has a dependency on passwords it is reasonable to have a brief look how Active Directory handles them:
 
@@ -78,11 +81,13 @@ Source: [https://www.hivesystems.io/password](https://www.hivesystems.io/passwor
 > 💡 But sadly this is the benchmark for random passwords - Users are choosing often easy to guess passwords and since everyone uses at first word lists with these tools, you have to assume that all user passwords are instantly cracked… 😑
 >
 
-# Description of phase 1 steps
+## Description of phase 1 steps
 
 All steps are taken in Entra ID and you should open your screenshot tool before you start.
+> ‼️ Don't login with an admin account from any of your maybe affected systems like your Entra Connect Server. Attackers can steal and replay your token. -> see [Replay of Primary Refresh (PRT) and other issued tokens](ReplayOfPrimaryRefreshToken.md)
+>
 
-## Block the Entra ID Connect sync account
+### Block the Entra ID Connect sync account
 
 means: Disable all Entra ID Connect Accounts in Entra ID and revoke their active sessions
 
@@ -91,8 +96,8 @@ means: Disable all Entra ID Connect Accounts in Entra ID and revoke their active
 You can do this in the portal:
 
 - Search on the [All Users Page](https://entra.microsoft.com/#blade/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/menuId/) for the sync account
-    - UPN is starting with “Sync_” and the DisplayName is starting with “On-Premises Directory Synchronisation”
-    - hint: the role Directory Synchronisation Accounts is not visible in the portal
+  - UPN is starting with “Sync_” and the DisplayName is starting with “On-Premises Directory Synchronisation”
+  - hint: the role Directory Synchronisation Accounts is not visible in the portal
 - Edit Properties → Settings → Uncheck “Account enabled” and “Revoke Sessions” for this account.
 
 ![EIDCAccount](./media/containment/EIDCAccount.png)
@@ -134,13 +139,14 @@ $EIDCAccounts `
 
 **Why should I do this?**
 
+Thomas and Sami have written a complete chapter on [how to abuse Microsoft Entra Connect Sync Service Account](AADCSyncServiceAccount.md).
 Among other things, the account has write access to all applications and can e.g. add new owners or credentials. This means that every application with e.g. Directory.ReadWrite.All permissions enables tenant takeover - see [Fabians Blog](https://cloudbrothers.info/en/prem-global-admin-password-reset/) for details.
 
 **What is the effect of the action?**
 
 The action can be safely executed and everything will continue to run smoothly! However, we no longer have synchronization, which means that no changes will be made to passwords, attributes, group memberships, etc.
 
-## Block synced Admin Accounts
+### Block synced Admin Accounts
 
 means: Disable all synced Admin Accounts and revoke their active sessions.
 
@@ -195,11 +201,13 @@ The affected admins are now temporarily unable to act, and it is to be assumed t
 
 It is essential to emphasize that running jobs under admin accounts should be strictly avoided. This is a critical security measure to protect your system and prevent unauthorized access or potential breaches.
 
-## Configure an Admin Conditional Access Policy
+### Configure an Admin Conditional Access Policy
+
 means: Configure a Conditional Access Policy for all Admins to enforce at least MFA and Sign-in frequency.
 
 **How to do it in the portal?**
 If this is not already the case you need to lock down your administrative access. A starting point is a Conditional Access policy from the [template Require MFA for administrators](https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-conditional-access-policy-admin-mfa) extended by
+
 - all roles [in this table](https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference#all-roles) with the label PRIVILEGED like Hybrid Identity Administrator or Intune Administrator
 - a never persistent browser session and a reasonable Sign-in frequency (e.g. 10 hours)
 
@@ -214,18 +222,18 @@ Passwords are not secure (easy to crack, often reused for multiple accounts, sto
 **Effect of the action?**
 Every admin now has to use MFA to login and it is to be assumed that scripts running in the context of admin accounts will no longer operate.
 
-## Delete MFA bypasses in the legacy MFA console
+### Delete MFA bypasses in the legacy MFA console
+
 means: Disable legacy configurations in the legacy MFA console allowing to bypass MFA, like Trusted IPs and caching
 
 **How to do it in the portal?**
+
 - Go to the [legacy MFA portal](https://account.activedirectory.windowsazure.com/usermanagement/mfasettings.aspx) !
 (Entra → Protection → MFA → Getting started → configure → Additional cloud-based…)
-- Clear the checkbox to ***skip multi-factor authentication for requests from federated users on my intranet***.
-- Clear the list for ***skip multi-factor authentication for requests from following IP address subnets***.
-- Clear the checkbox to ***allow users to remember multi-factor authentication on devices they trust…***
-    
+- Clear the checkbox to _**skip multi-factor authentication for requests from federated users on my intranet**_.
+- Clear the list for _**skip multi-factor authentication for requests from following IP address subnets**_.
+- Clear the checkbox to _**allow users to remember multi-factor authentication on devices they trust…**_
     ![LegacyMFA](./media/containment/LegacyMFA.png)
-    
 
 **Why should I do this?**
 All of these configurations provide opportunities for bypassing MFA. In a scenario where we assume that all passwords have been compromised, MFA can serve as the sole barrier for an attacker. It is crucial to recognize the significance of MFA in such situations, as it adds an extra layer of security by requiring multiple forms of authentication.
@@ -233,7 +241,8 @@ All of these configurations provide opportunities for bypassing MFA. In a scenar
 **Effect of the action?**
 Sometimes MFA must now be confirmed more often and users who are no longer able to confirm MFA will contact the help desk. Non-persistent systems such as terminal servers or VDIs are usually particularly affected.
 
-## Block access for Workload Identities
+### Block access for Workload Identities
+
 means: Find all apps with high application permissions used in OnPrem systems and delete their credentials
 
 At first, all workload identity secrets or certificates must be considered compromised because they may be stored OnPrem. Unfortunately, it is not readily apparent which workload identities could become a problem for our tenant in this situation.
@@ -243,9 +252,10 @@ You now have two options on how to proceed:
 ![WorkloadIdentityDecision](./media/containment/WorkloadIdentityDecision.png)
 
 > If in doubt, I would recommend the aggressive approach…
-> 
+>
 
-### The aggressive approach
+#### The aggressive approach
+
 This is a quick stop gap that will immediately reduce the risk but has maybe a big impact on your environment.
 
 1. The easiest way in this situation is to [activate a Workload Identity Premium Trial](https://learn.microsoft.com/en-us/entra/workload-id/workload-identities-faqs#can-i-get-a-free-trial-of-workload-identities-premium) (if licenses are not already available in the tenant)
@@ -253,8 +263,9 @@ This is a quick stop gap that will immediately reduce the risk but has maybe a b
 SCREENSHOT
 3. Identify safe apps or locations and release them afterwards
 
-### The moderate approach
-To use this approach you will need more time, knowledge about apps and their permissions and you need to be well practiced with the needed tools. 
+#### The moderate approach
+
+To use this approach you will need more time, knowledge about apps and their permissions and you need to be well practiced with the needed tools.
 
 There are some really good tools out there like [App Governance*** in Microsoft Defender for Cloud Apps](https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-manage-app-governance) and ***[AzADServicePrincipalInsights](https://github.com/JulianHayward/AzADServicePrincipalInsights)***
 
@@ -273,10 +284,12 @@ The only exception is the restriction to IP addresses through Conditional Access
 **Effect of the action?**
 The functional restrictions vary greatly depending on the affected application and it makes sense to check which connections can be considered secure and to release these apps again or restrict them to certain IP addresses (outside the OnPrem environment) in a timely manner after the policy has been created.
 
-# Description of phase 2 steps
+## Description of phase 2 steps
+
 All steps are taken in Entra ID and you should open your screenshot tool before you start.
 
-## Disable Seamless SSO
+### Disable Seamless SSO
+
 means: Disable the Kerberos-based authentication in Entra ID if you’re using PHS or PTA
 
 > 💡 This step should be done as soon as possible, since the attacker doesn’t need to crack anything. With the hash of the AZUREADSSO$ it is possible to craft Kerberos tickets and login as any synced user (unless MFA is configured).
@@ -287,13 +300,14 @@ If you don’t know if SSSO is enabled - quick check the config in the [Entra po
 ![SeamlessSSO](./media/containment/SeamlessSSO.png)
 
 > If enabled, you have to disable it!
-> 
+>
 
 **How to do it with PowerShell?**
 >💡 A problem in this situation is that Microsoft assumes in the [Microsoft Guideline for disabling SSSO](https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sso-faq#how-can-i-disable-seamless-sso-) that you act from your Entra ID Connect Server, but in such a situation I don’t want to login with a high privileged Account (Global Admin or Hybrid Auth Admin) on that machine. If you have access you can use any Entra ID Connect Server or you can copy the module to any machine.
 >
 
 Fortunately, there are the AAD Internals 💖
+
 ```powershell
 # Install and Import the module
 Install-Module AADInternals
@@ -322,10 +336,12 @@ Even if not the entire AD is compromised, but only the SSO account, it can easil
 **Effect of the action?**
 Seamless SSO will then no longer work and users may be prompted to log in manually. In the vast majority of environments, however, this should only have a minor effect, as the clients are known in the Entra ID and have a primary refresh token. Only in old terminal service environments have I seen that the servers are not hybrid-joined.
 
-## Enforce MFA and restrict the registration
+### Enforce MFA and restrict the registration
+
 means: Configure Conditional Access policies to enforce MFA for all cloud apps and restrict the registration of MFA.
 
 **How to do it in the portal?**
+
 - Create a new policy from the template [Require MFA for all users](https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-conditional-access-policy-all-users-mfa) without any trusted locations.
 - Create a new policy from the template [Securing security info registration](https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-conditional-access-policy-registration) **without any trusted location**.
 
@@ -339,7 +355,8 @@ Before implementing this measure, you should pause for a moment and honestly ass
 
 If you have a lot of users without registered MFA and your support is not able to provide temporary access passes to all of them you have to decide if you’re implementing a weaker policy or lock out these users for some time.
 
-## (optional) Disable OnPrem Authentication
+### (optional) Disable OnPrem Authentication
+
 means: if you’re not using Password Hash Sync your users are still authenticating against Active Directory and you should consider disabling the OnPrem authentication.
 
 >❗ Whether you carry out the following steps depends of course - as with the previous steps - on the one hand on the situation and the progress to date. On the other hand, it makes a huge difference whether PHS is enabled in addition or not.
@@ -415,11 +432,12 @@ The generally highly recommended [blog post from the Microsoft Incident Response
 Same for PTA: As long as the PTA agents are running, your logins are controlled by the AD and all logins including the passwords are visible there.
 
 **Effect of the action?**
-If password hash sync has not been activated previously, all synchronized accounts will not be able to log in after the change until a new password has been set.  It is very helpful here if the users have previously set up Self Service Password Reset. 
+If password hash sync has not been activated previously, all synchronized accounts will not be able to log in after the change until a new password has been set.  It is very helpful here if the users have previously set up Self Service Password Reset.
 
 For ADFS it must also be clear that going back means completely rebuilding the federation, as the basis of trust (the certificate) has been compromised.
 
-## (optional) Disable password write back
+### (optional) Disable password write back
+
 means: Prevent the write back of new passwords to Active Directory while password change or reset
 
 **How to do it in the portal?**
@@ -431,9 +449,10 @@ The passwords are compromised and you may have to ask or force your users to set
 **Effect of the action?**
 Switching off the writeback unfortunately means that neither Self Service Password Reset nor password changes are possible for users. The author is currently only aware of one way to set a new password for users in this state: in the M365 Admin Center.
 
-It therefore makes sense - as already discussed with regard to the deactivation of OnPrem Authentication - to first formulate a plan for the identity infrastructure before taking this step.   
+It therefore makes sense - as already discussed with regard to the deactivation of OnPrem Authentication - to first formulate a plan for the identity infrastructure before taking this step.
 
-# How to prepare?
+## How to prepare?
+
 The best preparation for an emergency is a securely configured environment. The measures described in this section can not only significantly reduce the number of actions required in an emergency, but also significantly increase security in general. And I would always prefer to perform the changes described above in a planned situation rather than out of an emergency. So, you can and should implement the following measures described above as early as possible, regardless of the emergency:
 
 - [ ] <A href="#block-synced-admin-accounts">Block synced Admin Accounts</A><br>
@@ -444,7 +463,8 @@ The best preparation for an emergency is a securely configured environment. The 
 - [ ] <A href="#disable-seamless-sso">Disable Seamless SSO</A><br>
 
 ### Workload Identities (used OnPrem)
-Of course, it is preferable to eliminate all apps running OnPrem with permissions in Entra ID, but sometimes this takes time to re-architect. Meanwhile you should: 
+
+Of course, it is preferable to eliminate all apps running OnPrem with permissions in Entra ID, but sometimes this takes time to re-architect. Meanwhile you should:
 
 - reduce the number of apps / systems.
 - have a list that can be processed quickly in an emergency.
@@ -453,6 +473,7 @@ Of course, it is preferable to eliminate all apps running OnPrem with permission
 - reduce direct control of Active Directory over these apps.
 
 ### Migrate to Password Hash Sync if you’re using PTA or ADFS
+
 Both Pass Through Authentication and Active Directory Federation Services require that the primary authentication takes place in Active Directory - which is a real problem in this situation.
 
 I see no reason to run ADFS today (and personally have never seen a reason for PTA) and it is now possible to migrate painlessly and with manageable effort. Microsoft has a very good [migration guide for ADFS to PHS](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/plan-migrate-adfs-password-hash-sync) (+[Whitepaper](https://aka.ms/ADFSTOPHSDPDownload)) and I wrote in 2021 a [blog for the PTA to PHS migration](https://chris-brumm.medium.com/how-to-migrate-from-pass-through-authentication-to-password-hash-sync-7f798b37bb30).
@@ -462,7 +483,8 @@ But even as someone who has set up, converted and dismantled all the variants me
 >❗ So: If you haven't already migrated to PHS - start planning today!
 >
 
-# What else?
+## What else?
+
 It is not unlikely that the attacker has been in your environment for some time and therefore possibly also in your Entra ID. It makes sense
 
 - to look for indications of attackers in the Entra ID
