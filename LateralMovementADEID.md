@@ -61,6 +61,7 @@ The attacker had Domain Admin privileges and (unless you know better) you have t
 
 This part has depending on your current config a big user impact and you should combine it with user information. However, good preparation pays off in this area. In a well-secured environment that uses Password Hash Sync, all steps have already been implemented in advance.
 
+- [ ] [Disable Seamless SSO](#disable-seamless-sso)
 - [ ] <A href="#disable-seamless-sso">Disable Seamless SSO
 - [ ] <A href="#enforce-mfa-and-restrict-the-registration">Enforce MFA and restrict the registration
 - [ ] Delete Trusted Locations in Conditional Access
