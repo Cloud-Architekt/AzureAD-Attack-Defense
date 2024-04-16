@@ -195,7 +195,7 @@
                         ],
                         "MitreMitigation": [
                             "M1017",
-                            " M1018"
+                            "M1018"
                         ],
                         "PortalDeepLink": "",
                         "Description": "Indicates whether user consent for risky apps is allowed. For example, consent requests for newly registered multi-tenant apps that are not publisher verified and require non-basic permissions are considered risky."
@@ -224,9 +224,9 @@
                         ],
                         "MitreMitigation": [
                             "M1017",
-                            " M1018",
-                            " M1024",
-                            " M1047"
+                            "M1018",
+                            "M1024",
+                            "M1047"
                         ],
                         "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/UserSettings",
                         "Description": "Controls if non-admin users may register custom-developed applications for use within this directory."
@@ -387,8 +387,8 @@
                         ],
                         "MitreMitigation": [
                             "M1017",
-                            " M1018",
-                            " M1047"
+                            "M1018",
+                            "M1047"
                         ],
                         "PortalDeepLink": "",
                         "Description": "Defines whether user consent will be blocked when a risky request is detected"
@@ -449,7 +449,7 @@
                             "T1110"
                         ],
                         "MitreMitigation": [
-                            " M1018",
+                            "M1018",
                             "M1027"
                         ],
                         "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
@@ -495,7 +495,7 @@
                             "T1110"
                         ],
                         "MitreMitigation": [
-                            " M1018",
+                            "M1018",
                             "M1027"
                         ],
                         "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
@@ -518,7 +518,7 @@
                             "T1110"
                         ],
                         "MitreMitigation": [
-                            " M1018",
+                            "M1018",
                             "M1027"
                         ],
                         "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
@@ -541,7 +541,7 @@
                             "T1110"
                         ],
                         "MitreMitigation": [
-                            " M1018",
+                            "M1018",
                             "M1027"
                         ],
                         "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
@@ -2020,7 +2020,7 @@
                 "ControlId": "EIDSCA.CR",
                 "Description": "Represents the policy for enabling or disabling the Azure AD admin consent workflow. The admin consent workflow allows users to request access for apps that they wish to use and that require admin authorization before users can use the apps to access organizational data. ",
                 "Discovery": "$EnabledAdminConsentWorkflow = (Invoke-MtGraphRequest -RelativeUri 'policies/adminConsentRequestPolicy' -ApiVersion beta).isenabled",
-                "GraphEndpoint": "servicePrincipalCreationPolicies",
+                "GraphEndpoint": "adminConsentRequestPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/adminconsentrequestpolicy",
                 "MitreTactic": [],
@@ -2029,7 +2029,7 @@
                 "Controls": [
                     {
                         "Name": "isEnabled",
-                        "DisplayName": "Users can request admin consent to apps they are unable to consent to",
+                        "DisplayName": "Specifies whether the admin consent request feature is enabled or disabled",
                         "CheckId": "EIDSCA.CR01",
                         "SkipCondition": "",
                         "CurrentValue": "isEnabled",
@@ -2051,7 +2051,7 @@
                             "T1566.002"
                         ],
                         "MitreMitigation": [
-                            " M1018",
+                            "M1018",
                             "M1017"
                         ],
                         "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
@@ -2081,7 +2081,7 @@
                             "T1566.002"
                         ],
                         "MitreMitigation": [
-                            " M1018",
+                            "M1018",
                             "M1017"
                         ],
                         "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
@@ -2141,7 +2141,7 @@
                             "T1566.002"
                         ],
                         "MitreMitigation": [
-                            " M1018",
+                            "M1018",
                             "M1017"
                         ],
                         "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
@@ -2171,7 +2171,7 @@
                             "T1566.002"
                         ],
                         "MitreMitigation": [
-                            " M1018",
+                            "M1018",
                             "M1017"
                         ],
                         "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
@@ -2201,7 +2201,7 @@
                             "T1566.002"
                         ],
                         "MitreMitigation": [
-                            " M1018",
+                            "M1018",
                             "M1017"
                         ],
                         "PortalDeepLink": "",
