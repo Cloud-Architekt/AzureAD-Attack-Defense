@@ -2029,7 +2029,7 @@
                 "Controls": [
                     {
                         "Name": "isEnabled",
-                        "DisplayName": "Specifies whether the admin consent request feature is enabled or disabled",
+                        "DisplayName": "Policy to enable or disable admin consent request feature",
                         "CheckId": "EIDSCA.CR01",
                         "SkipCondition": "",
                         "CurrentValue": "isEnabled",
