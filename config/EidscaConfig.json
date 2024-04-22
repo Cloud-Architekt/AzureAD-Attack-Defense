@@ -24,7 +24,7 @@
                         "CheckId": "EIDSCA.AP01",
                         "SkipCondition": "",
                         "CurrentValue": "allowedToUseSSPR",
-                        "DefaultValue": "enabled",
+                        "DefaultValue": "true",
                         "RecommendedValue": "false",
                         "Recommendation": "Administrators with sensitive roles should use pishing-resistant authentication methods only and therefore not able to reset their password using SSPR.",
                         "Severity": "Informational",
