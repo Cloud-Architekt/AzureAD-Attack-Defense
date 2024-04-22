@@ -20,21 +20,21 @@
                 "Controls": [
                     {
                         "Name": "allowedToUseSSPR",
-                        "DisplayName": "Enabled Self service password reset",
+                        "DisplayName": "Enabled Self service password reset for administrators",
                         "CheckId": "EIDSCA.AP01",
                         "SkipCondition": "",
                         "CurrentValue": "allowedToUseSSPR",
-                        "DefaultValue": "false",
-                        "RecommendedValue": "true",
-                        "Recommendation": "https://learn.microsoft.com/en-us/azure/security/fundamentals/identity-management-best-practices#enable-password-management",
+                        "DefaultValue": "enabled",
+                        "RecommendedValue": "false",
+                        "Recommendation": "Administrators with sensitive roles should use pishing-resistant authentication methods only and therefore not able to reset their password using SSPR.",
                         "Severity": "Informational",
                         "MitreTactic": [
-                            "TA0003 - Persistence"
+                            "TA0006 - Credential Access"
                         ],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/PasswordResetMenuBlade/~/Properties",
-                        "Description": "Designates whether users in this directory can reset their own password."
+                        "PortalDeepLink": "",
+                        "Description": "Indicates whether administrators of the tenant can use the Self-Service Password Reset (SSPR). The policy applies to some critical critical roles in Microsoft Entra ID."
                     },
                     {
                         "Name": "blockMsolPowerShell",
@@ -1525,7 +1525,7 @@
                         "SkipCondition": "$EnabledAuthMethods -notcontains 'TemporaryAccessPass'",
                         "CurrentValue": "isUsableOnce",
                         "DefaultValue": "false",
-                        "RecommendedValue": "false",
+                        "RecommendedValue": "true",
                         "Recommendation": "Avoid to allow reusable passes and restrict usage to one-time use (if applicable)",
                         "Severity": "Medium",
                         "MitreTactic": [],
