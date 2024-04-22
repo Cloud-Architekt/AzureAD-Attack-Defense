@@ -26,7 +26,7 @@
                         "CurrentValue": "allowedToUseSSPR",
                         "DefaultValue": "true",
                         "RecommendedValue": "false",
-                        "Recommendation": "Administrators with sensitive roles should use pishing-resistant authentication methods only and therefore not able to reset their password using SSPR.",
+                        "Recommendation": "Administrators with sensitive roles should use phishing-resistant authentication methods only and therefore not able to reset their password using SSPR.",
                         "Severity": "Informational",
                         "MitreTactic": [
                             "TA0006 - Credential Access"
