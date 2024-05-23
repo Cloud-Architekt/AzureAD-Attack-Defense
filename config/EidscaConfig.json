@@ -13,6 +13,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "authorizationPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authorizationPolicy",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/authorizationPolicy",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/authorizationpolicy",
                 "MitreTactic": [],
                 "MitreTechnique": [],
@@ -313,6 +314,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "settings",
                 "GraphUri": "https://graph.microsoft.com/beta/settings",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/settings",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/directorysetting",
                 "MitreTactic": [],
                 "MitreTechnique": [],
@@ -427,6 +429,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "settings",
                 "GraphUri": "https://graph.microsoft.com/beta/settings",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/settings",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/directorysetting",
                 "MitreTactic": [],
                 "MitreTechnique": [],
@@ -579,6 +582,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "settings",
                 "GraphUri": "https://graph.microsoft.com/beta/settings",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/settings",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/directorysetting",
                 "MitreTactic": [],
                 "MitreTechnique": [],
@@ -813,6 +817,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "activityBasedTimeoutPolicies",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/activityBasedTimeoutPolicies",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/activityBasedTimeoutPolicies",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/activitybasedtimeoutpolicy",
                 "MitreTactic": [],
                 "MitreTechnique": [],
@@ -843,6 +848,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "externalIdentitiesPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/externalIdentitiesPolicy",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/externalIdentitiesPolicy",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/externalidentitiespolicy",
                 "MitreTactic": [],
                 "MitreTechnique": [],
@@ -889,6 +895,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "featureRolloutPolicies",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/featureRolloutPolicies",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/featureRolloutPolicies",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/featurerolloutpolicy",
                 "MitreTactic": [],
                 "MitreTechnique": [],
@@ -919,6 +926,7 @@
                 "Discovery": "$EnabledAuthMethods = (Get-MtAuthenticationMethodPolicyConfig -State Enabled).Id",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/authenticationMethodsPolicy",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/authenticationmethodspolicy-get",
                 "MitreTactic": [
                     "TA0006 - Credential Access"
@@ -1127,6 +1135,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('MicrosoftAuthenticator')",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('MicrosoftAuthenticator')",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/microsoftauthenticatorauthenticationmethodconfiguration",
                 "MitreTactic": [
                     "TA0006 - Credential Access"
@@ -1351,6 +1360,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Fido2')",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Fido2')",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/fido2authenticationmethodconfiguration",
                 "MitreTactic": [
                     "TA0006 - Credential Access"
@@ -1495,6 +1505,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('TemporaryAccessPass')",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('TemporaryAccessPass')",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/temporaryaccesspassauthenticationmethodconfiguration",
                 "MitreTactic": [
                     "TA0006 - Credential Access"
@@ -1639,6 +1650,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('SoftwareOath')",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('SoftwareOath')",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/softwareoathauthenticationmethod",
                 "MitreTactic": [
                     "TA0006 - Credential Access"
@@ -1703,6 +1715,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Email')",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Email')",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/emailauthenticationmethod",
                 "MitreTactic": [
                     "TA0006 - Credential Access"
@@ -1783,6 +1796,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Voice')",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Voice')",
                 "MitreTactic": [
                     "TA0006 - Credential Access"
                 ],
@@ -1862,6 +1876,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Sms')",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Sms')",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/phoneauthenticationmethod",
                 "MitreTactic": [
                     "TA0006 - Credential Access"
@@ -1926,6 +1941,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('X509Certificate')",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('X509Certificate')",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/certificatebasedauthconfiguration",
                 "MitreTactic": [
                     "TA0006 - Credential Access"
@@ -2022,6 +2038,7 @@
                 "Discovery": "$EnabledAdminConsentWorkflow = (Invoke-MtGraphRequest -RelativeUri 'policies/adminConsentRequestPolicy' -ApiVersion beta).isenabled",
                 "GraphEndpoint": "adminConsentRequestPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/adminConsentRequestPolicy",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/adminconsentrequestpolicy",
                 "MitreTactic": [],
                 "MitreTechnique": [],
@@ -2224,6 +2241,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "conditionalAccessPolicies",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/conditionalAccessPolicies",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/conditionalAccessPolicies",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/conditionalaccesspolicy",
                 "MitreTactic": [],
                 "MitreTechnique": [],
@@ -2260,6 +2278,7 @@
                 "Discovery": "",
                 "GraphEndpoint": "serviceprincipals",
                 "GraphUri": "https://graph.microsoft.com/beta/serviceprincipals?$select=id,appid,displayName,appOwnerOrganizationId,servicePrincipalType,signInAudience,AssignmentRequired,disabledByMicrosoftStatus,publisherName,accountEnabled,createdDateTime,keyCredentials,passwordCredentials,federatedIdentityCredentials&expand=appRoleAssignments",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/serviceprincipals?$select=id,appid,displayName,appOwnerOrganizationId,servicePrincipalType,signInAudience,AssignmentRequired,disabledByMicrosoftStatus,publisherName,accountEnabled,createdDateTime,keyCredentials,passwordCredentials,federatedIdentityCredentials&expand=appRoleAssignments",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/serviceprincipal-list?view=graph-rest-1.0&tabs=http",
                 "MitreTactic": [],
                 "MitreTechnique": [],
