@@ -534,7 +534,7 @@
                         "SkipCondition": "",
                         "CurrentValue": "values | where-object name -eq 'LockoutDurationInSeconds' | select-object -expand value",
                         "DefaultValue": "60",
-                        "RecommendedValue": ">60",
+                        "RecommendedValue": ">=60",
                         "Recommendation": "https://learn.microsoft.com/en-us/azure/active-directory/authentication/howto-password-smart-lockout",
                         "Severity": "High",
                         "MitreTactic": [
