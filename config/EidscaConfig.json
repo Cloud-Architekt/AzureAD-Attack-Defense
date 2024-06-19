@@ -1000,7 +1000,7 @@
                     },
                     {
                         "Name": "systemCredentialPreferencesState",
-                        "DisplayName": "System Credential Preferences - State",
+                        "DisplayName": "System-preferred multifactor authentication - State",
                         "CheckId": "EIDSCA.AG05",
                         "SkipCondition": "",
                         "CurrentValue": "systemCredentialPreferences.state",
@@ -1011,12 +1011,12 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "",
-                        "Description": "N/A"
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsSettings",
+                        "Description": "This setting designates whether the most secure multifactor authentication method is presented to users."
                     },
                     {
                         "Name": "systemCredentialPreferencesStateIncluded",
-                        "DisplayName": "System Credential Preferences - Included users/groups",
+                        "DisplayName": "System-preferred multifactor authentication - Included users/groups",
                         "CheckId": "EIDSCA.AG06",
                         "SkipCondition": "",
                         "CurrentValue": "systemCredentialPreferences.includeTargets.id",
@@ -1027,12 +1027,12 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsSettings",
                         "Description": "N/A"
                     },
                     {
                         "Name": "systemCredentialPreferencesStateExcluded",
-                        "DisplayName": "System Credential Preferences - Excluded users/groups",
+                        "DisplayName": "System-preferred multifactor authentication - Excluded users/groups",
                         "CheckId": "EIDSCA.AG07",
                         "SkipCondition": "",
                         "CurrentValue": "systemCredentialPreferences.excludeTargets.id",
@@ -1043,7 +1043,7 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsSettings",
                         "Description": "N/A"
                     },
                     {
