@@ -187,10 +187,10 @@ $SyncedAdmins = $PrivIdentities `
 | Select-Object {$AdminUPN}, RoleDefinitionName, ObjectId
 
 # Disable Synced Accounts
-$SyncedAdmins `
-| ForEach-Object { Update-MgUser -UserId $_.ObjectId `
-  -AccountEnabled:$false `
-  -Confirm `
+$SyncedAdmins | Select-Object -Unique '$AdminUPN', ObjectId `
+| ForEach-Object { 
+    $Output = "Disable Account " + ($_.'$AdminUPN'); Write-Host -ForegroundColor Red $Output
+    Update-MgUser -UserId $_.ObjectId -AccountEnabled:$false -Confirm `
 }
 
 # Check Success
