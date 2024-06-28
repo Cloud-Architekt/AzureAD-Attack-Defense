@@ -110,7 +110,7 @@ You can do this in the portal:
 >💡 If you’re (hopefully) also planning to disable all synced admin accounts (see below) you can directly jump to this step, because the Entra ID Connect accounts are synced admin accounts and will be covered by that step.
 >
 
-Alternatively you can use the EntraOps-Module by Thomas Naunheim. It will export a list of all privileged accounts and classifies them. This list can then be filtered by our needs - in this case ControlPlane (aka Tier0) and sync-status.
+Alternatively you can use the [EntraOps-Module by Thomas Naunheim](https://www.cloud-architekt.net/entraops/). It will export a list of all privileged accounts and classifies them. This list can then be filtered by our needs - in this case ControlPlane (aka Tier0) and sync-status.
 
 ```powershell
 
@@ -167,7 +167,7 @@ You can do this in the portal but this is a rather time-consuming manual process
 - Edit Properties → Settings → Uncheck “Account enabled” and Revoke Sessions
 
 **How to do it with PowerShell?**
-The best way (in my opinion) to find Synced Admin Accounts is to use the EntraOps-Module by Thomas Naunheim. It will export a list of all privileged accounts and classifies them. This list can then be filtered by our needs - in this case ControlPlane (aka Tier0) and sync-status.
+The best way (in my opinion) to find Synced Admin Accounts is to use the [EntraOps-Module by Thomas Naunheim](https://www.cloud-architekt.net/entraops/). It will export a list of all privileged accounts and classifies them. This list can then be filtered by our needs - in this case ControlPlane (aka Tier0) and sync-status.
 
 ```powershell
 # Get EntraOps with eg. git clone https://github.com/Cloud-Architekt/EntraOps.git
