@@ -1,6 +1,7 @@
 # Appendix: How to prevent lateral movement to Entra ID when your Active Directory has fallen
 
 _Author: Christopher Brumm_
+
 _Created: June 2024_
 
 A checklist to protect your Entra ID when Active Directory is compromised and how to prepare for this situation
