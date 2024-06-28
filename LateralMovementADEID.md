@@ -451,6 +451,7 @@ For ADFS it must also be clear that going back means completely rebuilding the f
 means: Prevent the write back of new passwords to Active Directory while password change or reset
 
 **How to do it in the portal?**
+
 <a href="./media/containment/PasswordWriteback.png" target="_blank"><img src="./media/containment/PasswordWriteback.png" width="500" /></a>
 
 **Why should I do this?**
