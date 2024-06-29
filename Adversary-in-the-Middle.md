@@ -78,9 +78,9 @@ The nature of the AiTM attacks includes several methods and it falls into a seve
 
 Figure below shows TTPs used in this scenario in MITRE ATT&CK framework.
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/mitre/AttackScenarios/Password_Spray.svg" target="_blank">![](./media/mitre/AttackScenarios/Password_Spray.svg)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/mitre/AttackScenarios/AiTM.svg" target="_blank">![](./media/mitre/AttackScenarios/AiTM.svg)</a>
 
-<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Fmitre%2FAttackScenarios%2FPassword_Spray.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
+<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2FChapter7-AiTM%2Fmedia%2Fmitre%2FAttackScenarios%2FAiTM.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
 
 
 ### Technique Overview
@@ -225,9 +225,11 @@ BehaviorInfo
 ```
 
 ### Microsoft Sentinel
-TBA
+Microsoft Sentinel has a new feature called SOC optimization that has AiTM as one of the threat scenarios in it. Main driver for using SOC optimization is to provide information to the organizations that they can close coverage gaps against specific threats and tighten ingestion rates against data that doesn't provide security value. In a nutshell: better detection coverage and decreased costs. 
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-aitm/media/aitm-attack/SOC-optimatization-1.png" target="_blank"><img src="./media/aitm-attack/SOC-optimatization-1.png" width="750" /></a>
+
+AiTM threat scenario provides total of 32 configurable items which includes 18 analytic rules and 14 data connectors. If you have any of these solutions in your environment it's recommended to ingest data from the solution to Sentinel and enable analytic rules.
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-aitm/media/aitm-attack/SOC-optimatization-2.png" target="_blank"><img src="./media/aitm-attack/SOC-optimatization-2.png" width="750" /></a>
 
@@ -355,11 +357,11 @@ Defender XDR’s automatic attack disruption is a powerful feature that can help
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-aitm/media/aitm-attack/AttackDisruption-1.png" target="_blank"><img src="./media/aitm-attack/AttackDisruption-1.png" width="1200" /></a>
 
-*Without Microsoft Defender XDR’s automatic attack disruption in place*
+*Without Microsoft Defender XDR’s automatic attack disruption in place (initial figure from Microsoft presentation)*
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-aitm/media/aitm-attack/AttackDisruption-2.png" target="_blank"><img src="./media/aitm-attack/AttackDisruption-2.png" width="1200" /></a>
 
-*With Microsoft Defender XDR’s automatic attack disruption in place*
+*With Microsoft Defender XDR’s automatic attack disruption in place (initial figure from Microsoft presentation)*
 
 As you can see from the preceding figures, there is a significant difference on capabilities if attack disruption is not configured with automated remediation. Keep in mind that the feature doesn’t cover all the possible attack scenarios, but it covers some major ones when attack is detected with high confidence.
 
