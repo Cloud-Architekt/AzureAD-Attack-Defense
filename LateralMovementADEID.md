@@ -42,7 +42,7 @@ I assume that when you start working through this list you are sure that your AD
 
 ## First Aid Checklist
 
-> There is this german [quote from Friedrich von Logau](https://de.wikiquote.org/wiki/Friedrich_von_Logau): "_**In Gefahr und tiefer Not bedeutet der mittlere Weg den sicheren Tod***" what can be translated to "***In Danger and Deep Distress, the Middle Way Spells Certain Death**_”
+> There is this german [quote from Friedrich von Logau](https://de.wikiquote.org/wiki/Friedrich_von_Logau): "_**In Gefahr und tiefer Not bedeutet der mittlere Weg den sicheren Tod***" what can be translated to "**In Danger and Deep Distress, the Middle Way Spells Certain Death**_”
 >
 
 My experience from incident response operations has taught me: act early and act decisively!
@@ -276,7 +276,7 @@ SCREENSHOT
 
 To use this approach you will need more time, knowledge about apps and their permissions and you need to be well practiced with the needed tools.
 
-There are some really good tools out there like [App Governance*** in Microsoft Defender for Cloud Apps](https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-manage-app-governance) and ***[AzADServicePrincipalInsights](https://github.com/JulianHayward/AzADServicePrincipalInsights)***
+There are some really good tools out there like [App Governance in Microsoft Defender for Cloud Apps](https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-manage-app-governance) and ***[AzADServicePrincipalInsights](https://github.com/JulianHayward/AzADServicePrincipalInsights)***
 
 Focus on Service Principals with with (high) Graph App Permissions and roles in Azure RBAC with credentials (secrets or certificates). You should consider apps that run in or can be controlled from your OnPrem environment as particularly critical, such as
 
@@ -290,7 +290,7 @@ Workload identities often have high permissions in Entra and Azure and can be us
 
 The only exception is the restriction to IP addresses through Conditional Access, but since the attacker is already in your network, this option is currently rather unfavorable.
 
-For (much) more information you should read [Thomas Blog series about Workload Identities](https://www.cloud-architekt.net/entra-workload-id-introduction-and-delegation/)
+For (much) more information you should read [blog series about Workload Identities by Thomas Naunheim](https://www.cloud-architekt.net/entra-workload-id-introduction-and-delegation/)
 
 **Effect of the action?**
 The functional restrictions vary greatly depending on the affected application and it makes sense to check which connections can be considered secure and to release these apps again or restrict them to certain IP addresses (outside the OnPrem environment) in a timely manner after the policy has been created.
