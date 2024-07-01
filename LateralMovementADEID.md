@@ -33,7 +33,7 @@ Since Active Directory plays a central role in many environments, there are vari
 - Connections to the backup system
 - Connections to Entra ID
 
-This blog post is about the latter and has the goal of
+This article is about the latter and has the goal of
 
 1. give you clear advice what to do to protect your Entra ID when your AD is compromised
 2. explain you why I’ve chosen these steps and some background information
