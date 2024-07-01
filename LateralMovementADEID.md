@@ -2,9 +2,33 @@
 
 _Author: Christopher Brumm_
 
-_Created: June 2024_
+_Created: July 2024_
 
 A checklist to protect your Entra ID when Active Directory is compromised and how to prepare for this situation
+
+- [Appendix: How to prevent lateral movement to Entra ID when your Active Directory has fallen](#appendix-how-to-prevent-lateral-movement-to-entra-id-when-your-active-directory-has-fallen)
+  - [Intro](#intro)
+  - [First Aid Checklist](#first-aid-checklist)
+    - [Phase 1: Prevent full compromise](#phase-1-prevent-full-compromise)
+    - [Phase 2: Protect User Accounts](#phase-2-protect-user-accounts)
+      - [About Active Directory password cracking](#about-active-directory-password-cracking)
+  - [Description of phase 1 steps](#description-of-phase-1-steps)
+    - [Block the Entra ID Connect sync account](#block-the-entra-id-connect-sync-account)
+    - [Block synced Admin Accounts](#block-synced-admin-accounts)
+    - [Configure an Admin Conditional Access Policy](#configure-an-admin-conditional-access-policy)
+    - [Delete MFA bypasses in the legacy MFA console](#delete-mfa-bypasses-in-the-legacy-mfa-console)
+    - [Block access for Workload Identities](#block-access-for-workload-identities)
+      - [The aggressive approach](#the-aggressive-approach)
+      - [The moderate approach](#the-moderate-approach)
+  - [Description of phase 2 steps](#description-of-phase-2-steps)
+    - [Disable Seamless SSO](#disable-seamless-sso)
+    - [Enforce MFA and restrict the registration](#enforce-mfa-and-restrict-the-registration)
+    - [(optional) Disable OnPrem Authentication](#optional-disable-onprem-authentication)
+    - [(optional) Disable password write back](#optional-disable-password-write-back)
+  - [How to prepare?](#how-to-prepare)
+    - [Workload Identities (used OnPrem)](#workload-identities-used-onprem)
+    - [Migrate to Password Hash Sync if you’re using PTA or ADFS](#migrate-to-password-hash-sync-if-youre-using-pta-or-adfs)
+  - [What else?](#what-else)
 
 ## Intro
 
