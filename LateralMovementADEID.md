@@ -263,6 +263,9 @@ Every admin now has to use MFA to login and it is to be assumed that scripts run
 
 means: Disable legacy configurations in the legacy MFA console allowing to bypass MFA, like Trusted IPs and caching
 
+>💡 "If you already have migrated MFA to the Authentication Policies you don't have to worry about this point. See [here](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentication-methods-manage) for details.
+>
+
 **How to do it in the portal?**
 
 - Go to the [legacy MFA portal](https://account.activedirectory.windowsazure.com/usermanagement/mfasettings.aspx) !
