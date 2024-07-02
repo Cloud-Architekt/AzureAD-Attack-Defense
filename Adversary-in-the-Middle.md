@@ -89,16 +89,15 @@ TBA
 #### AiTM phishing through reverse proxy
 TBA
 
-
-
-![./media/aitm-attack/AiTM.png](./media/aitm-attack/AiTM.png)
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-aitm/media/aitm-attack/AiTM.png" target="_blank"><img src="./media/aitm-attack/AiTM.png" width="700" /></a>
   
 *AiTM phishing through reverse proxy attack diagram (initial figure from Microsoft Defender XDR Threat Intelligence reports).*
 
 #### AiTM phishing through synchronous relay
 TBA
 
-![./media/aitm-attack/AiTM-2.png](./media/aitm-attack/AiTM-2.png)
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-aitm/media/aitm-attack/AiTM-2.png" target="_blank"><img src="./media/aitm-attack/AiTM-2.png" width="700" /></a>
+
 *AiTM phishing through synchronous relay diagram (initial figure from Microsoft Defender XDR Threat Intelligence reports).*
 
 ### Tools to simulate AiTM attack
