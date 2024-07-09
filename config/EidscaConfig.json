@@ -83,7 +83,10 @@
                         "CheckId": "EIDSCA.AP04",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "allowInvitesFrom",
+                        "CurrentValue": [
+                            "allowInvitesFrom",
+                            "none"
+                        ],
                         "DefaultValue": "everyone",
                         "RecommendedValue": "adminsAndGuestInviters",
                         "Recommendation": "CISA SCuBA 2.18: Only users with the Guest Inviter role SHOULD be able to invite guest users",
