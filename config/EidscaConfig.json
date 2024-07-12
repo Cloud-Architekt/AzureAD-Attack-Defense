@@ -1038,7 +1038,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AdminAuthMethods",
                         "Description": "The state of migration of the authentication methods policy from the legacy multifactor authentication and self-service password reset (SSPR) policies. In January 2024, the legacy multifactor authentication and self-service password reset policies will be deprecated and you'll manage all authentication methods here in the authentication methods policy. Use this control to manage your migration from the legacy policies to the new unified policy.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - How to manage authentication methodes](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentication-methods-manage#start-the-migration)"
                     },
                     {
                         "Name": "reportSuspiciousActivitySettingsState",
@@ -1056,7 +1056,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsSettings",
                         "Description": "Allows users to report suspicious activities if they receive an authentication request that they did not initiate. This control is available when using the Microsoft Authenticator app and voice calls. Reporting suspicious activity will set the user's risk to high. If the user is subject to risk-based Conditional Access policies, they may be blocked.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Report suspicious activites](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-mfa-mfasettings#report-suspicious-activity)"
                     },
                     {
                         "Name": "reportSuspiciousActivitySettingsIncluded",
@@ -1074,7 +1074,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsSettings",
                         "Description": "Object Id or scope of users which will be included to report suspicious activities if they receive an authentication request that they did not initiate.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Report suspicious activites](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-mfa-mfasettings#report-suspicious-activity)"
                     },
                     {
                         "Name": "reportSuspiciousActivitySettingsReporting code",
@@ -1092,7 +1092,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsSettings",
                         "Description": "Reporting code must be 0 - 9.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Report suspicious activites](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-mfa-mfasettings#report-suspicious-activity)"
                     },
                     {
                         "Name": "systemCredentialPreferencesState",
@@ -1110,7 +1110,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsSettings",
                         "Description": "This setting designates whether the most secure multifactor authentication method is presented to users.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - System-preferred MFA](https://learn.microsoft.com/en-us/entra/identity/authentication/concept-system-preferred-multifactor-authentication#enable-system-preferred-mfa-in-the-microsoft-entra-admin-center)"
                     },
                     {
                         "Name": "systemCredentialPreferencesStateIncluded",
@@ -1128,7 +1128,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsSettings",
                         "Description": "N/A",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - System-preferred MFA](https://learn.microsoft.com/en-us/entra/identity/authentication/concept-system-preferred-multifactor-authentication#enable-system-preferred-mfa-in-the-microsoft-entra-admin-center)"
                     },
                     {
                         "Name": "systemCredentialPreferencesStateExcluded",
@@ -1146,7 +1146,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsSettings",
                         "Description": "N/A",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - System-preferred MFA](https://learn.microsoft.com/en-us/entra/identity/authentication/concept-system-preferred-multifactor-authentication#enable-system-preferred-mfa-in-the-microsoft-entra-admin-center)"
                     },
                     {
                         "Name": "authenticationMethodsRegistrationCampaignState",
@@ -1164,7 +1164,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
                         "Description": "Configuration of a registration campaign that prompts users to set up more secure authentication methods.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Enable registration campaign](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-registration-campaign#enable-the-registration-campaign-policy-using-the-microsoft-entra-admin-center)"
                     },
                     {
                         "Name": "authenticationMethodsRegistrationCampaignIncluded",
@@ -1180,9 +1180,9 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "",
+                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
                         "Description": "Users and groups of users that are prompted to set up the authentication method.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Enable registration campaign](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-registration-campaign#enable-the-registration-campaign-policy-using-the-microsoft-entra-admin-center)"
                     },
                     {
                         "Name": "authenticationMethodsRegistrationCampaignTargetedAuthenticationMethod",
@@ -1198,9 +1198,9 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "",
+                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
                         "Description": "Chosen Authentication Method for Registration campaign.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Enable registration campaign](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-registration-campaign#enable-the-registration-campaign-policy-using-the-microsoft-entra-admin-center)"
                     },
                     {
                         "Name": "authenticationMethodsRegistrationCampaignExcluded",
@@ -1216,9 +1216,9 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "",
+                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
                         "Description": "Users and groups of users that are excluded from being prompted to set up the authentication method.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Enable registration campaign](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-registration-campaign#enable-the-registration-campaign-policy-using-the-microsoft-entra-admin-center)"
                     },
                     {
                         "Name": "authenticationMethodsRegistrationCampaignSnoozeDurationInDays",
@@ -1234,9 +1234,9 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "",
+                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
                         "Description": "Specifies the number of days that the user sees a prompt again if they select 'Not now' and snoozes the prompt. Minimum: 0 days. Maximum: 14 days.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Enable registration campaign](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-registration-campaign#enable-the-registration-campaign-policy-using-the-microsoft-entra-admin-center)"
                     }
                 ]
             },
