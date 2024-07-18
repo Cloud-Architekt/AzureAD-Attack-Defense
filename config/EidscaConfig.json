@@ -1031,7 +1031,7 @@
                         "CurrentValue": "policyMigrationState",
                         "DefaultValue": "premigration",
                         "RecommendedValue": "migrationComplete",
-                        "Recommendation": "In January 2024, the legacy multifactor authentication and self-service password reset policies will be deprecated and you'll manage all authentication methods here in the authentication methods policy. Use this control to manage your migration from the legacy policies to the new unified policy.",
+                        "Recommendation": "On September 30th, 2025, the legacy multifactor authentication and self-service password reset policies will be deprecated and you'll manage all authentication methods here in the authentication methods policy. Use this control to manage your migration from the legacy policies to the new unified policy.",
                         "Severity": "Informational",
                         "MitreTactic": [],
                         "MitreTechnique": [],
@@ -1090,7 +1090,7 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AdminAuthMethods",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AuthMethodsSettings",
                         "Description": "Reporting code must be 0 - 9.",
                         "HowToFix": "[Microsoft Learn - Report suspicious activites](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-mfa-mfasettings#report-suspicious-activity)"
                     },
