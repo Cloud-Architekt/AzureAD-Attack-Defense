@@ -670,7 +670,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Enables to apply published labels to groups",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     },
                     {
                         "Name": "CustomBlockedWordsList",
@@ -688,7 +688,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/NamingPolicy",
                         "Description": "Comma-separated string of phrases that users will not be permitted to use in group names or aliases.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     },
                     {
                         "Name": "EnableMSStandardBlockedWords",
@@ -724,7 +724,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "A comma-delimited list of classification descriptions. This setting does not apply when EnableMIPLabels == True. Character limit for property ClassificationDescriptions is 300, and commas can't be escaped.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     },
                     {
                         "Name": "DefaultClassification",
@@ -742,7 +742,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "The classification that is to be used as the default classification for a group if none was specified. This setting does not apply when EnableMIPLabels == True.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     },
                     {
                         "Name": "PrefixSuffixNamingRequirement",
@@ -760,7 +760,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/NamingPolicy",
                         "Description": "String of a maximum length of 64 characters that defines the naming convention configured for Microsoft 365 groups.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     },
                     {
                         "Name": "AllowGuestsToBeGroupOwner",
@@ -777,8 +777,8 @@
                         "MitreTechnique": [],
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
-                        "Description": "Indicating whether or not a guest user can be an owner of groups",
-                        "HowToFix": ""
+                        "Description": "Indicating whether or not a guest user can be an owner of groups, manage",
+                        "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     },
                     {
                         "Name": "AllowGuestsToAccessGroups",
@@ -796,7 +796,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Indicating whether or not a guest user can have access to Microsoft 365 groups content. This setting does not require an Azure Active Directory Premium P1 license.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     },
                     {
                         "Name": "GuestUsageGuidelinesUrl",
@@ -814,7 +814,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "URL of a link to the guest usage guidelines which will be shown in external sharing e-mails. Link should be public available.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     },
                     {
                         "Name": "EnableGroupCreation",
@@ -832,7 +832,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/General",
                         "Description": "The flag indicating whether Microsoft 365 group creation is allowed in the directory by non-admin users. This setting does not require an Azure Active Directory Premium P1 license.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     },
                     {
                         "Name": "GroupCreationAllowedGroupId",
@@ -850,7 +850,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "GUID of the security group for which the members are allowed to create Microsoft 365 groups even when EnableGroupCreation == false.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     },
                     {
                         "Name": "AllowToAddGuests",
@@ -868,7 +868,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "A boolean indicating whether or not is allowed to add guests to this directory. This setting may be overridden and become read-only if EnableMIPLabels is set to True and a guest policy is associated with the sensitivity label assigned to the group. If the AllowToAddGuests setting is set to False at the organization level, any AllowToAddGuests setting at the group level is ignored. If you want to enable guest access for only a few groups, you must set AllowToAddGuests to be true at the organization level, and then selectively disable it for specific groups.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     },
                     {
                         "Name": "ClassificationList",
@@ -886,7 +886,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "A comma-delimited list of valid classification values that can be applied to Microsoft 365 groups. This setting does not apply when EnableMIPLabels == True.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     }
                 ]
             },
