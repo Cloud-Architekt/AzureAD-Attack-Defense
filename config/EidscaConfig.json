@@ -1630,7 +1630,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Object Id or scope of users which will be able to use FIDO2 security keys and determines whether the user is enforced to register the authentication method.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Include targets](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-enable-passkey-fido2#enable-passkey-authentication-method)"
                     },
                     {
                         "Name": "excludeTargets",
@@ -1683,7 +1683,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Whether the Temporary Access Pass is enabled in the tenant.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Enable Temporary Access Pass](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-temporary-access-pass#enable-the-temporary-access-pass-policy)"
                     },
                     {
                         "Name": "isUsableOnce",
@@ -1701,7 +1701,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Determines whether the pass is limited to a one-time use.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Require one-time use (Step 5)](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-temporary-access-pass#enable-the-temporary-access-pass-policy)"
                     },
                     {
                         "Name": "defaultLifetimeInMinutes",
@@ -1719,7 +1719,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Default lifetime in minutes for creating a new Temporary Access Pass.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Default lifetime (see table)](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-temporary-access-pass#enable-the-temporary-access-pass-policy)"
                     },
                     {
                         "Name": "defaultLength",
@@ -1737,7 +1737,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Default length in characters of a Temporary Access Pass object. Must be between 8 and 48 characters.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Default length (see table)](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-temporary-access-pass#enable-the-temporary-access-pass-policy)"
                     },
                     {
                         "Name": "minimumLifetimeInMinutes",
@@ -1755,7 +1755,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Minimum lifetime in minutes for any Temporary Access Pass created in the tenant. Value can be between 10 and 43200 minutes (equivalent to 30 days).",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Minimum lifetime (see table)](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-temporary-access-pass#enable-the-temporary-access-pass-policy)"
                     },
                     {
                         "Name": "maximumLifetimeInMinutes",
@@ -1773,7 +1773,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Maximum lifetime in minutes for any Temporary Access Pass created in the tenant. Value can be between 10 and 43200 minutes (equivalent to 30 days).",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Maximum lifetime (see table)](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-temporary-access-pass#enable-the-temporary-access-pass-policy)"
                     },
                     {
                         "Name": "includeTargets",
@@ -1791,7 +1791,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Object Id or scope of users which will be able to use Temporary Access Pass.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Include targets from Temporary Access Pass (Step 4)](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-temporary-access-pass#enable-the-temporary-access-pass-policy)"
                     },
                     {
                         "Name": "excludeTargets",
@@ -1809,7 +1809,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Object Id or scope of users which will be excluded to use Temporary Access Pass.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Exclude targets from Temporary Access Pass (Step 4)](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-temporary-access-pass#enable-the-temporary-access-pass-policy)"
                     }
                 ]
             },
@@ -2091,12 +2091,12 @@
                         "MitreTechnique": [],
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
-                        "Description": "Whether the Voice call is enabled in the tenant.",
-                        "HowToFix": ""
+                        "Description": "Whether the SMS authentication is enabled in the tenant.",
+                        "HowToFix": "[Microsoft Learn - Enable SMS-based authentication](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-sms-signin#enable-the-sms-based-authentication-method)"
                     },
                     {
                         "Name": "includeTargets",
-                        "DisplayName": "Included users/groups from Voice call",
+                        "DisplayName": "Included users/groups from SMS-based authentication",
                         "CheckId": "EIDSCA.AS02",
                         "SkipCondition": "$EnabledAuthMethods -notcontains 'Sms'",
                         "SkipReason": "Authentication method of Sms is not enabled.",
@@ -2109,12 +2109,12 @@
                         "MitreTechnique": [],
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
-                        "Description": "Object Id or scope of users which will be able to use Voice call, determines whether the user is enforced to register the authentication method and if users can use this authentication method to sign in to Azure AD. If setting is set to true, users can use this method for primary authentication.",
-                        "HowToFix": ""
+                        "Description": "Object Id or scope of users which will be able to use sms, determines whether the user is enforced to register the authentication method and if users can use this authentication method to sign in to Entra ID. If setting is set to true, users can use this method for primary authentication.",
+                        "HowToFix": "[Microsoft Learn - Include targets from SMS-based authentication (step 4)](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-sms-signin#enable-the-sms-based-authentication-method)"
                     },
                     {
                         "Name": "excludeTargets",
-                        "DisplayName": "Excluded users/group from Voice call",
+                        "DisplayName": "Excluded users/group from SMS-based authentication",
                         "CheckId": "EIDSCA.AS03",
                         "SkipCondition": "$EnabledAuthMethods -notcontains 'Sms'",
                         "SkipReason": "Authentication method of Sms is not enabled.",
@@ -2127,8 +2127,8 @@
                         "MitreTechnique": [],
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
-                        "Description": "Object Id or scope of users which will be excluded to use Voice call.",
-                        "HowToFix": ""
+                        "Description": "Object Id or scope of users which will be excluded to use SMS-based authentication.",
+                        "HowToFix": "[Microsoft Learn - Exclude targets from SMS-based authentication (step 4)](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-sms-signin#enable-the-sms-based-authentication-method)"
                     }
                 ]
             },
@@ -2163,7 +2163,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Whether the CBA is enabled in the tenant.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Enable Certification-based Authentication](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-certificate-based-authentication#step-2-enable-cba-on-the-tenant)"
                     },
                     {
                         "Name": "includeTargets",
@@ -2181,7 +2181,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Object Id or scope of users which will be able to use CBA and determines whether the user is enforced to register the authentication method.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Include targets from Certification-based Authentication (Step 5)](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-certificate-based-authentication#step-2-enable-cba-on-the-tenant)"
                     },
                     {
                         "Name": "excludeTargets",
@@ -2199,7 +2199,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Object Id or scope of users which will be excluded to use CBA.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Exclude targets from Certification-based Authentication (Step 5)](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-certificate-based-authentication#step-2-enable-cba-on-the-tenant)"
                     },
                     {
                         "Name": "authenticationModeConfiguration.x509CertificateAuthenticationDefaultMode",
@@ -2217,7 +2217,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Select the default protection level for all certificate bindings. The default binding will ensure the certificates bind to the selected protection strength setting unless special rules are applied. To override the default, create special rules.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Configure Protection Level (Step 5)](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-certificate-based-authentication#step-3-configure-authentication-binding-policy)"
                     },
                     {
                         "Name": "authenticationModeConfiguration.rules",
@@ -2235,7 +2235,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Rules are configured in addition to the authentication mode to bind a specific x509CertificateRuleType to an x509CertificateAuthenticationMode.",
-                        "HowToFix": ""
+                        "HowToFix": "[Microsoft Learn - Configure binding rules (Step 6)](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-certificate-based-authentication#step-3-configure-authentication-binding-policy)"
                     }
                 ]
             },
