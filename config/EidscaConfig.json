@@ -2136,7 +2136,7 @@
                         "CheckId": "EIDSCA.AS04",
                         "SkipCondition": "$EnabledAuthMethods -notcontains 'Sms'",
                         "SkipReason": "Authentication method of Sms is not enabled.",
-                        "CurrentValue": "isUsableForSignIn",
+                        "CurrentValue": "includeTargets.isUsableForSignIn",
                         "DefaultValue": "true",
                         "RecommendedValue": "false",
                         "Recommendation": "",
