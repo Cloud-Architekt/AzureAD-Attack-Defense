@@ -2129,6 +2129,24 @@
                         "PortalDeepLink": "",
                         "Description": "Object Id or scope of users which will be excluded to use SMS-based authentication.",
                         "HowToFix": "[Microsoft Learn - Exclude targets from SMS-based authentication (step 4)](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-sms-signin#enable-the-sms-based-authentication-method)"
+                    },
+                    {
+                        "Name": "isUsableForSignIn",
+                        "DisplayName": "Use for sign-in",
+                        "CheckId": "EIDSCA.AS04",
+                        "SkipCondition": "$EnabledAuthMethods -notcontains 'Sms'",
+                        "SkipReason": "Authentication method of Sms is not enabled.",
+                        "CurrentValue": "isUsableForSignIn",
+                        "DefaultValue": "true",
+                        "RecommendedValue": "false",
+                        "Recommendation": "",
+                        "Severity": "High",
+                        "MitreTactic": [],
+                        "MitreTechnique": [],
+                        "MitreMitigation": [],
+                        "PortalDeepLink": "",
+                        "Description": "Determines if users can use this authentication method to sign in to Microsoft Entra ID. true if users can use this method for primary authentication, otherwise false.",
+                        "HowToFix": "[Microsoft Learn - Configure and enable users for SMS-based authentication using Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-sms-signin)"
                     }
                 ]
             },
