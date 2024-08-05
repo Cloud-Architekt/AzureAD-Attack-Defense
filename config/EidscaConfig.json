@@ -2139,7 +2139,7 @@
                         "CurrentValue": "includeTargets.isUsableForSignIn",
                         "DefaultValue": "true",
                         "RecommendedValue": "false",
-                        "Recommendation": "",
+                        "Recommendation": "Avoid to use SMS as primary sign in factor (instead of a password) and consider to implement a MFA or passwordless option also for your special user groups, such as front-line workers.",
                         "Severity": "High",
                         "MitreTactic": [],
                         "MitreTechnique": [],
