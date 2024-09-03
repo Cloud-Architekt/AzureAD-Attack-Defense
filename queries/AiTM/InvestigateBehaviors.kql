@@ -1,0 +1,8 @@
+//Investigate Defender for Cloud Apps Behaviors (BehaviorEntities & BehaviorInfo) for a specific user
+BehaviorInfo
+| where Timestamp >ago(30d) 
+| where ServiceSource == "Microsoft Cloud App Security"
+//| where BehaviorId == "<Inser BehaviorId>"
+//| where AccountUpn == "<Insert userPrincipalName>"
+| join BehaviorEntities on BehaviorId
+| project Timestamp, BehaviorId, ActionType, Description, Categories, AttackTechniques, ServiceSource, AccountUpn, AccountObjectId, EntityType, EntityRole, RemoteIP, AccountName, AccountDomain, Application

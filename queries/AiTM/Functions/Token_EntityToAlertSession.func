@@ -1,0 +1,28 @@
+let Token_EntityToAlertSessions = (Entity:string) {
+let SessionRelatedAlerts = (SecurityAlert
+    | where Entities has (Entity)
+    | mv-expand parse_json(Entities)
+    | where Entities.Type == "cloud-logon-session" or Entities.Type == "cloud-logon-request"
+    | summarize arg_max(TimeGenerated, *) by SystemAlertId
+    // Optional: Filtered for resolved events only
+    //| where Status != "Resolved"
+    | project OriginalRequestId = tostring(parse_json(ExtendedProperties).["Request Id"]), SessionId = tostring(Entities.SessionId), AlertName, Status, SystemAlertId, tostring(Tactics), tostring(Techniques), tostring(Entities), RequestId = tostring(Entities.RequestId)
+    );
+let AssociatedSessionIds = SessionRelatedAlerts
+| join kind=inner ( AADSignInEventsBeta
+        | where isnotempty (SessionId)
+        | extend SignInTime = TimeGenerated, Timestamp, AppId = ApplicationId, ResourceId, OriginalRequestId = tostring(RequestId), CorrelationId = ReportId, SessionId, IPAddress, Application, ResourceDisplayName
+    ) on SessionId;
+let AssociatedRequestIds = SessionRelatedAlerts
+| join kind=inner ( AADSignInEventsBeta
+        | where isnotempty (RequestId)
+        | extend SignInTime = TimeGenerated, Timestamp, AppId = ApplicationId, ResourceId, RequestId, CorrelationId = ReportId, SessionId, IPAddress, Application, ResourceDisplayName
+    ) on RequestId;
+union AssociatedRequestIds, AssociatedSessionIds
+| extend SessionId = iff(isempty(SessionId), SessionId1, SessionId)
+| extend OriginalRequestId = iff(isempty(RequestId), RequestId1, RequestId)
+| extend SignIns = bag_pack_columns(SignInTime, Application, AppId, ResourceId, ResourceDisplayName, IPAddress, ReportId, CorrelationId, OriginalRequestId)
+| extend SessionAlert = bag_pack_columns(TimeGenerated, SystemAlertId, AlertName, Status, Tactics, Techniques, Entities)
+| summarize SignInActivityStart=min(SignInTime), SignInActivityEnd=max(SignInTime), SignIns = make_set(SignIns), SessionAlerts = make_set(SessionAlert), OriginalRequestIds = make_set(OriginalRequestId) by AccountObjectId, AccountDisplayName, SessionId
+};
+Token_EntityToAlertSessions(Entity)

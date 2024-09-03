@@ -1,0 +1,41 @@
+let Token_UtiToXdrActivities = (T:(UniqueTokenId:string)) {
+    let SensitiveAzEvents = dynamic([
+        'Microsoft.Authorization/roleAssignments/write',
+        'Microsoft.Authorization/roleAssignmentScheduleRequests/write',
+        'Microsoft.Authorization/roleEligibilityScheduleRequests/write',
+        'Microsoft.Authorization/roleManagementPolicies/write',
+        'Microsoft.Storage/storageAccounts/listKeys/action'
+    ]);
+    let SensitiveSaasEvents = dynamic([
+        'New-InboxRule',
+        'Set-InboxRule',
+        'HardDelete'
+        'AnonymousLinkCreated'
+    ]);    
+    let AzTokenActivities = CloudAppEvents
+        | where Application == "Microsoft Azure"
+        | extend UniqueTokenIdentifier = tostring(parse_json(RawEventData).uniqueTokenId)
+        | where UniqueTokenIdentifier in~ (UniqueTokenId)
+        | where isnotempty(UniqueTokenIdentifier)
+        | extend Operation = tostring(parse_json(tostring(RawEventData.properties)).message)
+        | extend IsSensitive = iff(Operation in~ (SensitiveAzEvents), true, false)
+        | extend Activity = bag_pack_columns(TimeGenerated, ObjectType, ActionType, ActivityObjects, ActivityType, ReportId, IsSensitive)
+        | extend IsCritical = iff(Activity.IsSensitive contains "true", true, false)
+        | extend IpTags = tostring(IPTags)
+        | extend IpInsights = bag_pack_columns(IPAddress, ISP, IpCategory = IPCategory, IpTags, IsAnonymousProxy)
+        | summarize Activity = make_set(Activity) by AccountObjectId, UniqueTokenIdentifier, Application, tostring(IpInsights), IsSensitive;
+    let SaasTokenActivities = CloudAppEvents
+        | where Application != "Microsoft Azure"
+        | extend UniqueTokenIdentifier = tostring(parse_json(tostring(RawEventData.AppAccessContext)).UniqueTokenId)
+        | where UniqueTokenIdentifier in~ (UniqueTokenId)
+        | where isnotempty(UniqueTokenIdentifier)
+        | extend Operation = tostring(parse_json(tostring(RawEventData.properties)).message)
+        | extend IsSensitive = iff(ActionType in~ (SensitiveSaasEvents), true, false)
+        | extend Activity = bag_pack_columns(TimeGenerated, ObjectType, ActionType, ActivityObjects, ActivityType, ReportId, IsSensitive)
+        | extend IsCritical = iff(Activity.IsSensitive contains "true", true, false)
+        | extend IpTags = tostring(IPTags)
+        | extend IpInsights = bag_pack_columns(IPAddress, ISP, IpCategory = IPCategory, IpTags, IsAnonymousProxy)
+        | summarize Activity = make_set(Activity) by AccountObjectId, UniqueTokenIdentifier, Application, tostring(IpInsights), IsSensitive;
+    union AzTokenActivities, SaasTokenActivities
+};
+Token_UtiToXdrActivities(UniqueTokenId)
