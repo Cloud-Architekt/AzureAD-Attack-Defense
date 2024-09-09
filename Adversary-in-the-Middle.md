@@ -174,7 +174,7 @@ The nature of the AiTM attacks includes several methods and it falls into severa
 
 Figure below shows TTPs used in this scenario in MITRE ATT&CK framework.
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7/media/aitm-attack/MITRE-AiTM.svg" target="_blank">![](./media/aitm-attack/MITRE-AiTM.svg)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/aitm-attack/MITRE-AiTM.svg" target="_blank">![](./media/aitm-attack/MITRE-AiTM.svg)</a>
 
 <a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Faitm-attack%2FMITRE-AiTM.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
 
