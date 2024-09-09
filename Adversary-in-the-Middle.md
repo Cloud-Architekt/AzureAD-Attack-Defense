@@ -399,7 +399,7 @@ Microsoft Copilot for Security is currently a buzzword in the security industry.
 
 ### Custom Detections and Hunting
 
-In the following section, you can find KQL queries and functions for hunting possible malicious activities in your environment. The queries are created by us, the community, or the Microsoft Threat Intelligence & DART teams. The GitHub repo contains even more hunting queries; take a look at that one as well. Every query has pre-requisites, which are listed in the table on the query section.
+In the following section, you can find KQL queries and functions for hunting possible malicious activities in your environment. The queries are created by us, the community, or the Microsoft Threat Intelligence & DART teams. The GitHub repo contains even more hunting queries [in the query folder](./queries/AiTM); take a look at that one as well. Every query has pre-requisites, which are listed in the table on the query section.
 
 There are different approach to how to get a job done and we have selected two approaches for this paper. In the first one, the assumption is that you are trying to find a possible suspicious AiTM related activities from the environment, or you have already identified one but are looking for more insights from the possible malicious activities during sessions.
 
