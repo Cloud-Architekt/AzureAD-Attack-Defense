@@ -1,0 +1,17 @@
+//Search for cookies that were first seen after OfficeHome application authentication (as seen when the user authenticated to the AiTM phishing site) and then seen being used in other applications in other countries
+//The query is creatd by Microsoft DART team and the inital version is found in 'https://www.microsoft.com/en-us/security/blog/2022/07/12/from-cookie-theft-to-bec-attackers-use-aitm-phishing-sites-as-entry-point-to-further-financial-fraud/?msockid=28c8c6feb17d6e740accd40eb04a6f51'
+let OfficeHomeSessionIds = 
+AADSignInEventsBeta
+| where Timestamp > ago(7d)
+| where ErrorCode == 0
+| where ApplicationId == "4765445b-32c6-49b0-83e6-1d93765276ca" //OfficeHome application 
+| where ClientAppUsed == "Browser" 
+| where LogonType has "interactiveUser" 
+| summarize arg_min(Timestamp, Country) by SessionId;
+AADSignInEventsBeta
+| where Timestamp > ago(7d)
+| where ApplicationId != "4765445b-32c6-49b0-83e6-1d93765276ca"
+| where ClientAppUsed == "Browser" 
+| project OtherTimestamp = Timestamp, Application, ApplicationId, AccountObjectId, AccountDisplayName, OtherCountry = Country, SessionId
+| join OfficeHomeSessionIds on SessionId
+| where OtherTimestamp > Timestamp and OtherCountry != Country

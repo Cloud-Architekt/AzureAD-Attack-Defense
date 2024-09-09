@@ -1,0 +1,21 @@
+let Token_SessionIdToXdrActivities = (T:(SessionId:string)) {
+    let SensitiveEvents = dynamic([
+        'New-InboxRule',
+        'Set-InboxRule',
+        'HardDelete'
+        'AnonymousLinkCreated'
+    ]);
+    let XdrSessionIdActivities = CloudAppEvents
+        | where tostring(RawEventData.SessionId) in~ (SessionId)    
+        | extend SessionId = tostring(RawEventData.SessionId)
+        | extend SessionId = iff(isnotempty(SessionId), SessionId, tostring(tostring(parse_json(tostring(RawEventData.AppAccessContext)).AADSessionId)))
+        | extend IsSensitive = iff(ActionType in~ (SensitiveEvents), true, false)
+        | extend UniqueTokenIdentifier = parse_json(tostring(RawEventData.AppAccessContext)).UniqueTokenId
+        | extend Activity = bag_pack_columns(ObjectType, ActionType, ActivityObjects, ActivityType, ReportId, IsSensitive, UniqueTokenIdentifier)
+        | extend IsCritical = iff(Activity.IsSensitive contains "true", true, false)
+        | extend IpTags = tostring(IPTags)
+        | extend IpInsights = bag_pack_columns(IPAddress, ISP, IpCategory = IPCategory, IpTags, IsAnonymousProxy)
+        | summarize Activity = make_set(Activity) by SessionId, Application, tostring(IpInsights), IsCritical;
+    XdrSessionIdActivities
+};
+Token_SessionIdToXdrActivities(SessionId)

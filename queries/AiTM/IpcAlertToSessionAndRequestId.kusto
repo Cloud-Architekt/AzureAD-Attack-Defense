@@ -1,0 +1,6 @@
+// Query to get IPC alerts with SessionId and Request Id
+SecurityAlert
+| where TimeGenerated >ago(365d)
+| mv-expand parse_json(Entities)
+| where Entities.Type == 'cloud-logon-session' or Entities.Type == 'cloud-logon-request'
+| project OriginalRequestId = parse_json(ExtendedProperties).["Request Id"], Entities.SessionId, AlertName, Status

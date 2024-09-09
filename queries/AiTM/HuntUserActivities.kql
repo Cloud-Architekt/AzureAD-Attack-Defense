@@ -1,0 +1,63 @@
+//Hunting suspicious activities based on MDA CloudAppEvents table data when user entity is known
+// The queries are from Microsoft Techcommunity blog a few years ago
+
+//Basic user info 
+IdentityInfo | where AccountUpn =~ '<userPrincipalName>'  
+
+ 
+//Sign-in activity by the user 
+let timeToSearch = startofday(datetime('2024-08-01'));  
+AADSignInEventsBeta 
+| where AccountObjectId == '<Insert user AccountId>' and Timestamp>=timeToSearch  
+| distinct Application, ResourceDisplayName, Country, City, IPAddress, DeviceName, DeviceTrustType, OSPlatform, IsManaged, IsCompliant, AuthenticationRequirement, RiskState, UserAgent, ClientAppUsed 
+
+
+//Summarize all the performed actions from the suspicious IP/location for that account
+//Use accountId and filters to drill down specific locations
+let accountId = '<Insert user AccountId>';  
+let locations = pack_array('SG', 'KR', 'JP');  
+let timeToSearch = startofday(datetime('2024-08-01'));  
+CloudAppEvents  
+| where AccountObjectId == accountId and CountryCode in (locations) and Timestamp >= timeToSearch 
+| summarize by ActionType, CountryCode, AccountObjectId
+| sort by ActionType asc  
+
+ 
+
+ //Review the accessed emails 
+let accountId = '<Insert user AccountId>';  
+let locations = pack_array('SG', 'KR', 'JP');  
+let timeToSearch = startofday(datetime('2024-08-01'));   
+CloudAppEvents  
+| where ActionType == 'MailItemsAccessed' and CountryCode in (locations) and AccountObjectId == accountId and Timestamp >= timeToSearch  
+| mv-expand todynamic(RawEventData.Folders)
+| extend Path = todynamic(RawEventData_Folders.Path), SessionId = tostring(RawEventData.SessionId)  
+| mv-expand todynamic(RawEventData_Folders.FolderItems)  
+| project SessionId, Timestamp, AccountObjectId, DeviceType, CountryCode, City, IPAddress, UserAgent, Path, Message = tostring(RawEventData_Folders_FolderItems.InternetMessageId)  
+| join kind=leftouter (  
+EmailEvents
+| where RecipientObjectId == accountId
+ | project Subject, RecipientEmailAddress , SenderMailFromAddress , DeliveryLocation , ThreatTypes, AttachmentCount , UrlCount , InternetMessageId 
+) on $left.Message == $right.InternetMessageId 
+| sort by Timestamp desc 
+
+ 
+ //Review the accessed emails 
+let accountId = '<Insert user AccountId>';  
+let locations = pack_array('SG', 'KR', 'JP');  
+let timeToSearch = startofday(datetime('2024-04-01'));    
+CloudAppEvents  
+| where ActionType == 'FilePreviewed' or ActionType == 'FolderModified' or ActionType == 'New-InboxRule' and CountryCode in (locations) and AccountObjectId == accountId and Timestamp >= timeToSearch  
+| project Timestamp, CountryCode , IPAddress , ISP, UserAgent , Application, ActivityObjects, AccountObjectId, ActionType
+| mv-expand ActivityObjects  
+| where ActivityObjects['Type'] in ('File', 'Folder') 
+| evaluate bag_unpack(ActivityObjects)  
+
+
+ //Review New-InboxRules 
+let accountId = '<Insert user AccountId>';  
+let locations = pack_array('SG', 'KR', 'JP');  
+let timeToSearch = startofday(datetime('2024-05-01'));    
+CloudAppEvents  
+| where ActionType == 'New-InboxRule' and CountryCode in (locations) and AccountObjectId == accountId and Timestamp >= timeToSearch  
+| project Timestamp, CountryCode , IPAddress , ISP, UserAgent , Application, ActivityObjects, AccountObjectId, ActionType
