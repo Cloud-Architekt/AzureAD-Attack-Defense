@@ -4,9 +4,9 @@ _Authors: Sami Lamppu, Thomas Naunheim_
 _Created: September 2024_
 _Reviewers: Fabian Bader, Joosua Santasalo_
 
-*"An adversary-in-the-middle(AiTM) attack leverages sophisticated phishing techniques that can bypass multifactor authentication (MFA) by hijacking session cookies. These attacks often involve the use of reverse-proxy functionality to intercept credentials and session cookies, allowing attackers to gain unauthorized access to user accounts without needing the second authentication factor.”*
+_"An adversary-in-the-middle(AiTM) attack leverages sophisticated phishing techniques that can bypass multifactor authentication (MFA) by hijacking session cookies. These attacks often involve the use of reverse-proxy functionality to intercept credentials and session cookies, allowing attackers to gain unauthorized access to user accounts without needing the second authentication factor.”_
 
-*MITRE ATT&CK: [Adversary-in-the-Middle (T1557)](https://attack.mitre.org/techniques/T1557/), [Exploitation for Credential Access T1212)](https://attack.mitre.org/techniques/T1212/),  [Multi-Factor Authentication Interception (T1111)](https://attack.mitre.org/techniques/T1111/), [Phishing: Spearphishing Attachment (T1566.001)](https://attack.mitre.org/techniques/T1566/001/), [Phishing: Spearphishing Link (T1566.002)](https://attack.mitre.org/techniques/T1566/002/), [Valid Accounts: Cloud Accounts (T1078.004)](https://attack.mitre.org/techniques/T1078/004/), [Acquire Infrastructure: Virtual Private Server (T1583.003)](https://attack.mitre.org/techniques/T1583/003/)*
+_MITRE ATT&CK: [Adversary-in-the-Middle (T1557)](https://attack.mitre.org/techniques/T1557/), [Exploitation for Credential Access T1212)](https://attack.mitre.org/techniques/T1212/),  [Multi-Factor Authentication Interception (T1111)](https://attack.mitre.org/techniques/T1111/), [Phishing: Spearphishing Attachment (T1566.001)](https://attack.mitre.org/techniques/T1566/001/), [Phishing: Spearphishing Link (T1566.002)](https://attack.mitre.org/techniques/T1566/002/), [Valid Accounts: Cloud Accounts (T1078.004)](https://attack.mitre.org/techniques/T1078/004/), [Acquire Infrastructure: Virtual Private Server (T1583.003)](https://attack.mitre.org/techniques/T1583/003/)_
 
 - [Adversary-in-the-Middle (AiTM) Attacks](#adversary-in-the-middle-aitm-attacks)
   - [Introduction](#introduction)
@@ -58,6 +58,7 @@ _Reviewers: Fabian Bader, Joosua Santasalo_
   - [Technical Background and References](#technical-background-and-references)
 
 ## Introduction
+
 As we approach the fourth anniversary of the Entra ID Attack and Defense Playbook this October, it's a perfect time to reflect on its evolution and the collective effort that has made it a valuable resource (based on the feedback) for security professionals.
 
 The playbook began as a vision to consolidate common attack scenarios on Microsoft Entra ID (formerly Azure Active Directory) and the corresponding mitigation and detection strategies. This vision quickly turned into a collaborative project that resonated with the community, leading to its first chapter on 'Password Spray' attacks. Over the years, the playbook has expanded to include many scenarios, insights based on real-world experiences and attack simulations.
@@ -69,15 +70,18 @@ As we celebrate this milestone, we extend our gratitude to all the followers and
 Here's to many more years of safeguarding Entra ID environments together. As we look forward, we are confident that the playbook will continue to grow and evolve — Happy 4th anniversary to the Entra ID Attack and Defense Playbook.
 
 ### Token Replay Attacks
+
 Different tokens play a crucial role in cloud authentication. Therefore, it's Important to understand their mechanics and how adversaries can exploit them if they get into the wrong hands. Understanding this can help in building protection against identity attacks.
 
 Token theft occurs when an adversary gets access and compromises tokens.  Once stolen, the adversary can replay stolen tokens and access the compromised account. In AiTM scenario, the adversary can bypass MFA requirement, because the MFA claims are already included in the token and authentication requirements are met. Therefore, the adversary gets access to the environment. We will elaborate the scenario, detection and mitigation later on this paper.
 
 To find more information about Entra ID security tokens take a look on the following Microsoft Learn resources:
+
 - [Entra ID Security Tokens](https://learn.microsoft.com/en-us/entra/identity-platform/security-tokens)
 - [Concept of Primary Refresh Token](https://learn.microsoft.com/en-us/entra/identity/devices/concept-primary-refresh-token)
 
 Entra ID Attack & Defense Playbook chapter 'Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device' sheds a light on replaying PRT, access token & refresh token:
+
 - [Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/blob/main/ReplayOfPrimaryRefreshToken.md)
 
 In this chapter, we are focusing on Adversary-in-the-Middle (AiTM) type of attack where adversary intercepts victim's session cookie and later replays it to access the sign-in service.
@@ -94,13 +98,15 @@ The Microsoft Digital Defense Report (MDDR) 2023, based on fiscal year 2023, rev
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/MDO-AiTM-Domains.png" target="_blank"><img src="./media/aitm-attack/MDO-AiTM-Domains.png" width="700" /></a>
 
-*Source: Defender for Office 365*
+_Source: Defender for Office 365_
 
 You can find the reports in:
+
 - Microsoft Threat Intelligence report about [Adversary-in-the-middle (AiTM) credential phishing attacks](https://security.microsoft.com/threatanalytics3/overview).
 - [Microsoft Digital Defense Report 2023](https://www.microsoft.com/en-us/security/security-insider/microsoft-digital-defense-report-2023).
 
 ### Phishing-as-a-service (PhaaS) by Microsoft Threat Intelligence
+
 Cybercriminals currently use AiTM phishing techniques to bypass multifactor authentication (MFA) protections at scale. These advanced techniques are democratized and increased through the phishing-as-a-service (PhaaS) cybercrime economic model, which has spawned several service offerings since 2021.
 
 Nowadays the number of AiTM-capable PhaaS platforms has continued to grow throughout 2023-2024, with previously existing services adding AiTM capabilities to their platforms and newly created services incorporating AiTM phishing techniques natively. While traditional forms of credential phishing still exist, the number of AiTM phishing attacks exceeds those without this capability.
@@ -108,14 +114,17 @@ Nowadays the number of AiTM-capable PhaaS platforms has continued to grow throug
 The ultimate goal of AiTM phishing is to steal user credentials and session cookies. Browsers store session cookies to allow users access to services without having them repeatedly authenticated. AiTM phishing targets session cookies and credentials to bypass traditional MFA protections.
 
 More information about PhaaS:
+
 - [Hacker News article](https://thehackernews.com/2023/08/phishing-as-service-gets-smarter.html)
 - [Infosecurity magazine article](https://www.infosecurity-magazine.com/news/microsoft-aitm-uptick-phishing/)
 - [Microsoft Defender Experts blog](https://techcommunity.microsoft.com/t5/microsoft-security-experts-blog/defender-experts-chronicles-a-deep-dive-into-storm-0867/ba-p/3911769)
 
 ### Technique Overview
+
 In this chapter we go through two methods related to AiTM attack scenario, AiTM phishing through reverse proxy and AiTM phishing through synchronous relay. The figures and attack descriptions are partly from Microsoft Threat Intelligence reports.
 
 #### AiTM phishing through reverse proxy
+
 Every modern web service implements a session with a user after successful authentication so that the user does not have to authenticate to every new page they visit.
 This session functionality is enabled by a session cookie issued by an authentication service following initial authentication. The session cookie serves as proof to the web server that the user has been authenticated and maintains an active session on the website.
 
@@ -125,41 +134,47 @@ In AiTM phishing through a reverse proxy, the proxy is deployed between a user a
 
 Phishing kits, that have been popular among adversaries are: EvilGinx, Modlishka, Muraena and "Office 365" (EvilProxy). These phishing kits allow adversaries to carry out AiTM phishing attacks using reverse proxy servers​.
 
-*Side note: In many campaigns targeted application has been OfficeHome in the Entra ID logs.*
+_Side note: In many campaigns targeted application has been OfficeHome in the Entra ID logs._
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/AiTM.png" target="_blank"><img src="./media/aitm-attack/AiTM.png" width="700" /></a>
 
-*AiTM phishing through reverse proxy attack diagram (initial figure from Microsoft Defender XDR Threat Intelligence reports).*
-
+_AiTM phishing through reverse proxy attack diagram (initial figure from Microsoft Defender XDR Threat Intelligence reports)._
 
 #### AiTM phishing through synchronous relay
+
 Another AiTM method is called 'AiTM phishing through synchronous relay'. In this type of attack a copy or mimic of a sign-in page is presented to the target, as seen in traditional phishing attacks. ​If a user provides their credentials to this page, the credentials are stored on an attacker-controlled server where the phishing kit instance, including its administrative panel, are installed. ​Basically, it means that user's input is being stolen including sign-in credentials, two-factor authentication (MFA) codes, and session cookies.
 
 The relay servers are typically provided and controlled by the actor group behind the development, and responsible stakeholders of PhaaS platform. One example of this kind of group is Storm-1295 which is behind the Greatness PhaaS platform according to Microsoft Threat Intelligence reports.
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/AiTM-2.png" target="_blank"><img src="./media/aitm-attack/AiTM-2.png" width="700" /></a>
 
-*AiTM phishing through synchronous relay diagram (initial figure from Microsoft Defender XDR Threat Intelligence reports).*
+_AiTM phishing through synchronous relay diagram (initial figure from Microsoft Defender XDR Threat Intelligence reports)._
 
 ### Tools to simulate AiTM attack
+
 There are a number of tools that can be used to simulate the attack and test how good your detection mechanisms are for this type of attack. Here are a few open-source tools mentioned. Even though they are not brand-new ones they still do the task needed:
+
 - [O365 Attack Toolkit](https://github.com/mdsecactivebreach/o365-attack-toolkit)
 - [O365 Stealer](https://github.com/AlteredSecurity/365-Stealer)
 
 Other popular and common tools which are popular among adversaries are:
+
 - [Evilginx2](https://github.com/kgretzky/evilginx2)
 - [Modishka](https://github.com/drk1wi/Modlishka)
 - [Muraena](https://github.com/muraenateam/muraena)
 
 To find more information about the AiTM attack and how Evilginx can be used to phish credentials take a look on the following resources:
+
 - [John Hammond video about stealing M365 account](https://www.youtube.com/watch?reload=9&app=desktop&v=sZ22YulJwao&feature=youtu.be)
 - [How to set up Evilginx to phish O365 credentials by Jan Bakker](https://janbakker.tech/how-to-set-up-evilginx-to-phish-office-365-credentials/)
 - [Running Evilginx 3.0 on Windows by Jan Bakker](https://janbakker.tech/running-evilginx-3-0-on-windows/)
 
 ## MITRE ATT&CK Framework
+
 MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques and Procedures (TTPs) for adversary actions and emulating defenses on organizations around the world.
 
 ### Tactics, Techniques & Procedures (TTPs) in AiTM Attack
+
 The nature of the AiTM attacks includes several methods and it falls into several TTPs in MITRE ATT&CK framework. The following TTPs are mapped for the 'Adversary-in-the-Middle' attack scenario. From the table below, you can find TTPs description and link to the MITRE ATT&CK official documentation.
 
 | TTPs         |  Description  |
@@ -179,12 +194,13 @@ Figure below shows TTPs used in this scenario in MITRE ATT&CK framework.
 <a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Faitm-attack%2FMITRE-AiTM.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
 
 ## Detections
+
 In the next chapter, we will go through how the AiTM attack can be detected with Microsoft security solutions. Threat hunting plays a pivotal role for detecting possible AiTM attacks and you can find several hunting queries later on this paper as well as links to GitHub repo that hosts the content.
 
-*The next section assumes that the organization uses Defender XDR security solutions.*
-
+_The next section assumes that the organization uses Defender XDR security solutions._
 
 ### Defender XDR
+
 Microsoft Unified XDR solution provides several ways to detect AiTM attacks out of the box but you need to take into account that there isn't a silver bullet solution (or even one solution) that detects all attacks and mitigates them. That being said, it's important to know your data and do proactive threat hunting as well. But let us come back to that later.
 
 To get the best possible coverage from a detection point of view, full Defender XDR deployment is recommended even though all products are not included in the detection side. This attack is targeting end-users, so the main detections are based on Defender for Cloud Apps, Entra ID Protection, Defender for Office 365, and XDR data collection and correction capabilities. As said earlier, it's also important to know you data and do proactive threat hunting.
@@ -201,22 +217,24 @@ To leverage these detections, you need to configure Entra ID Conditional Access 
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/Microsoft Defender XDR Architecture-V2.png" target="_blank"><img src="./media/aitm-attack/Microsoft Defender XDR Architecture-V2.png" width="900" /></a>
 
-
 #### Attack Disruption
+
 Microsoft Defender XDR, as well as other Microsoft security solutions, shares and correlates a huge number of signals daily. Microsoft announced [Automatic attack disruption](https://learn.microsoft.com/en-us/defender-xdr/automatic-attack-disruption) initially in 2022, and the idea behind is to identify ongoing complex and sophisticated attacks with high confidence and execute mitigation actions automatically (containing compromised assets, such as identity and endpoints). Microsoft Defender XDR's automatic attack disruption mechanism leverages Microsoft AI models and threat research insights to detect possible attacks. One of the main advantages of using automatic attack disruption (compared to other XDR and SIEM solutions) is that the feature is built into the Microsoft Defender XDR platform. It’s automatically enabled when Defender XDR security solutions are deployed, but to make it work as intended (i.e., disrupt attacks), you need to ensure that prerequisites are met, and solutions appropriately configured.
 
-
 ##### Scenarios covered today​ in Attack Disruption
+
 Here is a list of the supported attack scenarios at the time of writing:
+
 - Human Operator Ransomware (HumOR)​
 - Business email compromise (BEC)​
 - Adversary in the middle (AiTM)​
 - SAP (in XDR)​
 - AI-powered disruption of SaaS attacks (malicious OAuth apps)
 
-
 #### Typical XDR Incidents in AiTM Scenario
+
 The following figures show a few example incidents that may be detected in Defender XDR when a possible AiTM attack is identified in the environment. If a high confidence AiTM attack is detected, the detection could look like the one below. The key characteristics in the detection are:
+
 - Disrupted incidents might include a tag for 'Attack Disruption', 'AiTM attack' and the specific threat type identified (i.e., Credential Phish). If you subscribe to incident email notifications, these tags appear in the emails.
 - You can see a highlighted notification below the incident title that indicates that XDR disrupted the the attack.
 - Suspended users and contained devices appear with a label indicating their status.
@@ -231,21 +249,21 @@ In the second incident, you can see a successful AiTM attack in which a known ph
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/AttackDisruption-6.png" target="_blank"><img src="./media/aitm-attack/AttackDisruption-6.png" width="950" /></a>
 
-
 Not all AiTM attacks are identified as high-confidence attacks, but the attack pattern is similar to that of an attack where attack disruption does its magic. In the figure below, you can see an incident where XDR has detected multiple AiTM attack-related suspicious activities, but the attack is not tagged or identified as a high-confidence attack.
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/XDR-detections" target="_blank"><img src="./media/aitm-attack/XDR-detections.png" width="950" /></a>
-
 
 Lastly, when the Defender XDR detects high-confidence attack and attack disruption jumps in the game it executes necessary mitigation actions. In the figure below, you can see that user account was disabled.
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/AttackDisruption-7.png" target="_blank"><img src="./media/aitm-attack/AttackDisruption-7.png" width="950" /></a>
 
 ### Anti-phishing Solution to monitor and scan incoming emails
+
 Investing in advanced anti-phishing solutions that monitor and scan incoming emails and visited websites is essential. If you are leveraging the Microsoft security stack, you have Microsoft Defender for Office 365 (MDO), which plays an important role in detecting AiTM campaigns, even though MDO-related detections are not seen in our example incidents. The case would be different if the attack had been part of a globally known attack campaign or a known threat actor.
 
 #### Microsoft Defender for Office 365 (MDO)
 
 In MDO, you could see the following alerts in a case of possible AiTM attack:
+
 - A potentially malicious URL click was detected  
 - A user clicked through to a potentially malicious URL​  
 - Suspicious email sending patterns detected
@@ -253,12 +271,15 @@ In MDO, you could see the following alerts in a case of possible AiTM attack:
 These alerts are typically correlated to multi-stage incidents if XDR is the detection source.
 
 ### Continuously monitor suspicious or anomalous activities
+
 To be able to detect AiTM attacks you need to have proper detection rules in place that provides detection for suspicious or anomalous activities such as sign-in attempts with suspicious characteristics, for example, location, ISP, user agent, and use of anonymizer services. In Microsoft security stack this can be established with the combination of Entra ID Protection (EIDP), Defender for Cloud Apps (MDA), MDA's Behaviors data layer & icing on the cake, Microsoft Sentinel & Defender XDR.
 
 #### Entra ID Protection (EIDP)
+
 Entra ID Protection provides multiple detections that can be seen as alerts in AiTM attack. The AiTM attack is typically categorized as multi-stage attack in Defender XDR. These alerts in EIDP alone don't indicate AiTM attack but are considered still as suspicious activity that needs to be investigated.
 
 EIDP alerts that you could see part of AiTM attack:
+
 - Anomalous token
 - Atypical travel
 - Impossible travel activity
@@ -270,10 +291,13 @@ EIDP alerts that you could see part of AiTM attack:
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/IPC-1" target="_blank"><img src="./media/aitm-attack/IPC-1.png" width="800" /></a>
 
 More information about Entra ID Protection detections:
-- [Entra Identity Protection - What are risks? ](https://learn.microsoft.com/en-us/entra/id-protection/concept-identity-protection-risks#attacker-in-the-middle/)
+
+- [Entra Identity Protection - What are risks?](https://learn.microsoft.com/en-us/entra/id-protection/concept-identity-protection-risks#attacker-in-the-middle/)
 
 #### Microsoft Defender for Cloud Apps (MDA)
+
 MDA forwards AiTM-related alerts to Entra ID Protection. The alerts you can see related to AiTM attack, where the detection source is MDA, are:
+
 - Suspicious inbox forwarding
 - Suspicious inbox manipulation rules
 - Impossible travel
@@ -284,9 +308,11 @@ When the alerts are forwarded from MDA to EIDP, the EIDP detection engine calcul
 The last piece of the puzzle is to use MDA Behaviors data layer in hunting. In the past, MDA raised quite a lot false/positive (FP) alerts based on the built-in detection rules. These rules were disabled completely from MDA in late 2023 by Microsoft to decrease FP alerts in MDA. At the same time, Behaviors data layer was introduced in Defender XDR. It's an abstract data layer above the raw data layer that provides deeper understanding of MDA events. They have similarities with alerts such as mappings to MITRE ATT&CK TTPs.
 
 ##### Behaviors Data Layer
+
 The last piece of the puzzle is to use MDA Behaviors data layer in hunting. In the past, MDA raised quite a lot false/positive (FP) alerts based on the built-in detection rules. These rules were disabled completely from MDA in late 2023 by Microsoft to decrease FP alerts in MDA. At the same time, Behaviors data layer was presented in Defender XDR. It's abstract data layer above raw data layer that provides deeper understanding of MDA events. They have similarities with alerts such as mapping to MITRE ATT&CK TTPs.
 
 Behaviors data layer provides the following use cases:
+
 - Focus on scenario-based alerts, such as “Suspicious inbox manipulation rule” that detects specific patterns of inbox rules created by adversaries.
 - Use anomaly detection data that doesn’t have security ramifications as part of your investigation and custom detections.
 - Enrich the context of related incidents, anomalies will be correlated to existing incidents when they are relevant, for example when an impossible travel behavior is detected before a “Risky user created global admin” XDR detection.
@@ -295,23 +321,24 @@ At the time of writing, the following former MDA alerts are transitioned as Beha
 
 |Alert name | Policy name|
 |-----|-----|
-|Activity from infrequent country |	Activity from infrequent country/region |
+|Activity from infrequent country | Activity from infrequent country/region |
 | Impossible travel activity| Impossible travel |
-| Mass delete	| Unusual file deletion activity (by user) |
-|  Mass download	| Unusual file download (by user) |
-|  Mass share | 	Unusual file share activity (by user)|
-|  Multiple delete VM activities	|  Multiple delete VM activities |
-|  Multiple failed login attempts | 	Multiple failed sign-in attempts |
-|  Multiple Power BI report sharing activities | 	Multiple Power BI report sharing activities |
-|  Multiple VM creation activities | 	Multiple VM creation activities |
-|  Suspicious administrative activity | 	Unusual administrative activity (by user) |
-|  Suspicious impersonated activity | 	Unusual impersonated activity (by user) |
-|  Suspicious OAuth app file download activities | 	Suspicious OAuth app file download activities |
-|  Suspicious Power BI report sharing	|  Suspicious Power BI report sharing |
-|  Unusual addition of credentials to an OAuth app	|  Unusual addition of credentials to an OAuth app |
+| Mass delete | Unusual file deletion activity (by user) |
+|  Mass download | Unusual file download (by user) |
+|  Mass share |  Unusual file share activity (by user)|
+|  Multiple delete VM activities |  Multiple delete VM activities |
+|  Multiple failed login attempts |  Multiple failed sign-in attempts |
+|  Multiple Power BI report sharing activities |  Multiple Power BI report sharing activities |
+|  Multiple VM creation activities |  Multiple VM creation activities |
+|  Suspicious administrative activity |  Unusual administrative activity (by user) |
+|  Suspicious impersonated activity |  Unusual impersonated activity (by user) |
+|  Suspicious OAuth app file download activities |  Suspicious OAuth app file download activities |
+|  Suspicious Power BI report sharing |  Suspicious Power BI report sharing |
+|  Unusual addition of credentials to an OAuth app |  Unusual addition of credentials to an OAuth app |
 |||
 
 More information about the Behavior Analytics and supported detections found in:
+
 - [MDA - Behavior Analytics - Supported Detections](https://learn.microsoft.com/en-us/defender-cloud-apps/behaviors#supported-detections/)
 
 You might be wondering how MDA and Behaviors data layer is related to AiTM attack? Behaviors datalayer in Defender XDR is divided into two different data tables, BehaviorInfo & BehaviorEntities. These tables store important pieces of information that can be leveraged when investigating possible AiTM attacks.
@@ -333,6 +360,7 @@ BehaviorInfo
 ```
 
 ### Microsoft Sentinel
+
 Microsoft Sentinel has a new feature called SOC optimization that has AiTM as one of the threat scenarios in it. Main driver for using SOC optimization is to provide information to the organizations that they can close coverage gaps against specific threats and tighten ingestion rates against data that doesn't provide security value. In a nutshell: better detection coverage and decreased costs.
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/SOC-optimization-1.png" target="_blank"><img src="./media/aitm-attack/SOC-optimization-1.png" width="750" /></a>
@@ -342,12 +370,15 @@ AiTM threat scenario provides a total of 32 configurable items which includes 18
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/SOC-optimization-2.png" target="_blank"><img src="./media/aitm-attack/SOC-optimization-2.png" width="750" /></a>
 
 ### Microsoft Defender for Endpoint (MDE)
+
 Even though AiTM attack is focusing on stealing identity credentials, MDE can provide protection as well. If AiTM attack is detected, the following alerts by MDE might be seen in the incident queue:
+
 - User compromised in AiTM phishing attack
 - Possible AiTM phishing attempt
 - Possible Storm-1167 adversary-in-the-middle (AiTM) phishing site
 
 Based on the Microsoft Threat Intelligence report there are also APT related alerts that might indicate AiTM attack but are not necessarily related. These could be related to:
+
 - Luna Tempest actor group activity
 - Storm-0867
 - Connection to adversary-in-the-middle (AiTM) phishing site by one of the following actor groups: Storm-0485, Storm-1295, Storm-1285, Storm-1363 or Storm-1362
@@ -357,8 +388,8 @@ Based on the Microsoft Threat Intelligence report there are also APT related ale
 
 [More information how Microsoft names threat actors](https://learn.microsoft.com/en-us/defender-xdr/microsoft-threat-actor-naming)
 
-
 ### Copilot for Security (CfS)
+
 Microsoft Copilot for Security is currently a buzzword in the security industry. However, the crucial question is: How can it contribute to investigating incidents, especially AiTM attacks? We're leaving this decision in your capable hands. Here's a sneak peek of what you can expect from this solution.
 
 - We can use incident summary skill for creating summary and guided response about the incident
@@ -367,20 +398,21 @@ Microsoft Copilot for Security is currently a buzzword in the security industry.
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/CfS-1.png" target="_blank"><img src="./media/aitm-attack/CfS-1.png" width="1000" /></a>
 
 ### Custom Detections and Hunting
+
 In the following section, you can find KQL queries and functions for hunting possible malicious activities in your environment. The queries are created by us, the community, or the Microsoft Threat Intelligence & DART teams. The GitHub repo contains even more hunting queries; take a look at that one as well. Every query has pre-requisites, which are listed in the table on the query section.
 
 There are different approach to how to get a job done and we have selected two approaches for this paper. In the first one, the assumption is that you are trying to find a possible suspicious AiTM related activities from the environment, or you have already identified one but are looking for more insights from the possible malicious activities during sessions.
 
 In the second path, the assumption is that you already have alerts or incidents, and malicious activity is detected. The hunting queries will provide deep insights and correlation between alerts, sign-in activities and later on collaboration workloads or Azure activities.
 
-
 #### Hunting of OfficeHome application sign-ins (by DART team query)
 
 Even though Microsoft security solutions are terrific, there isn't such a thing as bulletproof security solution. That being said, alongside detection mechnishms it's crucial to know your data and do proactive threat hunting. What we can do is to track `SessionId` attribute in AADSignInEventsBeta table in Defender XDR. When an attacker uses a stolen session cookie, the SessionId attribute in the AADSignInEventsBeta table will be identical to the `SessionId` value used in the authentication process against the phishing site.
 
 How to approach:
--	We can trace logins from different geo-locations against the OfficeHome application and identify uncommon and untrusted locations. OfficeHome application has been widely used in globally known attack campaigns.
--	To dig deeper into the activities during a suspicious session, we suggest using the KQL function ‘Correlation of risky session to sensitive Exchange Online activity (CloudAppEvents) found later in this section.
+
+- We can trace logins from different geo-locations against the OfficeHome application and identify uncommon and untrusted locations. OfficeHome application has been widely used in globally known attack campaigns.
+- To dig deeper into the activities during a suspicious session, we suggest using the KQL function ‘Correlation of risky session to sensitive Exchange Online activity (CloudAppEvents) found later in this section.
 
 **Pre-requisites for Hunting OfficeHome App sign-ins**
 
@@ -423,6 +455,7 @@ AADSignInEventsBeta
 | where LogonType has "interactiveUser"
 | summarize Countries = make_set(Country) by AccountObjectId, AccountDisplayName
 ```
+
 The original queries and blog post by DART is available from the [Microsoft Security Blog](https://www.microsoft.com/en-us/security/blog/2022/07/12/from-cookie-theft-to-bec-attackers-use-aitm-phishing-sites-as-entry-point-to-further-financial-fraud/?msockid=28c8c6feb17d6e740accd40eb04a6f51/).
 
 #### Enrichment of SessionId with IP address and session duration details (by Joosua Santasalo)
@@ -443,6 +476,7 @@ Joosua Santasalo has created a query that retrieves all `SessionId` from the `AA
 [GitHub "jsa2" - kql/aitmInvestigation.kql](https://github.com/jsa2/kql/blob/main/aitmInvestigation.kql)
 
 #### KQL functions for Correlation of XDR Alerts to SessionIds, CorrelationIds, UniqueTokenIdentifiers and RequestIds
+
 Another approach is to build a correlation between an XDR alert and the user's sign-ins. In this scenario, you already have indication of malicious activity in the environment (alert) and the following queries help you to build correlation between the key parameters. Microsoft uses different entities in XDR alerts, which need to be used to establish a correlation with the related sign-in events.
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/HuntingQueryCorrelation.png" target="_blank"><img src="./media/aitm-attack/HuntingQueryCorrelation.png" width="800" /></a>
@@ -455,7 +489,6 @@ In the following query, we would like to get details of all sign-in events (`Ses
 
 Define a entity (`UserObjectId`) if you want to filter for a specific user account. By default, the query covers all resolved XDR alerts (e.g., by incident response or risk-based policy).
 Adjust the query (`Status != "Resolved"`) if you want to set a scope on all XDR alerts.
-
 
 **Token_EntityToAlertSession: Mapping XDR alert to SessionIds, CorrelationIds and RequestIds**
 
@@ -507,7 +540,7 @@ Below you'll find a result example of the function "Token_EntityToAlertSession":
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/Token_EntityToAlertSession_QueryResult.png" target="_blank"><img src="./media/aitm-attack/Token_EntityToAlertSession_QueryResult.png" width="800" /></a>
 
-Save the function as "[Token_EntityToAlertSession](./queries/aitm-AiTM/Functions/Token_EntityToAlertSession.func)" to use it later for further hunting use cases:
+Save the function as "[Token_EntityToAlertSession](./queries/AiTM/Functions/Token_EntityToAlertSession.func)" to use it later for further hunting use cases:
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/Token_EntityToAlertSession_CreateFunction.png" target="_blank"><img src="./media/aitm-attack/Token_EntityToAlertSession_CreateFunction.png" width="500" /></a>
 
@@ -562,6 +595,7 @@ Save the function as "[Token_EntityToAlertSignInRequest](./queries/AiTM/Function
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/Token_EntityToAlertSignInRequest_CreateFunction.png" target="_blank"><img src="./media/aitm-attack/Token_EntityToAlertSignInRequest_CreateFunction.png" width="500" /></a>
 
 #### Correlation of risky session to sensitive Exchange Online activity (CloudAppEvents)
+
 The following hunting query takes advantage of the previously described function to identify sensitive user operations to Microsoft Exchange Online. All activities of unresolved risky sessions will be investigated if they match to a list of sensitive operations. The list of sensitive actions can be customized in the query (SensitiveEvents) and includes by default just some examples.
 
 **Pre-requisites**
@@ -629,6 +663,7 @@ let UniqueTokenId = Token_EntityToAlertSignInRequest("")
 ```
 
 Another approach is to filter for any issued token of a specific user:
+
 ```
 let UniqueTokenId = union SigninLogs, AADNonInteractiveUserSignInLogs
                     | where UserPrincipalName == <UPN>
@@ -686,6 +721,7 @@ In the following example, the user has activated a PIM role by using a token tha
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/Token_HuntingRiskySessionAndSensitiveM365Actions_Uti.png" target="_blank"><img src="./media/aitm-attack/Token_HuntingRiskySessionAndSensitiveM365Actions_Uti.png" width="800" /></a>
 
 #### Correlation of Session and Tokens which has been used outside of GSA for sensitive operations
+
 Another function has been written to start hunting for any sensitive or privileged activity outside of Global Secure Access.
 This includes any sign-in attempts which have been blocked by the "Compliant Network" CA Policy. Furthermore, this query is useful to identify if an access token has been replayed successfully.
 
@@ -701,8 +737,6 @@ _Side Note: This query can also be executed in Microsoft Sentinel if you are ing
 | Unified XDR logs           | XDR capabilities, you need to have AADSignInEventsBeta table in XDR but also M365 & Azure app connectors defined in Defender for Cloud Apps (MDA)        |
 | Dependencies           | Microsoft Entra ID P2 license to collect and view activities for this table  <br>  <br>  Sentinel integrated into Defender XDR (Unified Security Operations Platform) <br> - If Sentinel is not integrated into the Defender XDR, you are not having `SecurityAlerts` data table in the XDR  <br>  <br> Token_EntityToAlertSessions() & Token_SessionIdToXdrActivities functions saved to Sentinel/XDR |
 |||
-
-
 
 ```
 let Token_GsaPrivilegedInterfaceActivity = (Entity:string="", CaPolicyBlockedOutsideGsa:string="", FilterByUniqueTokenIdentifier:string="", FilteredByActivityIpAddress:string="") {
@@ -812,21 +846,26 @@ The following screenshots, shows some blocked sign-ins but also successful opera
 The first parameter for this function needs to include the UserPrincipalName or UserId. The name of the CA Policy which blocks access outside of Compliant network needs to be provided in the second parameter.
 In addition, you can uncomment the last few lines of code for hunting on sensitive operations only.
 
-
 ## Mitigations (and Reduced Attack Surface)
 
 ### Focus on proactive detection side and weak posture management issues in identities & devices
+
 Staying ahead of potential threats is a top priority for organizations worldwide in the ever-evolving cybersecurity landscape. Modern and effective cybersecurity defenses are built on several essential pillars, where security posture management plays an important role. Where security monitoring is reactive and identifies when something malicious or unexpected happens in the environment, security posture is more proactive, and the goal is to identify vulnerabilities and weak configurations in the environment.
 
 ### Identity and Device Security
+
 #### Configure Conditional Access to be align with best practices
+
 One of the most important mitigations against AiTM attacks is Entra ID Conditional Access Policies and its configurations.
 
 #### Require compliant device
+
 Requiring compliant device in CA policies mitigates AiTM attack. If an adversary can steal browser cookies (and token inside) from an end-user the attack stops when the adversary is trying to use the cookie. The reason behind the scenes is certificate-based authentication that compliant device is forced to do when compliant device is requirement in CAP. Credentials are stolen but tokens are not in this scenario.
 
 #### Phishing-resistant MFA
+
 Using phishing-resistant MFA is the strongest method for protecting users from AiTM attacks. The following authentication methods are identified as phishing-resistant:
+
 - Passkeys (Passkeys aka FIDO2 & device-bound passkeys)
 - Windows Hello for Business
 - Certificate-based authentication (CBA)
@@ -834,6 +873,7 @@ Using phishing-resistant MFA is the strongest method for protecting users from A
 [More information about Entra ID authentication strengths policies](https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-strengths)
 
 #### Entra ID Protection (EIDP)
+
 Entra ID Protection is often overlooked as a security solution. It's very straightforward to configure and we've seen many situations where it has been the protector for user compromise.
 
 EIDP has two types of detections available; real-time detection (evaluated during sign-in/authentication process) and offline detection (evaluated after sign-in process based on the activities). That being said, you need to configure at least two (2) EIDP risk-based policies to your Entra ID Conditional Access. How many policies you need depends on the scenarios, use cases and security policies. For example, do you want to threat admins differently than end-users when high risk is detected.
@@ -841,17 +881,18 @@ EIDP has two types of detections available; real-time detection (evaluated durin
 Side note: Remember to require sign-in frequency as 'every time' to real-time risk policy. It requires full reauthentication when the session is evaluated.
 
 ### Invest in advanced anti-phishing solutions that monitor and scan incoming emails
+
 As stated earlier in the detection section, globally known campaigns and threat actors' activities can be detected by MDO if your organization is targeted assuming that whole Defender XDR stack is fully deployed. That being said, it's important to invest in advanced anti-phishing solutions that monitor and scan incoming emails and visited websites (with MDE/MDA). If you are leveraging MDO, it plays an important role in detecting AiTM attacks even though it's not seen in our example incidents. The case would be different if the attack were part of a globally known campaign or a known threat actor.
 
-
 ### Microsoft’s Security Exposure Management (XSPM)
+
 One of the solutions that can be used to address this challenge is XSPM. It is a new innovation in the posture management domain. It can be imagined as a combination of the next-generation vulnerability management & posture management solution that modernizes posture management in the same way XDR modernizes threat management. Where XDR (detect, investigate, and respond) provides unified threat management for workloads, the XSPM (identify and protect) provides unified exposure management for the same workloads (see figure below – initial version from Microsoft Secure presentation).
 
- According to Microsoft: *'XSPM is a security solution that provides a unified view of security posture across company assets and workloads. Security Exposure Management enriches asset information with a security context that helps you to manage attack surfaces, protect critical assets, and explore and mitigate exposure risk'.*
+ According to Microsoft: _'XSPM is a security solution that provides a unified view of security posture across company assets and workloads. Security Exposure Management enriches asset information with a security context that helps you to manage attack surfaces, protect critical assets, and explore and mitigate exposure risk'._
 
  ![./media/aitm-attack/XSPM.png](./media/aitm-attack/XSPM.png)
 
-*XSPM and Defender XDR comparison*
+_XSPM and Defender XDR comparison_
 
 XSPM can enrich hunting by providing information about the stored browser cookies as seen in the figures below.
 
@@ -860,6 +901,7 @@ XSPM can enrich hunting by providing information about the stored browser cookie
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/XSPM-2.png" target="_blank"><img src="./media/aitm-attack/XSPM-2.png" width="800" /></a>
 
 ### Deploy and configure Automatic Attack Disruption in Defender XDR
+
 If your organization is leveraging Defender XDR capabilities, it's important to verify that automatic attack disruption pre-requisites are configured properly, and the feature can do the mitigations in hand when high confidence incident is detected. The feature leverages the full Microsoft Defender XDR security stack, and in a nutshell, the wider the Defender XDR deployment is, the more coverage you will get. Below are the recommendations found in Microsoft Learn documentation:
 
 - Deploy the entire Microsoft Defender XDR stack (MDE, MDO, MDI, and MDA).
@@ -869,12 +911,14 @@ If your organization is leveraging Defender XDR capabilities, it's important to 
   - MDE: Device discovery is set to standard
 
 Side note: If you want to exclude some of the device groups or user entities from the automated containment you can:
+
 - Set automation level to 'no automated response' in MDE
 - Exclude user entity from Defender XDR automation scope. This can be done from Defender XDR settings (settings - Microsoft Defender XDR - Identity automated response)
 
 #### How to configure automatic attack disruption
 
 The automatic attack disruption feature leverages the full Microsoft Defender XDR security stack, and in a nutshell, the wider the Defender XDR deployment is, the more coverage you will get. The following list contains the items that need to be configured to fully utilize this feature in an environment:
+
 - Deploy the entire Microsoft Defender XDR stack (MDE, MDO, MDI, and MDA)
 - Automated response actions are key features in attack disruption. To leverage automated response actions, the following settings need to be configured:
   - MDI: Configure and enable an action account to an on-premises AD (follow the least privilege permissions principle)
@@ -884,6 +928,7 @@ The automatic attack disruption feature leverages the full Microsoft Defender XD
 In October 2023, Microsoft announced capability for MDE to be able to automatically disrupt human-operated attacks, such as ransomware, early in the kill chain without needing to deploy any other features. With this new capability, full XDR deployment is not required, but it is still recommended because of enhanced protection for attack scenarios. At the time of writing, the new MDE capability is included with MDE Plan 2 as well as Defender for Business standalone licenses. [You can find detailed instructions at](https://learn.microsoft.com/en-us/defender-xdr/configure-attack-disruption?WT.mc_id=AZ-MVP-5004291).
 
 #### Automatic attack disruption key stages
+
 Let’s look at the various stages of attack disruption, starting with data collection:
 
 **Correlating signals:**
@@ -898,21 +943,22 @@ Automated actions: Attack disruption automatically responds with actions across 
 
 **Contain user:** The action automatically contains suspicious identities temporarily. By containing identities, organizations can block any lateral movement and remote encryption related to incoming communication with MDE onboarded devices in the early stages.
 
-*Side note: Even though Microsoft Defender XDR’s automatic attack disruption is fully automated, it doesn’t mean that a security team doesn’t need to investigate incidents.*
+_Side note: Even though Microsoft Defender XDR’s automatic attack disruption is fully automated, it doesn’t mean that a security team doesn’t need to investigate incidents._
 
 Defender XDR’s automatic attack disruption is a powerful feature that can help to enhance security in certain scenarios, faster response times, and resiliency against attacks. If a supported attack scenario is detected on a single device, the Microsoft Defender XDR attack disruption will simultaneously stop the campaign on that device and all other affected devices in the organization where the compromised user operates. In a nutshell, the mitigation ideology is the same, whether the full XDR deployment is in use or only MDE. To realize the difference it can make, see the following figures, which show defenses without attack disruption and with attack disruption.
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/AttackDisruption-1.png" target="_blank"><img src="./media/aitm-attack/AttackDisruption-1.png" width="1200" /></a>
 
-*Without Microsoft Defender XDR’s automatic attack disruption in place (initial figure from Microsoft presentation)*
+_Without Microsoft Defender XDR’s automatic attack disruption in place (initial figure from Microsoft presentation)_
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/AttackDisruption-2.png" target="_blank"><img src="./media/aitm-attack/AttackDisruption-2.png" width="1200" /></a>
 
-*With Microsoft Defender XDR’s automatic attack disruption in place (initial figure from Microsoft presentation)*
+_With Microsoft Defender XDR’s automatic attack disruption in place (initial figure from Microsoft presentation)_
 
 As you can see from the preceding figures, there is a significant difference in capabilities if attack disruption is not configured with automated remediation. Keep in mind that the feature doesn’t cover all the possible attack scenarios, but it covers some major ones when an attack is detected with high confidence.
 
 ### Global Secure Access
+
 Microsoft has introduced Entra Internet Access secure access and traffic to internet and SaaS applications (including Microsoft 365 ) by taking benefit of an identity-centric secure web gateway solution. It offers full integration to Microsoft Entra and supports Source IP restoration which is needed to take benefit of XDR signals and full visibility for SOC. All connections will be routed through Global Secure Access (GSA) network which are provided from Microsoft's Wide Area Network.
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/GsaOverview.png" target="_blank"><img src="./media/aitm-attack/GsaOverview.png" width="1200" /></a>
@@ -923,7 +969,6 @@ GSA also brings a new capability to use a condition which presents a compliant n
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/GsaPolicyConfig.png" target="_blank"><img src="./media/aitm-attack/GsaPolicyConfig.png" width="1200" /></a>
 _Conditional Access supports restriction on Network conditions, for example blocking all access outside of compliant networks._
 
-
 The malicious actor still owns the credentials, but device compliance and/or non-compliant network cannot be satisfied to gain access to resources.
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/GsaSignInEvent.png" target="_blank"><img src="./media/aitm-attack/GsaSignInEvent.png" width="1200" /></a>
@@ -933,10 +978,12 @@ _Requesting access with valid MFA credentials from AiTM attack will be blocked o
 Sign-in events in Microsoft Entra shows network details of accessing resources, this includes the original IP address but also the IP Address by Global Secure Access.[Enriched logs for Microsoft 365](https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-view-enriched-logs) allows also insights about the cloud app traffic from Microsoft to the M365 Apps. How to detect access outside of GSA or blocked access has been covered in one of our hunting queries.
 
 More details on Global Secure Access can be found in this blog posts from the community:
+
 - [Prevent AiTM with Microsoft Entra Global Secure Access and Conditional Access](https://janbakker.tech/prevent-aitm-with-microsoft-entra-global-secure-access-and-conditional-access/)
 - [How to use Microsoft Entra | Internet Access to prevent AiTM attack(s)](https://derkvanderwoude.medium.com/microsoft-entra-internet-access-to-prevent-aitm-attack-s-31171db43a83)
 
 ### Microsoft Defender for Cloud Apps (MDA) Session Proxy
+
 Even though requiring compliant devices and phishing-resistant mfa are the most powerful mitigations into the AiTM attack, the MDA's session proxy, Conditional Access together with Edge for Business in-browser protection can help as well. This is more or less a niche scenario, but it is good to know that if you're using session proxy to protect & monitor access to sensitive applications you will protect the users at the same time from this type of attack.
 
 More information about in-browser protection with [Microsoft Edge for Business (in preview at the time of writing) in MDA](https://learn.microsoft.com/en-us/defender-cloud-apps/in-browser-protection) is found in Microsoft Learn.
@@ -946,6 +993,7 @@ More information about in-browser protection with [Microsoft Edge for Business (
 _Access with replayed token will be blocked by using MDA Session Proxy even password has been stolen._
 
 ## Summary
+
 This chapter provides a comprehensive analysis of Adversary-in-the-Middle (AiTM) attacks, highlighting their ability to bypass multifactor authentication (MFA) by hijacking session cookies. We covered a few attack scenarios and highlighted two different approaches in the hunting section. Key points include:
 
 - Techniques: AiTM phishing through reverse proxy and synchronous relay.
