@@ -871,7 +871,7 @@ If your organization is leveraging Defender XDR capabilities, it's important to 
 Side note: If you want to exclude some of the device groups or user entities from the automated containment you can:
 - Set automation level to 'no automated response' in MDE
 - Exclude user entity from Defender XDR automation scope. This can be done from Defender XDR settings (settings - Microsoft Defender XDR - Identity automated response)
--
+
 #### How to configure automatic attack disruption
 
 The automatic attack disruption feature leverages the full Microsoft Defender XDR security stack, and in a nutshell, the wider the Defender XDR deployment is, the more coverage you will get. The following list contains the items that need to be configured to fully utilize this feature in an environment:
@@ -942,6 +942,8 @@ Even though requiring compliant devices and phishing-resistant mfa are the most 
 More information about in-browser protection with [Microsoft Edge for Business (in preview at the time of writing) in MDA](https://learn.microsoft.com/en-us/defender-cloud-apps/in-browser-protection) is found in Microsoft Learn.
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/MDA-proxy.png" target="_blank"><img src="./media/aitm-attack/MDA-proxy.png" width="750" /></a>
+
+_Access with replayed token will be blocked by using MDA Session Proxy even password has been stolen._
 
 ## Summary
 This chapter provides a comprehensive analysis of Adversary-in-the-Middle (AiTM) attacks, highlighting their ability to bypass multifactor authentication (MFA) by hijacking session cookies. We covered a few attack scenarios and highlighted two different approaches in the hunting section. Key points include:
