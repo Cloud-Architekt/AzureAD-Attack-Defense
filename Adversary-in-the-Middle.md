@@ -423,6 +423,7 @@ AADSignInEventsBeta
 | where LogonType has "interactiveUser"
 | summarize Countries = make_set(Country) by AccountObjectId, AccountDisplayName
 ```
+The original queries and blog post by DART is available from the [Microsoft Security Blog](https://www.microsoft.com/en-us/security/blog/2022/07/12/from-cookie-theft-to-bec-attackers-use-aitm-phishing-sites-as-entry-point-to-further-financial-fraud/?msockid=28c8c6feb17d6e740accd40eb04a6f51/).
 
 #### Enrichment of SessionId with IP address and session duration details (by Joosua Santasalo)
 
