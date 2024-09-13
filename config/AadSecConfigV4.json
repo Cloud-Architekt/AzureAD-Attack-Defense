@@ -1164,7 +1164,7 @@
                         "DisplayName": "Allow use of Microsoft Authenticator OTP",
                         "CheckId": "EIDSCA.AM02",
                         "SkipCondition": "EnabledAuthMethods !contains 'MicrosoftAuthenticator'",
-                        "CurrentValue": "state",
+                        "CurrentValue": "isSoftwareOathEnabled",
                         "DefaultValue": "enabled",
                         "RecommendedValue": "enabled",
                         "Recommendation": "enabled",
