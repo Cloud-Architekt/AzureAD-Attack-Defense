@@ -1279,7 +1279,7 @@
                         "CheckId": "EIDSCA.AM02",
                         "SkipCondition": "$EnabledAuthMethods -notcontains 'MicrosoftAuthenticator'",
                         "SkipReason": "Authentication method of Microsoft Authenticator is not enabled.",
-                        "CurrentValue": "state",
+                        "CurrentValue": "isSoftwareOathEnabled",
                         "DefaultValue": "enabled",
                         "RecommendedValue": "enabled",
                         "Recommendation": "enabled",
@@ -2335,12 +2335,12 @@
                         "HowToFix": ""
                     },
                     {
-                        "Name": "notifyReviewers",
+                        "Name": "remindersEnabled",
                         "DisplayName": "Reviewers will receive email notifications when admin consent requests are about to expire",
                         "CheckId": "EIDSCA.CR03",
                         "SkipCondition": "($EnabledAdminConsentWorkflow) -eq $false",
                         "SkipReason": "Admin Consent Workflow is not enabled",
-                        "CurrentValue": "notifyReviewers",
+                        "CurrentValue": "remindersEnabled",
                         "DefaultValue": "",
                         "RecommendedValue": "true",
                         "Recommendation": "",
