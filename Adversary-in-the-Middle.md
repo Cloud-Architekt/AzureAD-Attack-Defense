@@ -862,7 +862,7 @@ One of the most important mitigations against AiTM attacks is Entra ID Condition
 
 Requiring device state (Entra ID Registered, Entra ID Joined & Hybrid Entra ID Joined) in CA policies mitigates AiTM attack. If an adversary can steal browser cookies (and the token inside) from an end-user the attack stops when the adversary tries to use the cookie. The reason behind the scenes are Cloud Authentication Provider (CloudAP) & Web Account Manager (WAM) plugins which are responsible for sending requests only to MS URLs. In addition, there is certificate-based authentication that the device is forced to do when compliant state is a requirement in Conditional Access policies. Credentials can be stolen, but tokens cannot by adversaries in this scenario. The recommendation is to use compliant device requirement in CA for much more secure method. It contains a stronger state than other methods of endpoint security configuration & risk level. In addition, it also has better granularity compared to other device states. 
  
-Side note: Kudos to Robbe Van Den Daele for pointing out ability for using the different device states in CA for AiTM mitigation. 
+Side note: Kudos to Robbe Van den Daele for pointing out ability for using the different device states in CA for AiTM mitigation. 
 
 #### Phishing-resistant MFA
 
