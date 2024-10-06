@@ -44,7 +44,7 @@ _MITRE ATT&CK: [Adversary-in-the-Middle (T1557)](https://attack.mitre.org/techni
     - [Focus on proactive detection side and weak posture management issues in identities \& devices](#focus-on-proactive-detection-side-and-weak-posture-management-issues-in-identities--devices)
     - [Identity and Device Security](#identity-and-device-security)
       - [Configure Conditional Access to be align with best practices](#configure-conditional-access-to-be-align-with-best-practices)
-      - [Require device state](#require-device-state)
+      - [Require device states or compliant device (recommended)](#require-device-states-or-compliant-device-recommended)
       - [Phishing-resistant MFA](#phishing-resistant-mfa)
       - [Entra ID Protection (EIDP)](#entra-id-protection-eidp-1)
     - [Invest in advanced anti-phishing solutions that monitor and scan incoming emails](#invest-in-advanced-anti-phishing-solutionsthatmonitorand-scan-incoming-emails)
@@ -211,7 +211,7 @@ Another topic that needs attention is Entra ID Protection '[Anomalous Token](htt
 
 The Adversary in the Middle high precision detection is triggered when an authentication session is linked to a malicious reverse proxy. In this kind of attack, the adversary can intercept the user's credentials, including tokens issued to the user. The detection is in GA, but we haven't seen this triggered in any environment we have been working on.
 
-To leverage these detections, you need to configure Entra ID Conditional Access EIDP policies to auto-remediate the risks and to include re-auth as session management (sign-in frequency setting) and set it as 'every time'. By doing so, token replay attack can be mitigated if EIDP & CA policies are configured properly. CA policies play a key role for mitigating AiTM attacks including requiring device state, phishing-resistant MFA, sign-in frequency and more. More details about these are in the 'Mitigations' chapter.
+To leverage these detections, you need to configure Entra ID Conditional Access EIDP policies to auto-remediate the risks and to include re-auth as session management (sign-in frequency setting) and set it as 'every time'. By doing so, token replay attack can be mitigated if EIDP & CA policies are configured properly. CA policies play a key role for mitigating AiTM attacks including requiring device state or compliant device (recommended), phishing-resistant MFA, sign-in frequency, and more. More details about these are in the 'Mitigations' chapter.
 
 **Key takeaway:** Evaluate and monitor your Defender XDR solution baseline configurations on a regular basis. Also, evaluate your Entra ID Conditional Access & ID Protection policies to be aligned with security recommendations.
 
@@ -858,9 +858,11 @@ Staying ahead of potential threats is a top priority for organizations worldwide
 
 One of the most important mitigations against AiTM attacks is Entra ID Conditional Access Policies and its configurations.
 
-#### Require device state
+#### Require device states or compliant device (recommended)
 
-Requiring a device state in CA policies mitigates AiTM attacks. If an adversary can steal browser cookies (and the token inside) from an end-user the attack stops when the adversary is trying to use the cookie. The reason behind this is that the PRT (Primary Refresh Token) needs to be used containing the Device ID in order for Conditional Access to be able to check the state of the device. Credentials are stolen but tokens are not in this scenario. You can require multiple device states such as compliant device, Entra ID Joined / Hybrid device, and registered device.
+Requiring device state (Entra ID Registered, Entra ID Joined & Hybrid Entra ID Joined) in CA policies mitigates AiTM attack. If an adversary can steal browser cookies (and the token inside) from an end-user the attack stops when the adversary tries to use the cookie. The reason behind the scenes are Cloud Authentication Provider (CloudAP) & Web Account Manager (WAM) plugins which are responsible for sending requests only to MS URLs. In addition, there is certificate-based authentication that the device is forced to do when compliant state is a requirement in Conditional Access policies. Credentials can be stolen, but tokens cannot by adversaries in this scenario. The recommendation is to use compliant device requirement in CA for much more secure method. It contains a stronger state than other methods of endpoint security configuration & risk level. In addition, it also has better granularity compared to other device states. 
+ 
+Side note: Kudos to Robbe Van Den Daele for pointing out ability for using the different device states in CA for AiTM mitigation. 
 
 #### Phishing-resistant MFA
 
