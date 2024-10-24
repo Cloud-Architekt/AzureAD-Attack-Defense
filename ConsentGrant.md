@@ -57,7 +57,7 @@ Both scenarios allow data exfiltration, while the latter also offers perfect bac
 
 Attacker would start with some form of phishing; For example, perhaps a newsletter copied from trustworthy source, embedded with links to the attacker-controlled app.
 
-Other more direct way is to create tool for M365 / Azure AD Admins, that collects useful data, and implements an actually useful service, but also misuses the permissions of that service (The service could create also new credentials for existing SPN, and continue using them in the guise of assumed legitimate actions)
+Other more direct way is to create tool for M365 / Azure AD Admins, that collects useful data, and implements an actually useful service, but also misuses the permissions of that service (The service could create also new credentials for existing SP, and continue using them in the guise of assumed legitimate actions)
 
 The list possibilities are endless... 😊
 
