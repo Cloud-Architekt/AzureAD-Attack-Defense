@@ -2374,7 +2374,7 @@
                         "SkipReason": "Admin Consent Workflow is not enabled",
                         "CurrentValue": "requestDurationInDays",
                         "DefaultValue": "",
-                        "RecommendedValue": "30",
+                        "RecommendedValue": "<=30",
                         "Recommendation": "",
                         "Severity": "",
                         "MitreTactic": [
