@@ -9,7 +9,7 @@
             {
                 "ControlName": "Default Authorization Settings",
                 "ControlId": "EIDSCA.AP",
-                "Description": "Manages authorization settings in Azure AD",
+                "Description": "Manages authorization settings in Entra ID (Azure AD)",
                 "Discovery": "",
                 "GraphEndpoint": "authorizationPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authorizationPolicy",
@@ -35,9 +35,9 @@
                         ],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/PasswordResetMenuBlade/~/AdminPasswordResetPolicy",
                         "Description": "Indicates whether administrators of the tenant can use the Self-Service Password Reset (SSPR). The policy applies to some critical critical roles in Microsoft Entra ID.",
-                        "HowToFix": ""
+                        "HowToFix": "Update-MgPolicyAuthorizationPolicy -BodyParameter @{ allowedToUseSSPR = $false }"
                     },
                     {
                         "Name": "blockMsolPowerShell",
@@ -56,7 +56,7 @@
                         ],
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
-                        "Description": "Specifies whether the user-based access to the legacy service endpoint used by MSOL PowerShell is blocked or not. This does not affect Azure AD Connect or Microsoft Graph.",
+                        "Description": "Specifies whether the user-based access to the legacy service endpoint used by MSOL PowerShell is blocked or not. This does not affect Entra ID (Azure AD) Connect or Microsoft Graph.",
                         "HowToFix": ""
                     },
                     {
@@ -93,8 +93,8 @@
                         ],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/CompanyRelationshipsMenuBlade/~/Settings",
-                        "Description": "Manages controls who can invite guests to your directory to collaborate on resources secured by your Azure AD, such as SharePoint sites or Azure resources.",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AllowlistPolicyBlade",
+                        "Description": "Manages controls who can invite guests to your directory to collaborate on resources secured by your Entra ID (Azure AD), such as SharePoint sites or Azure resources.",
                         "HowToFix": ""
                     },
                     {
@@ -146,14 +146,14 @@
                         "CurrentValue": "guestUserRoleId",
                         "DefaultValue": "10dae51f-b6af-4016-8d66-8c2a99b929b3",
                         "RecommendedValue": "2af84b1e-32c8-42b7-82bc-daa82404023b",
-                        "Recommendation": "CISA SCuBA 2.18: Guest users SHOULD have limited access to Azure AD directory objects.",
+                        "Recommendation": "CISA SCuBA 2.18: Guest users SHOULD have limited access to Entra ID (Azure AD) directory objects.",
                         "Severity": "",
                         "MitreTactic": [
                             "TA0043 - Reconnaissance"
                         ],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AllowlistPolicyBlade",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AllowlistPolicyBlade",
                         "Description": "Represents role templateId for the role that should be granted to guest user.",
                         "HowToFix": ""
                     },
@@ -184,7 +184,7 @@
                             "M1017",
                             "M1018"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/UserSettings",
                         "Description": "Defines if user consent to apps is allowed, and if it is, which app consent policy (permissionGrantPolicy) governs the permissions.",
                         "HowToFix": ""
                     },
@@ -215,7 +215,7 @@
                             "M1017",
                             "M1018"
                         ],
-                        "PortalDeepLink": "",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",
                         "Description": "Indicates whether user consent for risky apps is allowed. For example, consent requests for newly registered multi-tenant apps that are not publisher verified and require non-basic permissions are considered risky.",
                         "HowToFix": ""
                     },
@@ -248,7 +248,7 @@
                             "M1024",
                             "M1047"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/UserSettings",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/UserSettings",
                         "Description": "Controls if non-admin users may register custom-developed applications for use within this directory.",
                         "HowToFix": ""
                     },
@@ -268,7 +268,7 @@
                         ],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/General",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/General",
                         "Description": "Defines default permission of user to create security groups in Azure portals, API or PowerShell. Global administrators and user administrators can still create security groups.",
                         "HowToFix": ""
                     },
@@ -289,8 +289,8 @@
                         ],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/UserSettings",
-                        "Description": "Restricts the creation of Azure AD tenants to the global administrator or tenant creator roles. Anyone who creates a tenant will become the global administrator for that tenant.",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/UserSettings",
+                        "Description": "Restricts the creation of Entra ID (Azure AD) tenants to the global administrator or tenant creator roles. Anyone who creates a tenant will become the global administrator for that tenant.",
                         "HowToFix": ""
                     },
                     {
@@ -371,7 +371,7 @@
                             "M1018",
                             "M1047"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",
                         "Description": "Group and team owners can authorize applications, such as applications published by third-party vendors, to access your organization's data associated with a group. For example, a team owner in Microsoft Teams can allow an app to read all Teams messages in the team, or list the basic profile of a group's members.",
                         "HowToFix": ""
                     },
@@ -398,7 +398,7 @@
                             "M1018",
                             "M1047"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",
                         "Description": "Only selected group owners can allow applications to access data for the groups they own.",
                         "HowToFix": ""
                     },
@@ -452,7 +452,7 @@
                             "M1018",
                             "M1047"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                         "Description": "If this option is set to enabled, then users request admin consent to any app that requires access to data they do not have the permission to grant. If this option is set to disabled, then users must contact their admin to request to consent in order to use the apps they need.",
                         "HowToFix": ""
                     }
@@ -492,7 +492,7 @@
                             "M1018",
                             "M1027"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                         "Description": "If set to Enforce, users will be prevented from setting banned passwords and the attempt will be logged. If set to Audit, the attempt will only be logged.",
                         "HowToFix": ""
                     },
@@ -517,7 +517,7 @@
                             "M1018",
                             "M1027"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                         "Description": "If set to Yes, password protection is turned on for Active Directory domain controllers when the appropriate agent is installed.",
                         "HowToFix": ""
                     },
@@ -542,7 +542,7 @@
                             "M1018",
                             "M1027"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                         "Description": "When enabled, the words in the list below are used in the banned password system to prevent easy-to-guess passwords.",
                         "HowToFix": ""
                     },
@@ -567,7 +567,7 @@
                             "M1018",
                             "M1027"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                         "Description": "A list of words, one per line, to prevent your users from using in their passwords. You should include words specific to your organization, such as your products, trademarks, industries, local cities and towns, and local sports teams. Your list can contain up to 1000 words. These are case insensitive, and common character substitutions (o for 0, etc) are automatically considered.",
                         "HowToFix": ""
                     },
@@ -592,7 +592,7 @@
                             "M1018",
                             "M1027"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                         "Description": "The minimum length in seconds of each lockout. If an account locks repeatedly, this duration increases.",
                         "HowToFix": ""
                     },
@@ -617,7 +617,7 @@
                             "M1018",
                             "M1027"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                         "Description": "How many failed sign-ins are allowed on an account before its first lockout. If the first sign-in after a lockout also fails, the account locks out again.",
                         "HowToFix": ""
                     }
@@ -686,7 +686,7 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/NamingPolicy",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/NamingPolicy",
                         "Description": "Comma-separated string of phrases that users will not be permitted to use in group names or aliases.",
                         "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     },
@@ -758,7 +758,7 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/NamingPolicy",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/NamingPolicy",
                         "Description": "String of a maximum length of 64 characters that defines the naming convention configured for Microsoft 365 groups.",
                         "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     },
@@ -771,7 +771,7 @@
                         "CurrentValue": "values | where-object name -eq 'AllowGuestsToBeGroupOwner' | select-object -expand value",
                         "DefaultValue": "false",
                         "RecommendedValue": "false",
-                        "Recommendation": "CISA SCuBA 2.18: Guest users SHOULD have limited access to Azure AD directory objects",
+                        "Recommendation": "CISA SCuBA 2.18: Guest users SHOULD have limited access to Entra ID (Azure AD) directory objects",
                         "Severity": "Medium",
                         "MitreTactic": [],
                         "MitreTechnique": [],
@@ -830,7 +830,7 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/General",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/General",
                         "Description": "The flag indicating whether Microsoft 365 group creation is allowed in the directory by non-admin users. This setting does not require an Azure Active Directory Premium P1 license.",
                         "HowToFix": "[Microsoft Learn - Microsoft Entra cmdlets for configuring group settings](https://learn.microsoft.com/en-us/entra/identity/users/groups-settings-cmdlets#update-settings-at-the-directory-level)"
                     },
@@ -917,7 +917,7 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#settings",
+                        "PortalDeepLink": "https://entra.microsoft.com/#settings",
                         "Description": "Inactivity timeout is being enforced by this setting. You will be signed out after the configured time of inactivity.",
                         "HowToFix": ""
                     }
@@ -926,7 +926,7 @@
             {
                 "ControlName": "External Identities",
                 "ControlId": "EIDSCA.EX",
-                "Description": "Controls whether external users can leave an Azure AD tenant via self-service controls",
+                "Description": "Controls whether external users can leave an Entra ID (Azure AD) tenant via self-service controls",
                 "Discovery": "",
                 "GraphEndpoint": "externalIdentitiesPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/externalIdentitiesPolicy",
@@ -950,7 +950,7 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/CompanyRelationshipsMenuBlade/~/Settings",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AllowlistPolicyBlade",
                         "Description": "Allow external users to remove themselves from your organization",
                         "HowToFix": ""
                     },
@@ -1002,7 +1002,7 @@
                         "MitreTechnique": [],
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
-                        "Description": "Policy helps tenant administrators to pilot features of Azure AD with a specific group before enabling features for entire organization",
+                        "Description": "Policy helps tenant administrators to pilot features of Entra ID (Azure AD) with a specific group before enabling features for entire organization",
                         "HowToFix": ""
                     }
                 ]
@@ -1162,7 +1162,7 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
                         "Description": "Configuration of a registration campaign that prompts users to set up more secure authentication methods.",
                         "HowToFix": "[Microsoft Learn - Enable registration campaign](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-registration-campaign#enable-the-registration-campaign-policy-using-the-microsoft-entra-admin-center)"
                     },
@@ -1180,7 +1180,7 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
                         "Description": "Users and groups of users that are prompted to set up the authentication method.",
                         "HowToFix": "[Microsoft Learn - Enable registration campaign](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-registration-campaign#enable-the-registration-campaign-policy-using-the-microsoft-entra-admin-center)"
                     },
@@ -1198,7 +1198,7 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
                         "Description": "Chosen Authentication Method for Registration campaign.",
                         "HowToFix": "[Microsoft Learn - Enable registration campaign](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-registration-campaign#enable-the-registration-campaign-policy-using-the-microsoft-entra-admin-center)"
                     },
@@ -1216,7 +1216,7 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
                         "Description": "Users and groups of users that are excluded from being prompted to set up the authentication method.",
                         "HowToFix": "[Microsoft Learn - Enable registration campaign](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-registration-campaign#enable-the-registration-campaign-policy-using-the-microsoft-entra-admin-center)"
                     },
@@ -1234,7 +1234,7 @@
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/RegistrationCampaign",
                         "Description": "Specifies the number of days that the user sees a prompt again if they select 'Not now' and snoozes the prompt. Minimum: 0 days. Maximum: 14 days.",
                         "HowToFix": "[Microsoft Learn - Enable registration campaign](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-registration-campaign#enable-the-registration-campaign-policy-using-the-microsoft-entra-admin-center)"
                     }
@@ -2260,7 +2260,7 @@
             {
                 "ControlName": "Consent Framework - Admin Consent Request",
                 "ControlId": "EIDSCA.CR",
-                "Description": "Represents the policy for enabling or disabling the Azure AD admin consent workflow. The admin consent workflow allows users to request access for apps that they wish to use and that require admin authorization before users can use the apps to access organizational data. ",
+                "Description": "Represents the policy for enabling or disabling the Entra ID (Azure AD) admin consent workflow. The admin consent workflow allows users to request access for apps that they wish to use and that require admin authorization before users can use the apps to access organizational data. ",
                 "Discovery": "$EnabledAdminConsentWorkflow = (Invoke-MtGraphRequest -RelativeUri 'policies/adminConsentRequestPolicy' -ApiVersion beta).isenabled",
                 "GraphEndpoint": "adminConsentRequestPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/adminConsentRequestPolicy",
@@ -2298,7 +2298,7 @@
                             "M1018",
                             "M1017"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                         "Description": "Defines if admin consent request feature is enabled or disabled",
                         "HowToFix": ""
                     },
@@ -2330,7 +2330,7 @@
                             "M1018",
                             "M1017"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                         "Description": "Specifies whether reviewers will receive notifications",
                         "HowToFix": ""
                     },
@@ -2362,7 +2362,7 @@
                             "M1018",
                             "M1017"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                         "Description": "Specifies whether reviewers will receive reminder emails",
                         "HowToFix": ""
                     },
@@ -2394,7 +2394,7 @@
                             "M1018",
                             "M1017"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                         "Description": "Specifies the duration the request is active before it automatically expires if no decision is applied",
                         "HowToFix": ""
                     },
@@ -2426,7 +2426,7 @@
                             "M1018",
                             "M1017"
                         ],
-                        "PortalDeepLink": "https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                         "Description": "The list of reviewers for the admin consent",
                         "HowToFix": ""
                     },
