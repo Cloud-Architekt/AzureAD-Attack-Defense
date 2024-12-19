@@ -24,7 +24,7 @@ _Updated: December 2024 (Updated privileges on directory sync, XSPM capabilities
     - [Increase visibility by implementing detections](#increase-visibility-by-implementing-detections)
     - [Secure your Entra Connect Server and Service Accounts as Tier0](#secure-your-entra-connect-server-and-service-accounts-as-tier0)
     - [Reduce attack surface for Entra Connect resources](#reduce-attack-surface-for-entra-connect-resources)
-    - [Update on December 2024](#update-on-december-2024-1)
+    - [Update on December 2024 - Exposure Management](#update-on-december-2024---exposure-management)
   - [Protect your cloud-only and privileged accounts from account take over](#protect-your-cloud-only-and-privileged-accounts-from-account-take-over)
 - [Security Insights from Entra Connect Server](#security-insights-from-entra-connect-server)
   - [Local application and system events from Entra Connect (Server)](#local-application-and-system-events-from-entra-connect-server)
@@ -273,7 +273,7 @@ More information about detecting password spray attacks can be found [from this 
 - Disable Seamless SSO if you haven’t a particular use case or requirement for that
 - Evaluate "Entra Connect Cloud Synchronization" as alternate solution if the [included features fit to your requirement](https://docs.microsoft.com/en-us/azure/active-directory/cloud-sync/what-is-cloud-sync#comparison-between-azure-ad-connect-and-cloud-sync). This allows to reduce risk dependencies and attack surface of Entra Connect sync components in your on-premises environment.
 
-### Update on December 2024
+### Update on December 2024 - Exposure Management
 Microsoft Security Exposure Management (XSPM) is a pretty new innovation in the posture management domain. It can be imagined as a combination of the next-generation vulnerability management & posture management solution that modernizes posture management in the same way XDR modernizes threat management. Where XDR (detect, investigate, and respond) provides unified threat management for workloads, the XSPM (identify and protect) provides unified exposure management for the same workloads.
 
 According to Microsoft: 'XSPM is a security solution that provides a unified view of security posture across company assets and workloads. Security Exposure Management enriches asset information with a security context that helps you to manage attack surfaces, protect critical assets, and explore and mitigate exposure risk'.
