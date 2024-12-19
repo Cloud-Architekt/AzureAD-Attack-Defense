@@ -7,6 +7,7 @@ _Updated: December 2024 (Updated privileges on directory sync, XSPM capabilities
 - [Abuse of Microsoft Entra Connect Sync Service Account](#abuse-of-microsoft-entra-connect-sync-service-account)
 - [Introduction](#introduction)
   - [Architecture and Service Accounts](#architecture-and-service-accounts)
+    - [Update on December 2024](#update-on-december-2024)
 - [Attack scenarios](#attack-scenarios)
   - [MITRE ATT\&CK Framework](#mitre-attck-framework)
     - [Tactics, Techniques \& Procedures (TTPs) of the named attack scenarios](#tactics-techniques--procedures-ttps-of-the-named-attack-scenarios)
@@ -51,6 +52,30 @@ Account will be created for each Entra Connect Server and is visible with displa
 **ADSync Service Account** takes place for running the synchronization service but has also access to the database for storing Entra Connect information. No (direct) privileged access exists to Entra ID or Active Directory objects. Nevertheless, it’s a sensitive account because it plays a central part in running Entra Connect services and data access (incl. SQL database).
 
 More details about Entra Connect [accounts and permissions](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/reference-connect-accounts-permissions) are described in Microsoft Docs articles.
+
+### Update on December 2024
+Microsoft announced update on Microsoft Entra Connect Sync and Microsoft Entra Cloud Sync directory synchronization accounts (DSA) in August 2024. 
+
+*As part of ongoing security hardening, Microsoft removes unused permissions from the privileged Directory Synchronization Accounts role. This role is exclusively used by Microsoft Entra Connect Sync, and Microsoft Entra Cloud Sync, to synchronize Active Directory objects with Microsoft Entra ID. There's no action required by customers to benefit from this hardening.*
+
+Before the update, the DSA account had a high privileged permissions to:
+- Applications
+  - Wide permissions to manage applications
+- Authorization and hybrid authentication policies
+  - Read standard properties of authorization policy Manage hybrid authentication policy in Microsoft Entra ID
+- Organization's Dirsync settings
+  - Update the organization directory sync property
+- Password Hash sync settings
+  - Manage all aspects of Password Hash Synchronization (PHS) in Microsoft Entra ID
+- Policies
+  - Ability to manage policies
+- Service Principals
+  - Ability to manage service principals
+
+Current permissions are listed in the [Entra built-in roles documentation](https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference#directory-synchronization-accounts)
+
+More details about the announcement on [Entra what's new August 2024](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#august-2024).
+
 
 # Attack scenarios
 
