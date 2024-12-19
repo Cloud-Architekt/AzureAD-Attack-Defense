@@ -2,7 +2,7 @@
 
 _Author: Sami Lamppu and Thomas Naunheim_
 _Created: March 2022_
-_Updated: October 2022 (Added M&TRE mapping)_
+_Updated: December 2024 (Updated privileges on directory sync, XSPM capabilities, MDI sensor for Connect and product name updates )_
 
 - [Abuse of Microsoft Entra Connect Sync Service Account](#abuse-of-microsoft-entra-connect-sync-service-account)
 - [Introduction](#introduction)
@@ -10,24 +10,25 @@ _Updated: October 2022 (Added M&TRE mapping)_
 - [Attack scenarios](#attack-scenarios)
   - [MITRE ATT\&CK Framework](#mitre-attck-framework)
     - [Tactics, Techniques \& Procedures (TTPs) of the named attack scenarios](#tactics-techniques--procedures-ttps-of-the-named-attack-scenarios)
-    - [TTP on abusing Entra ID Connect Sync Service Account](#ttp-on-abusing-entra-id-connect-sync-service-account)
+    - [TTP on abusing Entra Connect Sync Service Account](#ttp-on-abusing-entra-connect-sync-service-account)
 - [Detections](#detections)
   - [Threat signals by using offensive tools on Entra Connect servers](#threat-signals-by-using-offensive-tools-on-entra-connect-servers)
     - [Dumping credentials with AADInternals](#dumping-credentials-with-aadinternals)
     - [Updating credentials with AADInternals](#updating-credentials-with-aadinternals)
   - [Changes of Entra Connect sync features](#changes-of-entra-connect-sync-features)
-  - [Suspicious activities from Entra ID connector account](#suspicious-activities-from-entra-id-connector-account)
-  - [Takeover Entra ID connector by generating Temporary access pass (TAP) as backdoor](#takeover-entra-id-connector-by-generating-temporary-access-pass-tap-as-backdoor)
-  - [Password Spray attacks to Entra ID connector account](#password-spray-attacks-to-entra-id-connector-account)
+  - [Suspicious activities from Entra Connector account](#suspicious-activities-from-entra-connector-account)
+  - [Takeover Entra Connector by generating Temporary access pass (TAP) as backdoor](#takeover-entra-connector-by-generating-temporary-access-pass-tap-as-backdoor)
+  - [Password Spray attacks to Entra Connector account](#password-spray-attacks-to-entra-connector-account)
 - [Mitigations](#mitigations)
     - [Increase visibility by implementing detections](#increase-visibility-by-implementing-detections)
     - [Secure your Entra Connect Server and Service Accounts as Tier0](#secure-your-entra-connect-server-and-service-accounts-as-tier0)
     - [Reduce attack surface for Entra Connect resources](#reduce-attack-surface-for-entra-connect-resources)
   - [Protect your cloud-only and privileged accounts from account take over](#protect-your-cloud-only-and-privileged-accounts-from-account-take-over)
-- [Security Insights from Entra ID Connect Server](#security-insights-from-entra-id-connect-server)
-  - [Local application and system events from Entra ID Connect (Server)](#local-application-and-system-events-from-entra-id-connect-server)
+- [Security Insights from Entra Connect Server](#security-insights-from-entra-connect-server)
+  - [Local application and system events from Entra Connect (Server)](#local-application-and-system-events-from-entra-connect-server)
   - [Removing AAD Sync Server(s) from Entra Connect Health](#removing-aad-sync-servers-from-entra-connect-health)
   - [Other references and resources](#other-references-and-resources)
+
 
 # Introduction
 
@@ -36,7 +37,7 @@ In this paper we are mainly focusing on the following scenario:
 1. Attacking administrative account with directory role assignment to "[Hybrid Identity Administrator](https://docs.microsoft.com/en-us/azure/active-directory/roles/permissions-reference#hybrid-identity-administrator)" for managing Microsoft Entra connect configurations
 2. Abusing of Microsoft Entra ID (EID) user "On-Premises Directory Synchronization Service Account" which will be used to synchronize objects from Microsoft Entra Connect Server (AD on-premises) to Entra ID.
 
-*Out of scope are privilege escalation and attack paths from Entra Connect server in direction to Active Directory (incl. abuse Entra ID connector account)*
+*Out of scope are privilege escalation and attack paths from Entra Connect server in direction to Active Directory (incl. abuse Entra Connector account)*
 
 ## Architecture and Service Accounts
 
@@ -49,23 +50,23 @@ Account will be created for each Entra Connect Server and is visible with displa
 
 **ADSync Service Account** takes place for running the synchronization service but has also access to the database for storing Entra Connect information. No (direct) privileged access exists to Entra ID or Active Directory objects. Nevertheless, it’s a sensitive account because it plays a central part in running Entra Connect services and data access (incl. SQL database).
 
-More details about Entra ID Connect [accounts and permissions](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/reference-connect-accounts-permissions) are described in Microsoft Docs articles.
+More details about Entra Connect [accounts and permissions](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/reference-connect-accounts-permissions) are described in Microsoft Docs articles.
 
 # Attack scenarios
 
 This chapter describes attack scenarios referring to the document scope. 
 
-- Access to unprotected Entra ID Connect servers (not hardened or restricted access as Tier0 system) or exfiltration from uncontrolled/unencrypted backups allows access to the service database.
+- Access to unprotected Entra Connect servers (not hardened or restricted access as Tier0 system) or exfiltration from uncontrolled/unencrypted backups allows access to the service database.
     - Decryption and extraction of stored Entra ID and Active Directory credentials can be achieved by using [fox-it/adconnectdump](https://github.com/fox-it/adconnectdump).
     - Dumping of encryption keys of DPAPI and getting Entra Connect service-related credentials has been automated as part of the "Get-AADIntSyncCredentials" cmdlet in the [AADInternals PowerShell module.](https://o365blog.com/post/adsync/)
       - Side note: You need to use version 0.9.4. The versions above doesn't contain the needed command.
     
     ![](./media/aadc-syncservice-acc/aadc-syncdump.png)
     
-- Passwords of Entra ID connector account can be exfiltrated in clear text if privilege escalation to local admin permissions on the Entra Connect server was successfully.
+- Passwords of Entra Connector account can be exfiltrated in clear text if privilege escalation to local admin permissions on the Entra Connect server was successfully.
     
   - More details of credentials dump are very well described in "[Shooting Up: On-Prem to Cloud](https://imphash.medium.com/shooting-up-on-prem-to-cloud-detecting-aadconnect-creds-dump-422b21128729)" by imp hash.
-  - A great overview about "[Entra ID Connect for Red Teamer](https://blog.xpnsec.com/azuread-connect-for-redteam/)s" is available on XPN InfoSec Blog.
+  - A great overview about "[Entra Connect for Red Teamer](https://blog.xpnsec.com/azuread-connect-for-redteam/)s" is available on XPN InfoSec Blog.
 - Refresh/access token from account with assigned directory role "[Hybrid Identity Administrator](https://docs.microsoft.com/en-us/azure/active-directory/roles/permissions-reference#hybrid-identity-administrator)" can be replayed when it will be used to apply Entra Connect service configuration changes. Members of this role could be excluded from device compliance to allow usage on Entra Connect Server for management tasks.
     
     ![Picture1.png](./media/aadc-syncservice-acc/aadc-fiddlertoken.png)
@@ -97,13 +98,13 @@ MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques and Proc
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/mitre/AttackScenarios/AADC.svg" target="_blank">![](./media/mitre/AttackScenarios/AADC.svg)</a>
 <a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Fmitre%2FAttackScenarios%2FAADC.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
 
-### TTP on abusing Entra ID Connect Sync Service Account
+### TTP on abusing Entra Connect Sync Service Account
 
 |  Attack Scenario |    TTPs         |  Description  |
 |--------------|-----------|-----------|
-|  Access to unprotected Entra ID Connect servers (not hardened or restricted access as Tier0 system) or exfiltration from uncontrolled/unencrypted backups allows access to the Entra Connect database<br><br>Passwords of Entra ID connector accounts can be exfiltrated in clear text if privilege escalation to local admin permissions on the Entra Connect server was successful | Unsecured Credentials: Credentials In Files [T1552.001](https://attack.mitre.org/techniques/T1552/001/) | Adversaries may search local file systems and remote file shares for files containing insecurely stored credentials. These can be files created by users to store their own credentials, shared credential stores for a group of individuals, configuration files containing passwords for a system or service, or source code/binary files containing embedded passwords.
-| Access to unprotected Entra ID Connect servers (not hardened or restricted access as Tier0 system) or exfiltration from uncontrolled/unencrypted backups allows access to the Entra Connect database<br> | Unsecured Credentials: Private Keys [T1552.004](https://attack.mitre.org/techniques/T1552/004/) | Adversaries may search for private key certificate files on compromised systems for insecurely stored credentials. Private cryptographic keys and certificates are used for authentication, encryption/decryption, and digital signatures.[1] Common key and certificate file extensions include: .key, .pgp, .gpg, .ppk., .p12, .pem, .pfx, .cer, .p7b, .asc.
-| Using credentials of Entra ID Connector accounts from unprotected Entra ID Connect for privileged access to Connector API,<br> Adding temporary access pass to Entra ID Connector Account | Valid Accounts: Cloud Accounts - [T1078.004](https://attack.mitre.org/techniques/T1528/)| Adversaries may obtain and abuse credentials of a cloud account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Cloud accounts are those created and configured by an organization for use by users, remote support, services, or for administration of resources within a cloud service provider or SaaS application. In some cases, cloud accounts may be federated with traditional identity management system, such as Window Active Directory. Compromised credentials for cloud accounts can be used to harvest sensitive data from online storage accounts and databases. Access to cloud accounts can also be abused to gain Initial Access to a network by abusing a Trusted Relationship. Similar to Domain Accounts, compromise of federated cloud accounts may allow adversaries to more easily move laterally within an environment. Once a cloud account is compromised, an adversary may perform Account Manipulation - for example, by adding Additional Cloud Roles - to maintain persistence and potentially escalate their privileges. |
+|  Access to unprotected Entra Connect servers (not hardened or restricted access as Tier0 system) or exfiltration from uncontrolled/unencrypted backups allows access to the Entra Connect database<br><br>Passwords of Entra Connector accounts can be exfiltrated in clear text if privilege escalation to local admin permissions on the Entra Connect server was successful | Unsecured Credentials: Credentials In Files [T1552.001](https://attack.mitre.org/techniques/T1552/001/) | Adversaries may search local file systems and remote file shares for files containing insecurely stored credentials. These can be files created by users to store their own credentials, shared credential stores for a group of individuals, configuration files containing passwords for a system or service, or source code/binary files containing embedded passwords.
+| Access to unprotected Entra Connect servers (not hardened or restricted access as Tier0 system) or exfiltration from uncontrolled/unencrypted backups allows access to the Entra Connect database<br> | Unsecured Credentials: Private Keys [T1552.004](https://attack.mitre.org/techniques/T1552/004/) | Adversaries may search for private key certificate files on compromised systems for insecurely stored credentials. Private cryptographic keys and certificates are used for authentication, encryption/decryption, and digital signatures.[1] Common key and certificate file extensions include: .key, .pgp, .gpg, .ppk., .p12, .pem, .pfx, .cer, .p7b, .asc.
+| Using credentials of Entra Connector accounts from unprotected Entra Connect for privileged access to Connector API,<br> Adding temporary access pass to Entra Connector Account | Valid Accounts: Cloud Accounts - [T1078.004](https://attack.mitre.org/techniques/T1528/)| Adversaries may obtain and abuse credentials of a cloud account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Cloud accounts are those created and configured by an organization for use by users, remote support, services, or for administration of resources within a cloud service provider or SaaS application. In some cases, cloud accounts may be federated with traditional identity management system, such as Window Active Directory. Compromised credentials for cloud accounts can be used to harvest sensitive data from online storage accounts and databases. Access to cloud accounts can also be abused to gain Initial Access to a network by abusing a Trusted Relationship. Similar to Domain Accounts, compromise of federated cloud accounts may allow adversaries to more easily move laterally within an environment. Once a cloud account is compromised, an adversary may perform Account Manipulation - for example, by adding Additional Cloud Roles - to maintain persistence and potentially escalate their privileges. |
 |  User accounts with assigned "Hybrid Identity administrators" roles have enhanced permissions for ’sync service features’ but also, extensive management permissions for service principals and app registrations in Entra ID which includes | Account Manipulation - [T1098](https://attack.mitre.org/techniques/T1098/)| Adversaries may manipulate accounts to maintain access to victim systems. Account manipulation may consist of any action that preserves adversary access to a compromised account, such as modifying credentials or permission groups. These actions could also include account activity designed to subvert security policies, such as performing iterative password updates to bypass password duration policies and preserve the life of compromised credentials. In order to create or manipulate accounts, the adversary must already have sufficient permissions on systems or the domain. However, account manipulation may also lead to privilege escalation where modifications grant access to additional roles, permissions, or higher-privileged Valid Accounts. |
 |  Temporary Access Pass can be used by compromised high-privileged accounts or service accounts to create a backdoor on "On-Premises Directory Synchronization Service Account | Account Manipulation: Additional Cloud Credentials - [T1098.001](https://attack.mitre.org/techniques/T1098/001/)| Adversaries may add adversary-controlled credentials to a cloud account to maintain persistent access to victim accounts and instances within the environment. Adversaries may add credentials for Service Principals and Applications in addition to existing legitimate credentials in Entra ID. These credentials include both x509 keys and passwords.With sufficient permissions, there are a variety of ways to add credentials including the Azure Portal, Azure command line interface, and Azure or Az PowerShell modules. |
 |  Directory role permissions allow to change of ownership of the "GraphAggregatorService" service principal and add app roles to self-grant arbitrary Microsoft Graph API permission. | Account Manipulation: Additional Cloud Roles - [T1098.003](https://attack.mitre.org/techniques/T1098/003/)| An adversary may add additional roles or permissions to an adversary-controlled cloud account to maintain persistent access to a tenant. For example, they may update IAM policies in cloud-based environments or add a new global administrator in Office 365 environments. With sufficient permissions, a compromised account can gain almost unlimited access to data and settings (including the ability to reset the passwords of other admins). This account modification may immediately follow Create Account or other malicious account activity. Adversaries may also modify an existing Valid Accounts that they have compromised. This could lead to privilege escalation, particularly if the roles added allow for lateral movement to additional accounts. For example, in Entra ID environments, an adversary with the Application Administrator role can add Additional Cloud Credentials to their application's service principal. In doing so the adversary would be able to gain the service principal’s roles and permissions, which may be different from those of the Application Administrator. |
@@ -113,21 +114,21 @@ MITRE ATT&CK framework is commonly used for mapping Tactics, Techniques and Proc
 # Detections
 
 On the detections side, we are focusing on available Microsoft cloud-based security solutions:
-Starting from the source of the attack, Entra ID Connect server, which is located on-premises, and moving to cloud-based security solutions.
+Starting from the source of the attack, Entra Connect server, which is located on-premises, and moving to cloud-based security solutions.
 
 You can expect to find the tools used in the following scenarios in this chapter:
 
 - Microsoft Defender for Endpoint (MDE) on Entra Connect for detecting suspicious activities or tools on the operating system level and on-premises environment.
 - Microsoft Defender for Cloud Apps (MDA) and Microsoft Sentinel for detecting suspicious sign-in and audit activities of the Entra Connector Account but also Hybrid Identity Admin.
 - Microsoft Sentinel takes essential part for advanced detection by using WatchList and anomaly techniques.
-- Entra ID Identity Protection (IPC) detection is valuable if interactive (and suspicious/unfamiliar) sign-in has been attempted by Entra ID connector account.
+- Entra ID Protection (formely known as Identity Protection) detection is valuable if interactive (and suspicious/unfamiliar) sign-in has been attempted by Entra connector account.
 
 In our templates of Microsoft Sentinel analytics rule, we’re using **[WatchLists](https://docs.microsoft.com/en-us/azure/sentinel/watchlists)** to enrich and store information for correlation centrally.
 WatchList template for "[High-Value Assets](https://docs.microsoft.com/en-us/azure/sentinel/watchlist-schemas#high-value-assets)" should be used to define "Entra Connect Servers" and the assigned public IP address.
 
   ![](./media/aadc-syncservice-acc/aadc-watchlisthighvalue.png)
 
-Valid and authorized Entra ID connector accounts should be included in the  "[Service Accounts](https://docs.microsoft.com/en-us/azure/sentinel/watchlist-schemas#service-accounts)" WatchList template.
+Valid and authorized Entra Connector accounts should be included in the  "[Service Accounts](https://docs.microsoft.com/en-us/azure/sentinel/watchlist-schemas#service-accounts)" WatchList template.
 This helps us to identify user accounts with assigned "Directory Synchronization" or similar account names which aren't whitelisted as part of the WatchList.
 
   ![](./media/aadc-syncservice-acc/aadc-watchlistsvcaccounts.png)
@@ -136,18 +137,18 @@ Both lists are using the same tag (Entra ID Connect) to identify related resourc
 These Watchlists are an important part and pre-requisite for the custom analytics rules which we have written for this playbook.
 
 UEBA tables is another feature which will be included in one of the queries.
-We're using **[IdentityInfo](https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/what-s-new-identityinfo-table-is-now-in-public-preview/ba-p/2571037)** table to identify user accounts with directory role assignment to "Hybrid Identity Administrator". Related Entra ID connector accounts can be also identified by directory role assignment ("Directory Synchronization Accounts") which is also stored in "IdentityInfo".
+We're using **[IdentityInfo](https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/what-s-new-identityinfo-table-is-now-in-public-preview/ba-p/2571037)** table to identify user accounts with directory role assignment to "Hybrid Identity Administrator". Related Entra Connector accounts can be also identified by directory role assignment ("Directory Synchronization Accounts") which is also stored in "IdentityInfo".
 
 ## Threat signals by using offensive tools on Entra Connect servers
 
-If Microsoft Defender for Endpoint (MDE) is installed to Entra Connect server, EDR can detect suspicious activities from the instance. For example, when [AADInternals](https://o365blog.com/aadinternals/) is used to dump Entra ID Connect credentials the activity is detected by MDE.
+If Microsoft Defender for Endpoint (MDE) is installed to Entra Connect server, EDR can detect suspicious activities from the instance. For example, when [AADInternals](https://o365blog.com/aadinternals/) is used to dump Entra Connect credentials the activity is detected by MDE.
 
 ### Dumping credentials with AADInternals
 
 ![](./media/aadc-syncservice-acc/aadc-dumpdetection.png)
 
 ### Updating credentials with AADInternals
-MDE will be able to detect access or updates to credentials of ADSync or Microsft Entra ID connector account (by using AADInternals):
+MDE will be able to detect access or updates to credentials of ADSync or Microsft Entra Connector account (by using AADInternals):
 
 ![](./media/aadc-syncservice-acc/aadc-updatesycndetection.png)
 
@@ -164,36 +165,36 @@ The attacker needs to use "[Update-MgDirectoryOnPremiseSynchronization](https://
 
 ![](./media/aadc-syncservice-acc/aadc-auditdirsyncfeature1.png)
 
-Microsoft Sentinel Analytics rule "[Disabled soft- or hard match of Entra ID Connect sync](./queries/AADConnect-ChangedDirSyncSettings.kql)" allows to create incidents if a identity synchronization features has been modified. The old and new value (in the audit log entry) is summed integer of all [DirSync feature settings](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-syncservice-features) which includes "BlockSoftMatch" or "BlockCloudObjectTakeoverThroughHardMatch" but also other important settings such as enable/disable "Password Hash Sync"
+Microsoft Sentinel Analytics rule "[Disabled soft- or hard match of Entra Connect sync](./queries/AADConnect-ChangedDirSyncSettings.kql)" allows to create incidents if a identity synchronization features has been modified. The old and new value (in the audit log entry) is summed integer of all [DirSync feature settings](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-syncservice-features) which includes "BlockSoftMatch" or "BlockCloudObjectTakeoverThroughHardMatch" but also other important settings such as enable/disable "Password Hash Sync"
 
 ![](./media/aadc-syncservice-acc/aadc-auditdirsyncfeature2.png)
 
 ![](./media/aadc-syncservice-acc/aadc-identityinfo.png)
 
-## Suspicious activities from Entra ID connector account
+## Suspicious activities from Entra Connector account
 Suspicious Entra ID sign-ins and audit events from AD DS connector service account can be detected by Microsoft Sentinel.
-As already described, we're using WatchLists to identify valid Entra Connect servers (based on name/IP address) and also Entra ID connector accounts (based on Entra ID ObjectId).
+As already described, we're using WatchLists to identify valid Entra Connect servers (based on name/IP address) and also Entra Connector accounts (based on Entra ID ObjectId).
 
 Assignments and activities of "Directory Synchronization" role members can be sourced from the IdentityInfo table.
-In addition, we're using the standard naming pattern (sync_*@*.onmicrosoft.com) of Entra ID connector accounts to find similar named objects. Both sources will be used in the analytics rule "[Entra ID connector accounts outside of WatchLists](./queries/AADConnectorAccount-OutsideOfWatchList.kql)" to detect any accounts which aren't whitelisted and seems to be suspicous accounts or an indicator for outdated watchlist content.
+In addition, we're using the standard naming pattern (sync_*@*.onmicrosoft.com) of Entra Connector accounts to find similar named objects. Both sources will be used in the analytics rule "[Entra Connector accounts outside of WatchLists](./queries/AADConnectorAccount-OutsideOfWatchList.kql)" to detect any accounts which aren't whitelisted and seems to be suspicous accounts or an indicator for outdated watchlist content.
 
-Our next analytics rule "[Sign-in from Entra ID connector account outside of Entra Connect Server](./queries/AADConnect-SignInsOutsideServerIP.kql)" is written to detect sign-ins outside of a named public IP addresses.
+Our next analytics rule "[Sign-in from Entra Connector account outside of Entra Connect Server](./queries/AADConnect-SignInsOutsideServerIP.kql)" is written to detect sign-ins outside of a named public IP addresses.
 We're using "AccountObject ID" from the "Service Accounts" watchlist to detect any sign-ins outside of the named IP address which is defined in the "High Value Asses" watchlist. Furthermore, we're covering all sign-ins to the "Entra Connect Endpoints" (Entra ID Sync and Entra Connect V2) to detect sign-ins that doesn't match with the WatchList.
 
 The hunting query "[Activities from Entra Connector account with enrichment of IdentityInfo](./queries/AADConnectorAccount-AADActivitiesWithEnrichedInformation.kql)" can be used for further investigation of changes which was made by the whitelisted Entra Connector account. It allows to find "take over" or synchronization to user objects with sensitive group membership or assigned AAD roles. This query is also useful to find anomaly of object changes.
 
 In addition to the custom analytics rules, the following signals or queries could be used to identify suspicious events:
 - Insights from ["BehaviourAnalytics"](https://docs.microsoft.com/en-us/azure/sentinel/identify-threats-with-entity-behavior-analytics) from Microsoft Sentinel's UEBA. This also includes events if firstpeer IP addresses or rare operations has been detected.
-- Any kind of risk events of Entra ID connector account (by Identity Protection) should be reviewed. Trigger incidents for those kind of events by using the [AADRiskyUsers](https://docs.microsoft.com/en-us/azure/azure-monitor/reference/tables/aadriskyusers) and [AADUserRiskEvents](https://docs.microsoft.com/de-de/azure/azure-monitor/reference/tables/aaduserriskevents) tables.
+- Any kind of risk events of Entra Connector account (by Identity Protection) should be reviewed. Trigger incidents for those kind of events by using the [AADRiskyUsers](https://docs.microsoft.com/en-us/azure/azure-monitor/reference/tables/aadriskyusers) and [AADUserRiskEvents](https://docs.microsoft.com/de-de/azure/azure-monitor/reference/tables/aaduserriskevents) tables.
 - Any password change and user modification to the "AAD Sync Service Account" should be also reviewed
 
-## Takeover Entra ID connector by generating Temporary access pass (TAP) as backdoor
+## Takeover Entra Connector by generating Temporary access pass (TAP) as backdoor
 
-High-privileged role administrators (such as Global Admin) could be a TAP to use Entra ID connector account with any noise or service interruption (compare to password change).
+High-privileged role administrators (such as Global Admin) could be a TAP to use Entra Connector account with any noise or service interruption (compare to password change).
 
-Analytics rule "[Added temporary access pass or changed password of Entra ID connector account](./queries/AADConnectorAccount-AddedTAPorChangedPassword.kql)" is looking for security information (of TAP) and password change event. Entra Connector accounts will be identified by IdentityInfo table (assignment to "Directory Synchronization Accounts" role) and name pattern.
+Analytics rule "[Added temporary access pass or changed password of Entra Connector account](./queries/AADConnectorAccount-AddedTAPorChangedPassword.kql)" is looking for security information (of TAP) and password change event. Entra Connector accounts will be identified by IdentityInfo table (assignment to "Directory Synchronization Accounts" role) and name pattern.
 
-## Password Spray attacks to Entra ID connector account
+## Password Spray attacks to Entra Connector account
 
 Attackers could try to gain credentials of the account by using a "Password Spray Attack".
 This attack allows also to enforce (Smart) lockout which will end in stopping Entra Connect synchronization if the source of attack and Entra Connect server are sharing the same public IP address (e.g. common outbound public IP of on-premises environment).
@@ -211,15 +212,15 @@ More information about detecting password spray attacks can be found [from this 
 ### Increase visibility by implementing detections
 
 - Implement security solution and detections from the detection part, evaluate our custom Microsoft Sentinel queries and add them to your analytics or hunting queries:
-  - "[Entra ID connector accounts outside of WatchLists](./queries/AADConnectorAccount-OutsideOfWatchList.kql)"
+  - "[Entra Connector accounts outside of WatchLists](./queries/AADConnectorAccount-OutsideOfWatchList.kql)"
     List of objects with directory role assignment to "Directory Synchronization" or naming similar to Entra Connector account which aren't stored in the WatchList. Indicator of creating Entra Connector account as backdoor.
   - "[Activities from Entra Connector account with enrichment of IdentityInfo](./queries/AADConnectorAccount-AADActivitiesWithEnrichedInformation.kql)"
     Entra ID Audit Events of Entra Connector account (defined in WatchList) will be correlated with IdentityInfo.
-  - "[Sign-in from Entra ID connector account outside of AADC Server](./queries/AADConnect-SignInsOutsideServerIP.kql)"
+  - "[Sign-in from Entra Connector account outside of AADC Server](./queries/AADConnect-SignInsOutsideServerIP.kql)"
     Successful sign-ins from valid Entra Connector account outside of whitelisted IP address from WatchList.
-  - "[Added temporary access pass or changed password of Entra ID connector account](./queries/AADConnectorAccount-AddedTAPorChangedPassword.kql)"
+  - "[Added temporary access pass or changed password of Entra Connector account](./queries/AADConnectorAccount-AddedTAPorChangedPassword.kql)"
     Activities on adding Temporary Access Pass (TAP) as authentication method for valid Entra Connector account.
-  - "[Disabled soft- or hard match of Entra ID Connect sync](./queries/AADConnect-ChangedDirSyncSettings.kql)"
+  - "[Disabled soft- or hard match of Entra Connect sync](./queries/AADConnect-ChangedDirSyncSettings.kql)"
     Change of AAD sync configuration to overwrite and take-over (Entra ID) cloud-only accounts from AADC server (on-premises)
   
 ### Secure your Entra Connect Server and Service Accounts as Tier0
@@ -259,7 +260,7 @@ Overall monitoring of changing "DirSync" feature configuration should be conside
 Include Entra Connect assets in Conditional Access Design to restrict and avoid attack surface:
 
 - As already shown, "Password Spray Attacks" on "On-Premises Directory Synchronization Service Account" allows to block synchronization from on-premises to Entra ID. This could avoid sychronization of security-related lifecycle updates (e.g. disable account of leaved employees)
-- Running Entra Connect with dedicated public IP address allows to restrict access of "Entra ID connector account" based on IP addresses in Conditional Access. This avoid to have running password spray attack from a shared IP address range with other (on-premises) resources.
+- Running Entra Connect with dedicated public IP address allows to restrict access of "Entra Connector account" based on IP addresses in Conditional Access. This avoid to have running password spray attack from a shared IP address range with other (on-premises) resources.
 - Use a dedicated CA policy that allows the sync account login from this certain IP address only:
   - Access to Entra Connect (API) endpoint ("Microsoft Azure Active Directory Connect") cannot be targeted as Cloud App. Therefore, CA policy must be target on "All Cloud Apps" for directory role members of "Directory Synchronization Accounts" and "Hybrid Identity Administrators" (if needed):
     
@@ -269,12 +270,12 @@ If authentication is allowed only from certain IP-addresses access, Conditional 
 
 ![](./media/aadc-syncservice-acc/aadc-cafailed-1.png)
 
-# Security Insights from Entra ID Connect Server
-This chapter contains information about the "Entra ID Connect" server related security monitoring activities that can be established and also insights about Entra ID Connect Health. The latter one provides Entra ID Connect monitoring and performance data to Entra ID.
+# Security Insights from Entra Connect Server
+This chapter contains information about the "Entra ID Connect" server related security monitoring activities that can be established and also insights about Entra Connect Health. The latter one provides Entra Connect monitoring and performance data to Entra ID.
 
-## Local application and system events from Entra ID Connect (Server)
+## Local application and system events from Entra Connect (Server)
 
-Information from activities inside the Entra ID Connect server is logged to Windows Event logs. Most of the Entra Connect related activities are found from the "Application log".
+Information from activities inside the Entra Connect server is logged to Windows Event logs. Most of the Entra Connect related activities are found from the "Application log".
 
 These events can be sent to Microsoft Sentinel and underlying Azure Log Analytics workspace (or 3rd party SIEM) when needed. If Microsoft Sentinel is used in the environment there are two options to send the Windows Events:
 
@@ -289,7 +290,7 @@ Both agents obviously have pros and cons but we are not focusing on the agent ca
 
 *Side note: Consider sending Entra Connect events (at minimum from the application log) to your application log management solution (this could also include Microsoft Sentinel). Entra Connect produces great operational level logs and also [exports configuration change every time change is made by ‘Entra Connect’](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-import-export-config) from version 1.5.30.0 onwards. This configuration export can be used to restore the whole service when needed.*
 
-*- Only changes made by Entra ID Connect are automatically exported.
+*- Only changes made by Entra Connect are automatically exported.
     - Any changes made by using PowerShell, the Synchronization Service Manager, or the Synchronization Rules Editor must be exported on demand as needed to maintain an up-to-date copy. Export on demand can also be used to place a copy of the settings in a secure location for disaster recovery purposes.*
 
 *- If you are using Windows Sysinternals tool ‘Sysmon’ to collect events from your Entra Connect Server these events can be sent to Log Analytics as a custom log. More information from - [How to deploy Sysmon and MMA Agent to receive logs in Azure Sentinel? | Microsoft 365 Security (m365internals.com)](https://m365internals.com/2021/05/17/how-to-deploy-sysmon-and-mma-agent-to-receive-logs-in-azure-sentinel/)*
