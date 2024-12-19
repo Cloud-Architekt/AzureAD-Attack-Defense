@@ -24,6 +24,7 @@ _Updated: December 2024 (Updated privileges on directory sync, XSPM capabilities
     - [Increase visibility by implementing detections](#increase-visibility-by-implementing-detections)
     - [Secure your Entra Connect Server and Service Accounts as Tier0](#secure-your-entra-connect-server-and-service-accounts-as-tier0)
     - [Reduce attack surface for Entra Connect resources](#reduce-attack-surface-for-entra-connect-resources)
+    - [Update on December 2024](#update-on-december-2024-1)
   - [Protect your cloud-only and privileged accounts from account take over](#protect-your-cloud-only-and-privileged-accounts-from-account-take-over)
 - [Security Insights from Entra Connect Server](#security-insights-from-entra-connect-server)
   - [Local application and system events from Entra Connect (Server)](#local-application-and-system-events-from-entra-connect-server)
@@ -271,6 +272,49 @@ More information about detecting password spray attacks can be found [from this 
 - Remove unnecessary and unused "On-Premises Directory Synchronization Service Account" or "DirSync" account (assigned Global Admin roles) which can be abused by reset password and trigger sync operations
 - Disable Seamless SSO if you haven’t a particular use case or requirement for that
 - Evaluate "Entra Connect Cloud Synchronization" as alternate solution if the [included features fit to your requirement](https://docs.microsoft.com/en-us/azure/active-directory/cloud-sync/what-is-cloud-sync#comparison-between-azure-ad-connect-and-cloud-sync). This allows to reduce risk dependencies and attack surface of Entra Connect sync components in your on-premises environment.
+
+### Update on December 2024
+Microsoft Security Exposure Management (XSPM) is a pretty new innovation in the posture management domain. It can be imagined as a combination of the next-generation vulnerability management & posture management solution that modernizes posture management in the same way XDR modernizes threat management. Where XDR (detect, investigate, and respond) provides unified threat management for workloads, the XSPM (identify and protect) provides unified exposure management for the same workloads.
+
+According to Microsoft: 'XSPM is a security solution that provides a unified view of security posture across company assets and workloads. Security Exposure Management enriches asset information with a security context that helps you to manage attack surfaces, protect critical assets, and explore and mitigate exposure risk'.
+
+Entra Connect servers are identified as critical assets in Defender XDR (confirm that in XDR configuration). Identifying critical assets helps protect your organization’s most important assets against the risk of data breaches and operational disruptions. This is also seen in the XSPM. In the following figures, we elaborate data collected by the XSPM, and how this can be beneficial in the investigation.
+
+In the first figure, Entra Connect server (AADC02.feta.fi) is shown on the attack map, and all the connections to other resources in the environment. As seen on the right side of the figure, there is interesting connection to the server from a group which is tagged as critical (can authenticate to).
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/media/aadc-syncservice-acc/XSPM-3-1.png" target="_blank"><img src="./media/aadc-syncservice-acc/XSPM-3-1.png" width="700" /></a>
+
+
+This lead us to the potential configuration error, or overprivileged permissions in the environment as seen on the figure below. Here we can see groups (HelpDeskGroup & Domain Users) expanded which shows that one user (Stefan Hansson) is member of the HelpDeskGroup and this group is member of the Domain Admin that leads to the Entra Connect server.
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/media/aadc-syncservice-acc/XSPM-4.png" target="_blank"><img src="./media/aadc-syncservice-acc/XSPM-4.png" width="700" /></a>
+
+By using XSPM, you can see the connections between resource and more easier to find possible an attack paths in the environment. In addition, XSPM leverages Threat and Vulnerability Management data (TVM) and shows TVM data on the right hand blade as seen on the figure below.
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/media/aadc-syncservice-acc/XSPM-6.png" target="_blank"><img src="./media/aadc-syncservice-acc/XSPM-6.png" width="700" /></a>
+
+The XSPM's data is available on the XDR's advanced hunting on the two tables: ExposureGraphEdges & ExposureGraphNodes. Here is an example of query that query identifies devices affected by exposures in a system and correlates their details, providing a prioritized view based on the number of exposures linked to each device.
+
+```
+let ExposureItems = (ExposureGraphEdges
+| where EdgeLabel == "affecting"
+| mv-expand TargetNodeCategories
+| where TargetNodeCategories == "device"
+| join kind=inner ExposureGraphNodes on $left.TargetNodeId == $right.NodeId
+| mv-expand EntityIds
+| extend EntityType = tostring(EntityIds.type)
+| where EntityType == "DeviceInventoryId"
+| extend EntityID = tostring(EntityIds.id)
+| summarize Item = make_set(SourceNodeName) by EntityID
+| extend Case = array_length(Item));
+DeviceInfo
+| where ExposureLevel in ("Medium", "High")
+| summarize arg_max(Timestamp, *) by DeviceId, DeviceName 
+| join kind=inner ExposureItems on $left.DeviceId ==  $right.EntityID
+| project Timestamp, DeviceId, DeviceName, OSPlatform, ExposureLevel, Case, Item
+| order by Case desc 
+```
+
 
 ## Protect your cloud-only and privileged accounts from account take over
 
