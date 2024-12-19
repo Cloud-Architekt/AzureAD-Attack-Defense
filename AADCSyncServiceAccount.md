@@ -241,12 +241,12 @@ More information about detecting password spray attacks can be found [from this 
     List of objects with directory role assignment to "Directory Synchronization" or naming similar to Entra Connector account which aren't stored in the WatchList. Indicator of creating Entra Connector account as backdoor.
   - "[Activities from Entra Connector account with enrichment of IdentityInfo](./queries/AADConnectorAccount-AADActivitiesWithEnrichedInformation.kql)"
     Entra ID Audit Events of Entra Connector account (defined in WatchList) will be correlated with IdentityInfo.
-  - "[Sign-in from Entra Connector account outside of AADC Server](./queries/AADConnect-SignInsOutsideServerIP.kql)"
+  - "[Sign-in from Entra Connector account outside of the Entra Connec Server](./queries/AADConnect-SignInsOutsideServerIP.kql)"
     Successful sign-ins from valid Entra Connector account outside of whitelisted IP address from WatchList.
   - "[Added temporary access pass or changed password of Entra Connector account](./queries/AADConnectorAccount-AddedTAPorChangedPassword.kql)"
     Activities on adding Temporary Access Pass (TAP) as authentication method for valid Entra Connector account.
   - "[Disabled soft- or hard match of Entra Connect sync](./queries/AADConnect-ChangedDirSyncSettings.kql)"
-    Change of AAD sync configuration to overwrite and take-over (Entra ID) cloud-only accounts from AADC server (on-premises)
+    Change of Entra Connect sync configuration to overwrite and take-over (Entra ID) cloud-only accounts from Entra Connect server (on-premises)
   
 ### Secure your Entra Connect Server and Service Accounts as Tier0
 
@@ -258,7 +258,7 @@ More information about detecting password spray attacks can be found [from this 
   
   "Suppose there is a malicious on-premises AD administrator with limited access to Customer’s on-premises AD but has Reset-Password permission to the AD DS account. The malicious administrator can reset the password of the AD DS account to a known password value. This in turn allows the malicious administrator to gain unauthorized, privileged access to the Customer ’s on-premises AD"
         
-  ![](./media/aadc-syncservice-acc/aadc-improveperm.png)
+  <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/media/aadc-syncservice-acc/aadc-improveperm.png" target="_blank"><img src="./media/aadc-syncservice-acc/aadc-improveperm.png" width="600" /></a>
         
 - Rotate credentials of all non-managed service accounts regularly
 - Limit your scope on synchronizing AD objects to Entra ID (exclude Tier0 assets incl. Entra Connect related resources)
@@ -324,7 +324,7 @@ Both agents obviously have pros and cons but we are not focusing on the agent ca
 
 Entra Connect Health provides agent provides health information from the service and sends that information to Entra ID. The information is available in the dedicated Entra Connect Health blade in the Entra ID portal.
 
-![](./media/aadc-syncservice-acc/aadc-connecthealth.png)
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/media/aadc-syncservice-acc/aadc-connecthealth.png" target="_blank"><img src="./media/aadc-syncservice-acc/aadc-connecthealth.png" width="600" /></a>
 
 If the attacker wants to hide health events from the Entra Connect server the person might want to delete the servers from the portal. When deleted, there isn’t any event from the actual deletion process found from the Entra ID audit logs.
 
@@ -338,6 +338,6 @@ The event from the deletion can be found from Microsoft Defender for Cloud Apps 
 
 * [AAD Internals (o365blog.com)](https://o365blog.com/aadinternals/#set-aadintpasswordhashsyncenabled-a)
 
-* [HOWTO: Hunt for abuse of Entra ID Connect’s AD Connector account - The things that are better left unspoken (dirteam.com)](https://dirteam.com/sander/2021/03/04/howto-hunt-for-abuse-of-azure-ad-connects-ad-connector-account/)
+* [HOWTO: Hunt for abuse of Entra Connect’s AD Connector account - The things that are better left unspoken (dirteam.com)](https://dirteam.com/sander/2021/03/04/howto-hunt-for-abuse-of-azure-ad-connects-ad-connector-account/)
 
 * [Detecting Microsoft 365 and Azure Active Directory Backdoors | Mandiant](https://www.mandiant.com/resources/detecting-microsoft-365-azure-active-directory-backdoors)
