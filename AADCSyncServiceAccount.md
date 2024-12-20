@@ -275,10 +275,28 @@ More information about detecting password spray attacks can be found [from this 
 
 ## Protect your cloud-only and privileged accounts from account take over
 
-Disable "Soft match" and "Hard match" (for CloudOnly Accounts) by using "[Set-MsolDirSyncFeature](https://docs.microsoft.com/en-us/powershell/module/msonline/set-msoldirsyncfeature?view=azureadps-1.0)" cmdlets:
+Disable "Soft match" and "Hard match" (for CloudOnly Accounts) by using "[Update-MgDirectoryOnPremiseSynchronization][(https://docs.microsoft.com/en-us/powershell/module/msonline/set-msoldirsyncfeature?view=azureadps-1.0](https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.identity.directorymanagement/update-mgdirectoryonpremisesynchronization?view=graph-powershell-1.0))" cmdlets:
 
-- Set-MsolDirSyncFeature -Feature BlockCloudObjectTakeoverThroughHardMatch -Enable $true
-- Set-MsolDirSyncFeature -Feature BlockSoftMatch -Enable $true
+To connect to MgGraph endpoint with the correct scope:
+
+```
+Connect-MgGraph -Scopes "OnPremDirectorySynchronization.Read.All"
+```
+
+Update the settings
+```
+Connect-MgGraph -Scopes "OnPremDirectorySynchronization.ReadWrite.All"
+
+$DirectorySync = Get-MgDirectoryOnPremiseSynchronization
+$DirectorySync.id
+
+$SoftBlock = @{ BlockSoftMatchEnabled = "false" }
+$BlockCloudTakeOver = @{ BlockCloudObjectTakeoverThroughHardMatchEnabled = "true" }
+
+Update-MgDirectoryOnPremiseSynchronization -Features $SoftBlock -OnPremisesDirectorySynchronizationId $DirectorySync.Id
+Update-MgDirectoryOnPremiseSynchronization -Features $BlockCloudTakeOver -OnPremisesDirectorySynchronizationId $DirectorySync.Id
+```
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/media/aadc-syncservice-acc/Entra-Sync-blocks.png" target="_blank"><img src="./media/aadc-syncservice-acc/Entra-Sync-blocks.png" width="900" /></a>
 
 Monitor any changes to these feature configurations, as we have shown in the detection section.
 Overall monitoring of changing "DirSync" feature configuration should be considered to see changes in other areas as well (such as disable password hash sync).
