@@ -24,8 +24,8 @@ _Updated: December 2024 (Updated privileges on directory sync, XSPM capabilities
     - [Increase visibility by implementing detections](#increase-visibility-by-implementing-detections)
     - [Secure your Entra Connect Server and Service Accounts as Tier0](#secure-your-entra-connect-server-and-service-accounts-as-tier0)
     - [Reduce attack surface for Entra Connect resources](#reduce-attack-surface-for-entra-connect-resources)
-    - [Update on December 2024 - Exposure Management](#update-on-december-2024---exposure-management)
   - [Protect your cloud-only and privileged accounts from account take over](#protect-your-cloud-only-and-privileged-accounts-from-account-take-over)
+    - [Update on December 2024 - Exposure Management](#update-on-december-2024---exposure-management)
 - [Security Insights from Entra Connect Server](#security-insights-from-entra-connect-server)
   - [Local application and system events from Entra Connect (Server)](#local-application-and-system-events-from-entra-connect-server)
   - [Removing AAD Sync Server(s) from Entra Connect Health](#removing-aad-sync-servers-from-entra-connect-health)
@@ -273,6 +273,29 @@ More information about detecting password spray attacks can be found [from this 
 - Disable Seamless SSO if you haven’t a particular use case or requirement for that
 - Evaluate "Entra Connect Cloud Synchronization" as alternate solution if the [included features fit to your requirement](https://docs.microsoft.com/en-us/azure/active-directory/cloud-sync/what-is-cloud-sync#comparison-between-azure-ad-connect-and-cloud-sync). This allows to reduce risk dependencies and attack surface of Entra Connect sync components in your on-premises environment.
 
+## Protect your cloud-only and privileged accounts from account take over
+
+Disable "Soft match" and "Hard match" (for CloudOnly Accounts) by using "[Set-MsolDirSyncFeature](https://docs.microsoft.com/en-us/powershell/module/msonline/set-msoldirsyncfeature?view=azureadps-1.0)" cmdlets:
+
+- Set-MsolDirSyncFeature -Feature BlockCloudObjectTakeoverThroughHardMatch -Enable $true
+- Set-MsolDirSyncFeature -Feature BlockSoftMatch -Enable $true
+
+Monitor any changes to these feature configurations, as we have shown in the detection section.
+Overall monitoring of changing "DirSync" feature configuration should be considered to see changes in other areas as well (such as disable password hash sync).
+
+Include Entra Connect assets in Conditional Access Design to restrict and avoid attack surface:
+
+- As already shown, "Password Spray Attacks" on "On-Premises Directory Synchronization Service Account" allows to block synchronization from on-premises to Entra ID. This could avoid sychronization of security-related lifecycle updates (e.g. disable account of leaved employees)
+- Running Entra Connect with dedicated public IP address allows to restrict access of "Entra Connector account" based on IP addresses in Conditional Access. This avoid to have running password spray attack from a shared IP address range with other (on-premises) resources.
+- Use a dedicated CA policy that allows the sync account login from this certain IP address only:
+  - Access to Entra Connect (API) endpoint ("Microsoft Azure Active Directory Connect") cannot be targeted as Cloud App. Therefore, CA policy must be target on "All Cloud Apps" for directory role members of "Directory Synchronization Accounts" and "Hybrid Identity Administrators" (if needed):
+    
+    ![](./media/aadc-syncservice-acc/aadc-capolicy.png)
+    
+If authentication is allowed only from certain IP-addresses access, Conditional Access will block the authentication requests. We often see that the "Entra Connect service account" is just excluded from the policies but we would rather recommend creating a separate policy for the service accounts as mentioned above.
+
+![](./media/aadc-syncservice-acc/aadc-cafailed-1.png)
+
 ### Update on December 2024 - Exposure Management
 Microsoft Security Exposure Management (XSPM) is a pretty new innovation in the posture management domain. It can be imagined as a combination of the next-generation vulnerability management & posture management solution that modernizes posture management in the same way XDR modernizes threat management. Where XDR (detect, investigate, and respond) provides unified threat management for workloads, the XSPM (identify and protect) provides unified exposure management for the same workloads.
 
@@ -314,30 +337,6 @@ DeviceInfo
 | project Timestamp, DeviceId, DeviceName, OSPlatform, ExposureLevel, Case, Item
 | order by Case desc 
 ```
-
-
-## Protect your cloud-only and privileged accounts from account take over
-
-Disable "Soft match" and "Hard match" (for CloudOnly Accounts) by using "[Set-MsolDirSyncFeature](https://docs.microsoft.com/en-us/powershell/module/msonline/set-msoldirsyncfeature?view=azureadps-1.0)" cmdlets:
-
-- Set-MsolDirSyncFeature -Feature BlockCloudObjectTakeoverThroughHardMatch -Enable $true
-- Set-MsolDirSyncFeature -Feature BlockSoftMatch -Enable $true
-
-Monitor any changes to these feature configurations, as we have shown in the detection section.
-Overall monitoring of changing "DirSync" feature configuration should be considered to see changes in other areas as well (such as disable password hash sync).
-
-Include Entra Connect assets in Conditional Access Design to restrict and avoid attack surface:
-
-- As already shown, "Password Spray Attacks" on "On-Premises Directory Synchronization Service Account" allows to block synchronization from on-premises to Entra ID. This could avoid sychronization of security-related lifecycle updates (e.g. disable account of leaved employees)
-- Running Entra Connect with dedicated public IP address allows to restrict access of "Entra Connector account" based on IP addresses in Conditional Access. This avoid to have running password spray attack from a shared IP address range with other (on-premises) resources.
-- Use a dedicated CA policy that allows the sync account login from this certain IP address only:
-  - Access to Entra Connect (API) endpoint ("Microsoft Azure Active Directory Connect") cannot be targeted as Cloud App. Therefore, CA policy must be target on "All Cloud Apps" for directory role members of "Directory Synchronization Accounts" and "Hybrid Identity Administrators" (if needed):
-    
-    ![](./media/aadc-syncservice-acc/aadc-capolicy.png)
-    
-If authentication is allowed only from certain IP-addresses access, Conditional Access will block the authentication requests. We often see that the "Entra Connect service account" is just excluded from the policies but we would rather recommend creating a separate policy for the service accounts as mentioned above.
-
-![](./media/aadc-syncservice-acc/aadc-cafailed-1.png)
 
 # Security Insights from Entra Connect Server
 This chapter contains information about the "Entra ID Connect" server related security monitoring activities that can be established and also insights about Entra Connect Health. The latter one provides Entra Connect monitoring and performance data to Entra ID.
