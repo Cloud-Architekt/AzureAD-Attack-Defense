@@ -275,7 +275,7 @@ More information about detecting password spray attacks can be found [from this 
 
 ## Protect your cloud-only and privileged accounts from account take over
 
-Disable "Soft match" and "Hard match" (for CloudOnly Accounts) by using "[Update-MgDirectoryOnPremiseSynchronization][(https://docs.microsoft.com/en-us/powershell/module/msonline/set-msoldirsyncfeature?view=azureadps-1.0](https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.identity.directorymanagement/update-mgdirectoryonpremisesynchronization?view=graph-powershell-1.0))" cmdlets:
+Disable "Soft match" and "Hard match" (for CloudOnly Accounts) by using "[Update-MgDirectoryOnPremiseSynchronization](https://docs.microsoft.com/en-us/powershell/module/msonline/set-msoldirsyncfeature?view=azureadps-1.0](https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.identity.directorymanagement/update-mgdirectoryonpremisesynchronization?view=graph-powershell-1.0))" cmdlets:
 
 To connect to MgGraph endpoint with the correct scope:
 
