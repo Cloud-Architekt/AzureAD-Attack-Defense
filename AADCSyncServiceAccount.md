@@ -2,20 +2,23 @@
 
 _Author: Sami Lamppu and Thomas Naunheim_
 _Created: March 2022_
-_Updated: December 2024 (Updated privileges on directory sync, XSPM capabilities, MDI sensor for Connect and product name updates )_
+_Updated: December 2024 [Updated privileges on directory sync](#removed-privileges-and-security-hardening-by-microsoft-in-2024), [XSPM capabilities](#identified-attack-paths-to-connect-server-by-exposure-management), [MDI sensor for Connect and product name updates](#defender-for-identity-detection-on-unusual-behavior-and-events)_
 
 - [Abuse of Microsoft Entra Connect Sync Service Account](#abuse-of-microsoft-entra-connect-sync-service-account)
 - [Introduction](#introduction)
   - [Architecture and Service Accounts](#architecture-and-service-accounts)
-    - [Update on December 2024](#update-on-december-2024)
+    - [Removed privileges and security hardening by Microsoft in 2024](#removed-privileges-and-security-hardening-by-microsoft-in-2024)
 - [Attack scenarios](#attack-scenarios)
   - [MITRE ATT\&CK Framework](#mitre-attck-framework)
     - [Tactics, Techniques \& Procedures (TTPs) of the named attack scenarios](#tactics-techniques--procedures-ttps-of-the-named-attack-scenarios)
     - [TTP on abusing Entra Connect Sync Service Account](#ttp-on-abusing-entra-connect-sync-service-account)
 - [Detections](#detections)
-  - [Threat signals by using offensive tools on Entra Connect servers](#threat-signals-by-using-offensive-tools-on-entra-connect-servers)
+  - [Defender for Endpoint signals by using offensive tools on Entra Connect servers](#defender-for-endpoint-signals-by-using-offensive-tools-on-entra-connect-servers)
     - [Dumping credentials with AADInternals](#dumping-credentials-with-aadinternals)
     - [Updating credentials with AADInternals](#updating-credentials-with-aadinternals)
+  - [Defender for Identity detection on unusual behavior and events](#defender-for-identity-detection-on-unusual-behavior-and-events)
+    - [Identity Security Posture Management (part of Microsoft Secure Score)](#identity-security-posture-management-part-of-microsoft-secure-score)
+    - [Threat detections](#threat-detections)
   - [Changes of Entra Connect sync features](#changes-of-entra-connect-sync-features)
   - [Suspicious activities from Entra Connector account](#suspicious-activities-from-entra-connector-account)
   - [Takeover Entra Connector by generating Temporary access pass (TAP) as backdoor](#takeover-entra-connector-by-generating-temporary-access-pass-tap-as-backdoor)
@@ -25,7 +28,7 @@ _Updated: December 2024 (Updated privileges on directory sync, XSPM capabilities
     - [Secure your Entra Connect Server and Service Accounts as Tier0](#secure-your-entra-connect-server-and-service-accounts-as-tier0)
     - [Reduce attack surface for Entra Connect resources](#reduce-attack-surface-for-entra-connect-resources)
   - [Protect your cloud-only and privileged accounts from account take over](#protect-your-cloud-only-and-privileged-accounts-from-account-take-over)
-    - [Update on December 2024 - Exposure Management](#update-on-december-2024---exposure-management)
+    - [Identified Attack paths to Connect server by Exposure Management](#identified-attack-paths-to-connect-server-by-exposure-management)
 - [Security Insights from Entra Connect Server](#security-insights-from-entra-connect-server)
   - [Local application and system events from Entra Connect (Server)](#local-application-and-system-events-from-entra-connect-server)
   - [Removing AAD Sync Server(s) from Entra Connect Health](#removing-aad-sync-servers-from-entra-connect-health)
@@ -54,8 +57,8 @@ Account will be created for each Entra Connect Server and is visible with displa
 
 More details about Entra Connect [accounts and permissions](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/reference-connect-accounts-permissions) are described in Microsoft Docs articles.
 
-### Update on December 2024
-Microsoft announced update on Microsoft Entra Connect Sync and Microsoft Entra Cloud Sync directory synchronization accounts (DSA) in August 2024. 
+### Removed privileges and security hardening by Microsoft in 2024
+[Update on December 2024]: Microsoft announced update on Microsoft Entra Connect Sync and Microsoft Entra Cloud Sync directory synchronization accounts (DSA) in August 2024. 
 
 *As part of ongoing security hardening, Microsoft removes unused permissions from the privileged Directory Synchronization Accounts role. This role is exclusively used by Microsoft Entra Connect Sync, and Microsoft Entra Cloud Sync, to synchronize Active Directory objects with Microsoft Entra ID. There's no action required by customers to benefit from this hardening.*
 
@@ -74,7 +77,7 @@ Before the update, the DSA account had a high privileged permissions to:
   - Ability to manage service principals
 
 Current permissions are listed in the [Entra built-in roles documentation](https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference#directory-synchronization-accounts)
-
+In addition, a new directory role named "[On Premises Directory Sync Account](https://www.azadvertizer.net/azentraidroles/a92aed5d-d78a-4d16-b381-09adb37eb3b0.html)" has been introduced which is not currently in use.
 More details about the announcement on [Entra what's new August 2024](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#august-2024).
 
 
@@ -165,7 +168,7 @@ These Watchlists are an important part and pre-requisite for the custom analytic
 UEBA tables is another feature which will be included in one of the queries.
 We're using **[IdentityInfo](https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/what-s-new-identityinfo-table-is-now-in-public-preview/ba-p/2571037)** table to identify user accounts with directory role assignment to "Hybrid Identity Administrator". Related Entra Connector accounts can be also identified by directory role assignment ("Directory Synchronization Accounts") which is also stored in "IdentityInfo".
 
-## Threat signals by using offensive tools on Entra Connect servers
+## Defender for Endpoint signals by using offensive tools on Entra Connect servers
 
 If Microsoft Defender for Endpoint (MDE) is installed to Entra Connect server, EDR can detect suspicious activities from the instance. For example, when [AADInternals](https://o365blog.com/aadinternals/) is used to dump Entra Connect credentials the activity is detected by MDE.
 
@@ -179,6 +182,29 @@ MDE will be able to detect access or updates to credentials of ADSync or Microsf
 ![](./media/aadc-syncservice-acc/aadc-updatesycndetection.png)
 
 *Side note: If you are not protecting Entra Connect server(s) by MDE, activities of tools (such as AADInternals) can be detected based on a event in Windows Event logs which can be used for custom detections.*. *More information about detection options of credentials dump are described in the blog post "[Shooting Up: On-Prem to Cloud" by imp hash.](https://imphash.medium.com/shooting-up-on-prem-to-cloud-detecting-aadconnect-creds-dump-422b21128729)*
+
+## Defender for Identity detection on unusual behavior and events
+Update on December 2024: Microsoft has been [introduced in August 2024](https://techcommunity.microsoft.com/blog/microsoftthreatprotectionblog/protect-and-detect-microsoft-defender-for-identity-expands-to-entra-connect-serv/4226165) various identity posture recommendations and threat detections for Microsoft Entra Connect.
+Signals and posture data will be collected by a sensor for Connector servers which has to be [installed](https://learn.microsoft.com/en-us/defender-for-identity/deploy/active-directory-federation-services) with [configured auditing of the required events](https://learn.microsoft.com/en-us/defender-for-identity/deploy/configure-windows-event-collection#configure-auditing-on-microsoft-entra-connect).
+
+A list of the supported detections and signals are documented on the "[What's new in MDI]"(https://learn.microsoft.com/en-us/defender-for-identity/whats-new#august-2024) docs page. This includes:
+
+### Identity Security Posture Management (part of Microsoft Secure Score)
+
+- Rotate password for Microsoft Entra Connect connector account
+- Remove unnecessary replication permissions for Microsoft Entra Connect Account
+- Change password for Microsoft Entra seamless SSO account configuration
+
+![](./media/aadc-syncservice-acc/aadc-mdialert.png)
+_Regular security operations and hardening tasks for Entra Connect servers will be shown directly in Microsoft Secure Score and should help identity admins to keep the sensitive sync service secure._
+
+### Threat detections
+- Suspicious Interactive Logon to the Microsoft Entra Connect Server
+- User Password Reset by Microsoft Entra Connect Account
+- Suspicious writeback by Microsoft Entra Connect on a sensitive user
+
+![](./media/aadc-syncservice-acc/aadc-mdiposture.png)
+_Unusual interactive logons to Entra Connect servers will be detected by MDI and shown in the Unified XDR portal. This can be noisy in some cases if dedicated hybrid identity admins (authorized accounts to manage local Entra Connect instances and configurations) will be used. Implementation of a playbook to automate verification of authorized actors or allowlisting by [exclusion in MDI detection settings](https://learn.microsoft.com/en-us/defender-for-identity/exclusions#how-to-add-detection-exclusions) will be an option to reduce false positives._
 
 ## Changes of Entra Connect sync features
 
@@ -272,6 +298,8 @@ More information about detecting password spray attacks can be found [from this 
 - Remove unnecessary and unused "On-Premises Directory Synchronization Service Account" or "DirSync" account (assigned Global Admin roles) which can be abused by reset password and trigger sync operations
 - Disable Seamless SSO if you haven’t a particular use case or requirement for that
 - Evaluate "Entra Connect Cloud Synchronization" as alternate solution if the [included features fit to your requirement](https://docs.microsoft.com/en-us/azure/active-directory/cloud-sync/what-is-cloud-sync#comparison-between-azure-ad-connect-and-cloud-sync). This allows to reduce risk dependencies and attack surface of Entra Connect sync components in your on-premises environment.
+  - Cloud Sync offers a lightweight agent deployment but also the capability for multiple active agent which increase resilience for your hybrid identity infrastructure.
+  - A detailed list of limitations of cloud sync in [comparison to Entra Connect sync is documented in Microsoft Learn](https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/what-is-cloud-sync#comparison-between-microsoft-entra-connect-and-cloud-sync).
 
 ## Protect your cloud-only and privileged accounts from account take over
 
@@ -314,8 +342,8 @@ If authentication is allowed only from certain IP-addresses access, Conditional 
 
 ![](./media/aadc-syncservice-acc/aadc-cafailed-1.png)
 
-### Update on December 2024 - Exposure Management
-Microsoft Security Exposure Management (XSPM) is a pretty new innovation in the posture management domain. It can be imagined as a combination of the next-generation vulnerability management & posture management solution that modernizes posture management in the same way XDR modernizes threat management. Where XDR (detect, investigate, and respond) provides unified threat management for workloads, the XSPM (identify and protect) provides unified exposure management for the same workloads.
+### Identified Attack paths to Connect server by Exposure Management
+Update on December 2024: Microsoft Security Exposure Management (XSPM) is a pretty new innovation in the posture management domain. It can be imagined as a combination of the next-generation vulnerability management & posture management solution that modernizes posture management in the same way XDR modernizes threat management. Where XDR (detect, investigate, and respond) provides unified threat management for workloads, the XSPM (identify and protect) provides unified exposure management for the same workloads.
 
 According to Microsoft: 'XSPM is a security solution that provides a unified view of security posture across company assets and workloads. Security Exposure Management enriches asset information with a security context that helps you to manage attack surfaces, protect critical assets, and explore and mitigate exposure risk'.
 
