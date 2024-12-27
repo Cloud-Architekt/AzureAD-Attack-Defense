@@ -23,8 +23,8 @@
                         "Name": "allowedToUseSSPR",
                         "DisplayName": "Enabled Self service password reset for administrators",
                         "CheckId": "EIDSCA.AP01",
-                        "SkipCondition": "",
-                        "SkipReason": "",
+                        "SkipCondition": "$SettingsApiAvailable -notcontains 'allowedToUseSSPR'",
+                        "SkipReason": "Settings value is not available. This may be due to the change that this API is no longer available for recent created tenants (NotLicensedEntraIDP1).",
                         "CurrentValue": "allowedToUseSSPR",
                         "DefaultValue": "true",
                         "RecommendedValue": "false",
@@ -115,7 +115,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Indicates whether users can sign up for email based subscriptions.",
-                        "HowToFix": ""
+                        "HowToFix": "Update-MgPolicyAuthorizationPolicy -AllowedToSignupEmailBasedSubscriptions $false"
                     },
                     {
                         "Name": "allowEmailVerifiedUsersToJoinOrganization",
@@ -250,7 +250,7 @@
                         ],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/UserSettings",
                         "Description": "Controls if non-admin users may register custom-developed applications for use within this directory.",
-                        "HowToFix": ""
+                        "HowToFix": "Update-MgPolicyAuthorizationPolicy -BodyParameter @{DefaultUserRolePermissions = @{AllowedToCreateApps = $false}}"
                     },
                     {
                         "Name": "allowedToCreateSecurityGroups",
@@ -270,7 +270,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/General",
                         "Description": "Defines default permission of user to create security groups in Azure portals, API or PowerShell. Global administrators and user administrators can still create security groups.",
-                        "HowToFix": ""
+                        "HowToFix": "Update-MgPolicyAuthorizationPolicy -BodyParameter @{DefaultUserRolePermissions = @{AllowedToCreateSecurityGroups = $false}}"
                     },
                     {
                         "Name": "allowedToCreateTenants",
@@ -291,7 +291,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/UserSettings",
                         "Description": "Restricts the creation of Entra ID (Azure AD) tenants to the global administrator or tenant creator roles. Anyone who creates a tenant will become the global administrator for that tenant.",
-                        "HowToFix": ""
+                        "HowToFix": "Update-MgPolicyAuthorizationPolicy -BodyParameter @{DefaultUserRolePermissions = @{AllowedToCreateTenants = $false}}"
                     },
                     {
                         "Name": "allowedToReadBitlockerKeysForOwnedDevice",
@@ -311,7 +311,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Controls default access for members (end-user) to read BitLocker Keys of company-owned devices (device assigned to user).",
-                        "HowToFix": ""
+                        "HowToFix": "Update-MgPolicyAuthorizationPolicy -BodyParameter @{DefaultUserRolePermissions = @{AllowedToReadBitlockerKeysForOwnedDevice = $false}}"
                     },
                     {
                         "Name": "allowedToReadOtherUsers",
@@ -331,7 +331,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Prevents all non-admins from reading user information from the directory. This flag doesn't prevent reading user information in other Microsoft services like Exchange Online.",
-                        "HowToFix": ""
+                        "HowToFix": "Update-MgPolicyAuthorizationPolicy -BodyParameter @{DefaultUserRolePermissions = @{AllowedToReadOtherUsers = $false}}"
                     }
                 ]
             },
@@ -476,7 +476,7 @@
                         "DisplayName": "Password Protection - Mode",
                         "CheckId": "EIDSCA.PR01",
                         "SkipCondition": "$SettingsApiAvailable -notcontains 'BannedPasswordCheckOnPremisesMode'",
-                        "SkipReason": "Settings value is not available. This may be due to the change that this API is no longer available for recent created tenants.",
+                        "SkipReason": "Settings value is not available. This may be due to the change that this API is no longer available for recent created tenants (NotLicensedEntraIDP1).",
                         "CurrentValue": "values | where-object name -eq 'BannedPasswordCheckOnPremisesMode' | select-object -expand value",
                         "DefaultValue": "Audit",
                         "RecommendedValue": "Enforce",
@@ -575,8 +575,8 @@
                         "Name": "LockoutDurationInSeconds",
                         "DisplayName": "Smart Lockout - Lockout duration in seconds",
                         "CheckId": "EIDSCA.PR05",
-                        "SkipCondition": "",
-                        "SkipReason": "",
+                        "SkipCondition": "$SettingsApiAvailable -notcontains 'LockoutDurationInSeconds'",
+                        "SkipReason": "Settings value is not available. This may be due to the change that this API is no longer available for recent created tenants (NotLicensedEntraIDP1).",
                         "CurrentValue": "values | where-object name -eq 'LockoutDurationInSeconds' | select-object -expand value",
                         "DefaultValue": "60",
                         "RecommendedValue": ">=60",
@@ -600,8 +600,8 @@
                         "Name": "LockoutThreshold",
                         "DisplayName": "Smart Lockout - Lockout threshold",
                         "CheckId": "EIDSCA.PR06",
-                        "SkipCondition": "",
-                        "SkipReason": "",
+                        "SkipCondition": "$SettingsApiAvailable -notcontains 'LockoutThreshold'",
+                        "SkipReason": "Settings value is not available. This may be due to the change that this API is no longer available for recent created tenants (NotLicensedEntraIDP1).",
                         "CurrentValue": "values | where-object name -eq 'LockoutThreshold' | select-object -expand value",
                         "DefaultValue": "10",
                         "RecommendedValue": "10",
