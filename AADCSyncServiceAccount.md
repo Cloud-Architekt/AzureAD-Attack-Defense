@@ -58,7 +58,7 @@ Account will be created for each Entra Connect Server and is visible with displa
 More details about Entra Connect [accounts and permissions](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/reference-connect-accounts-permissions) are described in Microsoft Docs articles.
 
 ### Removed privileges and security hardening by Microsoft in 2024
-[Update on December 2024]: Microsoft announced update on Microsoft Entra Connect Sync and Microsoft Entra Cloud Sync directory synchronization accounts (DSA) in August 2024. 
+**Update on December 2024:** Microsoft announced update on Microsoft Entra Connect Sync and Microsoft Entra Cloud Sync directory synchronization accounts (DSA) in August 2024. 
 
 *As part of ongoing security hardening, Microsoft removes unused permissions from the privileged Directory Synchronization Accounts role. This role is exclusively used by Microsoft Entra Connect Sync, and Microsoft Entra Cloud Sync, to synchronize Active Directory objects with Microsoft Entra ID. There's no action required by customers to benefit from this hardening.*
 
@@ -184,10 +184,10 @@ MDE will be able to detect access or updates to credentials of ADSync or Microsf
 *Side note: If you are not protecting Entra Connect server(s) by MDE, activities of tools (such as AADInternals) can be detected based on a event in Windows Event logs which can be used for custom detections.*. *More information about detection options of credentials dump are described in the blog post "[Shooting Up: On-Prem to Cloud" by imp hash.](https://imphash.medium.com/shooting-up-on-prem-to-cloud-detecting-aadconnect-creds-dump-422b21128729)*
 
 ## Defender for Identity detection on unusual behavior and events
-Update on December 2024: Microsoft has been [introduced in August 2024](https://techcommunity.microsoft.com/blog/microsoftthreatprotectionblog/protect-and-detect-microsoft-defender-for-identity-expands-to-entra-connect-serv/4226165) various identity posture recommendations and threat detections for Microsoft Entra Connect.
+**Update on December 2024:** Microsoft [introduced in August 2024](https://techcommunity.microsoft.com/blog/microsoftthreatprotectionblog/protect-and-detect-microsoft-defender-for-identity-expands-to-entra-connect-serv/4226165) various identity posture recommendations and threat detections for Microsoft Entra Connect.
 Signals and posture data will be collected by a sensor for Connector servers which has to be [installed](https://learn.microsoft.com/en-us/defender-for-identity/deploy/active-directory-federation-services) with [configured auditing of the required events](https://learn.microsoft.com/en-us/defender-for-identity/deploy/configure-windows-event-collection#configure-auditing-on-microsoft-entra-connect).
 
-A list of the supported detections and signals are documented on the "[What's new in MDI]"(https://learn.microsoft.com/en-us/defender-for-identity/whats-new#august-2024) docs page. This includes:
+A list of the supported detections and signals are documented on the [What's new in MDI](https://learn.microsoft.com/en-us/defender-for-identity/whats-new#august-2024) docs page. This includes:
 
 ### Identity Security Posture Management (part of Microsoft Secure Score)
 
@@ -343,7 +343,7 @@ If authentication is allowed only from certain IP-addresses access, Conditional 
 ![](./media/aadc-syncservice-acc/aadc-cafailed-1.png)
 
 ### Identified Attack paths to Connect server by Exposure Management
-Update on December 2024: Microsoft Security Exposure Management (XSPM) is a pretty new innovation in the posture management domain. It can be imagined as a combination of the next-generation vulnerability management & posture management solution that modernizes posture management in the same way XDR modernizes threat management. Where XDR (detect, investigate, and respond) provides unified threat management for workloads, the XSPM (identify and protect) provides unified exposure management for the same workloads.
+**Update on December 2024:** Microsoft Security Exposure Management (XSPM) is a pretty new innovation in the posture management domain. It can be imagined as a combination of the next-generation vulnerability management & posture management solution that modernizes posture management in the same way XDR modernizes threat management. Where XDR (detect, investigate, and respond) provides unified threat management for workloads, the XSPM (identify and protect) provides unified exposure management for the same workloads.
 
 According to Microsoft: 'XSPM is a security solution that provides a unified view of security posture across company assets and workloads. Security Exposure Management enriches asset information with a security context that helps you to manage attack surfaces, protect critical assets, and explore and mitigate exposure risk'.
 
