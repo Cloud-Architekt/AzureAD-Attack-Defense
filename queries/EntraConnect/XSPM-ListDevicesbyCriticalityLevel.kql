@@ -1,0 +1,23 @@
+// Step 1: Identify servers by criticality levels (Updated logic with expanded coverage)
+let CriticalityServers = ExposureGraphNodes
+| mv-expand CriticalityData = parse_json(NodeProperties)["rawData"]["criticalityLevel"]["ruleNames"]
+| extend CriticalityLevel = tostring(parse_json(NodeProperties)["rawData"]["criticalityLevel"]["criticalityLevel"])
+| extend RuleName = tostring(CriticalityData)
+| project-reorder  NodeId, NodeName, CriticalityLevel, RuleName;
+// Step 2: Identify accounts or groups with "authenticate as" permissions
+let AuthenticatedEntities = ExposureGraphEdges
+| where EdgeLabel == "can authenticate to" // Adjusted EdgeLabel to match "authenticate as" semantics
+| where SourceNodeLabel in ("user", "group") // Filtering by SourceNodeLabel for accounts/groups
+| project SourceNodeId, SourceNodeName, TargetNodeId // Capturing relevant fields
+| join kind=inner ExposureGraphNodes on $left.SourceNodeId == $right.NodeId
+| project TargetNodeId, SourceNodeName, SourceNodeId // Linking authenticated accounts/groups to targets
+| summarize AccountsOrGroups = make_set(SourceNodeName) by TargetNodeId; // Group accounts/groups by target device
+// Step 3: Correlate servers with authenticated accounts or groups
+CriticalityServers
+| join kind=inner (
+    AuthenticatedEntities
+    | project TargetNodeId, AccountsOrGroups
+) on $left.NodeId == $right.TargetNodeId // Correcting join keys for correlation
+| where CriticalityLevel == '0' or CriticalityLevel == '1'
+| project Timestamp = now(), ServerId = NodeId, ServerName = NodeName, CriticalityLevel, RuleName, AccountsOrGroups
+| order by ServerName asc

@@ -384,6 +384,33 @@ DeviceInfo
 | order by Case desc 
 ```
 
+Another example where we can identify servers by their criticalityLevel and correlate it with identities (users or groups) that has "authenticate as" permission to the critical servers. 
+```
+// Step 1: Identify servers by criticality levels (Updated logic with expanded coverage)
+let CriticalityServers = ExposureGraphNodes
+| mv-expand CriticalityData = parse_json(NodeProperties)["rawData"]["criticalityLevel"]["ruleNames"]
+| extend CriticalityLevel = tostring(parse_json(NodeProperties)["rawData"]["criticalityLevel"]["criticalityLevel"])
+| extend RuleName = tostring(CriticalityData)
+| project-reorder  NodeId, NodeName, CriticalityLevel, RuleName;
+// Step 2: Identify accounts or groups with "authenticate as" permissions
+let AuthenticatedEntities = ExposureGraphEdges
+| where EdgeLabel == "can authenticate to" // Adjusted EdgeLabel to match "authenticate as" semantics
+| where SourceNodeLabel in ("user", "group") // Filtering by SourceNodeLabel for accounts/groups
+| project SourceNodeId, SourceNodeName, TargetNodeId // Capturing relevant fields
+| join kind=inner ExposureGraphNodes on $left.SourceNodeId == $right.NodeId
+| project TargetNodeId, SourceNodeName, SourceNodeId // Linking authenticated accounts/groups to targets
+| summarize AccountsOrGroups = make_set(SourceNodeName) by TargetNodeId; // Group accounts/groups by target device
+// Step 3: Correlate servers with authenticated accounts or groups
+CriticalityServers
+| join kind=inner (
+    AuthenticatedEntities
+    | project TargetNodeId, AccountsOrGroups
+) on $left.NodeId == $right.TargetNodeId // Correcting join keys for correlation
+| where CriticalityLevel == '0' or CriticalityLevel == '1'
+| project Timestamp = now(), ServerId = NodeId, ServerName = NodeName, CriticalityLevel, RuleName, AccountsOrGroups
+| order by ServerName asc
+```
+
 # Security Insights from Entra Connect Server
 This chapter contains information about the "Entra ID Connect" server related security monitoring activities that can be established and also insights about Entra Connect Health. The latter one provides Entra Connect monitoring and performance data to Entra ID.
 
