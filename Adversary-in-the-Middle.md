@@ -986,13 +986,20 @@ More details on Global Secure Access can be found in this blog posts from the co
 
 ### Microsoft Defender for Cloud Apps (MDA) Session Proxy
 
-Even though requiring compliant devices and phishing-resistant mfa are the most powerful mitigations into the AiTM attack, the MDA's session proxy, Conditional Access together with Edge for Business in-browser protection can help as well. This is more or less a niche scenario, but it is good to know that if you're using session proxy to protect & monitor access to sensitive applications you will protect the users at the same time from this type of attack.
+Even though requiring compliant devices (device state) and phishing-resistant mfa are the most powerful mitigations into the AiTM attack, the MDA's session proxy, Conditional Access together with Edge for Business in-browser protection can help to protect end-users in the attack scenario. 
+
+This is more or less a niche scenario, but it is good to know that if you're using the MDA session proxy to protect & monitor access to applications you will make adversary life a bit harder. It's not a direct mitigation but requiring Edge for Business together with MDA proxy enforces the adversary using Edge and sign-in to the browser (if Edge is required). In this case we are talking about 'in-browser protection'. Benefit of using Edge for Business in MDA is that it reduces the need for proxies, improving both security and productivity.
+
+At the time of writing, the Edge for Business in-browser protection supports limited scenarios. If the scenario is out of scope it will be automatically served with the standard reverse proxy technology, including user sessions from browsers that don't support in-browser protection, or for policies not supported by in-browser protection. To name a few:
+
+- Microsoft Edge users in InPrivate mode.
+- Microsoft Edge users with older browser versions.
+- B2B guest users.
+- Session is scoped to a Conditional Access policy defined in Microsoft Entra ID portal
 
 More information about in-browser protection with [Microsoft Edge for Business (in preview at the time of writing) in MDA](https://learn.microsoft.com/en-us/defender-cloud-apps/in-browser-protection) is found in Microsoft Learn.
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/MDA-proxy.png" target="_blank"><img src="./media/aitm-attack/MDA-proxy.png" width="750" /></a>
-
-_Access with replayed token will be blocked by using MDA Session Proxy even password has been stolen._
+***Update December 2024: Initial tests showed that AiTM tool we were using was not able to capture the tokens but victim lost credentials. Now, we are able to capture the cookie and tokens inside of it and replay that through MDA proxy.***
 
 ## Summary
 
