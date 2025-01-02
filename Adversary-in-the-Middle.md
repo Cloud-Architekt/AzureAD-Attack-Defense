@@ -32,7 +32,7 @@ _MITRE ATT&CK: [Adversary-in-the-Middle (T1557)](https://attack.mitre.org/techni
         - [Behaviors Data Layer](#behaviors-data-layer)
     - [Microsoft Sentinel](#microsoft-sentinel)
     - [Microsoft Defender for Endpoint (MDE)](#microsoft-defender-for-endpoint-mde)
-    - [Copilot for Security (CfS)](#copilot-for-security-cfs)
+    - [Microsoft Security Copilot (SC)](#microsoft-security-copilot-sc)
     - [Custom Detections and Hunting](#custom-detections-and-hunting)
       - [Hunting of OfficeHome application sign-ins (by DART team query)](#hunting-of-officehome-application-sign-ins-by-dart-team-query)
       - [Enrichment of SessionId with IP address and session duration details (by Joosua Santasalo)](#enrichment-of-sessionid-with-ip-address-and-session-duration-details-by-joosua-santasalo)
@@ -388,9 +388,9 @@ Based on the Microsoft Threat Intelligence report there are also APT related ale
 
 [More information how Microsoft names threat actors](https://learn.microsoft.com/en-us/defender-xdr/microsoft-threat-actor-naming)
 
-### Copilot for Security (CfS)
+### Microsoft Security Copilot (SC)
 
-Microsoft Copilot for Security is currently a buzzword in the security industry. However, the crucial question is: How can it contribute to investigating incidents, especially AiTM attacks? We're leaving this decision in your capable hands. Here's a sneak peek of what you can expect from this solution.
+Microsoft Security Copilot is currently a buzzword in the security industry. However, the crucial question is: How can it contribute to investigating incidents, especially AiTM attacks? We're leaving this decision in your capable hands. Here's a sneak peek of what you can expect from this solution.
 
 - We can use incident summary skill for creating summary and guided response about the incident
 - After we have run automation and enrich the incident, we can run incident report skill that summarizes all the activities done to the incident including comments, automation enrichment etc, or we can do post-mortem report after investigation has been done and incident has been closed.
@@ -401,9 +401,10 @@ Microsoft Copilot for Security is currently a buzzword in the security industry.
 
 In the following section, you can find KQL queries and functions for hunting possible malicious activities in your environment. The queries are created by us, the community, or the Microsoft Threat Intelligence & DART teams. The GitHub repo contains even more hunting queries [in the query folder](./queries/AiTM); take a look at that one as well. Every query has pre-requisites, which are listed in the table on the query section.
 
-There are different approach to how to get a job done and we have selected two approaches for this paper. In the first one, the assumption is that you are trying to find a possible suspicious AiTM related activities from the environment, or you have already identified one but are looking for more insights from the possible malicious activities during sessions.
+There are different approach to how to get a job done and we have selected two approaches for this paper. The approaches are:
 
-In the second path, the assumption is that you already have alerts or incidents, and malicious activity is detected. The hunting queries will provide deep insights and correlation between alerts, sign-in activities and later on collaboration workloads or Azure activities.
+- In the first one, the assumption is that you are trying to find a possible suspicious AiTM related activities from the environment, or you have already identified one but are looking for more insights from the possible malicious activities during sessions.
+- In the second one, the assumption is that you already have alerts or incidents, and malicious activity is detected. The hunting queries will provide deep insights and correlation between alerts, sign-in activities and later on collaboration workloads or Azure activities.
 
 #### Hunting of OfficeHome application sign-ins (by DART team query)
 
