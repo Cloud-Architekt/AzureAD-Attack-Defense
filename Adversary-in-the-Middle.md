@@ -554,9 +554,9 @@ Pre-requisites for building correlation between the XDR alert and UniqueTokenIde
 
 | Name | Requirement                  |
 |-------------|------------------------------|
-| Data Connectors          | The Defender XDR deployed and Microsoft Entra ID sign-in logs connected to Microsoft Sentinel Workspace. <br> <br> No additional data connectors needed, the query is run in the Defender XDR Advanced Hunting - Unified Security Operations Platform |
-| Unified XDR logs           |  XDR capabilities, you need to have AADSignInEventsBeta table in XDR | AADSignInEventsBeta contains information about Microsoft Entra ID sign-in events either by a user (interactive) or a client on the user's behalf (non-interactive) with data retention of 30 days    |
-| Dependencies           | Sentinel integration to Defender XDR is needed to have the option to cover `SigninLogs` and `AADNonInteractiveUserSignInLogs` but also all entries from `SecurityAlert` table <br> <br> Microsoft Security solutions (Defender XDR, Entra ID Protection & Entra ID logs) needs to be integrated into Sentinel to get alert in to the workspace <br> <br> The query relies on both, Sentinel & Defender XDR data   |
+| Data Connectors          | The Defender XDR deployed and Microsoft Entra ID sign-in logs connected to Microsoft Sentinel Workspace. <br> <br> No additional data connectors needed, the query can be run in Sentinel or in the Defender XDR Advanced Hunting - Unified Security Operations Platform (assuming that Sentinel has been integrated into the USOP) |
+| Unified XDR logs           | XDR deployed |
+| Dependencies           | If you want to run the query in the USOP (Defender XDR), Sentinel integration to the Defender XDR is needed to have the option to cover `SigninLogs` and `AADNonInteractiveUserSignInLogs` but also all entries from `SecurityAlert` table <br> <br> Microsoft Security solutions (Defender XDR, Entra ID Protection & Entra ID logs) needs to be integrated into Sentinel to get alert in to the workspace <br> <br> The query relies on both, Sentinel & Defender XDR data   |
 |||
 
 ```
