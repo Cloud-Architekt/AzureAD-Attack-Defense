@@ -989,7 +989,11 @@ More details on Global Secure Access can be found in this blog posts from the co
 
 Even though requiring compliant devices (device state) and phishing-resistant mfa are the most powerful mitigations into the AiTM attack, the MDA's session proxy, Conditional Access together with Edge for Business in-browser protection can help to protect end-users in the attack scenario. 
 
-This is more or less a niche scenario, but it is good to know that if you're using the MDA session proxy to protect & monitor access to applications you will make adversary life a bit harder. It's not a direct mitigation but requiring Edge for Business together with MDA proxy enforces the adversary using Edge and sign-in to the browser (if Edge is required). In this case we are talking about 'in-browser protection'. Benefit of using Edge for Business in MDA is that it reduces the need for proxies, improving both security and productivity.
+This is more or less a niche scenario, but it is good to know that if you're using the MDA session proxy to protect & monitor access to applications you will make adversary life a bit harder. Requiring Edge for Business makes it pretty complicated and if the attack is not targeted the attacker will most probably stop there.
+
+It's not a direct mitigation but requiring Edge for Business together with MDA proxy enforces the adversary using Edge and sign-in to the browser (if Edge is required). In this case we are talking about 'in-browser protection'. Benefit of using Edge for Business in MDA is that it reduces the need for proxies, improving both security and productivity.
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/EdgeforBusiness-3.png" target="_blank"><img src="./media/aitm-attack/EdgeforBusiness-3.png" width="500" /></a>
 
 At the time of writing, the Edge for Business in-browser protection supports limited scenarios. If the scenario is out of scope it will be automatically served with the standard reverse proxy technology, including user sessions from browsers that don't support in-browser protection, or for policies not supported by in-browser protection. To name a few:
 
