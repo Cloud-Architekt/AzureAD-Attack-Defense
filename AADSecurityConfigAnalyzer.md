@@ -255,3 +255,5 @@ I'm seeing and permission error after initial deployment, what to do?
 - [Apps & service principals in Entra ID - Microsoft identity platform | Microsoft Docs](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals)
 
 - [Microsoft identity platform scopes, permissions, and consent | Microsoft Docs](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent)
+
+- [Maester integration with EIDSCA](https://maester.dev/docs/tests/eidsca/) 

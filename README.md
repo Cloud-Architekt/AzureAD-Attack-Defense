@@ -163,6 +163,87 @@ Microsoft has introduced Windows 11 with the requirement to use a Trusted Platfo
 
 - [Replay of Primary Refresh (PRT) and other issued tokens](ReplayOfPrimaryRefreshToken.md)
 
+
+## Entra ID Security Config Analyzer (EIDSCA)
+The purpose of the Entra ID Security Config Analyzer is to provide a solution that pulls out Entra ID security configuration from the selected Microsoft Graph API endpoints and ingest the data to Log Analytics. Azure Workbook is used for data visualization and Microsoft Sentinel can be used to create alerts/incidents when critical configuration change is detected.
+
+The following picture describes EIDSCA solution architecture, used solution and data flows:
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Architecture.png" target="_blank"><img src="./media/AADSCA-Architecture.png" width="1200" /></a>
+
+_Reference architecture to integrate EIDSCA as part of Microsoft Sentinel environment. Data will be ingested to same workspace as Sentinel.
+It depends on your implementation and design if you want to have an integration to dedicated, operational or existing Sentinel workspace._
+
+EIDSCA controls are also used in Maester, more information on the [Maester documentation](https://maester.dev/docs/tests/eidsca/)
+
+- [Entra ID Security Config Analyzer (EIDSCA)](AADSecurityConfigAnalyzer.md)
+
+## Adversary-in-the-Middle Attacks
+
+### Token Replay Attacks
+
+Different tokens play a crucial role in cloud authentication. Therefore, it's Important to understand their mechanics and how adversaries can exploit them if they get into the wrong hands. Understanding this can help in building protection against identity attacks.
+
+Token theft occurs when an adversary gets access and compromises tokens.  Once stolen, the adversary can replay stolen tokens and access the compromised account. In AiTM scenario, the adversary can bypass MFA requirement, because the MFA claims are already included in the token and authentication requirements are met. Therefore, the adversary gets access to the environment. We will elaborate the scenario, detection and mitigation later on this paper.
+
+To find more information about Entra ID security tokens take a look on the following Microsoft Learn resources:
+
+- [Entra ID Security Tokens](https://learn.microsoft.com/en-us/entra/identity-platform/security-tokens)
+- [Concept of Primary Refresh Token](https://learn.microsoft.com/en-us/entra/identity/devices/concept-primary-refresh-token)
+
+Entra ID Attack & Defense Playbook chapter 'Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device' sheds a light on replaying PRT, access token & refresh token:
+
+- [Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/blob/main/ReplayOfPrimaryRefreshToken.md)
+
+In this chapter, we are focusing on Adversary-in-the-Middle (AiTM) type of attack where adversary intercepts victim's session cookie and later replays it to access the sign-in service.
+
+### Phishing-as-a-service (PhaaS) by Microsoft Threat Intelligence
+
+Cybercriminals currently use AiTM phishing techniques to bypass multifactor authentication (MFA) protections at scale. These advanced techniques are democratized and increased through the phishing-as-a-service (PhaaS) cybercrime economic model, which has spawned several service offerings since 2021.
+
+Nowadays the number of AiTM-capable PhaaS platforms has continued to grow throughout 2023-2024, with previously existing services adding AiTM capabilities to their platforms and newly created services incorporating AiTM phishing techniques natively. While traditional forms of credential phishing still exist, the number of AiTM phishing attacks exceeds those without this capability.
+
+The ultimate goal of AiTM phishing is to steal user credentials and session cookies. Browsers store session cookies to allow users access to services without having them repeatedly authenticated. AiTM phishing targets session cookies and credentials to bypass traditional MFA protections.
+
+More information about PhaaS:
+
+- [Hacker News article](https://thehackernews.com/2023/08/phishing-as-service-gets-smarter.html)
+- [Infosecurity magazine article](https://www.infosecurity-magazine.com/news/microsoft-aitm-uptick-phishing/)
+- [Microsoft Defender Experts blog](https://techcommunity.microsoft.com/t5/microsoft-security-experts-blog/defender-experts-chronicles-a-deep-dive-into-storm-0867/ba-p/3911769)
+
+### Technique Overview
+
+In this chapter we go through two methods related to AiTM attack scenario, AiTM phishing through reverse proxy and AiTM phishing through synchronous relay. The figures and attack descriptions are partly from Microsoft Threat Intelligence reports.
+
+#### AiTM phishing through reverse proxy
+
+Every modern web service implements a session with a user after successful authentication so that the user does not have to authenticate to every new page they visit.
+This session functionality is enabled by a session cookie issued by an authentication service following initial authentication. The session cookie serves as proof to the web server that the user has been authenticated and maintains an active session on the website.
+
+In an AiTM phishing attack, an attacker intercepts the target user's session cookie and later replays it to access the sign-in service. Because the cookie demonstrates that the MFA check has already been passed (claim included in the token), it satisfies the MFA requirement, allowing the attacker to bypass MFA protections and gain access to the compromised user account.
+
+In AiTM phishing through a reverse proxy, the proxy is deployed between a user and the legitimate website or application that the user wants to visit (such as Microsoft sign-in portals or LinkedIn). The reverse proxy forwards the requests from the user to the actual service and intercepts the responses. This kind of setup makes it possible to the adversary to steal and intercept the target’s password and the session cookie that proves their ongoing and authenticated session with the website.
+
+Phishing kits, that have been popular among adversaries are: EvilGinx, Modlishka, Muraena and "Office 365" (EvilProxy). These phishing kits allow adversaries to carry out AiTM phishing attacks using reverse proxy servers​.
+
+_Side note: In many campaigns targeted application has been OfficeHome in the Entra ID logs._
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/AiTM.png" target="_blank"><img src="./media/aitm-attack/AiTM.png" width="700" /></a>
+
+_AiTM phishing through reverse proxy attack diagram (initial figure from Microsoft Defender XDR Threat Intelligence reports)._
+
+#### AiTM phishing through synchronous relay
+
+Another AiTM method is called 'AiTM phishing through synchronous relay'. In this type of attack a copy or mimic of a sign-in page is presented to the target, as seen in traditional phishing attacks. ​If a user provides their credentials to this page, the credentials are stored on an attacker-controlled server where the phishing kit instance, including its administrative panel, are installed. ​Basically, it means that user's input is being stolen including sign-in credentials, two-factor authentication (MFA) codes, and session cookies.
+
+The relay servers are typically provided and controlled by the actor group behind the development, and responsible stakeholders of PhaaS platform. One example of this kind of group is Storm-1295 which is behind the Greatness PhaaS platform according to Microsoft Threat Intelligence reports.
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/AiTM-2.png" target="_blank"><img src="./media/aitm-attack/AiTM-2.png" width="700" /></a>
+
+_AiTM phishing through synchronous relay diagram (initial figure from Microsoft Defender XDR Threat Intelligence reports)._
+
+- [Adversary-in-the-Middle Attacks](Adversary-in-the-middle.md)
+
 ## How to become part of the project and contribute?
 - **Update or new content (Pull Request):** As already mentioned, we like to have a living document which is driven by the Entra community! Share your results and insights as part of this project! Send a pull request to add your content to this project.
 
