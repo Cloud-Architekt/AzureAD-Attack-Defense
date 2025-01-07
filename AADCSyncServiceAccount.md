@@ -80,6 +80,9 @@ Current permissions are listed in the [Entra built-in roles documentation](https
 In addition, a new directory role named "[On Premises Directory Sync Account](https://www.azadvertizer.net/azentraidroles/a92aed5d-d78a-4d16-b381-09adb37eb3b0.html)" has been introduced which is not currently in use.
 More details about the announcement on [Entra what's new August 2024](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#august-2024).
 
+_Side Note: Microsoft has been announced to introduced a [dedicated first-party application](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---dedicated-new-1st-party-resource-application-to-enable-active-directory-to-microsoft-entra-id-sync-using-microsoft-entra-connect-sync-or-cloud-sync) that will be used for Microsoft Entra Connect or the Microsoft Entra Cloud Sync service. This is part of ongoing security hardening._
+
+https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---dedicated-new-1st-party-resource-application-to-enable-active-directory-to-microsoft-entra-id-sync-using-microsoft-entra-connect-sync-or-cloud-sync
 
 # Attack scenarios
 
