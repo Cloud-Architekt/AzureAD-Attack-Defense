@@ -32,7 +32,7 @@ _MITRE ATT&CK: [Adversary-in-the-Middle (T1557)](https://attack.mitre.org/techni
         - [Behaviors Data Layer](#behaviors-data-layer)
     - [Microsoft Sentinel](#microsoft-sentinel)
     - [Microsoft Defender for Endpoint (MDE)](#microsoft-defender-for-endpoint-mde)
-    - [Copilot for Security (CfS)](#copilot-for-security-cfs)
+    - [Microsoft Security Copilot (SC)](#microsoft-security-copilot-sc)
     - [Custom Detections and Hunting](#custom-detections-and-hunting)
       - [Hunting of OfficeHome application sign-ins (by DART team query)](#hunting-of-officehome-application-sign-ins-by-dart-team-query)
       - [Enrichment of SessionId with IP address and session duration details (by Joosua Santasalo)](#enrichment-of-sessionid-with-ip-address-and-session-duration-details-by-joosua-santasalo)
@@ -388,9 +388,9 @@ Based on the Microsoft Threat Intelligence report there are also APT related ale
 
 [More information how Microsoft names threat actors](https://learn.microsoft.com/en-us/defender-xdr/microsoft-threat-actor-naming)
 
-### Copilot for Security (CfS)
+### Microsoft Security Copilot (SC)
 
-Microsoft Copilot for Security is currently a buzzword in the security industry. However, the crucial question is: How can it contribute to investigating incidents, especially AiTM attacks? We're leaving this decision in your capable hands. Here's a sneak peek of what you can expect from this solution.
+Microsoft Security Copilot is currently a buzzword in the security industry. However, the crucial question is: How can it contribute to investigating incidents, especially AiTM attacks? We're leaving this decision in your capable hands. Here's a sneak peek of what you can expect from this solution.
 
 - We can use incident summary skill for creating summary and guided response about the incident
 - After we have run automation and enrich the incident, we can run incident report skill that summarizes all the activities done to the incident including comments, automation enrichment etc, or we can do post-mortem report after investigation has been done and incident has been closed.
@@ -401,9 +401,10 @@ Microsoft Copilot for Security is currently a buzzword in the security industry.
 
 In the following section, you can find KQL queries and functions for hunting possible malicious activities in your environment. The queries are created by us, the community, or the Microsoft Threat Intelligence & DART teams. The GitHub repo contains even more hunting queries [in the query folder](./queries/AiTM); take a look at that one as well. Every query has pre-requisites, which are listed in the table on the query section.
 
-There are different approach to how to get a job done and we have selected two approaches for this paper. In the first one, the assumption is that you are trying to find a possible suspicious AiTM related activities from the environment, or you have already identified one but are looking for more insights from the possible malicious activities during sessions.
+There are different approach to how to get a job done and we have selected two approaches for this paper. The approaches are:
 
-In the second path, the assumption is that you already have alerts or incidents, and malicious activity is detected. The hunting queries will provide deep insights and correlation between alerts, sign-in activities and later on collaboration workloads or Azure activities.
+- In the first one, the assumption is that you are trying to find a possible suspicious AiTM related activities from the environment, or you have already identified one but are looking for more insights from the possible malicious activities during sessions.
+- In the second one, the assumption is that you already have alerts or incidents, and malicious activity is detected. The hunting queries will provide deep insights and correlation between alerts, sign-in activities and later on collaboration workloads or Azure activities.
 
 #### Hunting of OfficeHome application sign-ins (by DART team query)
 
@@ -553,9 +554,9 @@ Pre-requisites for building correlation between the XDR alert and UniqueTokenIde
 
 | Name | Requirement                  |
 |-------------|------------------------------|
-| Data Connectors          | The Defender XDR deployed and Microsoft Entra ID sign-in logs connected to Microsoft Sentinel Workspace. <br> <br> No additional data connectors needed, the query is run in the Defender XDR Advanced Hunting - Unified Security Operations Platform |
-| Unified XDR logs           |  XDR capabilities, you need to have AADSignInEventsBeta table in XDR | AADSignInEventsBeta contains information about Microsoft Entra ID sign-in events either by a user (interactive) or a client on the user's behalf (non-interactive) with data retention of 30 days    |
-| Dependencies           | Sentinel integration to Defender XDR is needed to have the option to cover `SigninLogs` and `AADNonInteractiveUserSignInLogs` but also all entries from `SecurityAlert` table <br> <br> Microsoft Security solutions (Defender XDR, Entra ID Protection & Entra ID logs) needs to be integrated into Sentinel to get alert in to the workspace <br> <br> The query relies on both, Sentinel & Defender XDR data   |
+| Data Connectors          | The Defender XDR deployed and Microsoft Entra ID sign-in logs connected to Microsoft Sentinel Workspace. <br> <br> No additional data connectors needed, the query can be run in Sentinel or in the Defender XDR Advanced Hunting - Unified Security Operations Platform (assuming that Sentinel has been integrated into the USOP) |
+| Unified XDR logs           | XDR deployed |
+| Dependencies           | If you want to run the query in the USOP (Defender XDR), Sentinel integration to the Defender XDR is needed to have the option to cover `SigninLogs` and `AADNonInteractiveUserSignInLogs` but also all entries from `SecurityAlert` table <br> <br> Microsoft Security solutions (Defender XDR, Entra ID Protection & Entra ID logs) needs to be integrated into Sentinel to get alert in to the workspace <br> <br> The query relies on both, Sentinel & Defender XDR data   |
 |||
 
 ```
@@ -986,13 +987,24 @@ More details on Global Secure Access can be found in this blog posts from the co
 
 ### Microsoft Defender for Cloud Apps (MDA) Session Proxy
 
-Even though requiring compliant devices and phishing-resistant mfa are the most powerful mitigations into the AiTM attack, the MDA's session proxy, Conditional Access together with Edge for Business in-browser protection can help as well. This is more or less a niche scenario, but it is good to know that if you're using session proxy to protect & monitor access to sensitive applications you will protect the users at the same time from this type of attack.
+Even though requiring compliant devices (device state) and phishing-resistant mfa are the most powerful mitigations into the AiTM attack, the MDA's session proxy, Conditional Access together with Edge for Business in-browser protection can help to protect end-users in the attack scenario. 
+
+This is more or less a niche scenario, but it is good to know that if you're using the MDA session proxy to protect & monitor access to applications you will make adversary life a bit harder. Requiring Edge for Business makes it pretty complicated and if the attack is not targeted the attacker will most probably stop there.
+
+It's not a direct mitigation but requiring Edge for Business together with MDA proxy enforces the adversary using Edge and sign-in to the browser (if Edge is required). In this case we are talking about 'in-browser protection'. Benefit of using Edge for Business in MDA is that it reduces the need for proxies, improving both security and productivity.
+
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/EdgeforBusiness-3.png" target="_blank"><img src="./media/aitm-attack/EdgeforBusiness-3.png" width="500" /></a>
+
+At the time of writing, the Edge for Business in-browser protection supports limited scenarios. If the scenario is out of scope it will be automatically served with the standard reverse proxy technology, including user sessions from browsers that don't support in-browser protection, or for policies not supported by in-browser protection. To name a few:
+
+- Microsoft Edge users in InPrivate mode.
+- Microsoft Edge users with older browser versions.
+- B2B guest users.
+- Session is scoped to a Conditional Access policy defined in Microsoft Entra ID portal
 
 More information about in-browser protection with [Microsoft Edge for Business (in preview at the time of writing) in MDA](https://learn.microsoft.com/en-us/defender-cloud-apps/in-browser-protection) is found in Microsoft Learn.
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/MDA-proxy.png" target="_blank"><img src="./media/aitm-attack/MDA-proxy.png" width="750" /></a>
-
-_Access with replayed token will be blocked by using MDA Session Proxy even password has been stolen._
+***Update December 2024: Initial tests showed that AiTM tool we were using was not able to capture the tokens but victim lost credentials. Now, we are able to capture the cookie and tokens inside of it and replay that through MDA proxy.***
 
 ## Summary
 
