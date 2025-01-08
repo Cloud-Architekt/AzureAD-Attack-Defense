@@ -4,7 +4,7 @@ _Authors: Sami Lamppu, Thomas Naunheim_
 _Created: September 2024_
 _Reviewers: Fabian Bader, Joosua Santasalo_
 
-_Updated: December 2024 [Updated content on MDA and Edge In-Browser](#microsoft-defender-for-cloud-apps-mda-session-proxy)
+_Updated: December 2024 [Updated content on MDA and Edge In-Browser](#microsoft-defender-for-cloud-apps-mda-session-proxy)_
 
 _"An adversary-in-the-middle(AiTM) attack leverages sophisticated phishing techniques that can bypass multifactor authentication (MFA) by hijacking session cookies. These attacks often involve the use of reverse-proxy functionality to intercept credentials and session cookies, allowing attackers to gain unauthorized access to user accounts without needing the second authentication factor.”_
 
