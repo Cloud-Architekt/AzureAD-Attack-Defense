@@ -2,7 +2,7 @@
 
 _Author: Sami Lamppu, Thomas Naunheim_
 _Created: November 2020_
-_Updated: October 2022_
+_Updated: December 2024 (Updated content on real-time detection and product names)_
 
 *"A password spray attack is where multiple usernames are attacked using common passwords in a unified brute force manner to gain unauthorized access.”*
 
@@ -19,7 +19,7 @@ _Updated: October 2022_
     - [Sign-in logs In Microsoft Entra ID](#sign-in-logs-in-microsoft-entra-id)
     - [KQL Query in Microsoft Sentinel / Azure Monitor (based on Entra ID sign-in logs)](#kql-query-in-microsoft-sentinel--azure-monitor-based-on-entra-id-sign-in-logs)
     - [Risk Detection “Password Spray” in Entra ID Identity Protection](#risk-detection-password-spray-in-entra-id-identity-protection)
-    - [Update on December 2024](#update-on-december-2024)
+    - [Real-time detection on Password spray (in 2024)](#real-time-detection-on-password-spray-in-2024)
     - [Suspicious activity in Microsoft Defender for Cloud Apps (former Cloud App Security)](#suspicious-activity-in-microsoft-defender-for-cloud-apps-former-cloud-app-security)
     - [Side note: Visibility of attacks against inviting Entra ID Tenant](#side-note-visibility-of-attacks-against-inviting-entra-id-tenant)
     - [Side notes: Detection in Active Directory Federation Services environments](#side-notes-detection-in-active-directory-federation-services-environments)
@@ -130,7 +130,7 @@ During our tests we have seen delay between a couple of hours to multiple days.
 
 More information about feature updates from Microsoft announcement: [Announcing Improved Identity Protection Signal Quality and Visibility](https://techcommunity.microsoft.com/t5/azure-active-directory-identity/announcing-improved-identity-protection-signal-quality-and/ba-p/2464410)
 
-### Update on December 2024
+### Real-time detection on Password spray (in 2024)
 - Entra ID Protection now provides enhanced detection mechanism for password spray type of attacks and are able to detect the attack near real-time
 - More information can be found from the links below
 

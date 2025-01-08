@@ -1,0 +1,17 @@
+let ExposureItems = (ExposureGraphEdges
+| where EdgeLabel == "affecting"
+| mv-expand TargetNodeCategories
+| where TargetNodeCategories == "device"
+| join kind=inner ExposureGraphNodes on $left.TargetNodeId == $right.NodeId
+| mv-expand EntityIds
+| extend EntityType = tostring(EntityIds.type)
+| where EntityType == "DeviceInventoryId"
+| extend EntityID = tostring(EntityIds.id)
+| summarize Item = make_set(SourceNodeName) by EntityID
+| extend Case = array_length(Item));
+DeviceInfo
+| where ExposureLevel in ("Medium", "High")
+| summarize arg_max(Timestamp, *) by DeviceId, DeviceName 
+| join kind=inner ExposureItems on $left.DeviceId ==  $right.EntityID
+| project Timestamp, DeviceId, DeviceName, OSPlatform, ExposureLevel, Case, Item
+| order by Case desc 
