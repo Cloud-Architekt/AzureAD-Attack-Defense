@@ -4,6 +4,8 @@ _Authors: Sami Lamppu, Thomas Naunheim_
 _Created: September 2024_
 _Reviewers: Fabian Bader, Joosua Santasalo_
 
+_Updated: December 2024 [Updated content on MDA and Edge In-Browser](#microsoft-defender-for-cloud-apps-mda-session-proxy)
+
 _"An adversary-in-the-middle(AiTM) attack leverages sophisticated phishing techniques that can bypass multifactor authentication (MFA) by hijacking session cookies. These attacks often involve the use of reverse-proxy functionality to intercept credentials and session cookies, allowing attackers to gain unauthorized access to user accounts without needing the second authentication factor.”_
 
 _MITRE ATT&CK: [Adversary-in-the-Middle (T1557)](https://attack.mitre.org/techniques/T1557/), [Exploitation for Credential Access T1212)](https://attack.mitre.org/techniques/T1212/),  [Multi-Factor Authentication Interception (T1111)](https://attack.mitre.org/techniques/T1111/), [Phishing: Spearphishing Attachment (T1566.001)](https://attack.mitre.org/techniques/T1566/001/), [Phishing: Spearphishing Link (T1566.002)](https://attack.mitre.org/techniques/T1566/002/), [Valid Accounts: Cloud Accounts (T1078.004)](https://attack.mitre.org/techniques/T1078/004/), [Acquire Infrastructure: Virtual Private Server (T1583.003)](https://attack.mitre.org/techniques/T1583/003/)_
