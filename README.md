@@ -72,7 +72,7 @@ You can expect to find multiple detection rules from the individual chapters bas
 <br>
 <img src="./media/mitre/Update-Jan-2025/Attacks-Combined-Legend-2025.png" alt="drawing" width="450px" />
 <br>
-<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Fmitre%2FUpdate-Jan-2025%2FAttacks-Combined-2025.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
+<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Fmitre%2FUpdate-Jan-2025%2FAttacks-combined-2025.json&tabs=false&selecting_techniques=false" >Open in MITRE ATT&CK Navigator</a>
 
 ## Detections and rule templates for attack scenarios
 The related detection capabilities of Microsoft Security products (Microsoft Defender XDR, Microsoft Sentinel, Azure Entra ID Connect, Microsoft Defender for Cloud) will be covered in the detection part of the attack scenarios. Custom rule templates for Microsoft Sentinel, which has been developed for the playbook, are also mapped to the TTPs. The detection rules are available as [Microsoft Sentinel Rule Template (ready-to-deploy) in JSON (ARM Template) format here](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/tree/main/queries).
