@@ -2,6 +2,7 @@
 
 _Author: Sami Lamppu and Thomas Naunheim_
 _Created: March 2022_
+
 _Updated: December 2024 [Updated privileges on directory sync](#removed-privileges-and-security-hardening-by-microsoft-in-2024), [XSPM capabilities](#identified-attack-paths-to-connect-server-by-exposure-management), [MDI sensor for Connect and product name updates](#defender-for-identity-detection-on-unusual-behavior-and-events)_
 
 - [Abuse of Microsoft Entra Connect Sync Service Account](#abuse-of-microsoft-entra-connect-sync-service-account)
@@ -81,8 +82,6 @@ In addition, a new directory role named "[On Premises Directory Sync Account](ht
 More details about the announcement on [Entra what's new August 2024](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#august-2024).
 
 _Side Note: Microsoft has been announced to introduced a [dedicated first-party application](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---dedicated-new-1st-party-resource-application-to-enable-active-directory-to-microsoft-entra-id-sync-using-microsoft-entra-connect-sync-or-cloud-sync) that will be used for Microsoft Entra Connect or the Microsoft Entra Cloud Sync service. This is part of ongoing security hardening._
-
-https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#general-availability---dedicated-new-1st-party-resource-application-to-enable-active-directory-to-microsoft-entra-id-sync-using-microsoft-entra-connect-sync-or-cloud-sync
 
 # Attack scenarios
 
