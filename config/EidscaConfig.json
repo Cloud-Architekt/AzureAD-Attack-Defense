@@ -10,7 +10,7 @@
                 "ControlName": "Default Authorization Settings",
                 "ControlId": "EIDSCA.AP",
                 "Description": "Manages authorization settings in Entra ID (Azure AD)",
-                "Discovery": "$AuthorizationPolicyAvailable = (Invoke-MtGraphRequest -RelativeUri 'policies/authorizationpolicy' -ApiVersion beta).values.name",
+                "Discovery": "$AuthorizationPolicyAvailable = (Invoke-MtGraphRequest -RelativeUri 'policies/authorizationpolicy' -ApiVersion beta)",
                 "GraphEndpoint": "authorizationPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authorizationPolicy",
                 "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/authorizationPolicy",
