@@ -163,7 +163,7 @@
                         "CheckId": "EIDSCA.AP08",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "permissionGrantPolicyIdsAssignedToDefaultUserRole | Sort-Object -Descending | select-object -first 1",
+                        "CurrentValue": "permissionGrantPolicyIdsAssignedToDefaultUserRole -clike 'ManagePermissionGrantsForSelf*'",
                         "DefaultValue": "ManagePermissionGrantsForSelf.microsoft-user-default-legacy",
                         "RecommendedValue": "ManagePermissionGrantsForSelf.microsoft-user-default-low",
                         "Recommendation": "Microsoft recommends to allow to user consent for apps from verified publisher for selected permissions. CISA SCuBA 2.7 defines that all Non-Admin Users SHALL Be Prevented From Providing Consent To Third-Party Applications.",
