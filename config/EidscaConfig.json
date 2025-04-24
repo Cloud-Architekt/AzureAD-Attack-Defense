@@ -604,7 +604,7 @@
                         "SkipReason": "This test is for tenants that are licensed for Entra ID P1 or higher. See [Entra ID licensing](https://learn.microsoft.com/entra/fundamentals/licensing)",
                         "CurrentValue": "values | where-object name -eq 'LockoutThreshold' | select-object -expand value",
                         "DefaultValue": "10",
-                        "RecommendedValue": "<=60",
+                        "RecommendedValue": "<=10",
                         "Recommendation": "https://learn.microsoft.com/en-us/azure/active-directory/authentication/howto-password-smart-lockout",
                         "Severity": "High",
                         "MitreTactic": [
