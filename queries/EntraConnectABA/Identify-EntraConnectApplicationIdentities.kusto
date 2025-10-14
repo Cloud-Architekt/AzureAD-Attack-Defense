@@ -1,0 +1,27 @@
+```jsx
+let PwdWriteBackAppRoles = dynamic(['PasswordWriteback.RefreshClient.All','PasswordWriteback.RegisterClientVersion.All']);
+let SyncApiApproles = dynamic(['ADSynchronization.ReadWrite.All']);
+let EntraConnectAppIdentities = OAuthAppInfo
+| summarize arg_max(Timestamp, *) by OAuthAppId
+| mv-expand Permission = parse_json(Permissions)
+| where (parse_json(Permission)["TargetAppDisplayName"] == 'Microsoft Entra AD Synchronization Service' and parse_json(Permission)["PermissionValue"] has_any (SyncApiApproles)) or 
+        (parse_json(Permission)["TargetAppDisplayName"] == 'Microsoft password reset service' and parse_json(Permission)["PermissionValue"] has_any (PwdWriteBackAppRoles))
+| summarize Permissions = make_set(Permission) by ServicePrincipalId, OAuthAppId, AppName, AppOwnerTenantId, AppStatus, AddedOnTime, LastModifiedTime
+| join kind=leftouter (
+    ExposureGraphNodes
+    | where NodeLabel == "serviceprincipal"
+    | extend OAuthAppId = tostring(parse_json(NodeProperties)["rawData"]["appId"])
+    | project OAuthAppId, ServicePrincipalNodeId = NodeId
+    ) on OAuthAppId
+| join kind=leftouter (
+    ExposureGraphNodes
+    | where NodeLabel == @"Microsoft Entra OAuth App"
+    | mv-expand parse_json(EntityIds)
+    | where parse_json(EntityIds).type == "AadApplicationId"
+    | extend OAuthAppId = tostring(parse_json(EntityIds)["id"])
+    | project OAuthAppId, AppRegistrationNodeId = NodeId
+    ) on OAuthAppId
+| project-away OAuthAppId1, OAuthAppId2;
+EntraConnectAppIdentities
+
+```

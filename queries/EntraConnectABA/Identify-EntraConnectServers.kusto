@@ -1,0 +1,33 @@
+let XspmConnectRuleName = 'EntraConnectServer';
+let MinVersionForAbaSupport = "2.5.3.0";
+let EntraConnectComponents = dynamic([
+    'microsoft_azure_ad_connect',
+    'microsoft_entra_connect_sync',
+    'microsoft_azure_ad_connect_synchronization_services',
+    'microsoft_entra_connect_synchronization_services'
+    ]);
+let EntraConnectIdentifiedByTvm = DeviceTvmSoftwareInventory
+| where SoftwareName in~ (EntraConnectComponents)
+| extend VersionParts = split(SoftwareVersion, ".")
+| extend MinVersionParts = split(MinVersionForAbaSupport, ".")
+| extend AbaSupported = 
+    toint(VersionParts[0]) > toint(MinVersionParts[0]) or
+    (toint(VersionParts[0]) == toint(MinVersionParts[0]) and toint(VersionParts[1]) > toint(MinVersionParts[1])) or
+    (toint(VersionParts[0]) == toint(MinVersionParts[0]) and toint(VersionParts[1]) == toint(MinVersionParts[1]) and toint(VersionParts[2]) > toint(MinVersionParts[2])) or
+    (toint(VersionParts[0]) == toint(MinVersionParts[0]) and toint(VersionParts[1]) == toint(MinVersionParts[1]) and toint(VersionParts[2]) == toint(MinVersionParts[2]) and toint(VersionParts[3]) >= toint(MinVersionParts[3]))
+| summarize EntraConnectComponents = make_list(EntraConnectComponents) by DeviceName, DeviceId, SoftwareVersion, AbaSupported;
+let EntraConnectIdentifiedByXspm = ExposureGraphNodes
+| where parse_json(NodeProperties)["rawData"]["criticalityConfidenceHigh"] has (XspmConnectRuleName)
+        or parse_json(NodeProperties)["rawData"]["criticalityConfidenceLow"] has (XspmConnectRuleName)
+| extend CriticalityConfidenceScore = iff(parse_json(NodeProperties)["rawData"]["criticalityConfidenceHigh"] has (XspmConnectRuleName), "High", "Low")
+| mv-apply EntityIds = parse_json(EntityIds) on (
+    where EntityIds.type =~ "DeviceInventoryId"
+    | extend DeviceId = tostring(EntityIds.id)
+)
+| extend DeviceName = tostring(parse_json(NodeProperties)["rawData"]["deviceName"])
+| extend TpmActivated = tostring(parse_json(NodeProperties)["rawData"]["tpmData"]["activated"])
+| project DeviceName, DeviceId, NodeId, CriticalityConfidenceScore, TpmActivated;
+let EntraConnectServer = EntraConnectIdentifiedByTvm
+| join kind = leftouter ( EntraConnectIdentifiedByXspm ) on DeviceId
+| extend VerifiedEntraConnect = iff(CriticalityConfidenceScore == "High", True, False);
+EntraConnectServer

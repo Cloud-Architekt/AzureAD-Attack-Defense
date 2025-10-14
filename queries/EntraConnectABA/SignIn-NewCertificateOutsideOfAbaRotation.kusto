@@ -1,0 +1,66 @@
+let Lookback = 1h;
+let PwdWriteBackAppRoles = dynamic(['PasswordWriteback.RefreshClient.All','PasswordWriteback.RegisterClientVersion.All']);
+let SyncApiApproles = dynamic(['ADSynchronization.ReadWrite.All']);
+let EntraConnectAppIdentities = OAuthAppInfo
+| where TimeGenerated >ago(14d)
+| summarize arg_max(Timestamp, *) by OAuthAppId
+| mv-expand Permission = parse_json(Permissions)
+| where (parse_json(Permission)["TargetAppDisplayName"] == 'Microsoft Entra AD Synchronization Service' and parse_json(Permission)["PermissionValue"] has_any (SyncApiApproles)) or 
+        (parse_json(Permission)["TargetAppDisplayName"] == 'Microsoft password reset service' and parse_json(Permission)["PermissionValue"] has_any (PwdWriteBackAppRoles))
+| summarize Permissions = make_set(Permission) by ServicePrincipalId, OAuthAppId, AppName, AppOwnerTenantId, AppStatus, AddedOnTime, LastModifiedTime;
+AADServicePrincipalSignInLogs
+| where TimeGenerated >ago(Lookback)
+| where ServicePrincipalId in (EntraConnectAppIdentities)
+| where ResultType == "0"
+// Recent sign-ins from this Thumbprint
+| join kind=anti ( 
+    AADServicePrincipalSignInLogs
+    | where TimeGenerated <ago(Lookback)
+    | where ResultType == "0"
+    | where ServicePrincipalId in (EntraConnectAppIdentities)
+) on ServicePrincipalId, ServicePrincipalCredentialThumbprint
+| summarize SignInStartTimeUtc = min(TimeGenerated), SignInEndTimeUtc = max(TimeGenerated), NumberOfSignIns = count() by ServicePrincipalId, ServicePrincipalName, ServicePrincipalCredentialThumbprint
+| join kind=leftouter ( 
+    SecurityEvent
+    | where EventSourceName == @"Directory Synchronization" and EventID == "1013"
+    | where TimeGenerated >ago(30d)
+    | extend EventData = parse_xml(EventData)
+    | extend EventData = tostring(EventData.EventData.Data)
+    | extend CertificateThumbprint = extract(@"CertificateThumbprint=([0-9A-Fa-f]{40})", 1, EventData)
+    | extend CertificateSHA256Hash = extract(@"CertificateSHA256Hash=([0-9A-Fa-f]{64})", 1, EventData)
+    | extend HasTpmProvider = EventData contains "with TPM crypto provider"
+    | where isnotempty(CertificateThumbprint) and isnotempty(CertificateSHA256Hash)
+    | project TimeGenerated, CertificateThumbprint, CertificateSHA256Hash, HasTpmProvider
+    | join kind=leftouter (
+        SecurityEvent
+        | where TimeGenerated >ago(Lookback)
+        | where EventSourceName == "Entra Connect Admin Actions"
+        | extend CreatedOnEntraConnect = true
+        | extend Data=parse_xml(EventData)
+        | extend EventData=Data.DataItem.EventData.Data
+        | extend EventStatus = parse_json(tostring(parse_json(tostring(Data.EventData)).Data)).Status
+        | extend EventAction = parse_json(tostring(parse_json(tostring(Data.EventData)).Data)).Name
+        | where EventAction == "RotateApplicationCertificate"
+        | extend EventTimestamp = parse_json(tostring(parse_json(tostring(Data.EventData)).Data)).Timestamp
+        | extend EventData = parse_json(tostring(parse_json(tostring(Data.EventData)).Data))
+        | extend EventUser = tostring(parse_json(EventData.User))
+        | extend EventDetails = tostring(parse_json(EventData.Details))
+        | extend 
+            AppId = extract(@"ApplicationId: ([^,]+),", 1, EventDetails),
+            ServicePrincipalCredentialThumbprint = extract(@"CertificateThumbprint: ([^,]+),", 1, EventDetails),
+            CertificateSHA256Hash = extract(@"CertificateSHA256Hash: ([^\s]+)", 1, EventDetails)
+        | extend CertRotateEvent = bag_pack_columns(EventTimestamp, EventData, EventAction, EventStatus, EventUser, EventDetails)
+        | summarize CertRotateEvents = make_set(CertRotateEvent) by AppId, ServicePrincipalCredentialThumbprint, CertificateSHA256Hash, CreatedOnEntraConnect
+    ) on $left.CertificateThumbprint == $right.ServicePrincipalCredentialThumbprint and $left.CertificateSHA256Hash == $right.CertificateSHA256Hash
+    | extend AdminRotation = iff(isnotempty(CertRotateEvents), true, false)
+) on ServicePrincipalCredentialThumbprint
+| extend MaliciousCredential = case(
+            HasTpmProvider == false
+            , "Used credentials has been created outside of TPM on Entra Connect server",
+            AdminRotation == true
+            , "Credential has been rotated on Entra Connect server",
+            isempty(CreatedOnEntraConnect)
+            , "Credential not been created or rotated by Entra Connect sync service"
+            , ""
+            ) 
+| project-reorder MaliciousCredential
