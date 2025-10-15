@@ -1,0 +1,22 @@
+let PwdWriteBackAppRoles = dynamic(['PasswordWriteback.RefreshClient.All','PasswordWriteback.RegisterClientVersion.All']);
+let SyncApiApproles = dynamic(['ADSynchronization.ReadWrite.All']);
+let EntraConnectAppIdentities = OAuthAppInfo
+| where TimeGenerated >ago(14d)
+| summarize arg_max(Timestamp, *) by OAuthAppId
+| mv-expand Permission = parse_json(Permissions)
+| where (parse_json(Permission)["TargetAppDisplayName"] == 'Microsoft Entra AD Synchronization Service' and parse_json(Permission)["PermissionValue"] has_any (SyncApiApproles)) or 
+        (parse_json(Permission)["TargetAppDisplayName"] == 'Microsoft password reset service' and parse_json(Permission)["PermissionValue"] has_any (PwdWriteBackAppRoles))
+| summarize Permissions = make_set(Permission) by ServicePrincipalId, OAuthAppId, AppName, AppOwnerTenantId, AppStatus, AddedOnTime, LastModifiedTime;
+AADServicePrincipalSignInLogs
+| where TimeGenerated >ago(1h)
+| where ServicePrincipalId in (EntraConnectAppIdentities)
+| join kind = anti (
+    SecurityEvent
+        | where TimeGenerated >ago(1h)
+        | where EventSourceName == @"Directory Synchronization"
+        | extend EventData = tostring(parse_xml(EventData).EventData.Data)
+        | extend CorrelationId = extract(@"(?i)CorrelationId\(([0-9a-fA-F-]{36})\)", 1, EventData)
+        | where isnotempty(CorrelationId)
+) on CorrelationId
+| extend Timestamp = CreatedDateTime
+| project-reorder Timestamp, ClientCredentialType, ServicePrincipalCredentialThumbprint, IPAddress
