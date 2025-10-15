@@ -11,10 +11,10 @@ We invite identity or security experts from the community to work together on th
 - [Consent Grant](ConsentGrant.md)
 - [Service Principals in Azure DevOps Pipelines](ServicePrincipals-ADO.md)
 - [Microsoft Entra Connect Sync Service Account ](AADCSyncServiceAccount.md)
-- [Microsoft Entra Connect Sync Application-based Authentication](EntraSyncAba.md)
 - [Replay of Primary Refresh (PRT) and other issued tokens](ReplayOfPrimaryRefreshToken.md)
 - [Entra ID Security Config Analyzer (EIDSCA)](AADSecurityConfigAnalyzer.md)
 - [Adversary-in-the-Middle (AiTM) Attacks](Adversary-in-the-Middle.md)
+- [Microsoft Entra Connect Sync Application-based Authentication](EntraSyncAba.md)
 
 ##### Appendix:
 - [Overview of Identity Security Monitoring in Microsoft Cloud](IdentitySecurityMonitoring.md)
