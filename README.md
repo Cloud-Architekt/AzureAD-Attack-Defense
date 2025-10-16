@@ -255,3 +255,7 @@ _AiTM phishing through synchronous relay diagram (initial figure from Microsoft 
 - **Reviewer:** We also look for experts who want to review or discuss the existing or new content before publishing!
 
 - **Feedback:** Feel free to suggest attack/defense scenarios that could be interesting for the community. We will add them to the backlog and idea collection!
+
+#### Disclaimer
+_This is a community-driven project and not a official solution or product.Code or any other query sample is provided "AS IT IS" without warranty of any kind, either expressed or implied, including but not limited to the implied warranties of merchantability and/or fitness for a particular purpose. This sample is not supported under any support program or service.
+We further disclaims all implied warranties including, without limitation, any implied warranties of merchantability or of fitness for a particular purpose. The entire risk arising out of the use or performance of the sample and documentation remains with you. In no event shall we, its authors, or anyone else involved in the creation, production, or delivery of the script be liable for any damages whatsoever (including, without limitation, damages for loss of business profits, business interruption, loss of business information, or other pecuniary loss) arising out of  the use of or inability to use the sample or documentation, even if Microsoft has been advised of the possibility of such damages._

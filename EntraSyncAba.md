@@ -240,6 +240,11 @@ Output should look similar to the following:
 
 ![image.png](./media/entra-connect-aba/aba5.png)
 
+> [!CAUTION]
+> Do not execute this script in a production environment.
+This script is intended for testing, educational, or community-driven purposes only. Running it in production may lead to unintended consequences. Consider the [Disclaimer](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense?tab=readme-ov-file#disclaimer) of this community-project.
+
+
 ## Adding new credentials via existing Entra Connect certificate
 
 This attack scenario is explained in detail in a [SpecterOps blogpost](https://specterops.io/blog/2025/06/09/update-dumping-entra-connect-sync-credentials/), where they show how an existing Entra Connect certificate can be used to roll keys and add new credentials to the Connect Sync application. In this scenario no cloud admin credentials are needed, but does require code execution on the Entra Connect server instead. The proof-of-concept essentially includes:
