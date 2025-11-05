@@ -101,7 +101,7 @@ The following TTPs are mapped for the 'Password Spray' attack scenario. From the
 ![./media/PWSpray2.png](./media/PWSpray3.png)
 
 - [Potential Password Spray Attack (Uses Authentication Normalization)](https://github.com/Azure/Azure-Sentinel/blob/master/Detections/ASimAuthentication/imAuthPasswordSpray.yaml)
-  - This rule needs Advanced SIEM Information Model (ASIM) deployed. ASIM parsers can be easily deployed from [Microsoft Sentinel GitHub](https://github.com/Azure/Azure-Sentinel/tree/master/Parsers/ASim).
+  - This rule needs Advanced SIEM Information Model (ASIM) deployed. ASIM parsers can be easily deployed from [Microsoft Sentinel GitHub](https://aka.ms/ASimAuthentication).
     - In Microsoft Sentinel, parsing and normalizing happen at query time. Parsers are built as KQL user-defined functions that transform data in existing tables, such as CommonSecurityLog, custom logs tables, or Syslog, into the normalized schema. Once the parser is saved as a workspace function, it can be used like any Microsoft Sentinel table.
 
 *In the picture below you can see password spray attack related built-in rules in Microsoft Sentinel*.
