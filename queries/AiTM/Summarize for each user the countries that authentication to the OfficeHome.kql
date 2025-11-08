@@ -1,6 +1,6 @@
 //Summarize for each user the countries that authenticated to the OfficeHome application and find uncommon or untrusted ones
 //The query is creatd by Microsoft DART team and the inital version is found in 'https://www.microsoft.com/en-us/security/blog/2022/07/12/from-cookie-theft-to-bec-attackers-use-aitm-phishing-sites-as-entry-point-to-further-financial-fraud/?msockid=28c8c6feb17d6e740accd40eb04a6f51'
-AADSignInEventsBeta 
+EntraIdSignInEvents 
 | where Timestamp >ago(7d) 
 | where ApplicationId == "4765445b-32c6-49b0-83e6-1d93765276ca" //OfficeHome application 
 | where ClientAppUsed == "Browser" 

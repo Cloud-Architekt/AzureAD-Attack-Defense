@@ -9,12 +9,12 @@ let SessionRelatedAlerts = (SecurityAlert
     | project OriginalRequestId = tostring(parse_json(ExtendedProperties).["Request Id"]), SessionId = tostring(Entities.SessionId), AlertName, Status, SystemAlertId, tostring(Tactics), tostring(Techniques), tostring(Entities), RequestId = tostring(Entities.RequestId)
     );
 let AssociatedSessionIds = SessionRelatedAlerts
-| join kind=inner ( AADSignInEventsBeta
+| join kind=inner ( EntraIdSignInEvents
         | where isnotempty (SessionId)
         | extend SignInTime = TimeGenerated, Timestamp, AppId = ApplicationId, ResourceId, OriginalRequestId = tostring(RequestId), CorrelationId = ReportId, SessionId, IPAddress, Application, ResourceDisplayName
     ) on SessionId;
 let AssociatedRequestIds = SessionRelatedAlerts
-| join kind=inner ( AADSignInEventsBeta
+| join kind=inner ( EntraIdSignInEvents
         | where isnotempty (RequestId)
         | extend SignInTime = TimeGenerated, Timestamp, AppId = ApplicationId, ResourceId, RequestId, CorrelationId = ReportId, SessionId, IPAddress, Application, ResourceDisplayName
     ) on RequestId;

@@ -413,9 +413,9 @@ Example: Event logs of Azure/Hybrid Servers or alerts from Microsoft Defender fo
 - [Hunt for Azure Active Directory sign-in events](https://techcommunity.microsoft.com/t5/microsoft-365-defender/hunt-for-azure-active-directory-sign-in-events/ba-p/2040278):
 Microsoft added the following tables to analyze interactive and non-interactive sign-ins. Both tables are being offered on "short-term" basis and will be eventually move to the IdentityLogonEvents table:
 
-- [AADSpnSignInEventsBeta:](https://docs.microsoft.com/en-us/microsoft-365/security/mtp/advanced-hunting-aadspnsignineventsbeta-table?WT.mc_id=M365-MVP-5003945) Information about sign-ins from "Service Principals" and "Managed Identity" will be stored in this table. This feature is in "beta".
+- [EntraIdSpnSignInEvents:](https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidspnsigninevents-table) Information about sign-ins from "Service Principals" and "Managed Identity" will be stored in this table. This feature is in "beta".
 
-- [AADSignInEventsBeta:](https://docs.microsoft.com/en-us/microsoft-365/security/mtp/advanced-hunting-aadsignineventsbeta-table?WT.mc_id=M365-MVP-5003945) Interactive and non-interactive user sign-ins are available from this table.
+- [EntraIdSignInEvents:](https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidsigninevents-table) Interactive and non-interactive user sign-ins are available from this table.
 
 - [CloudAppEvents:](https://docs.microsoft.com/en-us/microsoft-365/security/mtp/advanced-hunting-cloudappevents-table?WT.mc_id=M365-MVP-5003945) This table contains all streamed logs from the "Office 365 connector" in MDA which includes the [audit logs from "Azure AD" (in public preview)](https://techcommunity.microsoft.com/t5/microsoft-365-defender/azure-active-directory-audit-logs-now-available-in-advanced/ba-p/1999523?WT.mc_id=M365-MVP-5003945) as well. It seems that Azure AD logon events are not included.
 

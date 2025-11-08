@@ -410,7 +410,7 @@ There are different approach to how to get a job done and we have selected two a
 
 #### Hunting of OfficeHome application sign-ins (by DART team query)
 
-Even though Microsoft security solutions are terrific, there isn't such a thing as bulletproof security solution. That being said, alongside detection mechnishms it's crucial to know your data and do proactive threat hunting. What we can do is to track `SessionId` attribute in AADSignInEventsBeta table in Defender XDR. When an attacker uses a stolen session cookie, the SessionId attribute in the AADSignInEventsBeta table will be identical to the `SessionId` value used in the authentication process against the phishing site.
+Even though Microsoft security solutions are terrific, there isn't such a thing as bulletproof security solution. That being said, alongside detection mechnishms it's crucial to know your data and do proactive threat hunting. What we can do is to track `SessionId` attribute in EntraIdSignInEvents table in Defender XDR. When an attacker uses a stolen session cookie, the SessionId attribute in the EntraIdSignInEvents table will be identical to the `SessionId` value used in the authentication process against the phishing site.
 
 How to approach:
 
@@ -424,21 +424,21 @@ Pre-requisites for hunting OfficeHome application sign-ins and related sessionId
 | Name | Requirement                  |
 |-------------|------------------------------|
 | Data Connectors          |  The Defender XDR deployed <br> <br> No additional data connectors needed, the query is run in the Defender XDR Advanced Hunting - Unified Security Operations Platform
-| Unified XDR logs           | XDR capabilities, you need to have AADSignInEventsBeta table in XDR but also M365 & Azure app connectors defined in Defender for Cloud Apps (MDA) <br> <br> AADSignInEventsBeta contains information about Microsoft Entra ID sign-in events either by a user (interactive) or a client on the user's behalf (non-interactive) with data retention of 30 days       |
+| Unified XDR logs           | XDR capabilities, you need to have EntraIdSignInEvents table in XDR but also M365 & Azure app connectors defined in Defender for Cloud Apps (MDA) <br> <br> EntraIdSignInEvents contains information about Microsoft Entra ID sign-in events either by a user (interactive) or a client on the user's behalf (non-interactive) with data retention of 30 days       |
 | Dependencies           | Microsoft Entra ID P2 license to collect and view activities for this table |
 |||
 
 ```
 //Search for cookies that were first seen after OfficeHome application authentication (as seen when the user authenticated to the AiTM phishing site) and then seen being used in other applications in other countries
 let OfficeHomeSessionIds =
-AADSignInEventsBeta
+EntraIdSignInEvents
 | where Timestamp > ago(7d)
 | where ErrorCode == 0
 | where ApplicationId == "4765445b-32c6-49b0-83e6-1d93765276ca" //OfficeHome application
 | where ClientAppUsed == "Browser"
 | where LogonType has "interactiveUser"
 | summarize arg_min(Timestamp, Country) by SessionId;
-AADSignInEventsBeta
+EntraIdSignInEvents
 | where Timestamp > ago(7d)
 | where ApplicationId != "4765445b-32c6-49b0-83e6-1d93765276ca"
 | where ClientAppUsed == "Browser"
@@ -451,7 +451,7 @@ The query summarizes countries for each user authenticated to the OfficeHome app
 
 ```
 //Summarize for each user the countries that authenticated to the OfficeHome application and find uncommon or untrusted ones
-AADSignInEventsBeta
+EntraIdSignInEvents
 | where Timestamp >ago(7d)
 | where ApplicationId == "4765445b-32c6-49b0-83e6-1d93765276ca" //OfficeHome application
 | where ClientAppUsed == "Browser"
@@ -465,16 +465,16 @@ The original queries and blog post by DART is available from the [Microsoft Secu
 
 **Pre-requisites**
 
-Pre-requisites for retrieving all Session IDs from AADSignInEventsBeta where the SessionId is not empty are listed on the table below. Besides the info on the table, you need to have proper permissions to be able to read the data.
+Pre-requisites for retrieving all Session IDs from EntraIdSignInEvents where the SessionId is not empty are listed on the table below. Besides the info on the table, you need to have proper permissions to be able to read the data.
 
 | Name | Requirement                  |
 |-------------|------------------------------|
 | Data Connectors          |  The Defender XDR deployed <br> <br> No additional data connectors needed, the query is run in the Defender XDR Advanced Hunting - Unified Security Operations Platform   |
-| Unified XDR logs           | XDR capabilities, you need to have AADSignInEventsBeta table in XDR. <br> <br> AADSignInEventsBeta contains information about Microsoft Entra ID sign-in events either by a user (interactive) or a client on the user's behalf (non-interactive) with data retention of 30 days       |
+| Unified XDR logs           | XDR capabilities, you need to have EntraIdSignInEvents table in XDR. <br> <br> EntraIdSignInEvents contains information about Microsoft Entra ID sign-in events either by a user (interactive) or a client on the user's behalf (non-interactive) with data retention of 30 days       |
 | Dependencies           | Microsoft Entra ID P2 license to collect and view activities for this table |
 |||
 
-Joosua Santasalo has created a query that retrieves all `SessionId` from the `AADSignInEventsBeta` table and enriches this information with IP address and session duration time. The query is extremely useful and can be used as a starting point for hunting activities related to possible AiTM attack. The query can be found on his GitHub repository:
+Joosua Santasalo has created a query that retrieves all `SessionId` from the `EntraIdSignInEvents` table and enriches this information with IP address and session duration time. The query is extremely useful and can be used as a starting point for hunting activities related to possible AiTM attack. The query can be found on his GitHub repository:
 
 [GitHub "jsa2" - kql/aitmInvestigation.kql](https://github.com/jsa2/kql/blob/main/aitmInvestigation.kql)
 
@@ -484,7 +484,7 @@ Another approach is to build a correlation between an XDR alert and the user's s
 
 <a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/Chapter7-AiTM/media/aitm-attack/HuntingQueryCorrelation.png" target="_blank"><img src="./media/aitm-attack/HuntingQueryCorrelation.png" width="800" /></a>
 
-_Most alerts which are in relation to initial access detections in Defender XDR include a `cloud-logon-request` (OriginalRequestId) that offers a direct correlation to sign-in events in Microsoft Entra ID logs. Some other alerts include a `cloud-logon-session` (SessionId) which is available in the XDR's AADSignInEventsBeta table only._
+_Most alerts which are in relation to initial access detections in Defender XDR include a `cloud-logon-request` (OriginalRequestId) that offers a direct correlation to sign-in events in Microsoft Entra ID logs. Some other alerts include a `cloud-logon-session` (SessionId) which is available in the XDR's EntraIdSignInEvents table only._
 
 _Side Note: Keep in mind, that alerts with relation to a sign-in or session ID is required to start hunting between initial access (by successful AiTM attack) and activity is needed. Any multi-stage attack without XDR alert which includes relation to a specific session or sign-in request can only be detected by IP Address or suspicious Application._
 
@@ -502,11 +502,11 @@ Pre-requisites for hunting sign-in events (`SessionId`, `CorrelationId`, and `Or
 | Name | Requirement                  |
 |-------------|------------------------------|
 | Data Connectors          |The Defender XDR deployed <br> <br> No additional data connectors needed, the query is run in the Defender XDR Advanced Hunting - Unified Security Operations Platform |
-| Unified XDR logs           | XDR capabilities, you need to have AADSignInEventsBeta table in XDR <br> <br> AADSignInEventsBeta contains information about Microsoft Entra ID sign-in events either by a user (interactive) or a client on the user's behalf (non-interactive) with data retention of 30 days       |
+| Unified XDR logs           | XDR capabilities, you need to have EntraIdSignInEvents table in XDR <br> <br> EntraIdSignInEvents contains information about Microsoft Entra ID sign-in events either by a user (interactive) or a client on the user's behalf (non-interactive) with data retention of 30 days       |
 | Dependencies           | Sentinel integration to Defender XDR platform <br> <br> Microsoft Entra ID P2 license to collect and view activities for this table & Sentinel integrated into Defender XDR (Unified Security Operations Platform) <br> <br> If Sentinel is not integrated into the Defender XDR, you are not having 'SecurityAlerts' data table in the XDR |
 |||
 
-_Side Note: The function cannot be executed in Microsoft Sentinel because of the missing option to ingest `AADSignInEventsBeta`._
+_Side Note: The function cannot be executed in Microsoft Sentinel because of the missing option to ingest `EntraIdSignInEvents`._
 
 ```
 let Token_EntityToAlertSessions = (Entity:string) {
@@ -520,12 +520,12 @@ let SessionRelatedAlerts = (SecurityAlert
     | project OriginalRequestId = tostring(parse_json(ExtendedProperties).["Request Id"]), SessionId = tostring(Entities.SessionId), AlertName, Status, SystemAlertId, tostring(Tactics), tostring(Techniques), tostring(Entities), RequestId = tostring(Entities.RequestId)
     );
 let AssociatedSessionIds = SessionRelatedAlerts
-| join kind=inner ( AADSignInEventsBeta
+| join kind=inner ( EntraIdSignInEvents
         | where isnotempty (SessionId)
         | extend SignInTime = TimeGenerated, Timestamp, AppId = ApplicationId, ResourceId, OriginalRequestId = tostring(RequestId), CorrelationId = ReportId, SessionId, IPAddress, Application, ResourceDisplayName
     ) on SessionId;
 let AssociatedRequestIds = SessionRelatedAlerts
-| join kind=inner ( AADSignInEventsBeta
+| join kind=inner ( EntraIdSignInEvents
         | where isnotempty (RequestId)
         | extend SignInTime = TimeGenerated, Timestamp, AppId = ApplicationId, ResourceId, RequestId, CorrelationId = ReportId, SessionId, IPAddress, Application, ResourceDisplayName
     ) on RequestId;
@@ -608,7 +608,7 @@ Pre-requisites for hunting Exchange Online activities from CloudAppEvents (MDA) 
 | Name | Requirement                  |
 |-------------|------------------------------|
 | Data Connectors          | Microsoft Defender XDR data connector enabled <br> <br> Contains whole Defender XDR suite: MDE, MDI, MDO, MDA, MDC, TMV, Purview DLP & Entra ID Protection  |
-| Unified XDR logs           | XDR capabilities, you need to have AADSignInEventsBeta table in XDR but also enabled MDA App Connector for Microsoft 365 enabled  <br> <br> AADSignInEventsBeta contains information about Microsoft Entra ID sign-in events either by a user (interactive) or a client on the user's behalf (non-interactive) with data retention of 30 days  |
+| Unified XDR logs           | XDR capabilities, you need to have EntraIdSignInEvents table in XDR but also enabled MDA App Connector for Microsoft 365 enabled  <br> <br> EntraIdSignInEvents contains information about Microsoft Entra ID sign-in events either by a user (interactive) or a client on the user's behalf (non-interactive) with data retention of 30 days  |
 | Dependencies           | Microsoft Entra ID P2 and MDA license to collect and view activities for this table  <br>  <br>  Token_EntityToAlertSessions() & Token_SessionIdToXdrActivities functions saved to Sentinel/XDR  |
 |||
 
@@ -737,7 +737,7 @@ _Side Note: This query can also be executed in Microsoft Sentinel if you are ing
 | Name | Requirement                  |
 |-------------|------------------------------|
 | Data Connectors          | In Microsoft Sentinel the following data connectors enabled: <br> - Microsoft Defender XDR data connector <br> - Microsoft Entra Sign-in/Non-interactive sign-in <br> - Network Access Logs from Global Secure Access <br> - Microsoft Graph Activity Logs <br><br> In Defender XDR: <br> - Defender XDR deployed   |
-| Unified XDR logs           | XDR capabilities, you need to have AADSignInEventsBeta table in XDR but also M365 & Azure app connectors defined in Defender for Cloud Apps (MDA)        |
+| Unified XDR logs           | XDR capabilities, you need to have EntraIdSignInEvents table in XDR but also M365 & Azure app connectors defined in Defender for Cloud Apps (MDA)        |
 | Dependencies           | Microsoft Entra ID P2 license to collect and view activities for this table  <br>  <br>  Sentinel integrated into Defender XDR (Unified Security Operations Platform) <br> - If Sentinel is not integrated into the Defender XDR, you are not having `SecurityAlerts` data table in the XDR  <br>  <br> Token_EntityToAlertSessions() & Token_SessionIdToXdrActivities functions saved to Sentinel/XDR |
 |||
 
