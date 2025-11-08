@@ -7,7 +7,7 @@ IdentityInfo | where AccountUpn =~ '<userPrincipalName>'
  
 //Sign-in activity by the user 
 let timeToSearch = startofday(datetime('2024-08-01'));  
-AADSignInEventsBeta 
+EntraIdSignInEvents 
 | where AccountObjectId == '<Insert user AccountId>' and Timestamp>=timeToSearch  
 | distinct Application, ResourceDisplayName, Country, City, IPAddress, DeviceName, DeviceTrustType, OSPlatform, IsManaged, IsCompliant, AuthenticationRequirement, RiskState, UserAgent, ClientAppUsed 
 
