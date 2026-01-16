@@ -321,7 +321,7 @@
                         "SkipReason": "",
                         "CurrentValue": "defaultUserRolePermissions.allowedToReadOtherUsers",
                         "DefaultValue": "true",
-                        "RecommendedValue": "true",
+                        "RecommendedValue": "false",
                         "Recommendation": "Restrict this default permissions for members have huge impact on collaboration features and user lookup.",
                         "Severity": "Informational",
                         "MitreTactic": [
