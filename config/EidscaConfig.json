@@ -2136,7 +2136,7 @@
                         "CheckId": "EIDSCA.AS04",
                         "SkipCondition": "$EnabledAuthMethods -notcontains 'Sms'",
                         "SkipReason": "Authentication method of Sms is not enabled.",
-                        "CurrentValue": "includeTargets | select-object -unique isUsableForSignIn",
+                        "CurrentValue": "includeTargets.isUsableForSignIn | select-object -unique",
                         "DefaultValue": "true",
                         "RecommendedValue": "false",
                         "Recommendation": "Avoid to use SMS as primary sign in factor (instead of a password) and consider to implement a MFA or passwordless option also for your special user groups, such as front-line workers.",
