@@ -576,7 +576,7 @@
                         "DisplayName": "Smart Lockout - Lockout duration in seconds",
                         "CheckId": "EIDSCA.PR05",
                         "SkipCondition": "$EntraIDPlan -eq 'Free'",
-                        "SkipReason": "",
+                        "SkipReason": "This test is for tenants that are licensed for Entra ID P1 or higher. See [Entra ID licensing](https://learn.microsoft.com/entra/fundamentals/licensing)",
                         "CurrentValue": "values | where-object name -eq 'LockoutDurationInSeconds' | select-object -expand value",
                         "DefaultValue": "60",
                         "RecommendedValue": ">=60",
