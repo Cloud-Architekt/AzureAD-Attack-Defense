@@ -37,7 +37,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/PasswordResetMenuBlade/~/AdminPasswordResetPolicy",
                         "Description": "Indicates whether administrators of the tenant can use the Self-Service Password Reset (SSPR). The policy applies to some critical critical roles in Microsoft Entra ID.",
-                        "HowToFix": "Microsoft Graph PowerShell: ```Update-MgPolicyAuthorizationPolicy -BodyParameter @{ allowedToUseSSPR = $false }```"
+                        "HowToFix": "Microsoft Graph PowerShell: ```Update-MgPolicyAuthorizationPolicy -AllowedToUseSSPR $false }```"
                     },
                     {
                         "Name": "blockMsolPowerShell",
@@ -47,7 +47,7 @@
                         "SkipReason": "",
                         "CurrentValue": "blockMsolPowerShell",
                         "DefaultValue": "false",
-                        "RecommendedValue": "",
+                        "RecommendedValue": "true",
                         "Recommendation": "",
                         "Severity": "Medium",
                         "MitreTactic": [],
@@ -57,7 +57,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Specifies whether the user-based access to the legacy service endpoint used by MSOL PowerShell is blocked or not. This does not affect Entra ID (Azure AD) Connect or Microsoft Graph.",
-                        "HowToFix": ""
+                        "HowToFix": "Microsoft Graph PowerShell: ```Update-MgPolicyAuthorizationPolicy -BlockMsolPowerShell $true }```"
                     },
                     {
                         "Name": "enabledPreviewFeatures",
@@ -75,7 +75,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Manages access of (private) preview features in tenant.",
-                        "HowToFix": ""
+                        "HowToFix": "N/A"
                     },
                     {
                         "Name": "allowInvitesFrom",
@@ -95,7 +95,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AllowlistPolicyBlade",
                         "Description": "Manages controls who can invite guests to your directory to collaborate on resources secured by your Entra ID (Azure AD), such as SharePoint sites or Azure resources.",
-                        "HowToFix": ""
+                        "HowToFix": "Microsoft Graph PowerShell: ```Update-MgPolicyAuthorizationPolicy -AllowInvitesFrom <string>```"
                     },
                     {
                         "Name": "allowedToSignUpEmailBasedSubscriptions",
@@ -135,7 +135,7 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
                         "Description": "Controls whether users can join the tenant by email validation. To join, the user must have an email address in a domain which matches one of the verified domains in the tenant.",
-                        "HowToFix": ""
+                        "HowToFix": "Microsoft Graph PowerShell: ```Update-MgPolicyAuthorizationPolicy -AllowEmailVerifiedUsersToJoinOrganization $false```"
                     },
                     {
                         "Name": "guestUserRoleId",
@@ -155,13 +155,13 @@
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AllowlistPolicyBlade",
                         "Description": "Represents role templateId for the role that should be granted to guest user.",
-                        "HowToFix": ""
+                        "HowToFix": "N/A"
                     },
                     {
                         "Name": "permissionGrantPolicyIdsAssignedToDefaultUserRole",
                         "DisplayName": "User consent policy assigned for applications",
                         "CheckId": "EIDSCA.AP08",
-                        "SkipCondition": "($AuthorizationPolicyAvailable | where-object permissionGrantPolicyIdsAssignedToDefaultUserRole -Match 'ManagePermissionGrantsForSelf.microsoft-').Count -eq 0",
+                        "SkipCondition": "($AuthorizationPolicyAvailable | Where-Object permissionGrantPolicyIdsAssignedToDefaultUserRole -Match 'ManagePermissionGrantsForSelf.microsoft-').Count -eq 0",
                         "SkipReason": "User Consent has been disabled or customized using Microsoft Graph or Microsoft Graph PowerShell without any assignment to custom policy.",
                         "CurrentValue": "permissionGrantPolicyIdsAssignedToDefaultUserRole -clike 'ManagePermissionGrantsForSelf*'",
                         "DefaultValue": "ManagePermissionGrantsForSelf.microsoft-user-default-legacy",
@@ -186,7 +186,7 @@
                         ],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/UserSettings",
                         "Description": "Defines if user consent to apps is allowed, and if it is, which app consent policy (permissionGrantPolicy) governs the permissions.",
-                        "HowToFix": ""
+                        "HowToFix": "Microsoft Graph PowerShell: ```Update-MgPolicyAuthorizationPolicy -BodyParameter @{ permissionGrantPolicyIdsAssignedToDefaultUserRole = @( managePermissionGrantsForSelf.microsoft-user-default-low )```"
                     },
                     {
                         "Name": "allowUserConsentForRiskyApps",
@@ -217,7 +217,7 @@
                         ],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",
                         "Description": "Indicates whether user consent for risky apps is allowed. For example, consent requests for newly registered multi-tenant apps that are not publisher verified and require non-basic permissions are considered risky.",
-                        "HowToFix": ""
+                        "HowToFix": "Microsoft Graph PowerShell: ```Update-MgPolicyAuthorizationPolicy -AllowUserConsentForRiskyApps $false```"
                     },
                     {
                         "Name": "allowedToCreateApps",
@@ -354,7 +354,7 @@
                         "CheckId": "EIDSCA.CP01",
                         "SkipCondition": "$SettingsApiAvailable -notcontains 'EnableGroupSpecificConsent'",
                         "SkipReason": "Group owner consent settings have been removed and replaced with Team owner consent settings.",
-                        "CurrentValue": "values | where-object name -eq 'EnableGroupSpecificConsent' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'EnableGroupSpecificConsent' | Select-Object -expand value",
                         "DefaultValue": "True",
                         "RecommendedValue": "False",
                         "Recommendation": "CISA SCuBA 2.7: Non-Admin Users SHALL Be Prevented From Providing Consent To Third-Party Applications.",
@@ -373,7 +373,7 @@
                         ],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",
                         "Description": "Group and team owners can authorize applications, such as applications published by third-party vendors, to access your organization's data associated with a group. For example, a team owner in Microsoft Teams can allow an app to read all Teams messages in the team, or list the basic profile of a group's members.",
-                        "HowToFix": ""
+                        "HowToFix": "N/A"
                     },
                     {
                         "Name": "ConstrainGroupSpecificConsentToMembersOfGroupId",
@@ -381,7 +381,7 @@
                         "CheckId": "EIDSCA.CP02",
                         "SkipCondition": "$SettingsApiAvailable -notcontains 'EnableGroupSpecificConsent'",
                         "SkipReason": "Group owner consent settings have been removed and replaced with Team owner consent settings.",
-                        "CurrentValue": "values | where-object name -eq 'ConstrainGroupSpecificConsentToMembersOfGroupId' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'ConstrainGroupSpecificConsentToMembersOfGroupId' | Select-Object -expand value",
                         "DefaultValue": "",
                         "RecommendedValue": "",
                         "Recommendation": "",
@@ -400,7 +400,7 @@
                         ],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings",
                         "Description": "Only selected group owners can allow applications to access data for the groups they own.",
-                        "HowToFix": ""
+                        "HowToFix": "N/A"
                     },
                     {
                         "Name": "BlockUserConsentForRiskyApps",
@@ -408,7 +408,7 @@
                         "CheckId": "EIDSCA.CP03",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'BlockUserConsentForRiskyApps' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'BlockUserConsentForRiskyApps' | Select-Object -expand value",
                         "DefaultValue": "true",
                         "RecommendedValue": "true",
                         "Recommendation": "https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/configure-risk-based-step-up-consent",
@@ -427,7 +427,7 @@
                         ],
                         "PortalDeepLink": "",
                         "Description": "Defines whether user consent will be blocked when a risky request is detected",
-                        "HowToFix": ""
+                        "HowToFix": "N/A (Legacy?)"
                     },
                     {
                         "Name": "EnableAdminConsentRequests",
@@ -435,7 +435,7 @@
                         "CheckId": "EIDSCA.CP04",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'EnableAdminConsentRequests' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'EnableAdminConsentRequests' | Select-Object -expand value",
                         "DefaultValue": "false",
                         "RecommendedValue": "true",
                         "Recommendation": "CISA SCuBA 2.7: Non-Admin Users SHALL Be Prevented From Providing Consent To Third-Party Applications.",
@@ -454,7 +454,7 @@
                         ],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
                         "Description": "If this option is set to enabled, then users request admin consent to any app that requires access to data they do not have the permission to grant. If this option is set to disabled, then users must contact their admin to request to consent in order to use the apps they need.",
-                        "HowToFix": ""
+                        "HowToFix": "N/A"
                     }
                 ]
             },
@@ -477,7 +477,7 @@
                         "CheckId": "EIDSCA.PR01",
                         "SkipCondition": "$EntraIDPlan -eq 'Free'",
                         "SkipReason": "This test is for tenants that are licensed for Entra ID P1 or higher. See [Entra ID licensing](https://learn.microsoft.com/entra/fundamentals/licensing)",
-                        "CurrentValue": "values | where-object name -eq 'BannedPasswordCheckOnPremisesMode' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'BannedPasswordCheckOnPremisesMode' | Select-Object -expand value",
                         "DefaultValue": "Audit",
                         "RecommendedValue": "Enforce",
                         "Recommendation": "https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-password-ban-bad-on-premises",
@@ -494,7 +494,7 @@
                         ],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                         "Description": "If set to Enforce, users will be prevented from setting banned passwords and the attempt will be logged. If set to Audit, the attempt will only be logged.",
-                        "HowToFix": ""
+                        "HowToFix": "N/A (Update-MgBetaDirectorySetting)"
                     },
                     {
                         "Name": "EnableBannedPasswordCheckOnPremises",
@@ -502,7 +502,7 @@
                         "CheckId": "EIDSCA.PR02",
                         "SkipCondition": "$EntraIDPlan -eq 'Free'",
                         "SkipReason": "This test is for tenants that are licensed for Entra ID P1 or higher. See [Entra ID licensing](https://learn.microsoft.com/entra/fundamentals/licensing)",
-                        "CurrentValue": "values | where-object name -eq 'EnableBannedPasswordCheckOnPremises' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'EnableBannedPasswordCheckOnPremises' | Select-Object -expand value",
                         "DefaultValue": "False",
                         "RecommendedValue": "True",
                         "Recommendation": "https://learn.microsoft.com/en-us/azure/security/fundamentals/identity-management-best-practices#enable-password-management",
@@ -519,7 +519,7 @@
                         ],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                         "Description": "If set to Yes, password protection is turned on for Active Directory domain controllers when the appropriate agent is installed.",
-                        "HowToFix": ""
+                        "HowToFix": "N/A (Update-MgBetaDirectorySetting)"
                     },
                     {
                         "Name": "EnableBannedPasswordCheck",
@@ -527,7 +527,7 @@
                         "CheckId": "EIDSCA.PR03",
                         "SkipCondition": "$EntraIDPlan -eq 'Free'",
                         "SkipReason": "This test is for tenants that are licensed for Entra ID P1 or higher. See [Entra ID licensing](https://learn.microsoft.com/entra/fundamentals/licensing)",
-                        "CurrentValue": "values | where-object name -eq 'EnableBannedPasswordCheck' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'EnableBannedPasswordCheck' | Select-Object -expand value",
                         "DefaultValue": "True",
                         "RecommendedValue": "True",
                         "Recommendation": "https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-password-ban-bad#global-banned-password-list",
@@ -544,7 +544,7 @@
                         ],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                         "Description": "When enabled, the words in the list below are used in the banned password system to prevent easy-to-guess passwords.",
-                        "HowToFix": ""
+                        "HowToFix": "N/A (Update-MgBetaDirectorySetting)"
                     },
                     {
                         "Name": "BannedPasswordList",
@@ -552,7 +552,7 @@
                         "CheckId": "EIDSCA.PR04",
                         "SkipCondition": "$EntraIDPlan -eq 'Free'",
                         "SkipReason": "This test is for tenants that are licensed for Entra ID P1 or higher. See [Entra ID licensing](https://learn.microsoft.com/entra/fundamentals/licensing)",
-                        "CurrentValue": "values | where-object name -eq 'BannedPasswordList' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'BannedPasswordList' | Select-Object -expand value",
                         "DefaultValue": "",
                         "RecommendedValue": "",
                         "Recommendation": "https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-password-ban-bad#custom-banned-password-list",
@@ -569,7 +569,7 @@
                         ],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                         "Description": "A list of words, one per line, to prevent your users from using in their passwords. You should include words specific to your organization, such as your products, trademarks, industries, local cities and towns, and local sports teams. Your list can contain up to 1000 words. These are case insensitive, and common character substitutions (o for 0, etc) are automatically considered.",
-                        "HowToFix": ""
+                        "HowToFix": "N/A (Update-MgBetaDirectorySetting)"
                     },
                     {
                         "Name": "LockoutDurationInSeconds",
@@ -577,7 +577,7 @@
                         "CheckId": "EIDSCA.PR05",
                         "SkipCondition": "$EntraIDPlan -eq 'Free'",
                         "SkipReason": "This test is for tenants that are licensed for Entra ID P1 or higher. See [Entra ID licensing](https://learn.microsoft.com/entra/fundamentals/licensing)",
-                        "CurrentValue": "values | where-object name -eq 'LockoutDurationInSeconds' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'LockoutDurationInSeconds' | Select-Object -expand value",
                         "DefaultValue": "60",
                         "RecommendedValue": ">=60",
                         "Recommendation": "https://learn.microsoft.com/en-us/azure/active-directory/authentication/howto-password-smart-lockout",
@@ -594,7 +594,7 @@
                         ],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                         "Description": "The minimum length in seconds of each lockout. If an account locks repeatedly, this duration increases.",
-                        "HowToFix": ""
+                        "HowToFix": "N/A (Update-MgBetaDirectorySetting)"
                     },
                     {
                         "Name": "LockoutThreshold",
@@ -602,7 +602,7 @@
                         "CheckId": "EIDSCA.PR06",
                         "SkipCondition": "$EntraIDPlan -eq 'Free'",
                         "SkipReason": "This test is for tenants that are licensed for Entra ID P1 or higher. See [Entra ID licensing](https://learn.microsoft.com/entra/fundamentals/licensing)",
-                        "CurrentValue": "values | where-object name -eq 'LockoutThreshold' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'LockoutThreshold' | Select-Object -expand value",
                         "DefaultValue": "10",
                         "RecommendedValue": "<=10",
                         "Recommendation": "https://learn.microsoft.com/en-us/azure/active-directory/authentication/howto-password-smart-lockout",
@@ -619,7 +619,7 @@
                         ],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/PasswordProtection",
                         "Description": "How many failed sign-ins are allowed on an account before its first lockout. If the first sign-in after a lockout also fails, the account locks out again.",
-                        "HowToFix": ""
+                        "HowToFix": "N/A (Update-MgBetaDirectorySetting)"
                     }
                 ]
             },
@@ -642,7 +642,7 @@
                         "CheckId": "EIDSCA.ST01",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'NewUnifiedGroupWritebackDefault' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'NewUnifiedGroupWritebackDefault' | Select-Object -expand value",
                         "DefaultValue": "true",
                         "RecommendedValue": "",
                         "Recommendation": "https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-modify-group-writeback#disable-automatic-writeback-of-new-microsoft-365-groups",
@@ -660,7 +660,7 @@
                         "CheckId": "EIDSCA.ST02",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'EnableMIPLabels' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'EnableMIPLabels' | Select-Object -expand value",
                         "DefaultValue": "false",
                         "RecommendedValue": "",
                         "Recommendation": "",
@@ -678,7 +678,7 @@
                         "CheckId": "EIDSCA.ST03",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'CustomBlockedWordsList' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'CustomBlockedWordsList' | Select-Object -expand value",
                         "DefaultValue": "",
                         "RecommendedValue": "",
                         "Recommendation": "",
@@ -696,7 +696,7 @@
                         "CheckId": "EIDSCA.ST04",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'EnableMSStandardBlockedWords' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'EnableMSStandardBlockedWords' | Select-Object -expand value",
                         "DefaultValue": "false",
                         "RecommendedValue": "",
                         "Recommendation": "",
@@ -714,7 +714,7 @@
                         "CheckId": "EIDSCA.ST05",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'ClassificationDescriptions' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'ClassificationDescriptions' | Select-Object -expand value",
                         "DefaultValue": "",
                         "RecommendedValue": "",
                         "Recommendation": "",
@@ -732,7 +732,7 @@
                         "CheckId": "EIDSCA.ST06",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'DefaultClassification' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'DefaultClassification' | Select-Object -expand value",
                         "DefaultValue": "",
                         "RecommendedValue": "",
                         "Recommendation": "",
@@ -750,7 +750,7 @@
                         "CheckId": "EIDSCA.ST07",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'PrefixSuffixNamingRequirement' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'PrefixSuffixNamingRequirement' | Select-Object -expand value",
                         "DefaultValue": "",
                         "RecommendedValue": "",
                         "Recommendation": "",
@@ -768,7 +768,7 @@
                         "CheckId": "EIDSCA.ST08",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'AllowGuestsToBeGroupOwner' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'AllowGuestsToBeGroupOwner' | Select-Object -expand value",
                         "DefaultValue": "false",
                         "RecommendedValue": "false",
                         "Recommendation": "CISA SCuBA 2.18: Guest users SHOULD have limited access to Entra ID (Azure AD) directory objects",
@@ -786,7 +786,7 @@
                         "CheckId": "EIDSCA.ST09",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'AllowGuestsToAccessGroups' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'AllowGuestsToAccessGroups' | Select-Object -expand value",
                         "DefaultValue": "True",
                         "RecommendedValue": "True",
                         "Recommendation": "Manages if guest accounts can access resources through Microsoft 365 Group membership and could break collaboration if you disable it.",
@@ -804,7 +804,7 @@
                         "CheckId": "EIDSCA.ST10",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'GuestUsageGuidelinesUrl' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'GuestUsageGuidelinesUrl' | Select-Object -expand value",
                         "DefaultValue": "",
                         "RecommendedValue": "",
                         "Recommendation": "",
@@ -822,7 +822,7 @@
                         "CheckId": "EIDSCA.ST11",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'EnableGroupCreation' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'EnableGroupCreation' | Select-Object -expand value",
                         "DefaultValue": "True",
                         "RecommendedValue": "",
                         "Recommendation": "",
@@ -840,7 +840,7 @@
                         "CheckId": "EIDSCA.ST12",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'GroupCreationAllowedGroupId' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'GroupCreationAllowedGroupId' | Select-Object -expand value",
                         "DefaultValue": "",
                         "RecommendedValue": "",
                         "Recommendation": "",
@@ -858,7 +858,7 @@
                         "CheckId": "EIDSCA.ST13",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'AllowToAddGuests' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'AllowToAddGuests' | Select-Object -expand value",
                         "DefaultValue": "True",
                         "RecommendedValue": "",
                         "Recommendation": "",
@@ -876,7 +876,7 @@
                         "CheckId": "EIDSCA.ST14",
                         "SkipCondition": "",
                         "SkipReason": "",
-                        "CurrentValue": "values | where-object name -eq 'ClassificationList' | select-object -expand value",
+                        "CurrentValue": "values | Where-Object name -eq 'ClassificationList' | Select-Object -expand value",
                         "DefaultValue": "",
                         "RecommendedValue": "",
                         "Recommendation": "",
@@ -2136,7 +2136,7 @@
                         "CheckId": "EIDSCA.AS04",
                         "SkipCondition": "$EnabledAuthMethods -notcontains 'Sms'",
                         "SkipReason": "Authentication method of Sms is not enabled.",
-                        "CurrentValue": "includeTargets.isUsableForSignIn | select-object -unique",
+                        "CurrentValue": "includeTargets.isUsableForSignIn | Select-Object -unique",
                         "DefaultValue": "true",
                         "RecommendedValue": "false",
                         "Recommendation": "Avoid to use SMS as primary sign in factor (instead of a password) and consider to implement a MFA or passwordless option also for your special user groups, such as front-line workers.",
