@@ -15,6 +15,7 @@ We invite identity or security experts from the community to work together on th
 - [Entra ID Security Config Analyzer (EIDSCA)](AADSecurityConfigAnalyzer.md)
 - [Adversary-in-the-Middle (AiTM) Attacks](Adversary-in-the-Middle.md)
 - [Microsoft Entra Connect Sync Application-based Authentication](EntraSyncAba.md)
+- [Agent Identities](AgentIdentities.md)
 
 ##### Appendix:
 - [Overview of Identity Security Monitoring in Microsoft Cloud](IdentitySecurityMonitoring.md)
@@ -55,8 +56,9 @@ The first chapter was about the ‘Password Spray’ attack where we focused hea
     <td align="left"><a href="https://securecloud.blog/"><img src="https://pbs.twimg.com/profile_images/1833129347592364032/u6yfdHNZ_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Joosua Santasalo</b></sub></a><br /><a href="https://twitter.com/SantasaloJoosua" title="Twitter">💬</a> <a href="https://securecloud.blog/" title="Blog">📖</a></td>
     <td align="left"><a href="https://securecloud.blog/"><img src="https://pbs.twimg.com/profile_images/1046318775753158657/CswVomK4_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Markus Pitkäranta</b></sub></a><br /><a href="https://twitter.com/PitkarantaM" title="Twitter">💬</a> <a href="https://longbeach.cloud/" title="Blog">📖</a></td>    
     <td align="left"><a href="https://chris-brumm.medium.com/"><img src="https://pbs.twimg.com/profile_images/861144637553168385/4v6Rungq_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Christopher Brumm</b></sub></a><br /><a href="https://x.com/cbrhh" title="Twitter">💬</a> <a href="https://chris-brumm.medium.com/" title="Blog">📖</a></td>
-    <td align="left"><a href="https://www.cloudbrothers.info/"><img src="https://pbs.twimg.com/profile_images/1570698446184632320/k5Rk-zlW_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Fabian Bader</b></sub></a><br /><a href="https://x.com/fabian_bader" title="Twitter">💬</a> <a href="https://www.cloudbrothers.com/" title="Blog">📖</a></td>       
-    <td align="left"><a href="https://aadinternals.com"><img src="https://pbs.twimg.com/profile_images/1589900186796580864/gsoJwgOF_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Nestori Syynimaa</b></sub></a><br /><a href="https://x.com/DrAzureAD/" title="Twitter">💬</a> <a href="https://aadinternals.com" title="Blog">📖</a></td>
+    <td align="left"><a href="https://derkvanderwoude.medium.com/"><img src="https://pbs.twimg.com/profile_images/1484467180423069701/W_I7w3L3_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Derk van der Woude</b></sub></a><br /><a href="https://x.com/DrAzureAD/" title="Twitter">💬</a> <a href="https://x.com/DerkVanDerWoude" title="Blog">📖</a></td>    
+    <td align="left"><a href="https://www.cloudbrothers.info/"><img src="https://pbs.twimg.com/profile_images/1570698446184632320/k5Rk-zlW_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Fabian Bader</b></sub></a><br /><a href="https://x.com/fabian_bader" title="Twitter">💬</a> <a href="https://www.cloudbrothers.com/" title="Blog">📖</a></td>     
+    <td align="left"><a href="https://aadinternals.com"><img src="https://pbs.twimg.com/profile_images/1589900186796580864/gsoJwgOF_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Nestori Syynimaa</b></sub></a><br /><a href="https://x.com/DrAzureAD/" title="Twitter">💬</a> <a href="https://aadinternals.com" title="Blog">📖</a></td>      
     <td align="left"><a href="https://hybridbrothers.com"><img src="https://pbs.twimg.com/profile_images/1842948977123004416/TluCvvyf_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Robbe Van den Daele</b></sub></a><br /><a href="https://x.com/RobbeVdDaele" title="Twitter">💬</a> <a href="https://hybridbrothers.com" title="Blog">📖</a></td>           
   </tr>
 </table>

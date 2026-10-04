@@ -1,0 +1,87 @@
+{
+  "name": "Entra Agent ID — Attack Scenarios (ATT&CK)",
+  "versions": {
+    "attack": "18",
+    "navigator": "5.1.0",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "description": "Enterprise ATT&CK techniques mapped from the Entra Agent ID attack-scenario table (AAD-Attack-Defense-AgentID). Generated 2026-09-18.",
+  "sorting": 0,
+  "layout": {
+    "layout": "side",
+    "aggregateFunction": "average",
+    "showID": true,
+    "showName": true
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1078.004",
+      "color": "#3c78d8",
+      "comment": "Scenario 1: Privileges to gain control of Agent ID objects. Compromise of a role holder with Agent ID lifecycle actions; directory scope only, no AU scoping.",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1548.005",
+      "color": "#3c78d8",
+      "comment": "Scenario 1. PIM activation of Agent ID Administrator / AI Administrator to obtain agent-object management on demand.",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1098.003",
+      "color": "#3c78d8",
+      "comment": "Scenario 1. Application Administrator managePermissionGrantsForAll.microsoft-application-admin — admin consent to any API outside MS Graph / AAD Graph.",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1651",
+      "color": "#3c78d8",
+      "comment": "Scenario 1. Consent to Machine.LiveResponse (WindowsDefenderATP) -> command/script/file operations on onboarded devices via Live Response API.",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1550.001",
+      "color": "#3c78d8",
+      "comment": "Scenarios 1 & 5. App-only token used against the resource; agent oid is the caller. In S5 inherited scopes surface only in scp/roles at runtime.",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1136.003",
+      "color": "#3c78d8",
+      "comment": "Scenario 2: Default ownership. createAsOwner actions are part of the default User role.",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1098",
+      "color": "#3c78d8",
+      "comment": "Scenario 2. Ownership survives PIM deactivation / role removal; owner can add owners and manage child objects.",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1098.001",
+      "color": "#3c78d8",
+      "comment": "Scenario 2. Ownership of the blueprint allows adding secrets/certs/FIC — the blueprint is the only object in the chain holding credentials.",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1199",
+      "color": "#3c78d8",
+      "comment": "Scenario 5: Multi-tenant blueprint opacity. Publishing tenant holds the sole credential; consuming tenant cannot enumerate delegated scopes.",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1195.002",
+      "color": "#3c78d8",
+      "comment": "Scenario 5. Operator expands inheritable permissions post-consent; scopes flow to all current/future agents without re-review.",
+      "enabled": true
+    }
+  ],
+  "legendItems": [
+    { "label": "Entra Agent ID attack-scenario techniques", "color": "#3c78d8" }
+  ],
+  "showTacticRowBackground": true,
+  "tacticRowBackground": "#205b8f",
+  "selectTechniquesAcrossTactics": true,
+  "selectSubtechniquesWithParent": false
+}
