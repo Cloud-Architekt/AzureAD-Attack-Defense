@@ -431,7 +431,7 @@ The figure below shows the ATLAS techniques used in these scenarios in the MITRE
 
 ![EAID-Attack_Scenarios_ATLAS.svg](./media/ai-agent-identities/EAID-Attack_Scenarios_ATLAS.svg)
 
-<a style="font-style:italic" href="https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Fmitre%2FAttackScenarios%2FEIDAgents-Mitre-Atlas.json&tabs=false&selecting_techniques=false" target="_blank" rel="noopener">Open in MITRE ATT&CK Navigator</a>
+<a style="font-style:italic" href="https://mitre-atlas.github.io/atlas-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FCloud-Architekt%2FAzureAD-Attack-Defense%2Fmain%2Fmedia%2Fmitre%2FAttackScenarios%2FEIDAgents-Mitre-Atlas.json&tabs=false&selecting_techniques=false" target="_blank" rel="noopener">Open in MITRE ATT&CK Navigator</a>
 
 <br>
 
