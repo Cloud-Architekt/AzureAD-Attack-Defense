@@ -12,10 +12,10 @@ _MITRE ATLAS: [Valid Accounts (AML.T0012)](https://atlas.mitre.org/techniques/AM
 
 - [Agent Identities](#agent-identities)
 - [Introduction](#introduction)
-  - [AI Agent Attack Lifecycle — A Three-Phase Threat Model](#ai-agent-attack-lifecycle--a-three-phase-threat-model)
-    - [Phase 1 — Pre-Breach: Targeting the Agent Entity](#phase-1--pre-breach-targeting-the-agent-entity)
-    - [Phase 2 — Initial Access: The Dual Attack Surface](#phase-2--initial-access-the-dual-attack-surface)
-    - [Phase 3 — Post-Breach: Living off the Agent's Tools (LOAT)](#phase-3--post-breach-living-off-the-agents-tools-loat)
+  - [AI Agent Attack Lifecycle: A Three-Phase Threat Model](#ai-agent-attack-lifecycle-a-three-phase-threat-model)
+    - [Phase 1 - Pre-Breach: Targeting the Agent Entity](#phase-1---pre-breach-targeting-the-agent-entity)
+    - [Phase 2 - Initial Access: The Dual Attack Surface](#phase-2---initial-access-the-dual-attack-surface)
+    - [Phase 3 - Post-Breach: Living off the Agent's Tools (LOAT)](#phase-3---post-breach-living-off-the-agents-tools-loat)
     - [References](#references)
   - [Agent Identities in Microsoft Entra](#agent-identities-in-microsoft-entra)
   - [Microsoft Agent ID Foundation](#microsoft-agent-id-foundation)
@@ -73,7 +73,7 @@ AI solutions, especially AI agents, include multiple layers that we need to cons
 - Platform - How AI infrastructure is targeted
 - Agent - Adversaries steer the agent's objectives to act against your interest
 
-<p align="center"><a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/ai-agent-identities/image.png" target="_blank"><img src="./media/ai-agent-identities/image.png" width="400" /></a></p>
+<p align="center"><a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/ai-agent-identities/image.png" target="_blank"><img src="./media/ai-agent-identities/AI_Stack_Risk_Layers.png" width="500" /></a></p>
 
 The last one, agent risks, is not defined in the MDDR report, but we see it as an important piece of a puzzle when building detections and planning mitigations for AI agents.
 
@@ -141,7 +141,7 @@ You can dive into details on each of these by reading Microsoft Learn articles a
 
 The authorization model is built around four objects that work together, also across tenant boundaries, in the case of multi-tenant agents.
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/ai-agent-identities/image1.png" target="_blank"><img src="./media/ai-agent-identities/image1.png" width="100%" /></a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/ai-agent-identities/AgentId_AuthZ_Authorization.png" target="_blank"><img src="./media/ai-agent-identities/AgentId_AuthZ_Authorization.png" width="100%" /></a>
 
 #### Agent Identity Blueprint (Application)
 
@@ -244,7 +244,7 @@ The complete identity chain is therefore: **Blueprint → Blueprint Principal �
 
 The following diagram shows what happens at runtime when an agent acts without a signed-in user. Where the first diagram explained *what the objects are and how they relate to one another*, this one shows *how tokens move between them*. The object model and relationships are the same; only the token flow is new here.
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/ai-agent-identities/image2.png" target="_blank"><img src="./media/ai-agent-identities/image2.png" width="100%" /></a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/ai-agent-identities/AgentId_AuthN_AutonomousAppFlow.png" target="_blank"><img src="./media/ai-agent-identities/AgentId_AuthN_AutonomousAppFlow.png" width="100%" /></a>
 
 The diagram introduces **Credentials** explicitly in the Publisher Tenant, connecting the Agent Identity Blueprint to the `/token` endpoint. It also numbers four runtime steps, annotated directly on the diagram. The `AgentIdentity (User)` and `AgentIdentity (Service Principal)` objects in the Consented Tenant now show inbound arrows from the token flow, making it clear which object receives the final resource access token and which the user account impersonation targets.
 
@@ -372,9 +372,9 @@ Microsoft's high-privileged label mostly covers roles with a direct path to full
 
 We tested adding credentials of every type - client secret, federated credentials, and certificate - to both the Agent Identity and the Agent User, and all attempts were blocked by Microsoft. This aligns with Microsoft's own documentation, which states that adding credentials to these object types is not permitted and will be blocked. Screenshots below:
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/ai-agent-identities/image4.png" target="_blank"><img src="./media/ai-agent-identities/image4.png" width="700" /></a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/ai-agent-identities/image4.png" target="_blank"><img src="./media/ai-agent-identities/image4.png" width="500" /></a>
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/ai-agent-identities/image5.png" target="_blank"><img src="./media/ai-agent-identities/image5.png" width="700" /></a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/ai-agent-identities/image5.png" target="_blank"><img src="./media/ai-agent-identities/image5.png" width="500" /></a>
 
 ### Limited visibility of inherited agent permissions on multi-tenant blueprints (Initial Access)
 
