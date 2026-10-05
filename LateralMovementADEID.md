@@ -535,4 +535,4 @@ It is not unlikely that the attacker has been in your environment for some time 
 - quickly expand the hardening measures described here
 - establish monitoring with Sentinel for Entra ID.
 
-Unfortunately, this no longer fits into this playbook and I recommend the rest of the **[Azure AD - Attack and Defense Playbook](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense)** as your first stop.
+Unfortunately, this no longer fits into this playbook and I recommend the rest of the **[Attack and Defense Playbook for Microsoft Entra](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense)** as your first stop.

@@ -1,4 +1,4 @@
-# Contributing to the Entra ID Attack & Defense Playbook
+# Contributing to the Attack and Defense Playbook for Microsoft Entra
 
 Thank you for helping keep this community-driven playbook accurate, practical, and useful to identity and security practitioners. The playbook documents common Microsoft Entra ID attack scenarios and their detection and mitigation considerations. The contribution overview in the [README](./README.md#how-to-become-part-of-the-project-and-contribute) describes the kinds of input the project welcomes.
 

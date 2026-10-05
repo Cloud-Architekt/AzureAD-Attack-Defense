@@ -1,6 +1,6 @@
 # Third-Party Notices and Attribution
 
-This register identifies third-party material and references known to be used by the Entra ID Attack & Defense Playbook. It is an attribution and review aid, not a grant of rights. The repository’s [MIT License](./LICENSE) applies only to material for which the project’s contributors hold the necessary copyright; it does not replace licenses, permissions, or attribution obligations that apply to third-party material.
+This register identifies third-party material and references known to be used by the Attack and Defense Playbook for Microsoft Entra. It is an attribution and review aid, not a grant of rights. The repository’s [MIT License](./LICENSE) applies only to material for which the project’s contributors hold the necessary copyright; it does not replace licenses, permissions, or attribution obligations that apply to third-party material.
 
 ## MITRE ATT&CK
 

@@ -1,4 +1,4 @@
-# Microsoft Entra ID - Attack and Defense Playbook
+# Attack and Defense Playbook for Microsoft Entra
 
 This publication is a collection of various common attack scenarios on Microsoft Entra and how they can be mitigated or detected.
 All of the included scenarios, insights and comments are based on experiences from the contributors during their attack simulations, hands-on or real-world scenarios.
@@ -28,10 +28,10 @@ In all chapters, we follow the same guideline on the chapter structure. When rea
 - Mitigation for the attack and instructions how to improve your environment security posture based on the chapter scope
 - Matching of attack scenarios and detection capabilities to Tactics, Techniques & Procedures (TTPs) of [MITRE ATT&CK Framework](#mitre-attck-framework)
 
-The following sections contain a short description of each chapter you can find from the 'Entra ID Attack & Defense Playbook'.
+The following sections contain a short description of each chapter in the 'Attack and Defense Playbook for Microsoft Entra'.
 
 ## Background
-The initial idea for creating the ‘Azure AD Attack & Defense Playbook’ came from Thomas Naunheim. Our first Teams call was somewhere in Autumn 2020 where Thomas presented the idea and it was sold immediately.  
+The initial idea for creating the ‘Attack and Defense Playbook for Microsoft Entra’ came from Thomas Naunheim. Our first Teams call was somewhere in Autumn 2020 where Thomas presented the idea and it was sold immediately.  
 
 The first chapter was about the ‘Password Spray’ attack where we focused heavily on the Entra ID Protection (formely known as Azure AD Identity Protection) detection mechanism to detect ‘password spray’ type of attacks. During the first chapter we learned that calendar time for finalizing the research might take significantly longer than expected due to the complexity of the research and different angles on the research. Scoping, like in any project type of work, is extremely important. 
 
@@ -196,7 +196,7 @@ To find more information about Entra ID security tokens take a look on the follo
 - [Entra ID Security Tokens](https://learn.microsoft.com/en-us/entra/identity-platform/security-tokens)
 - [Concept of Primary Refresh Token](https://learn.microsoft.com/en-us/entra/identity/devices/concept-primary-refresh-token)
 
-Entra ID Attack & Defense Playbook chapter 'Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device' sheds a light on replaying PRT, access token & refresh token:
+Attack and Defense Playbook for Microsoft Entra chapter 'Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device' sheds a light on replaying PRT, access token & refresh token:
 
 - [Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/blob/main/ReplayOfPrimaryRefreshToken.md)
 

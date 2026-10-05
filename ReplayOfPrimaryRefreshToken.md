@@ -55,7 +55,7 @@ _Updated: January 2023 (Added RT attack scenarios), October 2022 (Added M&TRE ma
 
 ## Introduction
 
-Welcome to the 5th chapter of the ‘Azure AD Attack & Defense Playbook’. It has been quite a journey to write this playbook with other community members. The 5th chapter, ‘Replay of Primary Refresh Token (PRT), and other issued tokens from an Azure AD Joined Device’ has been the most complex one of all. 
+Welcome to the 5th chapter of the ‘Attack and Defense Playbook for Microsoft Entra’. It has been quite a journey to write this playbook with other community members. The 5th chapter, ‘Replay of Primary Refresh Token (PRT), and other issued tokens from an Azure AD Joined Device’ has been the most complex one of all. 
 
 We started to work with it in late April so totally it has taken 4 months of calendar time. During these 4 months, we’ve spent countless hours in our labs, had approximately two (2) Teams call per week, shared our findings with each other, and also asked for opinions from other community members. We would like to thank [Fabian Bader](https://twitter.com/fabian_bader), [Christopher Brumm](https://twitter.com/cbrhh) and [Joosua Santasalo](https://twitter.com/SantasaloJoosua) for their help with verifying our research findings and have discussions on the mysterious world of token(s).
 

@@ -2,7 +2,7 @@
 
 ## Our pledge
 
-The Entra ID Attack & Defense Playbook is a community-driven, defensive-security publication. We are committed to a respectful, inclusive, and constructive environment for everyone who participates, regardless of experience, identity, background, or perspective.
+The Attack and Defense Playbook for Microsoft Entra is a community-driven, defensive-security publication. We are committed to a respectful, inclusive, and constructive environment for everyone who participates, regardless of experience, identity, background, or perspective.
 
 ## Expected behavior
 
@@ -25,4 +25,4 @@ The following is not acceptable:
 
 Maintainers may edit, remove, or reject content, and may limit participation when this Code of Conduct is violated. To report a concern privately, contact a repository maintainer through GitHub with “Code of Conduct” in the subject or opening message. Do not use public issues or pull requests for sensitive reports.
 
-This Code of Conduct applies to repository discussions, issues, pull requests, and other spaces representing the Entra ID Attack & Defense Playbook community.
+This Code of Conduct applies to repository discussions, issues, pull requests, and other spaces representing the Attack and Defense Playbook for Microsoft Entra community.

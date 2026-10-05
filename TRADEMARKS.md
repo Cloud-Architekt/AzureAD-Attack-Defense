@@ -1,6 +1,6 @@
 # Trademarks and Non-Affiliation
 
-The Entra ID Attack & Defense Playbook is an independent, community-driven project. It is not owned by, affiliated with, endorsed by, sponsored by, or supported by Microsoft Corporation or any of its affiliates.
+The Attack and Defense Playbook for Microsoft Entra is an independent, community-driven project. It is not owned by, affiliated with, endorsed by, sponsored by, or supported by Microsoft Corporation or any of its affiliates.
 
 The project’s use of the names “Microsoft,” “Microsoft Entra,” “Entra ID,” “Azure,” “Microsoft Graph,” “Microsoft Sentinel,” “Microsoft Defender,” and other Microsoft product or service names is descriptive only: the playbook discusses security scenarios involving those products and services. That use does not imply a partnership, endorsement, certification, or official status.
 

@@ -77,7 +77,7 @@ AI solutions, especially AI agents, include multiple layers that we need to cons
 
 The last one, agent risks, is not defined in the MDDR report, but we see it as an important piece of a puzzle when building detections and planning mitigations for AI agents.
 
-In this Entra ID Attack and Defense Playbook Chapter, we will explore agent identities focusing on three stages of the AI-based attacks: pre-breach, initial access, and post-breach. The AI domain is wide and complex, and for that reason, this paper will be a living document that starts with the Entra ID foundation and dives deeper into AI agent-focused scenarios. The Chapter will be expanded with sub-chapters and additional scenarios in the later stages.
+In this Attack and Defense Playbook for Microsoft Entra chapter, we will explore agent identities focusing on three stages of the AI-based attacks: pre-breach, initial access, and post-breach. The AI domain is wide and complex, and for that reason, this paper will be a living document that starts with the Entra ID foundation and dives deeper into AI agent-focused scenarios. The chapter will be expanded with sub-chapters and additional scenarios in the later stages.
 
 ## AI Agent Attack Lifecycle: A Three-Phase Threat Model
 
