@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="620" viewBox="0 0 760 620" font-family="'Segoe UI', 'Helvetica Neue', Arial, FreeSans, sans-serif" role="img" aria-label="Risk layers across the AI stack">
+<title>Risk layers across the AI stack</title>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B1A38"/><stop offset="1" stop-color="#16305C"/></linearGradient>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#6CC4FF"/></marker>
+<marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#CFE3FF"/></marker>
+<linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4A9BEA"/><stop offset="1" stop-color="#2A64BE"/></linearGradient>
+<linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2F7CD6"/><stop offset="1" stop-color="#1B4E9E"/></linearGradient>
+<linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F5FB8"/><stop offset="1" stop-color="#123A78"/></linearGradient>
+<linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5FB6F2"/><stop offset="1" stop-color="#2C72C9"/></linearGradient>
+<linearGradient id="gv1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F4F8E"/><stop offset="1" stop-color="#153766"/></linearGradient>
+<linearGradient id="gv2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#183F78"/><stop offset="1" stop-color="#0F2A55"/></linearGradient>
+</defs>
+<rect width="760" height="620" fill="url(#bg)"/>
+<text x="380" y="44" font-size="22" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Risk layers across the AI stack</text>
+<rect x="60" y="72" width="640" height="104" rx="14" fill="url(#g1)" stroke="#4E8FD9" stroke-width="1.5"/>
+<text x="380" y="110" font-size="24" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Usage Layer</text>
+<text x="380" y="136" font-size="15" fill="#FFFFFF" font-weight="normal" text-anchor="middle">Shadow AI • Data Disclosure • Copilot Misuse</text>
+<text x="380" y="158" font-size="12.5" fill="#CDE9FF" font-weight="normal" text-anchor="middle" font-style="italic">How employees interact with AI</text>
+<path d="M372 182 h16 v10 h8 l-16 14 l-16 -14 h8 Z" fill="#9FB6D6"/>
+<rect x="60" y="204" width="640" height="104" rx="14" fill="url(#g2)" stroke="#4E8FD9" stroke-width="1.5"/>
+<text x="380" y="242" font-size="24" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Application Layer</text>
+<text x="380" y="268" font-size="15" fill="#FFFFFF" font-weight="normal" text-anchor="middle">Prompt Injection • XPIA • Insecure Plugins</text>
+<text x="380" y="290" font-size="12.5" fill="#CDE9FF" font-weight="normal" text-anchor="middle" font-style="italic">How AI apps can be exploited</text>
+<path d="M372 314 h16 v10 h8 l-16 14 l-16 -14 h8 Z" fill="#9FB6D6"/>
+<rect x="60" y="336" width="640" height="104" rx="14" fill="url(#g3)" stroke="#4E8FD9" stroke-width="1.5"/>
+<text x="380" y="374" font-size="24" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Platform Layer</text>
+<text x="380" y="400" font-size="15" fill="#FFFFFF" font-weight="normal" text-anchor="middle">Data Poisoning • Model Integrity • Infra Attacks</text>
+<text x="380" y="422" font-size="12.5" fill="#CDE9FF" font-weight="normal" text-anchor="middle" font-style="italic">How AI infrastructure is targeted</text>
+<path d="M372 446 h16 v10 h8 l-16 14 l-16 -14 h8 Z" fill="#9FB6D6"/>
+<rect x="60" y="468" width="640" height="104" rx="14" fill="url(#g4)" stroke="#9FDBFF" stroke-width="2"/>
+<text x="380" y="506" font-size="24" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Agent Risks</text>
+<text x="380" y="532" font-size="15" fill="#FFFFFF" font-weight="normal" text-anchor="middle">Overreliance • Info Leakage • Agency Manipulation</text>
+<text x="380" y="554" font-size="12.5" fill="#CDE9FF" font-weight="normal" text-anchor="middle" font-style="italic">Adversaries steer the agent’s objectives</text>
+<text x="380" y="604" font-size="11" fill="#9FB6D6" font-weight="normal" text-anchor="middle">Usage, Application and Platform layers per Microsoft Digital Defense Report 2025 · Agent Risks added by the authors</text>
+</svg>

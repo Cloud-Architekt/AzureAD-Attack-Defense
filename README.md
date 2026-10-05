@@ -1,4 +1,4 @@
-# Microsoft Entra ID - Attack and Defense Playbook
+# Attack and Defense Playbook for Microsoft Entra
 
 This publication is a collection of various common attack scenarios on Microsoft Entra and how they can be mitigated or detected.
 All of the included scenarios, insights and comments are based on experiences from the contributors during their attack simulations, hands-on or real-world scenarios.
@@ -15,6 +15,7 @@ We invite identity or security experts from the community to work together on th
 - [Entra ID Security Config Analyzer (EIDSCA)](AADSecurityConfigAnalyzer.md)
 - [Adversary-in-the-Middle (AiTM) Attacks](Adversary-in-the-Middle.md)
 - [Microsoft Entra Connect Sync Application-based Authentication](EntraSyncAba.md)
+- [Agent Identities](AgentIdentities.md)
 
 ##### Appendix:
 - [Overview of Identity Security Monitoring in Microsoft Cloud](IdentitySecurityMonitoring.md)
@@ -27,10 +28,10 @@ In all chapters, we follow the same guideline on the chapter structure. When rea
 - Mitigation for the attack and instructions how to improve your environment security posture based on the chapter scope
 - Matching of attack scenarios and detection capabilities to Tactics, Techniques & Procedures (TTPs) of [MITRE ATT&CK Framework](#mitre-attck-framework)
 
-The following sections contain a short description of each chapter you can find from the 'Entra ID Attack & Defense Playbook'.
+The following sections contain a short description of each chapter in the 'Attack and Defense Playbook for Microsoft Entra'.
 
 ## Background
-The initial idea for creating the ‘Azure AD Attack & Defense Playbook’ came from Thomas Naunheim. Our first Teams call was somewhere in Autumn 2020 where Thomas presented the idea and it was sold immediately.  
+The initial idea for creating the ‘Attack and Defense Playbook for Microsoft Entra’ came from Thomas Naunheim. Our first Teams call was somewhere in Autumn 2020 where Thomas presented the idea and it was sold immediately.  
 
 The first chapter was about the ‘Password Spray’ attack where we focused heavily on the Entra ID Protection (formely known as Azure AD Identity Protection) detection mechanism to detect ‘password spray’ type of attacks. During the first chapter we learned that calendar time for finalizing the research might take significantly longer than expected due to the complexity of the research and different angles on the research. Scoping, like in any project type of work, is extremely important. 
 
@@ -55,8 +56,9 @@ The first chapter was about the ‘Password Spray’ attack where we focused hea
     <td align="left"><a href="https://securecloud.blog/"><img src="https://pbs.twimg.com/profile_images/1833129347592364032/u6yfdHNZ_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Joosua Santasalo</b></sub></a><br /><a href="https://twitter.com/SantasaloJoosua" title="Twitter">💬</a> <a href="https://securecloud.blog/" title="Blog">📖</a></td>
     <td align="left"><a href="https://securecloud.blog/"><img src="https://pbs.twimg.com/profile_images/1046318775753158657/CswVomK4_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Markus Pitkäranta</b></sub></a><br /><a href="https://twitter.com/PitkarantaM" title="Twitter">💬</a> <a href="https://longbeach.cloud/" title="Blog">📖</a></td>    
     <td align="left"><a href="https://chris-brumm.medium.com/"><img src="https://pbs.twimg.com/profile_images/861144637553168385/4v6Rungq_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Christopher Brumm</b></sub></a><br /><a href="https://x.com/cbrhh" title="Twitter">💬</a> <a href="https://chris-brumm.medium.com/" title="Blog">📖</a></td>
-    <td align="left"><a href="https://www.cloudbrothers.info/"><img src="https://pbs.twimg.com/profile_images/1570698446184632320/k5Rk-zlW_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Fabian Bader</b></sub></a><br /><a href="https://x.com/fabian_bader" title="Twitter">💬</a> <a href="https://www.cloudbrothers.com/" title="Blog">📖</a></td>       
-    <td align="left"><a href="https://aadinternals.com"><img src="https://pbs.twimg.com/profile_images/1589900186796580864/gsoJwgOF_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Nestori Syynimaa</b></sub></a><br /><a href="https://x.com/DrAzureAD/" title="Twitter">💬</a> <a href="https://aadinternals.com" title="Blog">📖</a></td>
+    <td align="left"><a href="https://derkvanderwoude.medium.com/"><img src="https://pbs.twimg.com/profile_images/1484467180423069701/W_I7w3L3_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Derk van der Woude</b></sub></a><br /><a href="https://x.com/DrAzureAD/" title="Twitter">💬</a> <a href="https://x.com/DerkVanDerWoude" title="Blog">📖</a></td>    
+    <td align="left"><a href="https://www.cloudbrothers.info/"><img src="https://pbs.twimg.com/profile_images/1570698446184632320/k5Rk-zlW_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Fabian Bader</b></sub></a><br /><a href="https://x.com/fabian_bader" title="Twitter">💬</a> <a href="https://www.cloudbrothers.com/" title="Blog">📖</a></td>     
+    <td align="left"><a href="https://aadinternals.com"><img src="https://pbs.twimg.com/profile_images/1589900186796580864/gsoJwgOF_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Nestori Syynimaa</b></sub></a><br /><a href="https://x.com/DrAzureAD/" title="Twitter">💬</a> <a href="https://aadinternals.com" title="Blog">📖</a></td>      
     <td align="left"><a href="https://hybridbrothers.com"><img src="https://pbs.twimg.com/profile_images/1842948977123004416/TluCvvyf_400x400.jpg" width="100px;" alt=""/><br /><sub><b>Robbe Van den Daele</b></sub></a><br /><a href="https://x.com/RobbeVdDaele" title="Twitter">💬</a> <a href="https://hybridbrothers.com" title="Blog">📖</a></td>           
   </tr>
 </table>
@@ -194,7 +196,7 @@ To find more information about Entra ID security tokens take a look on the follo
 - [Entra ID Security Tokens](https://learn.microsoft.com/en-us/entra/identity-platform/security-tokens)
 - [Concept of Primary Refresh Token](https://learn.microsoft.com/en-us/entra/identity/devices/concept-primary-refresh-token)
 
-Entra ID Attack & Defense Playbook chapter 'Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device' sheds a light on replaying PRT, access token & refresh token:
+Attack and Defense Playbook for Microsoft Entra chapter 'Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device' sheds a light on replaying PRT, access token & refresh token:
 
 - [Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/blob/main/ReplayOfPrimaryRefreshToken.md)
 

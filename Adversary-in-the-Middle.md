@@ -61,7 +61,7 @@ _MITRE ATT&CK: [Adversary-in-the-Middle (T1557)](https://attack.mitre.org/techni
 
 ## Introduction
 
-As we approach the fourth anniversary of the Entra ID Attack and Defense Playbook this October, it's a perfect time to reflect on its evolution and the collective effort that has made it a valuable resource (based on the feedback) for security professionals.
+As we approach the fourth anniversary of the Attack and Defense Playbook for Microsoft Entra this October, it's a perfect time to reflect on its evolution and the collective effort that has made it a valuable resource (based on the feedback) for security professionals.
 
 The playbook began as a vision to consolidate common attack scenarios on Microsoft Entra ID (formerly Azure Active Directory) and the corresponding mitigation and detection strategies. This vision quickly turned into a collaborative project that resonated with the community, leading to its first chapter on 'Password Spray' attacks. Over the years, the playbook has expanded to include many scenarios, insights based on real-world experiences and attack simulations.
 
@@ -69,7 +69,7 @@ The playbook is structured to provide a comprehensive guide on various attack ve
 
 As we celebrate this milestone, we extend our gratitude to all the followers and contributors who have enriched the playbook with their expertise and feedback. The playbook is more than just a document; it's a dynamic entity that continues to grow and adapt to the ever-changing cyber threat environment.
 
-Here's to many more years of safeguarding Entra ID environments together. As we look forward, we are confident that the playbook will continue to grow and evolve — Happy 4th anniversary to the Entra ID Attack and Defense Playbook.
+Here's to many more years of safeguarding Entra ID environments together. As we look forward, we are confident that the playbook will continue to grow and evolve — Happy 4th anniversary to the Attack and Defense Playbook for Microsoft Entra.
 
 ### Token Replay Attacks
 
@@ -82,7 +82,7 @@ To find more information about Entra ID security tokens take a look on the follo
 - [Entra ID Security Tokens](https://learn.microsoft.com/en-us/entra/identity-platform/security-tokens)
 - [Concept of Primary Refresh Token](https://learn.microsoft.com/en-us/entra/identity/devices/concept-primary-refresh-token)
 
-Entra ID Attack & Defense Playbook chapter 'Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device' sheds a light on replaying PRT, access token & refresh token:
+Attack and Defense Playbook for Microsoft Entra chapter 'Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device' sheds a light on replaying PRT, access token & refresh token:
 
 - [Replay of Primary Refresh (PRT) and other issued tokens from an Azure AD joined device](https://github.com/Cloud-Architekt/AzureAD-Attack-Defense/blob/main/ReplayOfPrimaryRefreshToken.md)
 

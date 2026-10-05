@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="712" viewBox="0 0 1280 712" font-family="'Segoe UI', 'Helvetica Neue', Arial, FreeSans, sans-serif" role="img" aria-label="AI agent attack lifecycle: pre-breach, initial access, post-breach">
+<title>AI agent attack lifecycle: pre-breach, initial access, post-breach</title>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B1A38"/><stop offset="1" stop-color="#16305C"/></linearGradient>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#6CC4FF"/></marker>
+<marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#CFE3FF"/></marker>
+<linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4A9BEA"/><stop offset="1" stop-color="#2A64BE"/></linearGradient>
+<linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2F7CD6"/><stop offset="1" stop-color="#1B4E9E"/></linearGradient>
+<linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F5FB8"/><stop offset="1" stop-color="#123A78"/></linearGradient>
+<linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5FB6F2"/><stop offset="1" stop-color="#2C72C9"/></linearGradient>
+<linearGradient id="gv1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F4F8E"/><stop offset="1" stop-color="#153766"/></linearGradient>
+<linearGradient id="gv2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#183F78"/><stop offset="1" stop-color="#0F2A55"/></linearGradient>
+</defs>
+<rect width="1280" height="712" fill="url(#bg)"/>
+<rect x="8" y="8" width="358" height="58" rx="10" fill="url(#g1)"/>
+<text x="187.0" y="46" font-size="24" fill="#FFFFFF" font-weight="bold" text-anchor="middle">PRE-BREACH</text>
+<rect x="384" y="8" width="322" height="58" rx="10" fill="url(#g2)"/>
+<text x="545.0" y="46" font-size="24" fill="#FFFFFF" font-weight="bold" text-anchor="middle">INITIAL ACCESS</text>
+<rect x="726" y="8" width="546" height="58" rx="10" fill="url(#g3)"/>
+<text x="999.0" y="46" font-size="24" fill="#FFFFFF" font-weight="bold" text-anchor="middle">POST-BREACH</text>
+<rect x="8" y="84" width="358" height="60" rx="10" fill="#132A50" stroke="#4E78AE" stroke-width="1.5"/>
+<path d="M34 115 v-4 a5 5 0 0 1 10 0 v4" fill="none" stroke="#9FDBFF" stroke-width="2"/><rect x="31" y="115" width="16" height="12" rx="2" fill="#9FDBFF"/><circle cx="39" cy="121" r="1.8" fill="#132A50"/>
+<text x="56" y="120" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="start">Adversary has NOT breached the agent</text>
+<rect x="384" y="84" width="322" height="60" rx="10" fill="#10284D" stroke="#9FDBFF" stroke-width="1.5"/>
+<text x="545" y="106" font-size="14" fill="#9FDBFF" font-weight="bold" text-anchor="middle">DUAL ATTACK SURFACE</text>
+<text x="545" y="122" font-size="10" fill="#FFFFFF" font-weight="normal" text-anchor="middle">Identity monitoring covers only one of the two vectors.</text>
+<text x="545" y="136" font-size="10" fill="#FFFFFF" font-weight="normal" text-anchor="middle">AI-native vectors bypass the identity layer entirely.</text>
+<rect x="726" y="84" width="546" height="60" rx="10" fill="#172743" stroke="#4E78AE" stroke-width="1.5"/>
+<text x="999" y="106" font-size="13" fill="#9FDBFF" font-weight="bold" text-anchor="middle">Living off the Agent’s Tools (LOAT) — dominant post-breach pattern</text>
+<text x="999" y="122" font-size="9.5" fill="#FFFFFF" font-weight="normal" text-anchor="middle">Adversaries abuse the agent’s legitimate capabilities (MCP tools, Graph scopes, KQL access, connectors).</text>
+<text x="999" y="135" font-size="9.5" fill="#FFFFFF" font-weight="normal" text-anchor="middle">Actions mimic normal agent operations. Note: credential theft &amp; exploitation still use external tooling.</text>
+<rect x="8" y="162" width="358" height="152" rx="14" fill="#17386A" stroke="#4E8FD9" stroke-width="1.5"/>
+<text x="187" y="182" font-size="12" fill="#9FDBFF" font-weight="bold" text-anchor="middle">Reconnaissance · TA0043 · AML.T0095</text>
+<text x="22" y="204" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Agent identity enumeration</text>
+<text x="34" y="217" font-size="9.5" fill="#7CC0EC" font-weight="normal" text-anchor="start">Entra Agent IDs via Graph API, directory queries</text>
+<text x="22" y="234" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Tool &amp; capability discovery</text>
+<text x="34" y="247" font-size="9.5" fill="#7CC0EC" font-weight="normal" text-anchor="start">MCP servers, plugins, connectors, API endpoints</text>
+<text x="22" y="264" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Permission mapping</text>
+<text x="34" y="277" font-size="9.5" fill="#7CC0EC" font-weight="normal" text-anchor="start">Graph scopes, data lake access, Conditional Access gaps</text>
+<text x="22" y="294" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Operator identification</text>
+<text x="34" y="307" font-size="9.5" fill="#7CC0EC" font-weight="normal" text-anchor="start">Agent creators, admin accounts, delegated users</text>
+<rect x="8" y="322" width="358" height="152" rx="14" fill="#17386A" stroke="#4E8FD9" stroke-width="1.5"/>
+<text x="187" y="342" font-size="12" fill="#9FDBFF" font-weight="bold" text-anchor="middle">Resource Development · TA0042 · AML.T0017</text>
+<text x="22" y="364" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Prompt injection payload crafting</text>
+<text x="34" y="377" font-size="9.5" fill="#7CC0EC" font-weight="normal" text-anchor="start">AML.T0065 — direct, indirect &amp; multi-turn variants</text>
+<text x="22" y="394" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Adversarial tooling</text>
+<text x="34" y="407" font-size="9.5" fill="#7CC0EC" font-weight="normal" text-anchor="start">AML.T0079 — malicious MCP servers, poisoned tools</text>
+<text x="22" y="424" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Poisoned content preparation</text>
+<text x="34" y="437" font-size="9.5" fill="#7CC0EC" font-weight="normal" text-anchor="start">AML.T0066 — retrieval content, SharePoint doc injection</text>
+<text x="22" y="454" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Exfiltration infrastructure</text>
+<text x="34" y="467" font-size="9.5" fill="#7CC0EC" font-weight="normal" text-anchor="start">AML.T0008 — C2 via tool responses, staging domains</text>
+<rect x="8" y="482" width="358" height="132" rx="14" fill="#17386A" stroke="#4E8FD9" stroke-width="1.5"/>
+<text x="187" y="502" font-size="12" fill="#9FDBFF" font-weight="bold" text-anchor="middle">Valid Accounts · T1078 · T1078.004 · AML.T0012</text>
+<text x="22" y="524" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Blueprint credential theft</text>
+<text x="34" y="537" font-size="9.5" fill="#7CC0EC" font-weight="normal" text-anchor="start">Secret, certificate or FIC trust — agent identities hold none</text>
+<text x="22" y="554" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• OAuth consent phishing</text>
+<text x="34" y="567" font-size="9.5" fill="#7CC0EC" font-weight="normal" text-anchor="start">Trick admins into granting blueprint / agent scopes</text>
+<text x="22" y="584" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Operator account compromise</text>
+<text x="34" y="597" font-size="9.5" fill="#7CC0EC" font-weight="normal" text-anchor="start">Credential stuffing, phishing agent creators</text>
+<rect x="384" y="162" width="322" height="196" rx="18" fill="url(#gv1)" stroke="#6FB3F5" stroke-width="2"/>
+<text x="545" y="186" font-size="14" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Identity-Based Vector</text>
+<text x="545" y="202" font-size="10.5" fill="#9FDBFF" font-weight="bold" text-anchor="middle">T1078 · T1078.004 · TA0001 · AML.T0012</text>
+<text x="398" y="224" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Blueprint credential abuse</text>
+<text x="412" y="237" font-size="9.5" fill="#A9D6F7" font-weight="normal" text-anchor="start">Leaked secret / certificate, over-trusted FIC issuer</text>
+<text x="398" y="254" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Token theft &amp; replay</text>
+<text x="412" y="267" font-size="9.5" fill="#A9D6F7" font-weight="normal" text-anchor="start">Managed identity, WIF, PRT abuse · AML.T0091</text>
+<text x="398" y="284" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Compromised operator → agent admin</text>
+<text x="412" y="297" font-size="9.5" fill="#A9D6F7" font-weight="normal" text-anchor="start">Human-in-the-chain exploitation</text>
+<text x="398" y="320" font-size="10.5" fill="#FFFFFF" font-weight="bold" text-anchor="start">Detection (mature):</text>
+<text x="398" y="334" font-size="9.5" fill="#9FB6D6" font-weight="normal" text-anchor="start">Entra ID sign-in logs, Identity Protection for agents,</text>
+<text x="398" y="347" font-size="9.5" fill="#9FB6D6" font-weight="normal" text-anchor="start">Conditional Access for agents, CAE, token binding</text>
+<rect x="384" y="368" width="322" height="250" rx="18" fill="url(#gv2)" stroke="#9ED4FF" stroke-width="2"/>
+<text x="545" y="392" font-size="14" fill="#FFFFFF" font-weight="bold" text-anchor="middle">AI-Native Vector</text>
+<text x="545" y="408" font-size="10.5" fill="#9FDBFF" font-weight="bold" text-anchor="middle">AML.T0051 · AML.T0070 · AML.T0080 · AML.T0110</text>
+<text x="398" y="430" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Direct &amp; indirect prompt injection</text>
+<text x="412" y="443" font-size="9.5" fill="#B9E2FF" font-weight="normal" text-anchor="start">AML.T0051.000 / .001 — email, SharePoint, web content</text>
+<text x="398" y="460" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Plugin / tool poisoning</text>
+<text x="412" y="473" font-size="9.5" fill="#B9E2FF" font-weight="normal" text-anchor="start">AML.T0110 — compromised MCP servers, connectors</text>
+<text x="398" y="490" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Memory &amp; RAG poisoning</text>
+<text x="412" y="503" font-size="9.5" fill="#B9E2FF" font-weight="normal" text-anchor="start">AML.T0080 / AML.T0070 — knowledge-base corruption</text>
+<path d="M398 521 L403.5 510 L409 521 Z" fill="#7FE0FF"/><rect x="402.7" y="513.3" width="1.6" height="4.18" fill="#0B1A38"/><rect x="402.7" y="518.58" width="1.6" height="1.6" fill="#0B1A38"/>
+<text x="414" y="520" font-size="10.5" fill="#7FE0FF" font-weight="bold" text-anchor="start">Injection itself: no sign-in, no CA, no IdP signal</text>
+<path d="M398 536 L403.5 525 L409 536 Z" fill="#7FE0FF"/><rect x="402.7" y="528.3" width="1.6" height="4.18" fill="#0B1A38"/><rect x="402.7" y="533.58" width="1.6" height="1.6" fill="#0B1A38"/>
+<text x="414" y="535" font-size="10.5" fill="#7FE0FF" font-weight="bold" text-anchor="start">Identity signals surface only downstream</text>
+<text x="398" y="556" font-size="10.5" fill="#FFFFFF" font-weight="bold" text-anchor="start">Detection (emerging):</text>
+<text x="398" y="570" font-size="9.5" fill="#9FB6D6" font-weight="normal" text-anchor="start">Defender XDR + Defender for Endpoint runtime protection,</text>
+<text x="398" y="583" font-size="9.5" fill="#9FB6D6" font-weight="normal" text-anchor="start">Agent 365 observability, Purview, custom analytics</text>
+<rect x="726" y="162" width="269" height="106" rx="14" fill="#17386A" stroke="#4E8FD9" stroke-width="1.5"/>
+<text x="860.5" y="183" font-size="11" fill="#9FDBFF" font-weight="bold" text-anchor="middle">Execution · TA0002 · AML.T0053</text>
+<text x="738" y="204" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• MCP / agent tool invocation</text>
+<text x="738" y="220" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Graph API abuse via agent identity</text>
+<text x="738" y="236" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• KQL queries under agent token</text>
+<text x="738" y="252" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Command &amp; script execution (AML.T0050)</text>
+<rect x="1003" y="162" width="269" height="106" rx="14" fill="#17386A" stroke="#4E8FD9" stroke-width="1.5"/>
+<text x="1137.5" y="183" font-size="11" fill="#9FDBFF" font-weight="bold" text-anchor="middle">Discovery · TA0007 · AML.T0084</text>
+<text x="1015" y="204" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Agent config &amp; tool enumeration</text>
+<text x="1015" y="220" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Data lake table / schema discovery</text>
+<text x="1015" y="236" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Permission boundary probing</text>
+<text x="1015" y="252" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Org structure via Graph</text>
+<rect x="726" y="276" width="269" height="106" rx="14" fill="#17386A" stroke="#4E8FD9" stroke-width="1.5"/>
+<text x="860.5" y="297" font-size="11" fill="#9FDBFF" font-weight="bold" text-anchor="middle">Persistence · TA0003 · AML.T0080</text>
+<text x="738" y="318" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Memory poisoning (AML.T0080.000)</text>
+<text x="738" y="334" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Thread / context poisoning (.001)</text>
+<text x="738" y="350" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Agent config tampering (AML.T0081)</text>
+<text x="738" y="366" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• RAG backdoor injection (AML.T0070)</text>
+<rect x="1003" y="276" width="269" height="106" rx="14" fill="#17386A" stroke="#4E8FD9" stroke-width="1.5"/>
+<text x="1137.5" y="297" font-size="11" fill="#9FDBFF" font-weight="bold" text-anchor="middle">Lateral Movement · TA0008 · AML.T0091</text>
+<text x="1015" y="318" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Agent → backend via MCP tools</text>
+<text x="1015" y="334" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Stolen app access tokens (.000)</text>
+<text x="1015" y="350" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Cross-workspace identity reuse</text>
+<text x="1015" y="366" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Agent-mediated social engineering</text>
+<rect x="726" y="390" width="269" height="106" rx="14" fill="#17386A" stroke="#4E8FD9" stroke-width="1.5"/>
+<text x="860.5" y="411" font-size="11" fill="#9FDBFF" font-weight="bold" text-anchor="middle">Priv Escalation · TA0004 · AML.T0105</text>
+<text x="738" y="432" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Tool chaining for scope inflation</text>
+<text x="738" y="448" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Over-provisioned Graph scopes</text>
+<text x="738" y="464" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Sandbox / host escape (AML.T0105)</text>
+<text x="738" y="480" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Multi-tenant blueprint trust abuse</text>
+<rect x="1003" y="390" width="269" height="106" rx="14" fill="#17386A" stroke="#4E8FD9" stroke-width="1.5"/>
+<text x="1137.5" y="411" font-size="11" fill="#9FDBFF" font-weight="bold" text-anchor="middle">Collection &amp; Exfil · TA0009 · TA0010</text>
+<text x="1015" y="432" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Bulk KQL / RAG collection (AML.T0085)</text>
+<text x="1015" y="448" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Exfil via agent tool calls (AML.T0086)</text>
+<text x="1015" y="464" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Graph data exports</text>
+<text x="1015" y="480" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Exfil via agent output channels</text>
+<rect x="726" y="504" width="269" height="106" rx="14" fill="#17386A" stroke="#4E8FD9" stroke-width="1.5"/>
+<text x="860.5" y="525" font-size="11" fill="#9FDBFF" font-weight="bold" text-anchor="middle">Stealth · TA0005 · AML.T0068</text>
+<text x="738" y="546" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Mimics legitimate agent patterns</text>
+<text x="738" y="562" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Prompt / KQL / Graph obfuscation</text>
+<text x="738" y="578" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Masquerading (AML.T0074)</text>
+<path d="M738 595 L743.0 585 L748 595 Z" fill="#7FE0FF"/><rect x="742.2" y="588.0" width="1.6" height="3.8" fill="#0B1A38"/><rect x="742.2" y="592.8" width="1.6" height="1.6" fill="#0B1A38"/>
+<text x="753" y="594" font-size="10.5" fill="#7FE0FF" font-weight="normal" text-anchor="start">Audit gap exploitation</text>
+<rect x="1003" y="504" width="269" height="106" rx="14" fill="#17386A" stroke="#4E8FD9" stroke-width="1.5"/>
+<text x="1137.5" y="525" font-size="11" fill="#9FDBFF" font-weight="bold" text-anchor="middle">Impact · TA0040 · AML.T0101</text>
+<text x="1015" y="546" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Data destruction via tool calls</text>
+<text x="1015" y="562" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Data manipulation via write ops</text>
+<text x="1015" y="578" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Poisoned output → human decisions</text>
+<text x="1015" y="594" font-size="10.5" fill="#FFFFFF" font-weight="normal" text-anchor="start">• Service disruption · compliance</text>
+<text x="1274" y="628" font-size="9" fill="#9FB6D6" font-weight="normal" text-anchor="end" font-style="italic">Stealth = Defense Evasion before ATT&amp;CK v19</text>
+<text x="640" y="662" font-size="15" fill="#FFFFFF" font-weight="normal" text-anchor="middle">Pre-Breach (Reconnaissance &amp; Targeting)  →  Initial Access (Dual Attack Surface)  →  Post-Breach (LOAT-dominated)</text>
+<text x="640" y="686" font-size="9.5" fill="#9FB6D6" font-weight="normal" text-anchor="middle">Mapped to MITRE ATT&amp;CK v19 and MITRE ATLAS · technique IDs checked against the MITRE ATLAS data release · as of September 2026</text>
+</svg>

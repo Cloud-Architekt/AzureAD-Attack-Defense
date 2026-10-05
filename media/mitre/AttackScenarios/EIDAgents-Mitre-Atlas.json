@@ -1,0 +1,24 @@
+{
+  "versions": {
+    "layer": "4.3",
+    "navigator": "4.6.4"
+  },
+  "domain": "atlas-atlas",
+  "name": "Entra Agent ID - Attack Scenarios (ATLAS)",
+  "description": "MITRE ATLAS techniques mapped from the Entra Agent ID attack-scenario table. Load in the ATLAS Navigator (mitre-atlas.github.io/atlas-navigator). Generated 2026-09-18.",
+  "sorting": 0,
+  "layout": { "layout": "side", "showID": true, "showName": true },
+  "hideDisabled": false,
+  "techniques": [
+    { "techniqueID": "AML.T0012", "color": "#3c78d8", "comment": "Scenario 1: Privileges to gain control of Agent ID objects.", "enabled": true },
+    { "techniqueID": "AML.T0091.000", "color": "#3c78d8", "comment": "Scenarios 1 & 5. Application access token used against the downstream resource.", "enabled": true },
+    { "techniqueID": "AML.T0021", "color": "#3c78d8", "comment": "Scenario 2: Default ownership. createAsOwner is part of the default User role.", "enabled": true },
+    { "techniqueID": "AML.T0081", "color": "#3c78d8", "comment": "Scenario 2. Ownership is a standing grant surviving PIM deactivation / role removal.", "enabled": true },
+    { "techniqueID": "AML.T0010.005", "color": "#3c78d8", "comment": "Scenario 5: Multi-tenant blueprint opacity.", "enabled": true },
+    { "techniqueID": "AML.T0109", "color": "#3c78d8", "comment": "Scenario 5. Operator expands inheritable permissions post-consent.", "enabled": true },
+    { "techniqueID": "AML.T0084", "color": "#3c78d8", "comment": "Scenario 5 (defender-side gap). Blueprint without a principal is invisible in the portal.", "enabled": true }
+  ],
+  "legendItems": [
+    { "label": "Entra Agent ID attack-scenario techniques", "color": "#3c78d8" }
+  ]
+}
