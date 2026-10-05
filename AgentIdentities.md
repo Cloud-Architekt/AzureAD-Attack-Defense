@@ -461,7 +461,7 @@ Microsoft Entra ID Protection is a security solution in the Entra ID platform th
 In regard to these detections, it is important to understand that these risk detections only work for certain agent types and authentication flows. 
 
 - **Does not support agents using On-Behalf-Of authentication flow** - In this scenario risk is attributed to the user account using the agent, instead of to the Agent Identity. This means the above mentioned risk detections are only applicable to autonomous agents. Risk detections for users using an agent with the OBO flow are [documented here](https://learn.microsoft.com/en-us/entra/id-protection/concept-identity-protection-risks).
-- **Does support classic agent identities** - Classic Agent Identities, which are normal service principals used for AI Agents, are now supported for AI Risk detection.
+- **Does support classic agent identities** - Classic Agent Identities, which are normal service principals used for AI Agents, are now supported for AI Risk detection. This was not the case in the past.
 
 Additionally, [Microsoft mentions](https://learn.microsoft.com/en-us/entra/id-protection/concept-risky-agents#how-it-works) a **learning mode** for agent detections that automatically suppresses behavioral alerts for agents with insufficient activity history, preventing false positives **during onboarding and after periods of inactivity**. While great for false positive reduction, it is not clearly documented for how long this learning mode is active. While there are parallel detections to ensure genuinely malicious behavior is still caught, it is important to understand that not all of the above mentioned detections might work at the beginning of the Agent Identity activity. 
 
