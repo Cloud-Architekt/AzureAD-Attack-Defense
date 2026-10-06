@@ -325,7 +325,7 @@ $BlockCloudTakeOver = @{ BlockCloudObjectTakeoverThroughHardMatchEnabled = "true
 Update-MgDirectoryOnPremiseSynchronization -Features $SoftBlock -OnPremisesDirectorySynchronizationId $DirectorySync.Id
 Update-MgDirectoryOnPremiseSynchronization -Features $BlockCloudTakeOver -OnPremisesDirectorySynchronizationId $DirectorySync.Id
 ```
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/media/aadc-syncservice-acc/Entra-Sync-blocks.png" target="_blank"><img src="./media/aadc-syncservice-acc/Entra-Sync-blocks.png" width="900" /></a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/media/aadc-syncservice-acc/Entra-Sync-Blocks.png" target="_blank"><img src="./media/aadc-syncservice-acc/Entra-Sync-Blocks.png" width="900" /></a>
 
 **Update Mai 2026:** Starting June 1, 2026, Microsoft Entra ID will automatically block hard-match attempts by Entra Connect Sync or Cloud Sync that target existing cloud-managed user objects holding Microsoft Entra roles. This protection applies when the privileged account is cloud-only and has no `onPremisesImmutableId` set — preventing adversaries from using on-premises hard-match techniques to take over role-bearing accounts. For further details, see the [Microsoft Entra What's New documentation](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new#upcoming-change--microsoft-entra-connect-security-update-to-block-hard-match-for-users-with-microsoft-entra-roles).
 
