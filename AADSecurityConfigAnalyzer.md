@@ -165,7 +165,7 @@ The following resources are found from the environment:
 - System-assigned Managed Identity in Entra ID Enterprise Applications blade named as ‘Import-AADSCAtoLAWS’
 - API connection with managed identity connection that's needed for the Logic App
 
-<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-WB-3.png" target="_blank">![](./media/AADSCA-Deploy-1.PNG)</a>
+<a href="https://raw.githubusercontent.com/Cloud-Architekt/AzureAD-Attack-Defense/main/media/AADSCA-Deploy-1.png" target="_blank">![](./media/AADSCA-Deploy-1.png)</a>
 
 ### Assigning Graph API permissions to Managed Identity
 In our example, needed permissions for the EIDSCA solution (used by Managed Identity of Logic App) are set by PowerShell script. Feel free to use whatever method you find comfortable. The script assigns the following permissions:
