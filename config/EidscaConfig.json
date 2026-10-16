@@ -14,7 +14,7 @@
                 "GraphEndpoint": "authorizationPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authorizationPolicy",
                 "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/authorizationPolicy",
-                "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/authorizationpolicy",
+                "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/authorizationpolicy?view=graph-rest-beta",
                 "MitreTactic": [],
                 "MitreTechnique": [],
                 "MitreMitigation": [],
@@ -29,7 +29,7 @@
                         "DefaultValue": "true",
                         "RecommendedValue": "false",
                         "Recommendation": "Administrators with sensitive roles should use phishing-resistant authentication methods only and therefore not able to reset their password using SSPR.",
-                        "Severity": "Informational",
+                        "Severity": "High",
                         "MitreTactic": [
                             "TA0006 - Credential Access"
                         ],
@@ -147,7 +147,7 @@
                         "DefaultValue": "10dae51f-b6af-4016-8d66-8c2a99b929b3",
                         "RecommendedValue": "2af84b1e-32c8-42b7-82bc-daa82404023b",
                         "Recommendation": "CISA SCuBA 2.18: Guest users SHOULD have limited access to Entra ID (Azure AD) directory objects.",
-                        "Severity": "",
+                        "Severity": "Medium",
                         "MitreTactic": [
                             "TA0043 - Reconnaissance"
                         ],
@@ -159,14 +159,14 @@
                     },
                     {
                         "Name": "permissionGrantPolicyIdsAssignedToDefaultUserRole",
-                        "DisplayName": "User consent policy assigned for applications",
+                        "DisplayName": "User consent assignments match the restricted built-in baseline",
                         "CheckId": "EIDSCA.AP08",
-                        "SkipCondition": "($AuthorizationPolicyAvailable | where-object permissionGrantPolicyIdsAssignedToDefaultUserRole -Match 'ManagePermissionGrantsForSelf.microsoft-').Count -eq 0",
-                        "SkipReason": "User Consent has been disabled or customized using Microsoft Graph or Microsoft Graph PowerShell without any assignment to custom policy.",
-                        "CurrentValue": "permissionGrantPolicyIdsAssignedToDefaultUserRole -clike 'ManagePermissionGrantsForSelf*'",
-                        "DefaultValue": "ManagePermissionGrantsForSelf.microsoft-user-default-legacy",
-                        "RecommendedValue": "ManagePermissionGrantsForSelf.microsoft-user-default-low",
-                        "Recommendation": "Microsoft recommends to allow to user consent for apps from verified publisher for selected permissions. CISA SCuBA 2.7 defines that all Non-Admin Users SHALL Be Prevented From Providing Consent To Third-Party Applications.",
+                        "SkipCondition": "$null -eq $AuthorizationPolicyAvailable.permissionGrantPolicyIdsAssignedToDefaultUserRole -or ((($AuthorizationPolicyAvailable.permissionGrantPolicyIdsAssignedToDefaultUserRole -match '^ManagePermissionGrantsForSelf\\.') -notmatch '^ManagePermissionGrantsForSelf\\.microsoft-user-default-(low|legacy)$').Count -gt 0 -and $AuthorizationPolicyAvailable.permissionGrantPolicyIdsAssignedToDefaultUserRole -notcontains 'ManagePermissionGrantsForSelf.microsoft-user-default-legacy')",
+                        "SkipReason": "Manual review required: consent policy assignments are unavailable, or Microsoft-managed or custom user consent policies require evaluation of their includes and excludes against the organization's baseline. No compliance conclusion is made for these policies.",
+                        "CurrentValue": "permissionGrantPolicyIdsAssignedToDefaultUserRole | Where-Object { $_ -like 'ManagePermissionGrantsForSelf.*' -and $_ -ne 'ManagePermissionGrantsForSelf.microsoft-user-default-low' } | Measure-Object | Select-Object -ExpandProperty Count",
+                        "DefaultValue": "",
+                        "RecommendedValue": "0",
+                        "Recommendation": "Disable user consent or restrict it to microsoft-user-default-low for the built-in restricted baseline. Review all Microsoft-managed and custom user consent policies, including microsoft-user-default-recommended and the microsoft-user-default-allow-consent-apps mail-client exceptions, by retrieving their includes and excludes from policies/permissionGrantPolicies. Any assigned policy can authorize consent independently; a restrictive policy does not override a permissive one. Preserve and assess ManagePermissionGrantsForOwnedResource assignments separately. See https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/manage-app-consent-policies.",
                         "Severity": "High",
                         "MitreTactic": [
                             "TA0001 - Initial Access",
@@ -185,7 +185,7 @@
                             "M1018"
                         ],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/UserSettings",
-                        "Description": "Defines if user consent to apps is allowed, and if it is, which app consent policy (permissionGrantPolicy) governs the permissions.",
+                        "Description": "Counts user consent assignments outside microsoft-user-default-low. An explicit empty assignment collection or only resource-specific consent assignments passes because no default ManagePermissionGrantsForSelf policy is assigned. The legacy unrestricted policy fails, including when mixed with other policies. Microsoft-managed and custom policies require manual review and are skipped unless the legacy policy is also assigned. This check does not evaluate other consent authorization mechanisms or existing grants.",
                         "HowToFix": ""
                     },
                     {
@@ -280,8 +280,8 @@
                         "SkipReason": "",
                         "CurrentValue": "defaultUserRolePermissions.allowedToCreateTenants",
                         "DefaultValue": "true",
-                        "RecommendedValue": "",
-                        "Recommendation": "",
+                        "RecommendedValue": "false",
+                        "Recommendation": "Restrict tenant creation by non-admin users. Users assigned the Tenant Creator role can still create tenants when this setting is false.",
                         "Severity": "Medium",
                         "MitreTactic": [
                             "TA0010 - Exfiltration",
@@ -310,7 +310,7 @@
                         "MitreTechnique": [],
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
-                        "Description": "Controls default access for members (end-user) to read BitLocker Keys of company-owned devices (device assigned to user).",
+                        "Description": "Controls whether registered device owners can read their own devices' BitLocker recovery keys through the default user role.",
                         "HowToFix": "Microsoft Graph PowerShell: ```Update-MgPolicyAuthorizationPolicy -BodyParameter @{DefaultUserRolePermissions = @{AllowedToReadBitlockerKeysForOwnedDevice = $false}}```"
                     },
                     {
@@ -332,6 +332,24 @@
                         "PortalDeepLink": "",
                         "Description": "Prevents all non-admins from reading user information from the directory. This flag doesn't prevent reading user information in other Microsoft services like Exchange Online.",
                         "HowToFix": "Microsoft Graph PowerShell: ```PolicyAuthorizationPolicy -BodyParameter @{DefaultUserRolePermissions = @{AllowedToReadOtherUsers = $false}}```"
+                    },
+                    {
+                        "Name": "allowedToCreateAgentIdentityBlueprints",
+                        "DisplayName": "Default User Role Permissions - Allowed to create agent identity blueprints",
+                        "CheckId": "EIDSCA.AP15",
+                        "SkipCondition": "$null -eq $AuthorizationPolicyAvailable.defaultUserRolePermissions.allowedToCreateAgentIdentityBlueprints",
+                        "SkipReason": "The allowedToCreateAgentIdentityBlueprints setting is not returned by the authorization policy API for this tenant. No compliance conclusion is made when the setting is unavailable.",
+                        "CurrentValue": "defaultUserRolePermissions.allowedToCreateAgentIdentityBlueprints",
+                        "DefaultValue": "",
+                        "RecommendedValue": "false",
+                        "Recommendation": "Restrict agent identity blueprint creation through the default user role. Use designated Agent ID roles to govern creation. Blueprint creation and permission grants are separate controls; restricting creation does not disable existing blueprints or agent identities.",
+                        "Severity": "Medium",
+                        "MitreTactic": [],
+                        "MitreTechnique": [],
+                        "MitreMitigation": [],
+                        "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/UserSettings",
+                        "Description": "Controls whether users can create agent identity blueprints and their associated principals through the default user role. Blueprint creators become owners and can create agent identities for their blueprints. Allowing creation does not itself grant access to organizational data.",
+                        "HowToFix": "In Microsoft Entra user settings, set Users can create agent blueprints to No. Review the impact on approved agent development workflows. See [Microsoft Learn - Create an agent identity blueprint](https://learn.microsoft.com/en-us/entra/agent-id/create-blueprint)."
                     }
                 ]
             },
@@ -531,7 +549,7 @@
                         "DefaultValue": "True",
                         "RecommendedValue": "True",
                         "Recommendation": "https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-password-ban-bad#global-banned-password-list",
-                        "Severity": "High",
+                        "Severity": "Medium",
                         "MitreTactic": [
                             "TA0006 - Credential Access"
                         ],
@@ -1031,14 +1049,14 @@
                         "CurrentValue": "policyMigrationState",
                         "DefaultValue": "premigration",
                         "RecommendedValue": "@('migrationComplete', '')",
-                        "Recommendation": "On September 30th, 2025, the legacy multifactor authentication and self-service password reset policies will be deprecated and you'll manage all authentication methods here in the authentication methods policy. Use this control to manage your migration from the legacy policies to the new unified policy.",
-                        "Severity": "Informational",
+                        "Recommendation": "Complete the migration from the legacy multifactor authentication and self-service password reset policies to the unified Authentication methods policy. Review the enabled methods and their user scopes before marking migration complete.",
+                        "Severity": "High",
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AdminAuthMethods",
-                        "Description": "The state of migration of the authentication methods policy from the legacy multifactor authentication and self-service password reset (SSPR) policies. In January 2024, the legacy multifactor authentication and self-service password reset policies will be deprecated and you'll manage all authentication methods here in the authentication methods policy. Use this control to manage your migration from the legacy policies to the new unified policy.",
-                        "HowToFix": "[Microsoft Learn - How to manage authentication methodes](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentication-methods-manage#start-the-migration)"
+                        "Description": "The state of migration from the legacy multifactor authentication and self-service password reset (SSPR) policies to the Authentication methods policy. Legacy policies are respected in the premigration and migrationInProgress states and ignored in the migrationComplete state.",
+                        "HowToFix": "[Microsoft Learn - How to migrate to the Authentication methods policy](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentication-methods-manage#start-the-migration)"
                     },
                     {
                         "Name": "reportSuspiciousActivitySettingsState",
@@ -1068,7 +1086,7 @@
                         "DefaultValue": "all_users",
                         "RecommendedValue": "all_users",
                         "Recommendation": "Apply this feature to all users.",
-                        "Severity": "High",
+                        "Severity": "Medium",
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
@@ -1355,7 +1373,7 @@
                         "DefaultValue": "enabled",
                         "RecommendedValue": "enabled",
                         "Recommendation": "",
-                        "Severity": "High",
+                        "Severity": "Medium",
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
@@ -1373,7 +1391,7 @@
                         "DefaultValue": "all_users",
                         "RecommendedValue": "all_users",
                         "Recommendation": "",
-                        "Severity": "High",
+                        "Severity": "Medium",
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
@@ -1409,7 +1427,7 @@
                         "DefaultValue": "enabled",
                         "RecommendedValue": "enabled",
                         "Recommendation": "",
-                        "Severity": "High",
+                        "Severity": "Medium",
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
@@ -1583,8 +1601,8 @@
                         "DisplayName": "Restricted",
                         "CheckId": "EIDSCA.AF05",
                         "SkipCondition": "$EnabledAuthMethods -notcontains 'Fido2' -or (Test-MtEidscaAF04) -eq $false",
-                        "SkipReason": "Authentication method of FIDO2 security keys is not enabled and key restriction not enforced.",
-                        "CurrentValue": "keyRestrictions.aaGuids -notcontains $null",
+                        "SkipReason": "Authentication method of FIDO2 security keys is not enabled or key restrictions are not enforced.",
+                        "CurrentValue": "keyRestrictions.aaGuids.Count -gt 0 -and $result.keyRestrictions.aaGuids -notcontains $null -and $result.keyRestrictions.aaGuids -notcontains ''",
                         "DefaultValue": "",
                         "RecommendedValue": "true",
                         "Recommendation": "",
@@ -1601,8 +1619,8 @@
                         "DisplayName": "Restrict specific keys",
                         "CheckId": "EIDSCA.AF06",
                         "SkipCondition": "$EnabledAuthMethods -notcontains 'Fido2' -or (Test-MtEidscaAF04) -eq $false",
-                        "SkipReason": "Authentication method of FIDO2 security keys is not enabled and key restriction not enforced.",
-                        "CurrentValue": "keyRestrictions.aaGuids -notcontains $null -and ($result.keyRestrictions.enforcementType -eq 'allow' -or $result.keyRestrictions.enforcementType -eq 'block')",
+                        "SkipReason": "Authentication method of FIDO2 security keys is not enabled or key restrictions are not enforced.",
+                        "CurrentValue": "keyRestrictions.aaGuids.Count -gt 0 -and $result.keyRestrictions.aaGuids -notcontains $null -and $result.keyRestrictions.aaGuids -notcontains '' -and ($result.keyRestrictions.enforcementType -eq 'allow' -or $result.keyRestrictions.enforcementType -eq 'block')",
                         "DefaultValue": "false",
                         "RecommendedValue": "true",
                         "Recommendation": "You should use Block or Allow as value to allow- or blocklisting of AAGuids.",
@@ -1611,7 +1629,7 @@
                         "MitreTechnique": [],
                         "MitreMitigation": [],
                         "PortalDeepLink": "",
-                        "Description": "Defines if list of AADGUID will be used to allow or block registration.",
+                        "Description": "Defines whether the configured AAGUID list is used to allow or block registration.",
                         "HowToFix": "[Microsoft Learn - Enable passkeys (FIDO2) for your organization: Restrict specific keys](https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-enable-passkey-fido2#passkey-optional-settings)"
                     },
                     {
@@ -2069,7 +2087,7 @@
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Sms')",
                 "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('Sms')",
-                "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/phoneauthenticationmethod",
+                "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/smsauthenticationmethodconfiguration?view=graph-rest-beta",
                 "MitreTactic": [
                     "TA0006 - Credential Access"
                 ],
@@ -2158,7 +2176,7 @@
                 "GraphEndpoint": "authenticationMethodsPolicy",
                 "GraphUri": "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('X509Certificate')",
                 "GraphGovUsUri": "https://graph.microsoft.us/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations('X509Certificate')",
-                "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/certificatebasedauthconfiguration",
+                "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/resources/x509certificateauthenticationmethodconfiguration?view=graph-rest-beta",
                 "MitreTactic": [
                     "TA0006 - Credential Access"
                 ],
@@ -2280,7 +2298,7 @@
                         "DefaultValue": "false",
                         "RecommendedValue": "true",
                         "Recommendation": "",
-                        "Severity": "",
+                        "Severity": "High",
                         "MitreTactic": [
                             "TA0001 - Initial Access",
                             "TA0005 - Defense Evasion",
@@ -2312,7 +2330,7 @@
                         "DefaultValue": "false",
                         "RecommendedValue": "true",
                         "Recommendation": "",
-                        "Severity": "",
+                        "Severity": "Low",
                         "MitreTactic": [
                             "TA0001 - Initial Access",
                             "TA0005 - Defense Evasion",
@@ -2344,7 +2362,7 @@
                         "DefaultValue": "",
                         "RecommendedValue": "true",
                         "Recommendation": "",
-                        "Severity": "",
+                        "Severity": "Low",
                         "MitreTactic": [
                             "TA0001 - Initial Access",
                             "TA0005 - Defense Evasion",
@@ -2376,7 +2394,7 @@
                         "DefaultValue": "",
                         "RecommendedValue": "<=30",
                         "Recommendation": "",
-                        "Severity": "",
+                        "Severity": "Low",
                         "MitreTactic": [
                             "TA0001 - Initial Access",
                             "TA0005 - Defense Evasion",
@@ -2400,15 +2418,15 @@
                     },
                     {
                         "Name": "reviewers",
-                        "DisplayName": "Reviewers",
+                        "DisplayName": "Admin consent reviewers have valid query scopes",
                         "CheckId": "EIDSCA.CR05",
                         "SkipCondition": "$EnabledAdminConsentWorkflow -eq $false",
                         "SkipReason": "Admin Consent Workflow is not enabled",
-                        "CurrentValue": "reviewers",
+                        "CurrentValue": "reviewers.Count -gt 0 -and @($result.reviewers | Where-Object { $null -eq $_ -or $_.queryType -ne 'MicrosoftGraph' -or [string]::IsNullOrWhiteSpace($_.query) -or ($_.query -notmatch '^/(?!/)\\S' -and ($_.query -notmatch '^\\./\\S' -or $_.queryRoot -ne 'decisions')) }).Count -eq 0",
                         "DefaultValue": "",
-                        "RecommendedValue": "",
-                        "Recommendation": "",
-                        "Severity": "",
+                        "RecommendedValue": "true",
+                        "Recommendation": "Configure at least one reviewer scope with a nonempty MicrosoftGraph query. Absolute Graph-relative queries do not require queryRoot; relative queries require the supported queryRoot. Separately resolve group membership and role assignments to verify that usable reviewers and an appropriate approval path exist. Being designated a reviewer does not grant consent permissions.",
+                        "Severity": "Medium",
                         "MitreTactic": [
                             "TA0001 - Initial Access",
                             "TA0005 - Defense Evasion",
@@ -2427,12 +2445,12 @@
                             "M1017"
                         ],
                         "PortalDeepLink": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings",
-                        "Description": "The list of reviewers for the admin consent",
-                        "HowToFix": ""
+                        "Description": "Checks that the enabled admin consent workflow has at least one reviewer scope and that every scope has a MicrosoftGraph query with a structurally valid absolute or rooted relative path. A null queryRoot is valid for absolute paths. This structural check does not execute queries, resolve membership, or establish reviewer availability or approval permissions.",
+                        "HowToFix": "In Enterprise apps > Consent and permissions > Admin consent settings, configure the users, groups, or roles that can review requests. See [Microsoft Learn - Configure the admin consent workflow](https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/configure-admin-consent-workflow)."
                     },
                     {
                         "Name": "version",
-                        "DisplayName": "Consent request expires after (days)",
+                        "DisplayName": "Admin consent policy version",
                         "CheckId": "EIDSCA.CR06",
                         "SkipCondition": "$EnabledAdminConsentWorkflow -eq $false",
                         "SkipReason": "Admin Consent Workflow is not enabled",
@@ -2440,26 +2458,12 @@
                         "DefaultValue": "",
                         "RecommendedValue": "",
                         "Recommendation": "",
-                        "Severity": "",
-                        "MitreTactic": [
-                            "TA0001 - Initial Access",
-                            "TA0005 - Defense Evasion",
-                            "TA0006 - Credential Access",
-                            "TA0008 - Lateral Movement"
-                        ],
-                        "MitreTechnique": [
-                            "T1078",
-                            "T1528",
-                            "T1550",
-                            "T1550.001",
-                            "T1566.002"
-                        ],
-                        "MitreMitigation": [
-                            "M1018",
-                            "M1017"
-                        ],
+                        "Severity": "Informational",
+                        "MitreTactic": [],
+                        "MitreTechnique": [],
+                        "MitreMitigation": [],
                         "PortalDeepLink": "",
-                        "Description": "Specifies the version of this policy. When the policy is updated, this version is updated",
+                        "Description": "Read-only version of the admin consent request policy. The version changes when the policy is updated.",
                         "HowToFix": ""
                     }
                 ]
@@ -2516,8 +2520,8 @@
                 "Description": "Existing service principals in the tenant",
                 "Discovery": "",
                 "GraphEndpoint": "serviceprincipals",
-                "GraphUri": "https://graph.microsoft.com/beta/serviceprincipals?$select=id,appid,displayName,appOwnerOrganizationId,servicePrincipalType,signInAudience,AssignmentRequired,disabledByMicrosoftStatus,publisherName,accountEnabled,createdDateTime,keyCredentials,passwordCredentials,federatedIdentityCredentials&expand=appRoleAssignments",
-                "GraphGovUsUri": "https://graph.microsoft.us/beta/serviceprincipals?$select=id,appid,displayName,appOwnerOrganizationId,servicePrincipalType,signInAudience,AssignmentRequired,disabledByMicrosoftStatus,publisherName,accountEnabled,createdDateTime,keyCredentials,passwordCredentials,federatedIdentityCredentials&expand=appRoleAssignments",
+                "GraphUri": "https://graph.microsoft.com/beta/serviceprincipals?$select=id,appid,displayName,appOwnerOrganizationId,servicePrincipalType,signInAudience,appRoleAssignmentRequired,disabledByMicrosoftStatus,publisherName,accountEnabled,createdDateTime,keyCredentials,passwordCredentials,federatedIdentityCredentials&expand=appRoleAssignments",
+                "GraphGovUsUri": "https://graph.microsoft.us/beta/serviceprincipals?$select=id,appid,displayName,appOwnerOrganizationId,servicePrincipalType,signInAudience,appRoleAssignmentRequired,disabledByMicrosoftStatus,publisherName,accountEnabled,createdDateTime,keyCredentials,passwordCredentials,federatedIdentityCredentials&expand=appRoleAssignments",
                 "GraphDocsUrl": "https://learn.microsoft.com/en-us/graph/api/serviceprincipal-list?view=graph-rest-1.0&tabs=http",
                 "MitreTactic": [],
                 "MitreTechnique": [],
