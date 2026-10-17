@@ -1050,7 +1050,7 @@
                         "DefaultValue": "premigration",
                         "RecommendedValue": "@('migrationComplete', '')",
                         "Recommendation": "Complete the migration from the legacy multifactor authentication and self-service password reset policies to the unified Authentication methods policy. Review the enabled methods and their user scopes before marking migration complete.",
-                        "Severity": "High",
+                        "Severity": "Informational",
                         "MitreTactic": [],
                         "MitreTechnique": [],
                         "MitreMitigation": [],
